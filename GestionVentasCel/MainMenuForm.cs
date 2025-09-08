@@ -2,6 +2,8 @@ using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.views.usuario_empleado;
+using GestionVentasCel.views.categoria;
+using GestionVentasCel.controller.categoria;
 
 namespace GestionVentasCel
 {
@@ -10,10 +12,12 @@ namespace GestionVentasCel
         //Depende el rol que se acceda se muestran los Menu Strip
         public RolEnum RolAccedido { get; set; }
         private readonly UsuarioController _usuarioController;
-        public MainMenuForm(UsuarioController usuarioController)
+        private readonly CategoriaController _categoriaController;
+        public MainMenuForm(UsuarioController usuarioController, CategoriaController categoriaController)
         {
             InitializeComponent();
             _usuarioController = usuarioController;
+            _categoriaController = categoriaController; 
 
         }
 
@@ -71,9 +75,14 @@ namespace GestionVentasCel
 
                 case RolEnum.Tecnico:
                     UsuarioMenuItem.Visible = false;
-                    
+
                     break;
             }
+        }
+
+        private void categoriasMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new CategoriaMainMenuForm(_categoriaController));
         }
     }
 }

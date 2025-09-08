@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ namespace GestionVentasCel.data
 
         // DbSet por cada entidad de la BD
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
 
 
     }

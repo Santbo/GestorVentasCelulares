@@ -31,6 +31,9 @@
             menuStrip1 = new MenuStrip();
             UsuarioMenuItem = new ToolStripMenuItem();
             panelContenedor = new Panel();
+            gestionarArticulosToolStripMenuItem = new ToolStripMenuItem();
+            categoriasMenuItem = new ToolStripMenuItem();
+            articulosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -38,7 +41,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ActiveCaption;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -59,6 +62,26 @@
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(800, 422);
             panelContenedor.TabIndex = 1;
+            // 
+            // gestionarArticulosToolStripMenuItem
+            // 
+            gestionarArticulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriasMenuItem, articulosToolStripMenuItem });
+            gestionarArticulosToolStripMenuItem.Name = "gestionarArticulosToolStripMenuItem";
+            gestionarArticulosToolStripMenuItem.Size = new Size(148, 24);
+            gestionarArticulosToolStripMenuItem.Text = "Gestionar Articulos";
+            // 
+            // categoriasMenuItem
+            // 
+            categoriasMenuItem.Name = "categoriasMenuItem";
+            categoriasMenuItem.Size = new Size(224, 26);
+            categoriasMenuItem.Text = "Categorias";
+            categoriasMenuItem.Click += categoriasMenuItem_Click;
+            // 
+            // articulosToolStripMenuItem
+            // 
+            articulosToolStripMenuItem.Name = "articulosToolStripMenuItem";
+            articulosToolStripMenuItem.Size = new Size(224, 26);
+            articulosToolStripMenuItem.Text = "Articulos";
             // 
             // MainMenuForm
             // 
@@ -83,5 +106,8 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem UsuarioMenuItem;
         private Panel panelContenedor;
+        private ToolStripMenuItem gestionarArticulosToolStripMenuItem;
+        private ToolStripMenuItem categoriasMenuItem;
+        private ToolStripMenuItem articulosToolStripMenuItem;
     }
 }

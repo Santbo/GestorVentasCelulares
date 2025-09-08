@@ -5,6 +5,15 @@ using GestionVentasCel.service.usuario.impl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.DependencyInjection;
+using GestionVentasCel.data;
+using GestionVentasCel.repository.usuario;
+using GestionVentasCel.views;
+using GestionVentasCel.repository.categoria;
+using GestionVentasCel.repository.categoria.impl;
+using GestionVentasCel.service.categoria;
+using GestionVentasCel.service.categoria.impl;
+using GestionVentasCel.controller.categoria;
 
 namespace GestionVentasCel
 {
@@ -16,6 +25,9 @@ namespace GestionVentasCel
         [STAThread]
         static void Main()
         {
+            // Inicializar WinForms
+            ApplicationConfiguration.Initialize();
+
             // Cargar configuración desde appsettings.json
             var builder = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
@@ -26,28 +38,36 @@ namespace GestionVentasCel
             // Guardar la connection string
             string connectionString = config.GetConnectionString("DefaultConnection");
 
-            // Acá podrías pasarla a tu DbContext
-            var optionsBuilder = new DbContextOptionsBuilder<data.AppDbContext>();
-            optionsBuilder.UseMySql(
-            connectionString,
-                new MySqlServerVersion(new Version(8, 0, 39)) // Ajustá la versión de MySQL
+            // Configurar el contenedor de servicios
+            var services = new ServiceCollection();
+
+            // Registrar DbContext como singleton o scoped según tu necesidad
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)))
             );
 
-            var context = new data.AppDbContext(optionsBuilder.Options);
+            // Registrar repositorios
+            services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
+            services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
 
-            //Inicializar las clases para pasar el controller
-            // Crear el repositorio
-            var usuarioRepo = new UsuarioRepositoryImpl(context);
+            // Registrar servicios
+            services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
+            services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
 
-            // Crear el service (si lo tenés)
-            var usuarioService = new UsuarioServiceImpl(usuarioRepo);
+            // Registrar controllers
+            services.AddTransient<UsuarioController>();
+            services.AddTransient<CategoriaController>();
 
-            // Crear el controller
-            var usuarioController = new UsuarioController(usuarioService);
+            // Registrar forms
+            services.AddTransient<LoginForm>();
 
-            // Inicializar WinForms
-            ApplicationConfiguration.Initialize();
-            Application.Run(new views.LoginForm(context, usuarioController));
+            // Construir el proveedor de servicios
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Obtener el form principal con todas las dependencias resueltas
+            var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+
+            Application.Run(loginForm);
         }
     }
 }
