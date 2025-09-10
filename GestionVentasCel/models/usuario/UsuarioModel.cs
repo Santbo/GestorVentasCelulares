@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.models.persona;
 
 namespace GestionVentasCel.models.usuario
 {
-    public class Usuario
+    public class Usuario : Persona
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required, MaxLength(50)]
         public string Username { get; set; }
@@ -19,24 +18,11 @@ namespace GestionVentasCel.models.usuario
         [Required, MaxLength(100)]
         public string Password { get; set; }
 
-        [Required, MaxLength (45)]
-        public string Nombre { get; set; }
-
-        [Required, MaxLength (45)]
-        public string Apellido { get; set; }
-
-        [Required, MaxLength(45)]
-        public string Telefono { get; set; }
-
         [Required, MaxLength(45)]
         public string Dni { get; set; }
-
-        [Required, MaxLength(50)]
-        public string Email { get; set; }
 
         [Required]
         public RolEnum Rol { get; set; } 
 
-        public bool Activo { get; set; } = true;
     }
 }

@@ -3,6 +3,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250909212727_AddpersonaTPT")]
+    partial class AddpersonaTPT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace GestionVentasCel.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.persona.Persona", b =>
+            modelBuilder.Entity("GestionVentasCel.models.usuario.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,42 +62,31 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Apellido")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
-
-                    b.Property<string>("Calle")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
-
-                    b.Property<string>("Ciudad")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
-
-                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
-                    b.Property<string>("Telefono")
+                    b.Property<string>("Calle")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Personas", (string)null);
-
-                    b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.usuario.Usuario", b =>
-                {
-                    b.HasBaseType("GestionVentasCel.models.persona.Persona");
+                    b.Property<string>("Ciudad")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
 
                     b.Property<string>("Dni")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
@@ -107,21 +99,19 @@ namespace GestionVentasCel.Migrations
                     b.Property<int>("Rol")
                         .HasColumnType("int");
 
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.ToTable("Usuarios", (string)null);
-                });
+                    b.HasKey("Id");
 
-            modelBuilder.Entity("GestionVentasCel.models.usuario.Usuario", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.persona.Persona", null)
-                        .WithOne()
-                        .HasForeignKey("GestionVentasCel.models.usuario.Usuario", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Usuarios", (string)null);
                 });
 #pragma warning restore 612, 618
         }

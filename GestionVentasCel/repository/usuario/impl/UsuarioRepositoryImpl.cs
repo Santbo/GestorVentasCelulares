@@ -30,8 +30,8 @@ namespace GestionVentasCel.repository.usuario.impl
         {
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
-        }
 
+        }
         public void Update(Usuario usuario)
         {
             _context.Usuarios.Update(usuario);

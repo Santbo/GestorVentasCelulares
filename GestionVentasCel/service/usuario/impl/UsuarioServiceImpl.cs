@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.repository.usuario;
 
@@ -35,7 +36,7 @@ namespace GestionVentasCel.service.usuario.impl
         public void RegistrarUsuario(string username, string password, string rol, string nombre, string apellido, string telefono, string dni, string email)
         {
             var usuarioExistente = _repo.GetByUsername(username);
-            if (usuarioExistente != null) throw new Exception("El usuario ya existe.");
+            if (usuarioExistente != null) throw new UsuarioExistenteException("El usuario ya existe.");
 
             var usuario = new Usuario
             {
@@ -64,7 +65,7 @@ namespace GestionVentasCel.service.usuario.impl
             } else
             {
 
-                throw new Exception("Usuario no encontrado");
+                throw new UsuarioNoEncontradoException("Usuario no encontrado");
             }
 
             
@@ -82,7 +83,7 @@ namespace GestionVentasCel.service.usuario.impl
             }
             else
             {
-                throw new Exception("Usuario no encontrado");
+                throw new UsuarioNoEncontradoException("Usuario no encontrado");
             }
         }
 

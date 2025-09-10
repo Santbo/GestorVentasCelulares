@@ -1,0 +1,140 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using GestionVentasCel.controller.categoria;
+using GestionVentasCel.controller.usuario;
+using GestionVentasCel.enumerations.modoForms;
+using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.exceptions.categoria;
+using GestionVentasCel.exceptions.usuario;
+using GestionVentasCel.models.categoria;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+
+
+
+namespace GestionVentasCel.views.categoria
+{
+    public partial class AgregarEditarCategoriaForm : Form
+    {
+        private readonly CategoriaController _categoriaController;
+
+        //Sirve para el comportamiento del Formulario, tanto para agregar como editar
+        public ModoFormulario Modo { get; set; }
+        //Se utiliza si el modo del Form es editar
+        public Categoria CategoriaActual { get; set; }
+        public AgregarEditarCategoriaForm(CategoriaController categoria)
+        {
+            InitializeComponent();
+            _categoriaController = categoria;
+        }
+
+        private void AgregarEditarCategoriaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.DialogResult != DialogResult.OK)
+            {
+
+                var result = MessageBox.Show(
+                "¿Seguro que desea descartar los cambios?",
+                "Confirmación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true; // Cancela el cierre
+                }
+            }
+        }
+
+        private void btnDescartar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (CamposValidos())
+            {
+                //Se ve en que modo se abrio el Form, si es en agregar se agrega, si no se edita
+                if (Modo == ModoFormulario.Agregar)
+                {
+                    try
+                    {
+
+                        _categoriaController.CrearCategoria(
+                            txtNombre.Text.ToUpper(),
+                            txtDescripcion.Text.ToUpper()
+                        );
+
+                        DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    catch (CategoriaExistenteException ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else if (Modo == ModoFormulario.Editar && CategoriaActual != null)
+                {
+                    try
+                    {
+
+                        CategoriaActual.Nombre = txtNombre.Text.ToUpper();
+                        CategoriaActual.Descripcion = txtDescripcion.Text.ToUpper();
+
+
+                        _categoriaController.UpdateCategoria(CategoriaActual);
+                        DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    catch (CategoriaNoEncontradaException ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+        }
+
+
+        private bool CamposValidos()
+        {
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is System.Windows.Forms.TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
+                {
+                    MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txt.Focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void AgregarEditarCategoriaForm_Load(object sender, EventArgs e)
+        {
+            if (Modo == ModoFormulario.Editar && CategoriaActual != null)
+            {
+                lblTitulo.Text = "Editar Categoria";
+                txtNombre.Text = CategoriaActual.Nombre;
+                txtDescripcion.Text = CategoriaActual.Descripcion;
+
+            }
+        }
+
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
+        }
+    }
+}   

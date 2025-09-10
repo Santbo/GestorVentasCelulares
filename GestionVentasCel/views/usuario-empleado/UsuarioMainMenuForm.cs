@@ -12,6 +12,7 @@ using GestionVentasCel.models.usuario;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using GestionVentasCel.exceptions.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -36,6 +37,7 @@ namespace GestionVentasCel.views.usuario_empleado
         private void CargarUsuarios()
         {
             var listaUsuarios = _usuarioController.ObtenerUsuarios().ToList();
+         
             _usuarios = new BindingList<Usuario>(listaUsuarios);
 
             _bindingSource = new BindingSource();
@@ -45,6 +47,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
             dgvListarUsuarios.DataSource = _bindingSource;
             dgvListarUsuarios.Columns["Id"].Visible = false;
+            dgvListarUsuarios.Columns["Calle"].Visible = false;
+            dgvListarUsuarios.Columns["Ciudad"].Visible = false;
         }
 
         private void chkMostrarInactivos_CheckedChanged(object sender, EventArgs e)
@@ -53,7 +57,8 @@ namespace GestionVentasCel.views.usuario_empleado
         }
 
         private void btnToggleActivo_Click(object sender, EventArgs e)
-        {
+        {   
+
             if (dgvListarUsuarios.CurrentRow != null)
             {
                 int id = (int)dgvListarUsuarios.CurrentRow.Cells["Id"].Value;
@@ -67,16 +72,24 @@ namespace GestionVentasCel.views.usuario_empleado
 
                 if (result == DialogResult.No) return;
 
-                // Actualizo en la BD
-                _usuarioController.ToggleActivo(id);
+                try
+                {
 
-                // Actualizo en memoria
-                var usuario = _usuarios.FirstOrDefault(u => u.Id == id);
-                if (usuario != null)
-                    usuario.Activo = !usuario.Activo;
+                    // Actualizo en la BD
+                    _usuarioController.ToggleActivo(id);
 
-                // Reaplico el filtro inmediatamente
-                AplicarFiltro();
+                    // Actualizo en memoria
+                    var usuario = _usuarios.FirstOrDefault(u => u.Id == id);
+                    if (usuario != null)
+                        usuario.Activo = !usuario.Activo;
+
+                    // Reaplico el filtro inmediatamente
+                    AplicarFiltro();
+                }
+                catch (UsuarioNoEncontradoException ex) {
+
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

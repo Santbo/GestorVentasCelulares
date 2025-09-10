@@ -97,60 +97,60 @@ namespace GestionVentasCel.views.categoria
             _bindingSource.DataSource = new BindingList<Categoria>(filtrados.ToList());
         }
 
-        //private void btnAdd_Click(object sender, EventArgs e)
-        //{
-        //    using (var agregarCategoria = new AgregarEditarEmpleadoForm(_categoriaController))
-        //    {
-        //        agregarCategoria.Modo = ModoFormulario.Agregar;
-        //        //si el usuario apreta guardar, muestra el msj y actualiza el binding
-        //        if (agregarCategoria.ShowDialog() == DialogResult.OK)
-        //        {
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            using (var agregarCategoria = new AgregarEditarCategoriaForm(_categoriaController))
+            {
+                agregarCategoria.Modo = ModoFormulario.Agregar;
+                //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                if (agregarCategoria.ShowDialog() == DialogResult.OK)
+                {
 
-        //            MessageBox.Show("El empleado se guardó correctamente",
-        //            "Empleado Guardado",
-        //            MessageBoxButtons.OK,
-        //            MessageBoxIcon.Information);
+                    MessageBox.Show("El empleado se guardó correctamente",
+                    "Empleado Guardado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
-        //            CargarCategorias();
-        //        }
-        //    }
-        //}
+                    CargarCategorias();
+                }
+            }
+        }
 
-        //private void btnActualizar_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvListarCategorias.CurrentRow != null)
-        //    {
-        //        int id = (int)dgvListarCategorias.CurrentRow.Cells["Id"].Value;
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            if (dgvListarCategorias.CurrentRow != null)
+            {
+                int id = (int)dgvListarCategorias.CurrentRow.Cells["Id"].Value;
 
-        //        var categoria = _categoriaController.GetById(id);
-        //        if (categoria == null)
-        //        {
-        //            MessageBox.Show("La Categoria no fue encontrada",
-        //                "Categoria no encontrada",
-        //                MessageBoxButtons.OK,
-        //                MessageBoxIcon.Warning);
+                var categoria = _categoriaController.GetById(id);
+                if (categoria == null)
+                {
+                    MessageBox.Show("La Categoria no fue encontrada",
+                        "Categoria no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
-        //            return;
-        //        }
+                    return;
+                }
 
-        //        using (var editarCategoria = new AgregarEditarEmpleadoForm(_categoriaController))
-        //        {
-        //            editarCategoria.Modo = ModoFormulario.Editar;
-        //            editarCategoria.CategoriaActual = categoria;
-        //            //si el usuario apreta guardar, muestra el msj y actualiza el binding
-        //            if (editarCategoria.ShowDialog() == DialogResult.OK)
-        //            {
+                using (var editarCategoria = new AgregarEditarCategoriaForm(_categoriaController))
+                {
+                    editarCategoria.Modo = ModoFormulario.Editar;
+                    editarCategoria.CategoriaActual = categoria;
+                    //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                    if (editarCategoria.ShowDialog() == DialogResult.OK)
+                    {
 
-        //                MessageBox.Show("La categoria se actualizó correctamente",
-        //                "Categoria Guardada",
-        //                MessageBoxButtons.OK,
-        //                MessageBoxIcon.Information);
+                        MessageBox.Show("La categoria se actualizó correctamente",
+                        "Categoria Guardada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
 
-        //                CargarCategorias();
-        //            }
-        //        }
-        //    }
-        //}
+                        CargarCategorias();
+                    }
+                }
+            }
+        }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {

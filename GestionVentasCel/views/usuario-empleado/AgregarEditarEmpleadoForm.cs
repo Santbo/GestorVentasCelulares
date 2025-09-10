@@ -14,6 +14,7 @@ using GestionVentasCel.models.usuario;
 using System.Net.Mail;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Net.Mime.MediaTypeNames;
+using GestionVentasCel.exceptions.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -63,42 +64,54 @@ namespace GestionVentasCel.views.usuario_empleado
             if (CamposValidos())
             {
                 //Se ve en que modo se abrio el Form, si es en agregar se agrega, si no se edita
-                try
+                if (Modo == ModoFormulario.Agregar)
                 {
-                    if (Modo == ModoFormulario.Agregar)
+                    try
                     {
+
                         _usuarioController.CrearUsuario(
-                            txtUsuario.Text,
-                            txtPassword.Text,
+                            txtUsuario.Text.ToUpper(),
+                            txtPassword.Text.ToUpper(),
                             comboRol.SelectedItem.ToString(),
-                            txtNombre.Text,
-                            txtApellido.Text,
-                            txtTelefono.Text,
-                            txtDni.Text,
-                            txtEmail.Text
+                            txtNombre.Text.ToUpper(),
+                            txtApellido.Text.ToUpper(),
+                            txtTelefono.Text.ToUpper(),
+                            txtDni.Text.ToUpper(),
+                            txtEmail.Text.ToUpper()
                         );
-                    }
-                    else if (Modo == ModoFormulario.Editar && UsuarioActual != null)
+
+                        DialogResult = DialogResult.OK;
+                        this.Close();
+                    } catch( UsuarioExistenteException ex)
                     {
-                        UsuarioActual.Username = txtUsuario.Text;
-                        UsuarioActual.Password = txtPassword.Text;
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else if (Modo == ModoFormulario.Editar && UsuarioActual != null)
+                {
+                    try
+                    {
+
+                        UsuarioActual.Username = txtUsuario.Text.ToUpper();
+                        UsuarioActual.Password = txtPassword.Text.ToUpper();
                         UsuarioActual.Rol = (RolEnum)comboRol.SelectedItem;
-                        UsuarioActual.Nombre = txtNombre.Text;
-                        UsuarioActual.Apellido = txtApellido.Text;
+                        UsuarioActual.Nombre = txtNombre.Text.ToUpper();
+                        UsuarioActual.Apellido = txtApellido.Text.ToUpper();
                         UsuarioActual.Telefono = txtTelefono.Text;
                         UsuarioActual.Dni = txtDni.Text;
-                        UsuarioActual.Email = txtEmail.Text;
+                        UsuarioActual.Email = txtEmail.Text.ToUpper();
 
                         _usuarioController.UpdateUsuario(UsuarioActual);
+                        DialogResult = DialogResult.OK;
+                        this.Close();
+                    } catch( UsuarioNoEncontradoException ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+                }
 
-                    DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                
+               
             }
         }
 

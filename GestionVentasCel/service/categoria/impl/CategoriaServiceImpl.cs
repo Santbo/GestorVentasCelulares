@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.exceptions.categoria;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.repository.categoria;
@@ -40,7 +41,7 @@ namespace GestionVentasCel.service.categoria.impl
                 _repo.Add(categoria);
             } else
             {
-                throw new Exception("El nombre de la categoria ya existe.");
+                throw new CategoriaExistenteException("El nombre de la categoria ya existe.");
             }
 
 
@@ -66,7 +67,7 @@ namespace GestionVentasCel.service.categoria.impl
             }
             else
             {
-                throw new Exception("Categoria no encontrada");
+                throw new CategoriaNoEncontradaException("Categoria no encontrada");
             }
         }
 
@@ -80,7 +81,7 @@ namespace GestionVentasCel.service.categoria.impl
             else
             {
 
-                throw new Exception("Categoria no encontrada");
+                throw new CategoriaNoEncontradaException("Categoria no encontrada");
             }
         }
     }

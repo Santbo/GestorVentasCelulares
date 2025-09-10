@@ -4,6 +4,9 @@
     <Compile Update="MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\categoria\AgregarEditarCategoriaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\categoria\CategoriaMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>

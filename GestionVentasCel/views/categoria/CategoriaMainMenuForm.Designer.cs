@@ -91,6 +91,7 @@
             btnAdd.TabIndex = 5;
             btnAdd.Text = "Agregar";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnActualizar
             // 
@@ -101,6 +102,7 @@
             btnActualizar.TabIndex = 6;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
+            btnActualizar.Click += btnActualizar_Click;
             // 
             // btnToggleEstado
             // 

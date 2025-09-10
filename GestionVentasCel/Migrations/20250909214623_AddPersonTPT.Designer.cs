@@ -3,6 +3,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250909214623_AddPersonTPT")]
+    partial class AddPersonTPT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,18 +62,22 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Apellido")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
                     b.Property<string>("Calle")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
                     b.Property<string>("Ciudad")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
@@ -80,6 +87,7 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("varchar(45)");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
