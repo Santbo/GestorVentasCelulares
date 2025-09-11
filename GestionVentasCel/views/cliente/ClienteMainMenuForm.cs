@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Data;
+using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
+using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.exceptions.usuario;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
@@ -11,35 +14,35 @@ namespace GestionVentasCel.views.usuario_empleado
 
     public partial class ClienteMainMenuForm : Form
     {
-        private readonly UsuarioController _usuarioController;
-        private BindingList<Usuario> _usuarios;
+        private readonly ClienteController _clienteController;
+        private BindingList<Cliente> _clientes;
         private BindingSource _bindingSource;
-        public ClienteMainMenuForm(UsuarioController usuarioController)
+        public ClienteMainMenuForm(ClienteController clienteController)
         {
             InitializeComponent();
-            _usuarioController = usuarioController;
-            CargarUsuarios();
+            _clienteController = clienteController;
+            CargarClientes();
 
         }
 
-        //Se crea un bindingList de usuario y se lo agrega al DGV
+        //Se crea un bindingList de cliente y se lo agrega al DGV
         //El BindingList a diferencia del List, actualiza el DGV si hay un cambio en los Objetos
         //Se crea un bindingSource para poder filtrar entre usuarios activos e inactivos
-        private void CargarUsuarios()
+        private void CargarClientes()
         {
-            var listaUsuarios = _usuarioController.ObtenerUsuarios().ToList();
+            var listaClientes = _clienteController.ObtenerClientes().ToList();
 
-            _usuarios = new BindingList<Usuario>(listaUsuarios);
+            _clientes = new BindingList<Cliente>(listaClientes);
 
             _bindingSource = new BindingSource();
-            _bindingSource.DataSource = _usuarios;
+            _bindingSource.DataSource = _clientes;
 
             AplicarFiltro();
 
-            dgvListarUsuarios.DataSource = _bindingSource;
-            dgvListarUsuarios.Columns["Id"].Visible = false;
-            dgvListarUsuarios.Columns["Calle"].Visible = false;
-            dgvListarUsuarios.Columns["Ciudad"].Visible = false;
+            dgvListarClientes.DataSource = _bindingSource;
+            dgvListarClientes.Columns["Id"].Visible = false;
+            //dgvListarUsuarios.Columns["Calle"].Visible = false;
+            //dgvListarUsuarios.Columns["Ciudad"].Visible = false;
         }
 
         private void chkMostrarInactivos_CheckedChanged(object sender, EventArgs e)
@@ -50,12 +53,12 @@ namespace GestionVentasCel.views.usuario_empleado
         private void btnToggleActivo_Click(object sender, EventArgs e)
         {
 
-            if (dgvListarUsuarios.CurrentRow != null)
+            if (dgvListarClientes.CurrentRow != null)
             {
-                int id = (int)dgvListarUsuarios.CurrentRow.Cells["Id"].Value;
+                int id = (int)dgvListarClientes.CurrentRow.Cells["Id"].Value;
 
                 var result = MessageBox.Show(
-                    "¿Seguro que desea Habilitar/Deshabilitar este usuario?",
+                    "¿Seguro que desea Habilitar/Deshabilitar este cliente?",
                     "Confirmación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -67,17 +70,17 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
 
                     // Actualizo en la BD
-                    _usuarioController.ToggleActivo(id);
+                    _clienteController.ToggleActivo(id);
 
                     // Actualizo en memoria
-                    var usuario = _usuarios.FirstOrDefault(u => u.Id == id);
+                    var usuario = _clientes.FirstOrDefault(u => u.Id == id);
                     if (usuario != null)
                         usuario.Activo = !usuario.Activo;
 
                     // Reaplico el filtro inmediatamente
                     AplicarFiltro();
                 }
-                catch (UsuarioNoEncontradoException ex)
+                catch (ClienteInexistenteException ex)
                 {
 
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -89,7 +92,7 @@ namespace GestionVentasCel.views.usuario_empleado
         {
 
             // punto de partida: todos los usuarios
-            IEnumerable<Usuario> filtrados = _usuarios;
+            IEnumerable<Cliente> filtrados = _clientes;
 
             // filtro por Activo
             if (!chkMostrarInactivos.Checked)
@@ -106,61 +109,61 @@ namespace GestionVentasCel.views.usuario_empleado
             }
 
             // asignar al BindingSource
-            _bindingSource.DataSource = new BindingList<Usuario>(filtrados.ToList());
+            _bindingSource.DataSource = new BindingList<Cliente>(filtrados.ToList());
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            using (var agregarUsuario = new AgregarEditarEmpleadoForm(_usuarioController))
-            {
-                agregarUsuario.Modo = ModoFormulario.Agregar;
-                //si el usuario apreta guardar, muestra el msj y actualiza el binding
-                if (agregarUsuario.ShowDialog() == DialogResult.OK)
-                {
+            //using (var agregarUsuario = new AgregarEditarEmpleadoForm(_clienteController))
+            //{
+            //    agregarUsuario.Modo = ModoFormulario.Agregar;
+            //    //si el usuario apreta guardar, muestra el msj y actualiza el binding
+            //    if (agregarUsuario.ShowDialog() == DialogResult.OK)
+            //    {
 
-                    MessageBox.Show("El empleado se guardó correctamente",
-                    "Empleado Guardado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+            //        MessageBox.Show("El empleado se guardó correctamente",
+            //        "Empleado Guardado",
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Information);
 
-                    CargarUsuarios();
-                }
-            }
+            //        CargarClientes();
+            //    }
+            //}
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvListarUsuarios.CurrentRow != null)
+            if (dgvListarClientes.CurrentRow != null)
             {
-                int id = (int)dgvListarUsuarios.CurrentRow.Cells["Id"].Value;
+                int id = (int)dgvListarClientes.CurrentRow.Cells["Id"].Value;
 
-                var usuario = _usuarioController.GetById(id);
+                var usuario = _clienteController.GetById(id);
                 if (usuario == null)
                 {
-                    MessageBox.Show("El Usuario no fue encontrado",
-                        "Usuario no encontrado",
+                    MessageBox.Show("El Cliente no fue encontrado",
+                        "Cliente no encontrado",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                using (var editarUsuario = new AgregarEditarEmpleadoForm(_usuarioController))
-                {
-                    editarUsuario.Modo = ModoFormulario.Editar;
-                    editarUsuario.UsuarioActual = usuario;
-                    //si el usuario apreta guardar, muestra el msj y actualiza el binding
-                    if (editarUsuario.ShowDialog() == DialogResult.OK)
-                    {
+                //using (var editarUsuario = new AgregarEditarEmpleadoForm(_clienteController))
+                //{
+                //    editarUsuario.Modo = ModoFormulario.Editar;
+                //    editarUsuario.UsuarioActual = usuario;
+                //    //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                //    if (editarUsuario.ShowDialog() == DialogResult.OK)
+                //    {
 
-                        MessageBox.Show("El empleado se actualizó correctamente",
-                        "Empleado Guardado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                //        MessageBox.Show("El empleado se actualizó correctamente",
+                //        "Empleado Guardado",
+                //        MessageBoxButtons.OK,
+                //        MessageBoxIcon.Information);
 
-                        CargarUsuarios();
-                    }
-                }
+                //        CargarClientes();
+                //    }
+                //}
             }
         }
 

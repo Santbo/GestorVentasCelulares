@@ -16,7 +16,6 @@ namespace GestionVentasCel
         public RolEnum RolAccedido { get; set; }
         private readonly IServiceProvider _serviceProvider;
 
-        private readonly ClienteController _clienteController;
         public MainMenuForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
@@ -94,7 +93,7 @@ namespace GestionVentasCel
 
         private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
+            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>()));
         }
     }
 }

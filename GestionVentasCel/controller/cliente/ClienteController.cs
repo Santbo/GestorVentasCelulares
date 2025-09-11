@@ -1,4 +1,5 @@
 ﻿using GestionVentasCel.enumerations.persona;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.service.cliente;
 
 namespace GestionVentasCel.controller.cliente
@@ -43,6 +44,18 @@ namespace GestionVentasCel.controller.cliente
                 Email: Email
                 );
 
+        }
+
+        public IEnumerable<Cliente> ObtenerClientes() => _service.ListarClientes();
+
+        public void ToggleActivo(int id)
+        {
+            _service.ToggleActivo(id);
+        }
+
+        public Cliente? GetById(int id)
+        {
+            return _service.GetById(id);
         }
     }
 }
