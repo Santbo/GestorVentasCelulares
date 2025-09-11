@@ -6,12 +6,18 @@ using GestionVentasCel.repository.articulo;
 using GestionVentasCel.repository.articulo.impl;
 using GestionVentasCel.repository.categoria;
 using GestionVentasCel.repository.categoria.impl;
+using GestionVentasCel.repository.ClienteCuentaCorriente;
+using GestionVentasCel.repository.ClienteCuentaCorriente.impl;
+using GestionVentasCel.repository.persona;
+using GestionVentasCel.repository.persona.impl;
 using GestionVentasCel.repository.usuario;
 using GestionVentasCel.repository.usuario.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
+using GestionVentasCel.service.cliente;
+using GestionVentasCel.service.cliente.impl;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.usuario.impl;
 using GestionVentasCel.views;
@@ -45,7 +51,7 @@ namespace GestionVentasCel
             // Configurar el contenedor de servicios
             var services = new ServiceCollection();
 
-            // Registrar DbContext como singleton o scoped según tu necesidad
+            // Registrar DbContext
             services.AddDbContext<AppDbContext>(options =>
                 options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)))
             );
@@ -54,12 +60,19 @@ namespace GestionVentasCel
             services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
             services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
             services.AddTransient<IArticuloRepository, ArticuloRepositoryImpl>();
+            services.AddTransient<IClienteRepository, ClienteRepositoryImpl>();
+            services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepositoryImpl>();
+            services.AddTransient<IMovimientoCuentaCorrienteRepository, MovimientoCuentaCorrienteRepositoryImpl>();
+            services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
+
 
 
             // Registrar servicios
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
             services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
             services.AddTransient<IArticuloService, ArticuloServiceImpl>();
+            services.AddTransient<IClienteService, ClienteServiceImpl>();
+
 
             // Registrar controllers
             services.AddTransient<UsuarioController>();
