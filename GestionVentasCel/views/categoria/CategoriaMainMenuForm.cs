@@ -106,8 +106,8 @@ namespace GestionVentasCel.views.categoria
                 if (agregarCategoria.ShowDialog() == DialogResult.OK)
                 {
 
-                    MessageBox.Show("El empleado se guardó correctamente",
-                    "Empleado Guardado",
+                    MessageBox.Show("La categoria se guardó correctamente",
+                    "Categoria Guardada",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 

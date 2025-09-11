@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.models.articulo;
 
 namespace GestionVentasCel.models.categoria
 {
@@ -20,5 +21,14 @@ namespace GestionVentasCel.models.categoria
         public string Descripcion { get; set; }
 
         public bool Activo { get; set; } = true;
+
+        [Required]
+        public ICollection<Articulo> Articulos { get; set; }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
+
     }
 }

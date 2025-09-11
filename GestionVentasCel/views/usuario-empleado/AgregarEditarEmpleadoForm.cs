@@ -70,8 +70,8 @@ namespace GestionVentasCel.views.usuario_empleado
                     {
 
                         _usuarioController.CrearUsuario(
-                            txtUsuario.Text.ToUpper(),
-                            txtPassword.Text.ToUpper(),
+                            txtUsuario.Text,
+                            txtPassword.Text,
                             comboRol.SelectedItem.ToString(),
                             txtNombre.Text.ToUpper(),
                             txtApellido.Text.ToUpper(),
@@ -92,8 +92,8 @@ namespace GestionVentasCel.views.usuario_empleado
                     try
                     {
 
-                        UsuarioActual.Username = txtUsuario.Text.ToUpper();
-                        UsuarioActual.Password = txtPassword.Text.ToUpper();
+                        UsuarioActual.Username = txtUsuario.Text;
+                        UsuarioActual.Password = txtPassword.Text;
                         UsuarioActual.Rol = (RolEnum)comboRol.SelectedItem;
                         UsuarioActual.Nombre = txtNombre.Text.ToUpper();
                         UsuarioActual.Apellido = txtApellido.Text.ToUpper();

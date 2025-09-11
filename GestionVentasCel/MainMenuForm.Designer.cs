@@ -30,10 +30,10 @@
         {
             menuStrip1 = new MenuStrip();
             UsuarioMenuItem = new ToolStripMenuItem();
-            panelContenedor = new Panel();
             gestionarArticulosToolStripMenuItem = new ToolStripMenuItem();
             categoriasMenuItem = new ToolStripMenuItem();
-            articulosToolStripMenuItem = new ToolStripMenuItem();
+            ArticulosMenuItem = new ToolStripMenuItem();
+            panelContenedor = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,17 +55,9 @@
             UsuarioMenuItem.Text = "Empleados";
             UsuarioMenuItem.Click += UsuarioMenuItem_Click;
             // 
-            // panelContenedor
-            // 
-            panelContenedor.Dock = DockStyle.Fill;
-            panelContenedor.Location = new Point(0, 28);
-            panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(800, 422);
-            panelContenedor.TabIndex = 1;
-            // 
             // gestionarArticulosToolStripMenuItem
             // 
-            gestionarArticulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriasMenuItem, articulosToolStripMenuItem });
+            gestionarArticulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriasMenuItem, ArticulosMenuItem });
             gestionarArticulosToolStripMenuItem.Name = "gestionarArticulosToolStripMenuItem";
             gestionarArticulosToolStripMenuItem.Size = new Size(148, 24);
             gestionarArticulosToolStripMenuItem.Text = "Gestionar Articulos";
@@ -77,11 +69,20 @@
             categoriasMenuItem.Text = "Categorias";
             categoriasMenuItem.Click += categoriasMenuItem_Click;
             // 
-            // articulosToolStripMenuItem
+            // ArticulosMenuItem
             // 
-            articulosToolStripMenuItem.Name = "articulosToolStripMenuItem";
-            articulosToolStripMenuItem.Size = new Size(224, 26);
-            articulosToolStripMenuItem.Text = "Articulos";
+            ArticulosMenuItem.Name = "ArticulosMenuItem";
+            ArticulosMenuItem.Size = new Size(224, 26);
+            ArticulosMenuItem.Text = "Articulos";
+            ArticulosMenuItem.Click += ArticulosMenuItem_Click;
+            // 
+            // panelContenedor
+            // 
+            panelContenedor.Dock = DockStyle.Fill;
+            panelContenedor.Location = new Point(0, 28);
+            panelContenedor.Name = "panelContenedor";
+            panelContenedor.Size = new Size(800, 422);
+            panelContenedor.TabIndex = 1;
             // 
             // MainMenuForm
             // 
@@ -108,6 +109,6 @@
         private Panel panelContenedor;
         private ToolStripMenuItem gestionarArticulosToolStripMenuItem;
         private ToolStripMenuItem categoriasMenuItem;
-        private ToolStripMenuItem articulosToolStripMenuItem;
+        private ToolStripMenuItem ArticulosMenuItem;
     }
 }

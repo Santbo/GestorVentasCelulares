@@ -4,6 +4,8 @@ using GestionVentasCel.service.usuario;
 using GestionVentasCel.views.usuario_empleado;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.views.articulo;
+using GestionVentasCel.controller.articulo;
 
 namespace GestionVentasCel
 {
@@ -13,11 +15,15 @@ namespace GestionVentasCel
         public RolEnum RolAccedido { get; set; }
         private readonly UsuarioController _usuarioController;
         private readonly CategoriaController _categoriaController;
-        public MainMenuForm(UsuarioController usuarioController, CategoriaController categoriaController)
+        private readonly ArticuloController _articuloController;
+        public MainMenuForm(UsuarioController usuarioController, 
+                            CategoriaController categoriaController,
+                            ArticuloController articuloController)
         {
             InitializeComponent();
             _usuarioController = usuarioController;
-            _categoriaController = categoriaController; 
+            _categoriaController = categoriaController;
+            _articuloController = articuloController;
 
         }
 
@@ -83,6 +89,11 @@ namespace GestionVentasCel
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new CategoriaMainMenuForm(_categoriaController));
+        }
+
+        private void ArticulosMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new ArticuloMainMenuForm(_articuloController, _categoriaController));
         }
     }
 }

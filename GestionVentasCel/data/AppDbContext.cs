@@ -7,6 +7,7 @@ using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.persona;
 using Microsoft.EntityFrameworkCore;
+using GestionVentasCel.models.articulo;
 
 
 namespace GestionVentasCel.data
@@ -20,6 +21,7 @@ namespace GestionVentasCel.data
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Articulo> Articulos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

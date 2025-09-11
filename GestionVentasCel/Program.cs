@@ -14,6 +14,11 @@ using GestionVentasCel.repository.categoria.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.repository.articulo;
+using GestionVentasCel.repository.articulo.impl;
+using GestionVentasCel.service.articulo.impl;
+using GestionVentasCel.service.articulo;
+using GestionVentasCel.controller.articulo;
 
 namespace GestionVentasCel
 {
@@ -49,14 +54,18 @@ namespace GestionVentasCel
             // Registrar repositorios
             services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
             services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
+            services.AddTransient<IArticuloRepository, ArticuloRepositoryImpl>();
+            
 
             // Registrar servicios
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
             services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
+            services.AddTransient<IArticuloService, ArticuloServiceImpl>();
 
             // Registrar controllers
             services.AddTransient<UsuarioController>();
             services.AddTransient<CategoriaController>();
+            services.AddTransient<ArticuloController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();

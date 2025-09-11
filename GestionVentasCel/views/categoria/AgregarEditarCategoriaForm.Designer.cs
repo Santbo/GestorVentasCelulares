@@ -119,6 +119,7 @@
             Controls.Add(lblTitulo);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "AgregarEditarCategoriaForm";
+            StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarCategoriaForm_FormClosing;
             Load += AgregarEditarCategoriaForm_Load;
             ResumeLayout(false);
