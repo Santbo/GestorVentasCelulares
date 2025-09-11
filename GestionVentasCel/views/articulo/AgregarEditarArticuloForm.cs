@@ -1,24 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.articulo;
+﻿using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
-using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.articulo;
-using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.views.categoria;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GestionVentasCel.views.articulo
 {

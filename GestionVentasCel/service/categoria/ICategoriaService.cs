@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.categoria;
-using GestionVentasCel.models.usuario;
+﻿using GestionVentasCel.models.categoria;
 
 namespace GestionVentasCel.service.categoria
 {

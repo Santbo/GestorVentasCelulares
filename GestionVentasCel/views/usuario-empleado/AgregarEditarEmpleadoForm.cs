@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Net.Mail;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
-using GestionVentasCel.models.usuario;
-using System.Net.Mail;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Net.Mime.MediaTypeNames;
 using GestionVentasCel.exceptions.usuario;
+using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -82,7 +71,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
                         DialogResult = DialogResult.OK;
                         this.Close();
-                    } catch( UsuarioExistenteException ex)
+                    }
+                    catch (UsuarioExistenteException ex)
                     {
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
@@ -104,14 +94,15 @@ namespace GestionVentasCel.views.usuario_empleado
                         _usuarioController.UpdateUsuario(UsuarioActual);
                         DialogResult = DialogResult.OK;
                         this.Close();
-                    } catch( UsuarioNoEncontradoException ex)
+                    }
+                    catch (UsuarioNoEncontradoException ex)
                     {
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 
-                
-               
+
+
             }
         }
 
@@ -139,7 +130,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 return false;
 
             }
-            
+
 
 
         }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using GestionVentasCel.enumerations.persona;
 
 namespace GestionVentasCel.models.persona
 {
@@ -19,17 +15,25 @@ namespace GestionVentasCel.models.persona
         [MaxLength(45)]
         public string? Apellido { get; set; }
 
-        [MaxLength(45)]
-        public string? Telefono { get; set; }
+        public TipoDocumentoEnum? TipoDocumento { get; set; }
 
         [MaxLength(45)]
+        // Esto debería llamarse de otra forma, pero cambiarlo require cambiar lógica d enegocios así que se queda en DNI
+        public string? Dni { get; set; }
+
+        public CondicionIVA? CondicionIVA { get; set; }
+
+        [MaxLength(18)]
+        public string? Telefono { get; set; }
+
+        [MaxLength(200)]
         public string? Email { get; set; }
 
         [MaxLength(45)]
-        public string? Calle {  get; set; }
+        public string? Calle { get; set; }
 
         [MaxLength(45)]
-        public string? Ciudad {  get; set; }
+        public string? Ciudad { get; set; }
 
         public bool Activo { get; set; } = true;
     }

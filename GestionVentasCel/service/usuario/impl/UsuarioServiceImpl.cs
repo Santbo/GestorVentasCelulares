@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.usuarios;
+﻿using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.repository.usuario;
@@ -47,6 +42,7 @@ namespace GestionVentasCel.service.usuario.impl
                 Apellido = apellido,
                 Telefono = telefono,
                 Dni = dni,
+                TipoDocumento = enumerations.persona.TipoDocumentoEnum.DNI,
                 Email = email
 
 
@@ -57,23 +53,24 @@ namespace GestionVentasCel.service.usuario.impl
 
         public void UpdateUsuario(Usuario usuario)
         {
-            
-            if( _repo.Exist(usuario.Id) )
+
+            if (_repo.Exist(usuario.Id))
             {
 
-                _repo.Update(usuario); 
-            } else
+                _repo.Update(usuario);
+            }
+            else
             {
 
                 throw new UsuarioNoEncontradoException("Usuario no encontrado");
             }
 
-            
+
         }
 
         //Borrado logico, alterna entre activo e inactivo
         public void ToggleActivo(int id)
-        {   
+        {
             var usuario = _repo.GetById(id);
 
             if (usuario != null)

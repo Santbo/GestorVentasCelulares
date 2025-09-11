@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.models.categoria;
-using GestionVentasCel.models.usuario;
-using GestionVentasCel.views.usuario_empleado;
 
 namespace GestionVentasCel.views.categoria
 {

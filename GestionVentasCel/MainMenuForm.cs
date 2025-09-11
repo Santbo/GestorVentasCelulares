@@ -1,11 +1,10 @@
+using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
-using GestionVentasCel.service.usuario;
-using GestionVentasCel.views.usuario_empleado;
-using GestionVentasCel.views.categoria;
-using GestionVentasCel.controller.categoria;
 using GestionVentasCel.views.articulo;
-using GestionVentasCel.controller.articulo;
+using GestionVentasCel.views.categoria;
+using GestionVentasCel.views.usuario_empleado;
 
 namespace GestionVentasCel
 {
@@ -16,7 +15,7 @@ namespace GestionVentasCel
         private readonly UsuarioController _usuarioController;
         private readonly CategoriaController _categoriaController;
         private readonly ArticuloController _articuloController;
-        public MainMenuForm(UsuarioController usuarioController, 
+        public MainMenuForm(UsuarioController usuarioController,
                             CategoriaController categoriaController,
                             ArticuloController articuloController)
         {

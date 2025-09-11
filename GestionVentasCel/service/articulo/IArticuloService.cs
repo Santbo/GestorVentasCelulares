@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.usuario;
+﻿using GestionVentasCel.models.articulo;
 
 namespace GestionVentasCel.service.articulo
 {

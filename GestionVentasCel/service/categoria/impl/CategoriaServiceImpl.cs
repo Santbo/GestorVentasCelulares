@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.usuarios;
-using GestionVentasCel.exceptions.categoria;
+﻿using GestionVentasCel.exceptions.categoria;
 using GestionVentasCel.models.categoria;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.repository.categoria;
-using Microsoft.EntityFrameworkCore;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace GestionVentasCel.service.categoria.impl
 {
@@ -27,7 +16,7 @@ namespace GestionVentasCel.service.categoria.impl
         public void AgregarCategoria(string nombre, string descripcion)
         {
 
-            
+
             if (!_repo.NombreExist(nombre))
             {
 
@@ -39,13 +28,14 @@ namespace GestionVentasCel.service.categoria.impl
                 };
 
                 _repo.Add(categoria);
-            } else
+            }
+            else
             {
                 throw new CategoriaExistenteException("El nombre de la categoria ya existe.");
             }
 
 
-            
+
         }
 
         public Categoria? GetById(int id)

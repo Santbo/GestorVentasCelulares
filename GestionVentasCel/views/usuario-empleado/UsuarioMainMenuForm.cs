@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GestionVentasCel.controller.usuario;
-using GestionVentasCel.models.usuario;
-using GestionVentasCel.service.usuario;
 using GestionVentasCel.enumerations.modoForms;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using GestionVentasCel.exceptions.usuario;
+using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -37,7 +28,7 @@ namespace GestionVentasCel.views.usuario_empleado
         private void CargarUsuarios()
         {
             var listaUsuarios = _usuarioController.ObtenerUsuarios().ToList();
-         
+
             _usuarios = new BindingList<Usuario>(listaUsuarios);
 
             _bindingSource = new BindingSource();
@@ -57,7 +48,7 @@ namespace GestionVentasCel.views.usuario_empleado
         }
 
         private void btnToggleActivo_Click(object sender, EventArgs e)
-        {   
+        {
 
             if (dgvListarUsuarios.CurrentRow != null)
             {
@@ -86,7 +77,8 @@ namespace GestionVentasCel.views.usuario_empleado
                     // Reaplico el filtro inmediatamente
                     AplicarFiltro();
                 }
-                catch (UsuarioNoEncontradoException ex) {
+                catch (UsuarioNoEncontradoException ex)
+                {
 
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
