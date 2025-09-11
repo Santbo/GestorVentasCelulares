@@ -1,10 +1,12 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.usuario_empleado;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel
 {
@@ -12,18 +14,13 @@ namespace GestionVentasCel
     {
         //Depende el rol que se acceda se muestran los Menu Strip
         public RolEnum RolAccedido { get; set; }
-        private readonly UsuarioController _usuarioController;
-        private readonly CategoriaController _categoriaController;
-        private readonly ArticuloController _articuloController;
-        public MainMenuForm(UsuarioController usuarioController,
-                            CategoriaController categoriaController,
-                            ArticuloController articuloController)
+        private readonly IServiceProvider _serviceProvider;
+
+        private readonly ClienteController _clienteController;
+        public MainMenuForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            _usuarioController = usuarioController;
-            _categoriaController = categoriaController;
-            _articuloController = articuloController;
-
+            _serviceProvider = serviceProvider;
         }
 
         //Creamos un metodo para que la X del formulario funcione con un MessageBox
@@ -63,7 +60,7 @@ namespace GestionVentasCel
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new UsuarioMainMenuForm(_usuarioController));
+            AbrirFormularioHijo(new UsuarioMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
         }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
@@ -87,12 +84,17 @@ namespace GestionVentasCel
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new CategoriaMainMenuForm(_categoriaController));
+            AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void ArticulosMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new ArticuloMainMenuForm(_articuloController, _categoriaController));
+            AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>()));
+        }
+
+        private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
         }
     }
 }

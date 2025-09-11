@@ -1,5 +1,6 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
@@ -78,6 +79,7 @@ namespace GestionVentasCel
             services.AddTransient<UsuarioController>();
             services.AddTransient<CategoriaController>();
             services.AddTransient<ArticuloController>();
+            services.AddTransient<ClienteController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();
