@@ -51,7 +51,7 @@
             panelBtn.Controls.Add(btnAgregar);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
-            panelBtn.Margin = new Padding(4, 4, 4, 4);
+            panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
             panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 0;
@@ -59,9 +59,9 @@
             // txtBuscar
             // 
             txtBuscar.Location = new Point(15, 11);
-            txtBuscar.Margin = new Padding(4, 4, 4, 4);
+            txtBuscar.Margin = new Padding(4);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "Buscar Empleado";
+            txtBuscar.PlaceholderText = "Buscar Cliente";
             txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
@@ -71,11 +71,11 @@
             chkMostrarInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkMostrarInactivos.AutoSize = true;
             chkMostrarInactivos.Location = new Point(15, 53);
-            chkMostrarInactivos.Margin = new Padding(4, 4, 4, 4);
+            chkMostrarInactivos.Margin = new Padding(4);
             chkMostrarInactivos.Name = "chkMostrarInactivos";
-            chkMostrarInactivos.Size = new Size(233, 29);
+            chkMostrarInactivos.Size = new Size(226, 29);
             chkMostrarInactivos.TabIndex = 3;
-            chkMostrarInactivos.Text = "Incluir Usuarios Inactivos";
+            chkMostrarInactivos.Text = "Incluir Clientes Inactivos";
             chkMostrarInactivos.UseVisualStyleBackColor = true;
             chkMostrarInactivos.CheckedChanged += chkMostrarInactivos_CheckedChanged;
             // 
@@ -83,7 +83,7 @@
             // 
             btnToggleActivo.Anchor = AnchorStyles.Right;
             btnToggleActivo.Location = new Point(449, 8);
-            btnToggleActivo.Margin = new Padding(4, 4, 4, 4);
+            btnToggleActivo.Margin = new Padding(4);
             btnToggleActivo.Name = "btnToggleActivo";
             btnToggleActivo.Size = new Size(201, 75);
             btnToggleActivo.TabIndex = 2;
@@ -95,7 +95,7 @@
             // 
             btnUpdate.Anchor = AnchorStyles.Right;
             btnUpdate.Location = new Point(658, 8);
-            btnUpdate.Margin = new Padding(4, 4, 4, 4);
+            btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(160, 75);
             btnUpdate.TabIndex = 1;
@@ -107,7 +107,7 @@
             // 
             btnAgregar.Anchor = AnchorStyles.Right;
             btnAgregar.Location = new Point(825, 8);
-            btnAgregar.Margin = new Padding(4, 4, 4, 4);
+            btnAgregar.Margin = new Padding(4);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(160, 75);
             btnAgregar.TabIndex = 0;
@@ -120,7 +120,7 @@
             panelContenedor.Controls.Add(dgvListarClientes);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 0);
-            panelContenedor.Margin = new Padding(4, 4, 4, 4);
+            panelContenedor.Margin = new Padding(4);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1000, 476);
             panelContenedor.TabIndex = 1;
@@ -133,7 +133,7 @@
             dgvListarClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarClientes.Dock = DockStyle.Fill;
             dgvListarClientes.Location = new Point(0, 0);
-            dgvListarClientes.Margin = new Padding(4, 4, 4, 4);
+            dgvListarClientes.Margin = new Padding(4);
             dgvListarClientes.Name = "dgvListarClientes";
             dgvListarClientes.ReadOnly = true;
             dgvListarClientes.RowHeadersWidth = 51;
@@ -148,7 +148,7 @@
             Controls.Add(panelContenedor);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "ClienteMainMenuForm";
             Text = "UsuarioMainMenu";
             panelBtn.ResumeLayout(false);

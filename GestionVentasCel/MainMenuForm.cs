@@ -93,7 +93,7 @@ namespace GestionVentasCel
 
         private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>()));
+            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
     }
 }

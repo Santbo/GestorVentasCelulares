@@ -15,5 +15,6 @@ namespace GestionVentasCel.repository.persona
         bool Exist(int id);
 
         Persona? GetByDni(string dni);
+        IEnumerable<Persona> ObtenerPersonasSinClientes();
     }
 }

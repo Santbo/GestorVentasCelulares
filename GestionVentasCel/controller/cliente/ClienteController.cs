@@ -13,6 +13,10 @@ namespace GestionVentasCel.controller.cliente
             _service = service;
         }
 
+        public void CrearCliente(Cliente cliente)
+        {
+            _service.CrearCliente(cliente);
+        }
         public void CrearCliente(
             int PersonaId,
             TipoDocumentoEnum TipoDocumento,
@@ -56,6 +60,11 @@ namespace GestionVentasCel.controller.cliente
         public Cliente? GetById(int id)
         {
             return _service.GetById(id);
+        }
+
+        internal void ActualizarCliente(Cliente cliente)
+        {
+            _service.UpdateCliente(cliente);
         }
     }
 }

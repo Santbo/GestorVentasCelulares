@@ -7,6 +7,7 @@ using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.usuario;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -16,11 +17,13 @@ namespace GestionVentasCel.views.usuario_empleado
     {
         private readonly ClienteController _clienteController;
         private BindingList<Cliente> _clientes;
+        private readonly IServiceProvider _serviceProvider;
         private BindingSource _bindingSource;
-        public ClienteMainMenuForm(ClienteController clienteController)
+        public ClienteMainMenuForm(ClienteController clienteController, IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _clienteController = clienteController;
+            _serviceProvider = serviceProvider;
             CargarClientes();
 
         }
@@ -103,7 +106,7 @@ namespace GestionVentasCel.views.usuario_empleado
             if (!string.IsNullOrEmpty(filtro))
             {
                 filtrados = filtrados.Where(u =>
-                    u.Apellido.ToLower().Contains(filtro)
+                    u.Nombre.ToLower().Contains(filtro)
                     || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
                 );
             }
@@ -114,21 +117,36 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            //using (var agregarUsuario = new AgregarEditarEmpleadoForm(_clienteController))
-            //{
-            //    agregarUsuario.Modo = ModoFormulario.Agregar;
-            //    //si el usuario apreta guardar, muestra el msj y actualiza el binding
-            //    if (agregarUsuario.ShowDialog() == DialogResult.OK)
-            //    {
+            var resultado = MessageBox.Show("¿La persona ya existe en el sistema?", "Agregar un nuevo cliente",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-            //        MessageBox.Show("El empleado se guardó correctamente",
-            //        "Empleado Guardado",
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Information);
+            if (resultado == DialogResult.Cancel)
+            {
+                return;
+            }
 
-            //        CargarClientes();
-            //    }
-            //}
+            Cliente? cliente = null;
+
+            if (resultado == DialogResult.Yes)
+            {
+                // La persona ya existe, entonces se debería mostrar el formulario con la lista de personas que no tengan 
+                // asociado un cliente. Por tanto, Cliente debería no ser nulo al terminar esto. Si no, debería salirse de
+                // esta función.
+
+
+            }
+
+            using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("El cliente se agregó correctamente", "Cliente agregado");
+                    CargarClientes();
+                }
+
+            }
+
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -137,8 +155,8 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 int id = (int)dgvListarClientes.CurrentRow.Cells["Id"].Value;
 
-                var usuario = _clienteController.GetById(id);
-                if (usuario == null)
+                var cliente = _clienteController.GetById(id);
+                if (cliente == null)
                 {
                     MessageBox.Show("El Cliente no fue encontrado",
                         "Cliente no encontrado",
@@ -148,22 +166,20 @@ namespace GestionVentasCel.views.usuario_empleado
                     return;
                 }
 
-                //using (var editarUsuario = new AgregarEditarEmpleadoForm(_clienteController))
-                //{
-                //    editarUsuario.Modo = ModoFormulario.Editar;
-                //    editarUsuario.UsuarioActual = usuario;
-                //    //si el usuario apreta guardar, muestra el msj y actualiza el binding
-                //    if (editarUsuario.ShowDialog() == DialogResult.OK)
-                //    {
+                using (var editarCliente = new AgregarEditarClienteForm(_clienteController, cliente: cliente))
+                {
+                    //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                    if (editarCliente.ShowDialog() == DialogResult.OK)
+                    {
 
-                //        MessageBox.Show("El empleado se actualizó correctamente",
-                //        "Empleado Guardado",
-                //        MessageBoxButtons.OK,
-                //        MessageBoxIcon.Information);
+                        MessageBox.Show("El cliente se actualizó correctamente",
+                        "cliente Guardado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
 
-                //        CargarClientes();
-                //    }
-                //}
+                        CargarClientes();
+                    }
+                }
             }
         }
 

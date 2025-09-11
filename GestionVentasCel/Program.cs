@@ -22,6 +22,7 @@ using GestionVentasCel.service.cliente.impl;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.usuario.impl;
 using GestionVentasCel.views;
+using GestionVentasCel.views.usuario_empleado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -83,6 +84,7 @@ namespace GestionVentasCel
 
             // Registrar forms
             services.AddTransient<LoginForm>();
+            services.AddTransient<AgregarEditarClienteForm>();
 
             // Construir el proveedor de servicios
             var serviceProvider = services.BuildServiceProvider();

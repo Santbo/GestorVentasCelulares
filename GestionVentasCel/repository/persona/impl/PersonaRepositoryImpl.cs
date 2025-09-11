@@ -48,5 +48,12 @@ namespace GestionVentasCel.repository.persona.impl
         {
             return _context.Personas.Any(p => p.Id == id);
         }
+
+        public IEnumerable<Persona> ObtenerPersonasSinClientes()
+        {
+            return _context.Personas
+                .Where(p => !_context.Clientes.Any(c => c.Id == p.Id))
+                .ToList();
+        }
     }
 }

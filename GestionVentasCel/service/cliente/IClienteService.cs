@@ -1,11 +1,14 @@
 ﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.models.persona;
 
 namespace GestionVentasCel.service.cliente
 {
     public interface IClienteService
     {
+
+        void CrearCliente (Cliente cliente);
         /// <summary>
         /// Crear un nuevo cliente, pero partiendo desde una persona existente. Solamente se tiene que agregar los datos nullables en persona
         /// Hay que asegurarse de que la persona tenga una calle fijada.
@@ -58,5 +61,7 @@ namespace GestionVentasCel.service.cliente
         void EliminarMovimiento(MovimientoCuentaCorriente movimiento);
         void RegistrarMovimientoCuentaCorriente(Cliente cliente, MovimientoCuentaCorriente movimiento);
         Cliente? GetById(int id);
+
+        IEnumerable<Persona> ObtenerPersonasSinClientes();
     }
 }

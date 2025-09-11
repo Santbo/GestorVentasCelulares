@@ -3,6 +3,7 @@ using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.models.persona;
 using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.persona;
 
@@ -205,6 +206,34 @@ namespace GestionVentasCel.service.cliente.impl
             {
                 throw new ClienteInexistenteException("Se intentó actualizar un cliente que no existe");
             }
+        }
+
+        public IEnumerable<Persona> ObtenerPersonasSinClientes()
+        {
+            return _repoPersona.ObtenerPersonasSinClientes();
+        }
+
+        public void CrearCliente(Cliente cliente)
+        {
+            if (string.IsNullOrWhiteSpace(cliente.Nombre))
+                throw new ArgumentException("El Nombre es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Calle))
+                throw new ArgumentException("La Calle es obligatoria.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Ciudad))
+                throw new ArgumentException("La Ciudad es obligatoria.");
+
+            if (!cliente.TipoDocumento.HasValue)
+                throw new ArgumentException("El Tipo de Documento es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Dni))
+                throw new ArgumentException("El DNI es obligatorio.");
+
+            if (!cliente.CondicionIVA.HasValue)
+                throw new ArgumentException("La Condición IVA es obligatoria.");
+
+            _repo.Add(cliente);
         }
     }
 }
