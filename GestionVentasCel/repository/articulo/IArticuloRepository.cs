@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.models.articulo;
 
 
 namespace GestionVentasCel.repository.articulo
@@ -16,6 +11,6 @@ namespace GestionVentasCel.repository.articulo
         void Update(Articulo articulo);
         bool Exist(int id);
 
-        
+
     }
 }

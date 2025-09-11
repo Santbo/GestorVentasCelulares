@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.articulo;
-using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.usuario;
-using GestionVentasCel.views.categoria;
 
 namespace GestionVentasCel.views.articulo
 {
@@ -112,7 +101,7 @@ namespace GestionVentasCel.views.articulo
             {
                 filtrados = filtrados.Where(a =>
                     a.Nombre.ToLower().Contains(filtro)
-                    || a.Marca.ToLower().Contains(filtro)   
+                    || a.Marca.ToLower().Contains(filtro)
                     || a.Categoria.Nombre.ToLower().Contains(filtro)
                 );
             }

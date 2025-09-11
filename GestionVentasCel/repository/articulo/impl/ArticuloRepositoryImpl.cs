@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.models.articulo;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionVentasCel.repository.articulo.impl
 {
@@ -38,7 +32,7 @@ namespace GestionVentasCel.repository.articulo.impl
                         .AsNoTracking().ToList();
         }
 
-            
+
 
         public Articulo? GetById(int id) => _context.Articulos.Find(id);
 

@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.usuario;
+﻿using GestionVentasCel.controller.categoria;
 using GestionVentasCel.enumerations.modoForms;
-using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.categoria;
-using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.categoria;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 
@@ -137,4 +124,4 @@ namespace GestionVentasCel.views.categoria
             }
         }
     }
-}   
+}

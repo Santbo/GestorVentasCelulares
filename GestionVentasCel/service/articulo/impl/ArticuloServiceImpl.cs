@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.usuarios;
-using GestionVentasCel.exceptions.articulo;
-using GestionVentasCel.exceptions.usuario;
+﻿using GestionVentasCel.exceptions.articulo;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.repository.articulo;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace GestionVentasCel.service.articulo.impl
 {

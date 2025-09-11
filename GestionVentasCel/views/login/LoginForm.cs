@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.articulo;
+﻿using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
@@ -21,8 +12,8 @@ namespace GestionVentasCel.views
         private readonly UsuarioController _usuarioController;
         private readonly CategoriaController _categoriaController;
         private readonly ArticuloController _articuloController;
-        public LoginForm(AppDbContext context, 
-                        UsuarioController usuarioController, 
+        public LoginForm(AppDbContext context,
+                        UsuarioController usuarioController,
                         CategoriaController categoriaController,
                         ArticuloController articuloController
                         )

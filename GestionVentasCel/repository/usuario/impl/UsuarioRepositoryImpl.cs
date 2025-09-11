@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +16,7 @@ namespace GestionVentasCel.repository.usuario.impl
         public Usuario? GetById(int id) => _context.Usuarios.Find(id);
 
         public Usuario? GetByUsername(string username) =>
-            _context.Usuarios.FirstOrDefault(u  => u.Username == username);
+            _context.Usuarios.FirstOrDefault(u => u.Username == username);
 
         public IEnumerable<Usuario> GetAll() => _context.Usuarios.AsNoTracking().ToList();
 
@@ -40,7 +34,7 @@ namespace GestionVentasCel.repository.usuario.impl
 
         public bool Exist(int id)
         {
-           return _context.Usuarios.Any(u => u.Id == id);
+            return _context.Usuarios.Any(u => u.Id == id);
         }
     }
 }

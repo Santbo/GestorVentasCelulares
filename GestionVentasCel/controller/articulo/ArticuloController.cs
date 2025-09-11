@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.models.articulo;
 using GestionVentasCel.service.articulo;
 
 namespace GestionVentasCel.controller.articulo
@@ -17,20 +12,20 @@ namespace GestionVentasCel.controller.articulo
             _articuloService = articuloService;
         }
 
-        public void CrearArticulo(string nombre, 
-                                    int aviso_stock, 
-                                    decimal precio, 
-                                    int stock, 
-                                    string marca, 
-                                    int categoriaId, 
+        public void CrearArticulo(string nombre,
+                                    int aviso_stock,
+                                    decimal precio,
+                                    int stock,
+                                    string marca,
+                                    int categoriaId,
                                     string? descripcion = null)
         {
-            _articuloService.CrearArticulo(nombre, 
-                                        aviso_stock, 
-                                        precio, 
-                                        stock, 
-                                        marca, 
-                                        categoriaId, 
+            _articuloService.CrearArticulo(nombre,
+                                        aviso_stock,
+                                        precio,
+                                        stock,
+                                        marca,
+                                        categoriaId,
                                         descripcion);
         }
 

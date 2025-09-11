@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.usuario;
+﻿using GestionVentasCel.models.usuario;
 using GestionVentasCel.service.usuario;
 
 namespace GestionVentasCel.controller.usuario

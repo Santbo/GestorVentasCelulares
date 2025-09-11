@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.persona;
+using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
-using GestionVentasCel.models.articulo;
 
 
 namespace GestionVentasCel.data
@@ -27,6 +22,14 @@ namespace GestionVentasCel.data
         {
             modelBuilder.Entity<Persona>().ToTable("Personas");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+
+            modelBuilder.Entity<Persona>()
+                .Property(p => p.CondicionIVA)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(u => u.Rol)
+                .HasConversion<string>();
         }
 
     }

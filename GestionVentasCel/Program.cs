@@ -1,24 +1,23 @@
-using GestionVentasCel.controller.usuario;
-using GestionVentasCel.repository.usuario.impl;
-using GestionVentasCel.service.usuario;
-using GestionVentasCel.service.usuario.impl;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.Extensions.DependencyInjection;
-using GestionVentasCel.data;
-using GestionVentasCel.repository.usuario;
-using GestionVentasCel.views;
-using GestionVentasCel.repository.categoria;
-using GestionVentasCel.repository.categoria.impl;
-using GestionVentasCel.service.categoria;
-using GestionVentasCel.service.categoria.impl;
+using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.controller.usuario;
+using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.repository.articulo.impl;
-using GestionVentasCel.service.articulo.impl;
+using GestionVentasCel.repository.categoria;
+using GestionVentasCel.repository.categoria.impl;
+using GestionVentasCel.repository.usuario;
+using GestionVentasCel.repository.usuario.impl;
 using GestionVentasCel.service.articulo;
-using GestionVentasCel.controller.articulo;
+using GestionVentasCel.service.articulo.impl;
+using GestionVentasCel.service.categoria;
+using GestionVentasCel.service.categoria.impl;
+using GestionVentasCel.service.usuario;
+using GestionVentasCel.service.usuario.impl;
+using GestionVentasCel.views;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel
 {
@@ -55,7 +54,7 @@ namespace GestionVentasCel
             services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
             services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
             services.AddTransient<IArticuloRepository, ArticuloRepositoryImpl>();
-            
+
 
             // Registrar servicios
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
