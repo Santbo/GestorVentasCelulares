@@ -156,9 +156,17 @@ namespace GestionVentasCel.service.cliente.impl
             return _repoCuentaCorriente.GetByClienteId(cliente.Id);
         }
 
-        public decimal ObtenerSaldoCuentaCorriente(Cliente cliente)
+        /// <summary>
+        /// Dado un cliente, obtener su cuenta corriente y calcular el saldo
+        /// Usado internamente, realmente no debería existir pero es lo que hay
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
+        /// <exception cref="CuentaCorrienteInexistenteException"></exception>
+        private decimal ObtenerSaldoCuentaCorriente(Cliente cliente)
         {
-            var cuenta = this.ObtenerCuentaCorriente(cliente) ?? throw new CuentaCorrienteInexistenteException("Se intentó acceder al saldo de la cuenta corriente de un cliente que no tiene cuenta corriente.");
+            //var cuenta = this.ObtenerCuentaCorriente(cliente) ?? throw new CuentaCorrienteInexistenteException("Se intentó acceder al saldo de la cuenta corriente de un cliente que no tiene cuenta corriente.");
+            var cuenta = cliente.CuentaCorriente ?? throw new CuentaCorrienteInexistenteException("Se intentó acceder al saldo de la cuenta corriente de un cliente que no tiene cuenta corriente.");
 
             decimal total = 0;
 
@@ -258,6 +266,25 @@ namespace GestionVentasCel.service.cliente.impl
             {
                 throw new ClienteInexistenteException("Se intentó togglear el activo de un usuario que no existe.");
             }
+        }
+
+        public DateTime? ObtenerFechaUltimoMovimiento(CuentaCorriente cuenta)
+        {
+            return cuenta.Movimientos
+                .OrderByDescending(m => m.Fecha)
+                .FirstOrDefault()?.Fecha;
+        }
+
+        public decimal ObtenerSaldoCuentaCorriente(CuentaCorriente cuenta)
+        {
+            decimal total = 0;
+
+            foreach (var movimiento in cuenta.Movimientos)
+            {
+                total += movimiento.Tipo == TipoMovimiento.Aumento ? movimiento.Monto : -movimiento.Monto;
+            }
+
+            return total;
         }
     }
 }

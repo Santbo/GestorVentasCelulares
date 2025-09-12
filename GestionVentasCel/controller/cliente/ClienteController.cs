@@ -19,38 +19,7 @@ namespace GestionVentasCel.controller.cliente
         {
             _service.CrearCliente(cliente);
         }
-        public void CrearCliente(
-            int PersonaId,
-            TipoDocumentoEnum TipoDocumento,
-            string Dni,
-            CondicionIVAEnum condicionIVA,
-            string? Calle = null,
-            string? Ciudad = null)
-        {
-            _service.CrearCliente(
-                PersonaId: PersonaId,
-                TipoDocumento: TipoDocumento,
-                Dni: Dni,
-                CondicionIVA: condicionIVA,
-                Calle: Calle,
-                Ciudad: Ciudad);
-        }
 
-        public void CrearCliente(string Nombre, string? Apellido, TipoDocumentoEnum TipoDocumento, string Dni, CondicionIVAEnum CondicionIVA, string Telefono, string Email, string Calle, string Ciudad)
-        {
-            _service.CrearCliente(
-                Nombre: Nombre,
-                Apellido: Apellido,
-                TipoDocumento: TipoDocumento,
-                Dni: Dni,
-                CondicionIVA: CondicionIVA,
-                Calle: Calle,
-                Ciudad: Ciudad,
-                Telefono: Telefono,
-                Email: Email
-                );
-
-        }
 
         public IEnumerable<Cliente> ObtenerClientes() => _service.ListarClientes();
         public IEnumerable<Persona> ObtenerPersonasSinClientes() => _service.ObtenerPersonasSinClientes();
@@ -80,6 +49,22 @@ namespace GestionVentasCel.controller.cliente
         public void ToggleActivoCuentaCorriente(int id)
         {
             _service.ToggleActivoCuentaCorriente(id);
+        }
+
+        public Decimal ObtenerSaldoCuentaCorriente(CuentaCorriente cuenta)
+        {
+            return _service.ObtenerSaldoCuentaCorriente(cuenta);
+        }
+
+
+        public DateTime? ObtenerFechaUltimoMovimiento(CuentaCorriente cuenta)
+        {
+            return _service.ObtenerFechaUltimoMovimiento(cuenta);
+        }
+
+        public void CrearCuentaCorriente(Cliente cliente)
+        {
+            _service.CrearCuentaCorriente(cliente);
         }
     }
 }

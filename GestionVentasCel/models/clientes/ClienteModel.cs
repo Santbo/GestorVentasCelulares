@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
+using Microsoft.VisualStudio.TextTemplating;
 
 namespace GestionVentasCel.models.clientes
 {
@@ -14,8 +15,9 @@ namespace GestionVentasCel.models.clientes
         public CondicionIVAEnum? CondicionIVA { get; set; }
         public bool Activo { get; set; } = true;
 
-        [NotMapped]
-        [DisplayName("Cuenta corriente")]
-        public string CuentaCorrienteTexto => CuentaCorriente == null ? "No hay cuenta corriente" : "Activa";
+        public override string ToString()
+        {
+            return $"{this.Nombre} {this.Apellido}";
+        }
     }
 }

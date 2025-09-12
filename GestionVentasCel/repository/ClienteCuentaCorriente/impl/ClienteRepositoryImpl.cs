@@ -53,7 +53,10 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 
         public IEnumerable<Cliente> GetAll()
         {
-            return _context.Clientes.AsNoTracking().ToList();
+            return _context.Clientes
+                .AsNoTracking()
+                .Include(c => c.CuentaCorriente)
+                .ToList();
         }
 
         public Cliente? GetById(int id)

@@ -1,4 +1,6 @@
 ﻿using GestionVentasCel.data;
+using GestionVentasCel.exceptions.cliente;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,5 +61,6 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
             _context.CuentasCorrientes.Update(cuenta);
             _context.SaveChanges();
         }
+
     }
 }

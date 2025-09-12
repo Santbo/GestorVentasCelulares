@@ -11,6 +11,8 @@ namespace GestionVentasCel.views.usuario_empleado
         private readonly ClienteController _clienteController;
         private readonly bool _editando;
 
+        public Cliente ClienteCreado { get; private set; }
+
         public Cliente _cliente { get; set; }
         private BindingSource _clienteBinding;
         public AgregarEditarClienteForm(ClienteController clienteController, Cliente? cliente = null, Persona? persona = null)
@@ -108,12 +110,16 @@ namespace GestionVentasCel.views.usuario_empleado
                     {
                         _clienteController.ActualizarCliente(_cliente);
                         this.DialogResult = DialogResult.OK;
+                        // Setear el cliente creado, porque el formulario para agregar cuenta corriente necesita su Id
+                        this.ClienteCreado = _cliente;
                         this.Close();
                     }
                     else
                     {
                         _clienteController.CrearCliente(_cliente);
                         this.DialogResult = DialogResult.OK;
+                        // Setear el cliente creado, porque el formulario para agregar cuenta corriente necesita su Id
+                        this.ClienteCreado = _cliente;
                         this.Close();
                     }
 

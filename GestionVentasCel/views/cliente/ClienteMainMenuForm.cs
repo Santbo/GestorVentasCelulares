@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -21,6 +22,7 @@ namespace GestionVentasCel.views.usuario_empleado
             _clienteController = clienteController;
             _serviceProvider = serviceProvider;
             CargarClientes();
+            ConfigurarDGV();
 
         }
 
@@ -38,9 +40,46 @@ namespace GestionVentasCel.views.usuario_empleado
 
             AplicarFiltro();
 
+        }
+
+        private void ConfigurarDGV()
+        {
             dgvListarClientes.DataSource = _bindingSource;
             dgvListarClientes.Columns["Id"].Visible = false;
             dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
+
+            // Añadir la columna que establece el estado de la cuenta corriente
+            dgvListarClientes.Columns.Add(
+                "CuentaCorrienteTexto", "Cuenta corriente"
+            );
+
+            // Organizar el orden de las columnas
+            dgvListarClientes.Columns["Nombre"].DisplayIndex = 0;
+            dgvListarClientes.Columns["Apellido"].DisplayIndex = 1;
+            dgvListarClientes.Columns["Email"].DisplayIndex = 2;
+            dgvListarClientes.Columns["Telefono"].DisplayIndex = 3;
+            dgvListarClientes.Columns["TipoDocumento"].DisplayIndex = 4;
+            dgvListarClientes.Columns["Dni"].DisplayIndex = 5;
+            dgvListarClientes.Columns["Calle"].DisplayIndex = 6;
+            dgvListarClientes.Columns["Ciudad"].DisplayIndex = 7;
+            dgvListarClientes.Columns["CondicionIVA"].DisplayIndex = 8;
+            dgvListarClientes.Columns["Activo"].DisplayIndex = 10;
+
+            dgvListarClientes.DataBindingComplete += (s, e) =>
+            {
+
+                dgvListarClientes.Columns["CuentaCorrienteTexto"].DisplayIndex = 9;
+
+                foreach (DataGridViewRow row in dgvListarClientes.Rows)
+                {
+                    if (row.DataBoundItem is Cliente cliente)
+                    {
+                        row.Cells["CuentaCorrienteTexto"].Value = cliente.CuentaCorriente == null ?
+                            "No tiene": "Activa";
+                    }
+                }
+            };
+
 
         }
 

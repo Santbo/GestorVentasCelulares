@@ -52,7 +52,7 @@ namespace GestionVentasCel.service.cliente
         void ToggleActivo(int id);
 
         CuentaCorriente? ObtenerCuentaCorriente(Cliente cliente);
-        Decimal ObtenerSaldoCuentaCorriente(Cliente cliente);
+        decimal ObtenerSaldoCuentaCorriente(CuentaCorriente cuenta);
 
         void CrearCuentaCorriente(Cliente cliente);
 
@@ -66,5 +66,6 @@ namespace GestionVentasCel.service.cliente
         Persona? GetPersonaById(int id);
         IEnumerable<CuentaCorriente> ObtenerCuentasCorrientes();
         void ToggleActivoCuentaCorriente(int id);
+        DateTime? ObtenerFechaUltimoMovimiento(CuentaCorriente cuenta);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -38,10 +39,51 @@ namespace GestionVentasCel.views.usuario_empleado
             _bindingSource.DataSource = _cuentas;
 
             AplicarFiltro();
+            ConfigurarDGV();
 
+        }
+
+        public void ConfigurarDGV()
+        {
+            // Se agregan las columnas de "Saldo", se ocultan "Movimientos",
+            // Se agrega la columna "Fecha del ultimo movimiento"
             dgvListarCuentas.DataSource = _bindingSource;
             dgvListarCuentas.Columns["Id"].Visible = false;
-            //dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
+            dgvListarCuentas.Columns["ClienteId"].Visible = false;
+            dgvListarCuentas.Columns["Movimientos"].Visible = false;
+
+            // Añadir las dos columnas extra
+            dgvListarCuentas.Columns.Add(
+                "Saldo", "Saldo actual"
+            );
+
+            dgvListarCuentas.Columns.Add(
+                "FechaUltimo", "Último movimiento"
+            );
+            // y organizarlas
+            dgvListarCuentas.Columns["Cliente"].DisplayIndex = 0;
+            dgvListarCuentas.Columns["Saldo"].DisplayIndex = 1;
+            dgvListarCuentas.Columns["FechaUltimo"].DisplayIndex = 2;
+            dgvListarCuentas.Columns["Activo"].DisplayIndex = 3;
+
+
+            dgvListarCuentas.DataBindingComplete += (s, e) =>
+            {
+                foreach (DataGridViewRow row in dgvListarCuentas.Rows)
+                {
+                    if (row.DataBoundItem is CuentaCorriente cuenta)
+                    {
+                        var saldo = _clienteController.ObtenerSaldoCuentaCorriente(cuenta);
+                        var ultimoMovimiento = _clienteController.ObtenerFechaUltimoMovimiento(cuenta);
+
+                        row.Cells["Saldo"].Value = saldo != 0 ?
+                            $"{saldo.ToString("C", new CultureInfo("es-AR"))}" : "No hay movimientos";
+
+                        row.Cells["FechaUltimo"].Value = ultimoMovimiento != null ?
+                            ultimoMovimiento : "No hay movimientos";
+                    }
+                }
+            };
 
         }
 
@@ -104,7 +146,6 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 filtrados = filtrados.Where(u =>
                     u.Cliente.Nombre.ToLower().Contains(filtro)
-                    || u.Cliente.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
                 );
             }
 
@@ -114,47 +155,54 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            //var resultado = MessageBox.Show("¿La persona ya existe en el sistema?", "Agregar un nuevo cliente",
-            //    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            var resultado = MessageBox.Show("¿La persona ya existe en el sistema?", "Agregar un nuevo cliente",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-            //if (resultado == DialogResult.Cancel)
-            //{
-            //    return;
-            //}
+            if (resultado == DialogResult.Cancel)
+            {
+                return;
+            }
 
-            //Cliente? cliente = null;
-            //Persona? persona = null;
+            Cliente? cliente = null;
+            Persona? persona = null;
 
-            //if (resultado == DialogResult.Yes)
-            //{
-            //    // La persona ya existe, entonces se debería mostrar el formulario con la lista de personas que no tengan 
-            //    // asociado un cliente. Por tanto, Cliente debería no ser nulo al terminar esto. Si no, debería salirse de
-            //    // esta función.
+            if (resultado == DialogResult.Yes)
+            {
+                // La persona ya existe, entonces se debería mostrar el formulario con la lista de personas que no tengan 
+                // asociado un cliente. Por tanto, Cliente debería no ser nulo al terminar esto. Si no, debería salirse de
+                // esta función.
 
-            //    using (var form = new SeleccionarPersonaForm(clienteController: _clienteController, persona: persona))
-            //    {
-            //        if (form.ShowDialog() == DialogResult.Cancel)
-            //        {
-            //            return;
-            //        }
-            //        else
-            //        {
-            //            persona = form.PersonaSeleccionada;
-            //        }
-            //    }
+                using (var form = new SeleccionarPersonaForm(clienteController: _clienteController, persona: persona))
+                {
+                    if (form.ShowDialog() == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        persona = form.PersonaSeleccionada;
+                    }
+                }
 
 
-            //}
+            }
 
-            //using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente, persona: persona))
-            //{
-            //    if (form.ShowDialog() == DialogResult.OK)
-            //    {
-            //        MessageBox.Show("El cliente se agregó correctamente", "Cliente agregado");
-            //        CargarClientes();
-            //    }
+            // Esto tiene que cambiar, pero la lógica es literalmente igual que la de agregar cliente, salvo que el form debe 
+            // devolver la cuenta corriente
 
-            //}
+            using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente, persona: persona))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    cliente = form.ClienteCreado;
+                    MessageBox.Show("La cuenta corriente se agregó correctamente", "Cuenta agregada");
+                    CargarClientes();
+                }
+
+            }
+
+            _clienteController.CrearCuentaCorriente(cliente);
+
 
 
         }
@@ -197,5 +245,7 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             AplicarFiltro();
         }
+
+
     }
 }
