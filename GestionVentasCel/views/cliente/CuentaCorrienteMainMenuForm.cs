@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Data;
 using System.Globalization;
+using System.Security.AccessControl;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -227,6 +228,32 @@ namespace GestionVentasCel.views.usuario_empleado
             AplicarFiltro();
         }
 
+        private void btnVerMovimientos_Click(object sender, EventArgs e)
+        {
+            if (dgvListarCuentas.CurrentRow != null)
+            {
+                if ((string)dgvListarCuentas.CurrentRow.Cells["UltimoMovimiento"].Value == "No hay movimientos")
+                {
+                    MessageBox.Show("No hay movimientos registrados", "No hay movimientos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
+                CuentaCorriente cuenta = dgvListarCuentas.CurrentRow.DataBoundItem as CuentaCorriente;
+
+                //using (var form = new MovimientosMainMenuForm(_clienteController, CuentaCorriente: cuenta))
+                //{
+
+                //}
+
+
+
+
+
+
+            } else
+            {
+                MessageBox.Show("Debe seleccionar una cuenta corriente para ver sus movimientos", "No seleccionó cuenta", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

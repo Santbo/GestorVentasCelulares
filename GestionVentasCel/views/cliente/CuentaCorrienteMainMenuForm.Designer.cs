@@ -32,7 +32,7 @@
             txtBuscar = new TextBox();
             chkMostrarInactivos = new CheckBox();
             btnToggleActivo = new Button();
-            btnUpdate = new Button();
+            btnVerMovimientos = new Button();
             btnAgregar = new Button();
             panelContenedor = new Panel();
             dgvListarCuentas = new DataGridView();
@@ -47,7 +47,7 @@
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Controls.Add(chkMostrarInactivos);
             panelBtn.Controls.Add(btnToggleActivo);
-            panelBtn.Controls.Add(btnUpdate);
+            panelBtn.Controls.Add(btnVerMovimientos);
             panelBtn.Controls.Add(btnAgregar);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
@@ -91,16 +91,17 @@
             btnToggleActivo.UseVisualStyleBackColor = true;
             btnToggleActivo.Click += btnToggleActivo_Click;
             // 
-            // btnUpdate
+            // btnVerMovimientos
             // 
-            btnUpdate.Anchor = AnchorStyles.Right;
-            btnUpdate.Location = new Point(658, 8);
-            btnUpdate.Margin = new Padding(4);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(160, 75);
-            btnUpdate.TabIndex = 1;
-            btnUpdate.Text = "Actualizar";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnVerMovimientos.Anchor = AnchorStyles.Right;
+            btnVerMovimientos.Location = new Point(658, 8);
+            btnVerMovimientos.Margin = new Padding(4);
+            btnVerMovimientos.Name = "btnVerMovimientos";
+            btnVerMovimientos.Size = new Size(160, 75);
+            btnVerMovimientos.TabIndex = 1;
+            btnVerMovimientos.Text = "Ver movimientos";
+            btnVerMovimientos.UseVisualStyleBackColor = true;
+            btnVerMovimientos.Click += btnVerMovimientos_Click;
             // 
             // btnAgregar
             // 
@@ -163,7 +164,7 @@
         private Panel panelContenedor;
         private DataGridView dgvListarCuentas;
         private Button btnToggleActivo;
-        private Button btnUpdate;
+        private Button btnVerMovimientos;
         private Button btnAgregar;
         private TextBox txtBuscar;
         private CheckBox chkMostrarInactivos;
