@@ -3,6 +3,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250912000937_ActivoDePersonaAUsuario")]
+    partial class ActivoDePersonaAUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,6 +114,9 @@ namespace GestionVentasCel.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
+                    b.Property<string>("CondicionIVA")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Dni")
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
@@ -127,6 +133,9 @@ namespace GestionVentasCel.Migrations
                     b.Property<string>("Telefono")
                         .HasMaxLength(18)
                         .HasColumnType("varchar(18)");
+
+                    b.Property<int?>("TipoDocumento")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -162,7 +171,7 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
                 {
                     b.HasOne("GestionVentasCel.models.categoria.Categoria", "Categoria")
-                        .WithMany()
+                        .WithMany("Articulos")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -177,6 +186,11 @@ namespace GestionVentasCel.Migrations
                         .HasForeignKey("GestionVentasCel.models.usuario.Usuario", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
+                {
+                    b.Navigation("Articulos");
                 });
 #pragma warning restore 612, 618
         }

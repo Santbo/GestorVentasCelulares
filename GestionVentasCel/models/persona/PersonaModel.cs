@@ -15,13 +15,9 @@ namespace GestionVentasCel.models.persona
         [MaxLength(45)]
         public string? Apellido { get; set; }
 
-        public TipoDocumentoEnum? TipoDocumento { get; set; }
-
         [MaxLength(45)]
         // Esto debería llamarse de otra forma, pero cambiarlo require cambiar lógica d enegocios así que se queda en DNI
         public string? Dni { get; set; }
-
-        public CondicionIVA? CondicionIVA { get; set; }
 
         [MaxLength(18)]
         public string? Telefono { get; set; }

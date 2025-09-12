@@ -23,9 +23,6 @@ namespace GestionVentasCel.data
             modelBuilder.Entity<Persona>().ToTable("Personas");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
 
-            modelBuilder.Entity<Persona>()
-                .Property(p => p.CondicionIVA)
-                .HasConversion<string>();
 
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.Rol)
