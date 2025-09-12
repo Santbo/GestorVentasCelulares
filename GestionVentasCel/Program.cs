@@ -1,6 +1,8 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.usuario;
+using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.compra;
 using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.repository.articulo.impl;
@@ -8,12 +10,20 @@ using GestionVentasCel.repository.categoria;
 using GestionVentasCel.repository.categoria.impl;
 using GestionVentasCel.repository.usuario;
 using GestionVentasCel.repository.usuario.impl;
+using GestionVentasCel.repository.proveedor;
+using GestionVentasCel.repository.proveedor.impl;
+using GestionVentasCel.repository.compra;
+using GestionVentasCel.repository.compra.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.usuario.impl;
+using GestionVentasCel.service.proveedor;
+using GestionVentasCel.service.proveedor.impl;
+using GestionVentasCel.service.compra;
+using GestionVentasCel.service.compra.impl;
 using GestionVentasCel.views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +42,7 @@ namespace GestionVentasCel
             // Inicializar WinForms
             ApplicationConfiguration.Initialize();
 
-            // Cargar configuraci髇 desde appsettings.json
+            // Cargar configuraci锟絥 desde appsettings.json
             var builder = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -42,40 +52,75 @@ namespace GestionVentasCel
             // Guardar la connection string
             string connectionString = config.GetConnectionString("DefaultConnection");
 
+            // Verificar que la connection string no est茅 vac铆a
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                MessageBox.Show("Error: No se encontr贸 la cadena de conexi贸n en appsettings.json", "Error de Configuraci贸n", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Configurar el contenedor de servicios
             var services = new ServiceCollection();
 
-            // Registrar DbContext como singleton o scoped seg鷑 tu necesidad
+            // Registrar DbContext como singleton o scoped seg锟絥 tu necesidad
             services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)))
+                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)), 
+                    mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 10,
+                        maxRetryDelay: TimeSpan.FromSeconds(60),
+                        errorNumbersToAdd: null)
+                    .CommandTimeout(120))
             );
 
             // Registrar repositorios
             services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
             services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
             services.AddTransient<IArticuloRepository, ArticuloRepositoryImpl>();
+            services.AddTransient<IProveedorRepository, ProveedorRepositoryImpl>();
+            services.AddTransient<ICompraRepository, CompraRepositoryImpl>();
+            services.AddTransient<IDetalleCompraRepository, DetalleCompraRepositoryImpl>();
 
 
             // Registrar servicios
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
             services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
             services.AddTransient<IArticuloService, ArticuloServiceImpl>();
+            services.AddTransient<IProveedorService, ProveedorServiceImpl>();
+            services.AddTransient<ICompraService, CompraServiceImpl>();
 
             // Registrar controllers
             services.AddTransient<UsuarioController>();
             services.AddTransient<CategoriaController>();
             services.AddTransient<ArticuloController>();
+            services.AddTransient<ProveedorController>();
+            services.AddTransient<CompraController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();
 
-            // Construir el proveedor de servicios
-            var serviceProvider = services.BuildServiceProvider();
+            try
+            {
+                // Construir el proveedor de servicios
+                var serviceProvider = services.BuildServiceProvider();
 
-            // Obtener el form principal con todas las dependencias resueltas
-            var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+                // Verificar la conexi贸n a la base de datos
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    context.Database.OpenConnection();
+                    context.Database.CloseConnection();
+                }
 
-            Application.Run(loginForm);
+                // Obtener el form principal con todas las dependencias resueltas
+                var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+
+                Application.Run(loginForm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al conectar con la base de datos:\n\n{ex.Message}\n\nVerifica que:\n- MySQL est茅 ejecut谩ndose\n- La base de datos 'dbsistemaprogramacion' exista\n- Las credenciales sean correctas", 
+                    "Error de Conexi贸n", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

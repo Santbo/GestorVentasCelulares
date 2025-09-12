@@ -1,0 +1,317 @@
+﻿ 
+using System;
+using GestionVentasCel.data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+#nullable disable
+
+namespace GestionVentasCel.Migrations
+{
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20250911223113_ProveedoresYCompras")]
+    partial class ProveedoresYCompras
+    {
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        {
+#pragma warning disable 612, 618
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Aviso_stock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("Articulos");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Observaciones")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<int>("ProveedorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProveedorId");
+
+                    b.ToTable("Compras");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.DetalleCompra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompraId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("CompraId");
+
+                    b.ToTable("DetallesCompra");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.persona.Persona", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Apellido")
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Calle")
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Ciudad")
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("CondicionIVA")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Dni")
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Telefono")
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
+
+                    b.Property<int?>("TipoDocumento")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Personas", (string)null);
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.proveedor.Proveedor", b =>
+                {
+                    b.HasBaseType("GestionVentasCel.models.persona.Persona");
+
+                    b.Property<string>("Observaciones")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.ToTable("Proveedores", (string)null);
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.usuario.Usuario", b =>
+                {
+                    b.HasBaseType("GestionVentasCel.models.persona.Persona");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Rol")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.categoria.Categoria", "Categoria")
+                        .WithMany("Articulos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.proveedor.Proveedor", "Proveedor")
+                        .WithMany()
+                        .HasForeignKey("ProveedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proveedor");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.DetalleCompra", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.compra.Compra", "Compra")
+                        .WithMany("Detalles")
+                        .HasForeignKey("CompraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Compra");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.proveedor.Proveedor", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.persona.Persona", null)
+                        .WithOne()
+                        .HasForeignKey("GestionVentasCel.models.proveedor.Proveedor", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.usuario.Usuario", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.persona.Persona", null)
+                        .WithOne()
+                        .HasForeignKey("GestionVentasCel.models.usuario.Usuario", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
+                {
+                    b.Navigation("Articulos");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
+                {
+                    b.Navigation("Detalles");
+                });
+#pragma warning restore 612, 618
+        }
+    }
+}
