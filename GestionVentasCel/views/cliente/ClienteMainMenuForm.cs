@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -49,9 +48,13 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
 
             // Añadir la columna que establece el estado de la cuenta corriente
-            dgvListarClientes.Columns.Add(
-                "CuentaCorrienteTexto", "Cuenta corriente"
-            );
+            if (dgvListarClientes.Columns["CuentaCorrienteTexto"] == null)
+            {
+                dgvListarClientes.Columns.Add(
+                    "CuentaCorrienteTexto", "Cuenta corriente"
+                );
+
+            }
 
             // Organizar el orden de las columnas
             dgvListarClientes.Columns["Nombre"].DisplayIndex = 0;
@@ -75,7 +78,7 @@ namespace GestionVentasCel.views.usuario_empleado
                     if (row.DataBoundItem is Cliente cliente)
                     {
                         row.Cells["CuentaCorrienteTexto"].Value = cliente.CuentaCorriente == null ?
-                            "No tiene": "Activa";
+                            "No tiene" : "Activa";
                     }
                 }
             };

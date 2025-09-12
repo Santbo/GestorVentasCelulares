@@ -1,6 +1,4 @@
 ﻿using GestionVentasCel.data;
-using GestionVentasCel.exceptions.cliente;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 using Microsoft.EntityFrameworkCore;
 

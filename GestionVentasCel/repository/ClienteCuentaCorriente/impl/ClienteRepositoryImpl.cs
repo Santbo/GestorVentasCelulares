@@ -64,6 +64,14 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
             return _context.Clientes.FirstOrDefault(c => c.Id == id);
         }
 
+        public IEnumerable<Cliente> ObtenerClientesSinCuentas()
+        {
+            return _context.Clientes
+                .Where(c => c.Activo && c.CuentaCorriente == null)
+                .AsNoTracking()
+                .ToList();
+        }
+
         public void Update(Cliente cliente)
         {
             _context.Clientes.Update(cliente);

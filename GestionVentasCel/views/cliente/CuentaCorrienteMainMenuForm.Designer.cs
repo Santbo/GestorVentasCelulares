@@ -101,7 +101,6 @@
             btnUpdate.TabIndex = 1;
             btnUpdate.Text = "Actualizar";
             btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnAgregar
             // 

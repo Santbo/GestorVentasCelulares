@@ -100,7 +100,7 @@ namespace GestionVentasCel.service.cliente.impl
             _repoCuentaCorriente.Add(
                 new CuentaCorriente
                 {
-                    Id = cliente.Id,
+                    Cliente = cliente,
                 });
         }
 
@@ -285,6 +285,11 @@ namespace GestionVentasCel.service.cliente.impl
             }
 
             return total;
+        }
+
+        public IEnumerable<Cliente> ObtenerClientesSinCuentas()
+        {
+            return _repo.ObtenerClientesSinCuentas();
         }
     }
 }

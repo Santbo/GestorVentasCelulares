@@ -5,7 +5,6 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
-using GestionVentasCel.models.persona;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -22,14 +21,14 @@ namespace GestionVentasCel.views.usuario_empleado
             InitializeComponent();
             _clienteController = clienteController;
             _serviceProvider = serviceProvider;
-            CargarClientes();
+            CargarCuentas();
 
         }
 
         //Se crea un bindingList de cliente y se lo agrega al DGV
         //El BindingList a diferencia del List, actualiza el DGV si hay un cambio en los Objetos
         //Se crea un bindingSource para poder filtrar entre usuarios activos e inactivos
-        private void CargarClientes()
+        private void CargarCuentas()
         {
             var listaClientes = _clienteController.ObtenerCuentasCorrientes().ToList();
 
@@ -52,14 +51,21 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarCuentas.Columns["ClienteId"].Visible = false;
             dgvListarCuentas.Columns["Movimientos"].Visible = false;
 
-            // Añadir las dos columnas extra
-            dgvListarCuentas.Columns.Add(
-                "Saldo", "Saldo actual"
-            );
+            // Añadir las dos columnas extra si no existen ya
+            if (dgvListarCuentas.Columns["Saldo"] == null)
+            {
+                dgvListarCuentas.Columns.Add(
+                    "Saldo", "Saldo actual"
+                );
+            }
 
-            dgvListarCuentas.Columns.Add(
-                "FechaUltimo", "Último movimiento"
-            );
+            if (dgvListarCuentas.Columns["FechaUltimo"] == null)
+            {
+                dgvListarCuentas.Columns.Add(
+                    "FechaUltimo", "Último movimiento"
+                );
+
+            }
             // y organizarlas
             dgvListarCuentas.Columns["Cliente"].DisplayIndex = 0;
             dgvListarCuentas.Columns["Saldo"].DisplayIndex = 1;
@@ -112,12 +118,12 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
 
                     // Actualizo en la BD
-                    _clienteController.ToggleActivo(id);
+                    _clienteController.ToggleActivoCuentaCorriente(id);
 
                     // Actualizo en memoria
-                    var usuario = _cuentas.FirstOrDefault(u => u.Id == id);
-                    if (usuario != null)
-                        usuario.Activo = !usuario.Activo;
+                    var cuenta = _cuentas.FirstOrDefault(u => u.Id == id);
+                    if (cuenta != null)
+                        cuenta.Activo = !cuenta.Activo;
 
                     // Reaplico el filtro inmediatamente
                     AplicarFiltro();
@@ -155,7 +161,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            var resultado = MessageBox.Show("¿La persona ya existe en el sistema?", "Agregar un nuevo cliente",
+            var resultado = MessageBox.Show("¿El cliente ya existe en el sistema?", "Agregar una nueva cuenta corriente",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Cancel)
@@ -163,16 +169,18 @@ namespace GestionVentasCel.views.usuario_empleado
                 return;
             }
 
+            // Crear un cliente nulo que va a ser utilizado despues para crear la cuenta
+            // Ese cliente puede venir de dos lugares:
+            //      Si existe ya el cliente, el form SeleccionarClienteForm lo va a seleccionar
+            //      Si no existe ya el cliente, el form AgregarEditarClienteForm lo va a crear y se va a setear el cliente creado en ese cliente nulo
             Cliente? cliente = null;
-            Persona? persona = null;
 
             if (resultado == DialogResult.Yes)
             {
-                // La persona ya existe, entonces se debería mostrar el formulario con la lista de personas que no tengan 
-                // asociado un cliente. Por tanto, Cliente debería no ser nulo al terminar esto. Si no, debería salirse de
-                // esta función.
+                // El cliente ya existe, por lo cual se abre un formulario para seleccionar, que solo muestra aquellos
+                // clientes que no tienen una cuenta corriente asociada.
 
-                using (var form = new SeleccionarPersonaForm(clienteController: _clienteController, persona: persona))
+                using (var form = new SeleccionarClienteForm(clienteController: _clienteController))
                 {
                     if (form.ShowDialog() == DialogResult.Cancel)
                     {
@@ -180,65 +188,38 @@ namespace GestionVentasCel.views.usuario_empleado
                     }
                     else
                     {
-                        persona = form.PersonaSeleccionada;
+                        // Si se lo seleccionó correctamente, asignarlo al cliente nulo que se creó arriba
+                        cliente = form.ClienteSeleccionado;
                     }
                 }
 
 
             }
-
-            // Esto tiene que cambiar, pero la lógica es literalmente igual que la de agregar cliente, salvo que el form debe 
-            // devolver la cuenta corriente
-
-            using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente, persona: persona))
+            else if (resultado == DialogResult.No)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    cliente = form.ClienteCreado;
-                    MessageBox.Show("La cuenta corriente se agregó correctamente", "Cuenta agregada");
-                    CargarClientes();
-                }
 
+                // El cliente no existe, por lo que hay que abrir el formulario en modo de creación
+                // Una vez creado, se asigna el cliente al cliente nulo que se tenía arriba
+
+                using (var form = new AgregarEditarClienteForm(clienteController: _clienteController))
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        cliente = form.ClienteCreado;
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
             }
 
-            _clienteController.CrearCuentaCorriente(cliente);
-
-
-
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            //if (dgvListarCuentas.CurrentRow != null)
-            //{
-            //    int id = (int)dgvListarCuentas.CurrentRow.Cells["Id"].Value;
-
-            //    var cliente = _clienteController.GetById(id);
-            //    if (cliente == null)
-            //    {
-            //        MessageBox.Show("El Cliente no fue encontrado",
-            //            "Cliente no encontrado",
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Warning);
-
-            //        return;
-            //    }
-
-            //    using (var editarCliente = new AgregarEditarClienteForm(_clienteController, cliente: cliente))
-            //    {
-            //        //si el usuario apreta guardar, muestra el msj y actualiza el binding
-            //        if (editarCliente.ShowDialog() == DialogResult.OK)
-            //        {
-
-            //            MessageBox.Show("El cliente se actualizó correctamente",
-            //            "cliente Guardado",
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Information);
-
-            //            CargarClientes();
-            //        }
-            //    }
-            //}
+            // Sea cual sea el camino que se tomó, ahora se tiene un cliente listo para ser usado para crear una cuenta.
+            _clienteController.CrearCuentaCorriente(cliente!);
+            MessageBox.Show("La cuenta corriente se agregó correctamente", "Cuenta agregada");
+            CargarCuentas();
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)

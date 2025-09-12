@@ -9,5 +9,6 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente
         void Add(Cliente cliente);
         void Update(Cliente cliente);
         bool Exist(int id);
+        IEnumerable<Cliente> ObtenerClientesSinCuentas();
     }
 }

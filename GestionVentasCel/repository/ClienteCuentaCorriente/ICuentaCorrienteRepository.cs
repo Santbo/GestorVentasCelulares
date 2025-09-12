@@ -1,5 +1,4 @@
-﻿using GestionVentasCel.models.clientes;
-using GestionVentasCel.models.CuentaCorreinte;
+﻿using GestionVentasCel.models.CuentaCorreinte;
 
 namespace GestionVentasCel.repository.ClienteCuentaCorriente
 {

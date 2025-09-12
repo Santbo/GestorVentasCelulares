@@ -1,5 +1,4 @@
-﻿using GestionVentasCel.enumerations.persona;
-using GestionVentasCel.models.clientes;
+﻿using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.service.cliente;
@@ -65,6 +64,11 @@ namespace GestionVentasCel.controller.cliente
         public void CrearCuentaCorriente(Cliente cliente)
         {
             _service.CrearCuentaCorriente(cliente);
+        }
+
+        public IEnumerable<Cliente> ObtenerClientesSinCuentas()
+        {
+            return _service.ObtenerClientesSinCuentas();
         }
     }
 }

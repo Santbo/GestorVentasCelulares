@@ -35,6 +35,9 @@
 	  <Compile Update="views\cliente\CuentaCorrienteMainMenuForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="views\cliente\SeleccionarClienteForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="views\cliente\SeleccionarPersonaForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

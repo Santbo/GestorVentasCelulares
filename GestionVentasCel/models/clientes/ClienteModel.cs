@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
-using Microsoft.VisualStudio.TextTemplating;
 
 namespace GestionVentasCel.models.clientes
 {
