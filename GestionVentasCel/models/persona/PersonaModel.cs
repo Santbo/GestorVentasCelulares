@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using GestionVentasCel.enumerations.persona;
 
 namespace GestionVentasCel.models.persona
@@ -15,14 +16,16 @@ namespace GestionVentasCel.models.persona
         [MaxLength(45)]
         public string? Apellido { get; set; }
 
+        [DisplayName("Tipo de documento")]
         public TipoDocumentoEnum? TipoDocumento { get; set; }
 
+        [DisplayName("N° de documento")]
         [MaxLength(45)]
         // Esto debería llamarse de otra forma, pero cambiarlo require cambiar lógica d enegocios así que se queda en DNI
         public string? Dni { get; set; }
 
 
-
+        [DisplayName("Teléfono")]
         [MaxLength(18)]
         public string? Telefono { get; set; }
 
