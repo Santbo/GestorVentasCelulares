@@ -58,7 +58,6 @@ namespace GestionVentasCel.service.cliente.impl
 
             persona.TipoDocumento = TipoDocumento;
             persona.Dni = Dni;
-            persona.CondicionIVA = CondicionIVA;
 
             _repoPersona.Update(persona);
 

@@ -37,10 +37,9 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
                 persona.Telefono = cliente.Telefono;
                 persona.TipoDocumento = cliente.TipoDocumento;
                 persona.Dni = cliente.Dni;
-                persona.CondicionIVA = cliente.CondicionIVA;
 
                 // Esta es literalmente la única forma de que se pueda insertar un cliente a una persona existente
-                _context.Database.ExecuteSqlRaw("INSERT INTO clientes (Id) VALUES ({0})", persona.Id);
+                _context.Database.ExecuteSqlRaw("INSERT INTO clientes (Id, CondicionIVA) VALUES ({0}, {1})", persona.Id, cliente.CondicionIVA);
 
             }
 

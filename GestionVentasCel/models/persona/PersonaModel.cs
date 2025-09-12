@@ -21,7 +21,7 @@ namespace GestionVentasCel.models.persona
         // Esto debería llamarse de otra forma, pero cambiarlo require cambiar lógica d enegocios así que se queda en DNI
         public string? Dni { get; set; }
 
-        public CondicionIVAEnum? CondicionIVA { get; set; }
+
 
         [MaxLength(18)]
         public string? Telefono { get; set; }

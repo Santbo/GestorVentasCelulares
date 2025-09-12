@@ -36,7 +36,6 @@ namespace GestionVentasCel.views.usuario_empleado
                         Apellido = persona.Apellido,
                         TipoDocumento = persona.TipoDocumento,
                         Dni = persona.Dni,
-                        CondicionIVA = persona.CondicionIVA,
                         Telefono = persona.Telefono,
                         Email = persona.Email,
                         Calle = persona.Calle,
