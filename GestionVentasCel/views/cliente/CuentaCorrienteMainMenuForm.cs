@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Data;
 using System.Globalization;
-using System.Security.AccessControl;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -232,7 +231,9 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             if (dgvListarCuentas.CurrentRow != null)
             {
-                if ((string)dgvListarCuentas.CurrentRow.Cells["UltimoMovimiento"].Value == "No hay movimientos")
+                // En teoría, la fecha siempre tiene que ser datetime. Esto se va a romper si en algun momento se cambia el tipo 
+                // del dato.
+                if (dgvListarCuentas.CurrentRow.Cells["FechaUltimo"].Value is not DateTime)
                 {
                     MessageBox.Show("No hay movimientos registrados", "No hay movimientos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -240,17 +241,13 @@ namespace GestionVentasCel.views.usuario_empleado
 
                 CuentaCorriente cuenta = dgvListarCuentas.CurrentRow.DataBoundItem as CuentaCorriente;
 
-                //using (var form = new MovimientosMainMenuForm(_clienteController, CuentaCorriente: cuenta))
-                //{
+                using (var form = new MovimientosCCMainMenuForm(_clienteController, CuentaCorriente: cuenta!))
+                {
+                    form.ShowDialog();
+                }
 
-                //}
-
-
-
-
-
-
-            } else
+            }
+            else
             {
                 MessageBox.Show("Debe seleccionar una cuenta corriente para ver sus movimientos", "No seleccionó cuenta", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
