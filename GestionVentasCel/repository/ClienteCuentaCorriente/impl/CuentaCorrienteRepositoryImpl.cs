@@ -33,16 +33,15 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
         public IEnumerable<CuentaCorriente> GetAll()
         {
             return _context.CuentasCorrientes
-                .Include(cc => cc.ClienteId)
+                .Include(cc => cc.Cliente)
                 .Include(cc => cc.Movimientos)
-                .AsNoTracking()
                 .ToList();
         }
 
         public CuentaCorriente? GetByClienteId(int clienteId)
         {
             return _context.CuentasCorrientes
-                .Include(c => c.ClienteId)
+                .Include(c => c.Cliente)
                 .Include(cc => cc.Movimientos)
                 .FirstOrDefault(cc => cc.ClienteId == clienteId);
         }
@@ -50,7 +49,7 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
         public CuentaCorriente? GetById(int id)
         {
             return _context.CuentasCorrientes
-                .Include(c => c.ClienteId)
+                .Include(c => c.Cliente)
                 .Include(cc => cc.Movimientos)
                 .FirstOrDefault(cc => cc.Id == id);
         }

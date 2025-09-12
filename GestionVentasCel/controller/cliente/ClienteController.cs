@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.service.cliente;
 
@@ -72,6 +73,13 @@ namespace GestionVentasCel.controller.cliente
         public Persona? GetPersonaById(int id)
         {
             return _service.GetPersonaById(id);
+        }
+
+        public IEnumerable<CuentaCorriente> ObtenerCuentasCorrientes() => _service.ObtenerCuentasCorrientes();
+
+        public void ToggleActivoCuentaCorriente(int id)
+        {
+            _service.ToggleActivoCuentaCorriente(id);
         }
     }
 }

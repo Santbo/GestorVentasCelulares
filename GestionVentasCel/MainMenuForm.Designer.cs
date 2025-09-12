@@ -99,6 +99,7 @@
             gestionarCuentasCorrientesToolStripMenuItem.Name = "gestionarCuentasCorrientesToolStripMenuItem";
             gestionarCuentasCorrientesToolStripMenuItem.Size = new Size(342, 34);
             gestionarCuentasCorrientesToolStripMenuItem.Text = "Gestionar Cuentas Corrientes";
+            gestionarCuentasCorrientesToolStripMenuItem.Click += gestionarCuentasCorrientesToolStripMenuItem_Click;
             // 
             // panelContenedor
             // 

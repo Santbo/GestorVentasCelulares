@@ -239,5 +239,25 @@ namespace GestionVentasCel.service.cliente.impl
         {
             return _repoPersona.GetById(id);
         }
+
+        public IEnumerable<CuentaCorriente> ObtenerCuentasCorrientes()
+        {
+            return _repoCuentaCorriente.GetAll();
+        }
+
+        public void ToggleActivoCuentaCorriente(int id)
+        {
+            var cliente = _repoCuentaCorriente.GetById(id);
+
+            if (cliente != null)
+            {
+                cliente.Activo = !cliente.Activo;
+                _repoCuentaCorriente.Update(cliente);
+            }
+            else
+            {
+                throw new ClienteInexistenteException("Se intentó togglear el activo de un usuario que no existe.");
+            }
+        }
     }
 }

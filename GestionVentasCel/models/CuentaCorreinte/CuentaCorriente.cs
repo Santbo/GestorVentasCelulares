@@ -7,7 +7,9 @@ namespace GestionVentasCel.models.CuentaCorreinte
         public int Id { get; set; }
 
         public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; } = null!;
+        public Cliente Cliente { get; set; }
+
+        public bool Activo { get; set; } = true;
 
 
         // Movimientos de la cuenta

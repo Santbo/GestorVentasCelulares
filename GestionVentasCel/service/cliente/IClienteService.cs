@@ -64,5 +64,7 @@ namespace GestionVentasCel.service.cliente
 
         IEnumerable<Persona> ObtenerPersonasSinClientes();
         Persona? GetPersonaById(int id);
+        IEnumerable<CuentaCorriente> ObtenerCuentasCorrientes();
+        void ToggleActivoCuentaCorriente(int id);
     }
 }
