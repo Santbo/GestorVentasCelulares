@@ -5,6 +5,7 @@ using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.persona;
 using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
@@ -16,13 +17,37 @@ namespace GestionVentasCel.views.usuario_empleado
 
         public Cliente _cliente { get; set; }
         private BindingSource _clienteBinding;
-        public AgregarEditarClienteForm(ClienteController clienteController, Cliente? cliente = null)
+        public AgregarEditarClienteForm(ClienteController clienteController, Cliente? cliente = null, Persona? persona = null)
         {
             InitializeComponent();
             _clienteController = clienteController;
             _editando = cliente != null;
 
-            _cliente = _editando ? cliente! : new Cliente();
+            // Si se recibió una persona, es porque se tienen que usar esos datos para crear el nuevo cliente
+            // Si no, entonces es crear un cliente nuevo, o usar el que pasaron.
+            if (persona != null)
+            {
+                _cliente = _editando
+                    ? cliente!
+                    : new Cliente
+                    {
+                        Id = persona.Id,
+                        Nombre = persona.Nombre,
+                        Apellido = persona.Apellido,
+                        TipoDocumento = persona.TipoDocumento,
+                        Dni = persona.Dni,
+                        CondicionIVA = persona.CondicionIVA,
+                        Telefono = persona.Telefono,
+                        Email = persona.Email,
+                        Calle = persona.Calle,
+                        Ciudad = persona.Ciudad,
+                        Activo = persona.Activo
+                    };
+            }
+            else
+            {
+                _cliente = _editando ? cliente! : new Cliente();
+            }
 
             CrearBindings();
 

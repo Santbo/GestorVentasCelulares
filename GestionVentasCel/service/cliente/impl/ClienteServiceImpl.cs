@@ -235,5 +235,10 @@ namespace GestionVentasCel.service.cliente.impl
 
             _repo.Add(cliente);
         }
+
+        public Persona? GetPersonaById(int id)
+        {
+            return _repoPersona.GetById(id);
+        }
     }
 }

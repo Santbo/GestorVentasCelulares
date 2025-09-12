@@ -63,5 +63,6 @@ namespace GestionVentasCel.service.cliente
         Cliente? GetById(int id);
 
         IEnumerable<Persona> ObtenerPersonasSinClientes();
+        Persona? GetPersonaById(int id);
     }
 }

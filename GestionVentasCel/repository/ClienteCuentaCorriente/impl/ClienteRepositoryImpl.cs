@@ -1,9 +1,12 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.persona;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 {
+    internal class PersonaProxy : Persona { }
+
     public class ClienteRepositoryImpl : IClienteRepository
     {
         private readonly AppDbContext _context;
@@ -15,7 +18,32 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 
         public void Add(Cliente cliente)
         {
-            _context.Clientes.Add(cliente);
+            if (cliente.Id == 0)
+            {
+                // Hay que agregar una nueva persona y un cliente si la id es 0, porque significa que se quiere crear uno nuevo
+                _context.Clientes.Add(cliente);
+            }
+            else
+            {
+                // Actualizar la persona por separado, porque si no EF se vuelve loco con la id
+                var persona = _context.Personas.FirstOrDefault(p => p.Id == cliente.Id);
+
+                persona.Nombre = cliente.Nombre;
+                persona.Apellido = cliente.Apellido;
+                persona.Email = cliente.Email;
+                persona.Ciudad = cliente.Ciudad;
+                persona.Calle = cliente.Calle;
+
+                persona.Telefono = cliente.Telefono;
+                persona.TipoDocumento = cliente.TipoDocumento;
+                persona.Dni = cliente.Dni;
+                persona.CondicionIVA = cliente.CondicionIVA;
+
+                // Esta es literalmente la única forma de que se pueda insertar un cliente a una persona existente
+                _context.Database.ExecuteSqlRaw("INSERT INTO clientes (Id) VALUES ({0})", persona.Id);
+
+            }
+
             _context.SaveChanges();
         }
 

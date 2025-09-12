@@ -16,6 +16,7 @@ namespace GestionVentasCel.repository.persona.impl
         public Persona? GetById(int id)
         {
             return _context.Personas
+                .AsNoTracking()
                 .FirstOrDefault(p => p.Id == id);
         }
 

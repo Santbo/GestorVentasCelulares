@@ -1,13 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Data;
 using GestionVentasCel.controller.cliente;
-using GestionVentasCel.controller.usuario;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.cliente;
-using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.clientes;
-using GestionVentasCel.models.usuario;
-using Microsoft.Extensions.DependencyInjection;
+using GestionVentasCel.models.persona;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -126,6 +122,7 @@ namespace GestionVentasCel.views.usuario_empleado
             }
 
             Cliente? cliente = null;
+            Persona? persona = null;
 
             if (resultado == DialogResult.Yes)
             {
@@ -133,10 +130,21 @@ namespace GestionVentasCel.views.usuario_empleado
                 // asociado un cliente. Por tanto, Cliente debería no ser nulo al terminar esto. Si no, debería salirse de
                 // esta función.
 
+                using (var form = new SeleccionarPersonaForm(clienteController: _clienteController, persona: persona))
+                {
+                    if (form.ShowDialog() == DialogResult.Cancel)
+                    {
+                        return;
+                    } else
+                    {
+                        persona = form.PersonaSeleccionada;
+                    }
+                }
+
 
             }
 
-            using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente))
+            using (var form = new AgregarEditarClienteForm(clienteController: _clienteController, cliente: cliente, persona: persona))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {

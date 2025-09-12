@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.persona;
 using GestionVentasCel.service.cliente;
 
 namespace GestionVentasCel.controller.cliente
@@ -51,6 +52,7 @@ namespace GestionVentasCel.controller.cliente
         }
 
         public IEnumerable<Cliente> ObtenerClientes() => _service.ListarClientes();
+        public IEnumerable<Persona> ObtenerPersonasSinClientes() => _service.ObtenerPersonasSinClientes();
 
         public void ToggleActivo(int id)
         {
@@ -62,9 +64,14 @@ namespace GestionVentasCel.controller.cliente
             return _service.GetById(id);
         }
 
-        internal void ActualizarCliente(Cliente cliente)
+        public void ActualizarCliente(Cliente cliente)
         {
             _service.UpdateCliente(cliente);
+        }
+
+        public Persona? GetPersonaById(int id)
+        {
+            return _service.GetPersonaById(id);
         }
     }
 }
