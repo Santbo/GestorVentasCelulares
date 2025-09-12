@@ -8,7 +8,7 @@ namespace GestionVentasCel.service.cliente
     public interface IClienteService
     {
 
-        void CrearCliente (Cliente cliente);
+        void CrearCliente(Cliente cliente);
         /// <summary>
         /// Crear un nuevo cliente, pero partiendo desde una persona existente. Solamente se tiene que agregar los datos nullables en persona
         /// Hay que asegurarse de que la persona tenga una calle fijada.

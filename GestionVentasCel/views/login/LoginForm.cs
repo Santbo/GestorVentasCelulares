@@ -1,6 +1,4 @@
-﻿using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.usuario;
+﻿using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
 using Microsoft.Extensions.DependencyInjection;
 

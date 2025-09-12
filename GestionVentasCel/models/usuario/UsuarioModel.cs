@@ -16,5 +16,7 @@ namespace GestionVentasCel.models.usuario
         [Required]
         public RolEnum Rol { get; set; }
 
+        public bool Activo { get; set; } = true;
+
     }
 }

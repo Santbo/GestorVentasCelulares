@@ -8,5 +8,6 @@ namespace GestionVentasCel.models.clientes
     {
         public CuentaCorriente? CuentaCorriente { get; set; }
         public CondicionIVAEnum? CondicionIVA { get; set; }
+        public bool Activo { get; set; } = true;
     }
 }

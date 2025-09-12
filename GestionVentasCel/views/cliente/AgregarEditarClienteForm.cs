@@ -1,12 +1,8 @@
-﻿using System.Net.Mail;
-using GestionVentasCel.controller.cliente;
-using GestionVentasCel.enumerations.modoForms;
+﻿using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.persona;
-using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
-using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -40,7 +36,7 @@ namespace GestionVentasCel.views.usuario_empleado
                         Email = persona.Email,
                         Calle = persona.Calle,
                         Ciudad = persona.Ciudad,
-                        Activo = persona.Activo
+                        Activo = true
                     };
             }
             else
@@ -113,22 +109,25 @@ namespace GestionVentasCel.views.usuario_empleado
                         _clienteController.ActualizarCliente(_cliente);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
-                    } else
+                    }
+                    else
                     {
                         _clienteController.CrearCliente(_cliente);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
 
-                } catch (ArgumentException ex)
+                }
+                catch (ArgumentException ex)
                 {
                     MessageBox.Show("Error de campos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.DialogResult= DialogResult.Cancel;
+                    this.DialogResult = DialogResult.Cancel;
                     this.Close();
-                } catch (ClienteInexistenteException ex)
+                }
+                catch (ClienteInexistenteException ex)
                 {
                     MessageBox.Show("Error de base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.DialogResult= DialogResult.Cancel;
+                    this.DialogResult = DialogResult.Cancel;
                     this.Close();
                 }
             }

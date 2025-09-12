@@ -30,7 +30,6 @@
         {
             panelBtn = new Panel();
             txtBuscar = new TextBox();
-            chkMostrarInactivos = new CheckBox();
             btnCancelar = new Button();
             btnSeleccionar = new Button();
             panelContenedor = new Panel();
@@ -44,7 +43,6 @@
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
             panelBtn.Controls.Add(txtBuscar);
-            panelBtn.Controls.Add(chkMostrarInactivos);
             panelBtn.Controls.Add(btnCancelar);
             panelBtn.Controls.Add(btnSeleccionar);
             panelBtn.Dock = DockStyle.Bottom;
@@ -63,19 +61,6 @@
             txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
-            // 
-            // chkMostrarInactivos
-            // 
-            chkMostrarInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            chkMostrarInactivos.AutoSize = true;
-            chkMostrarInactivos.Location = new Point(15, 53);
-            chkMostrarInactivos.Margin = new Padding(4);
-            chkMostrarInactivos.Name = "chkMostrarInactivos";
-            chkMostrarInactivos.Size = new Size(234, 29);
-            chkMostrarInactivos.TabIndex = 3;
-            chkMostrarInactivos.Text = "Incluir personas inactivas";
-            chkMostrarInactivos.UseVisualStyleBackColor = true;
-            chkMostrarInactivos.CheckedChanged += chkMostrarInactivos_CheckedChanged;
             // 
             // btnCancelar
             // 
@@ -157,6 +142,5 @@
         private Button btnCancelar;
         private Button btnSeleccionar;
         private TextBox txtBuscar;
-        private CheckBox chkMostrarInactivos;
     }
 }

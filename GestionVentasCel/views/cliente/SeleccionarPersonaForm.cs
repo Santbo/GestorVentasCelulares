@@ -1,19 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Data;
 using GestionVentasCel.controller.cliente;
-using GestionVentasCel.controller.usuario;
-using GestionVentasCel.enumerations.modoForms;
-using GestionVentasCel.exceptions.cliente;
-using GestionVentasCel.exceptions.usuario;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
-using GestionVentasCel.models.usuario;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
-
-
     public partial class SeleccionarPersonaForm : Form
     {
         private readonly ClienteController _clienteController;
@@ -64,10 +55,6 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // punto de partida: todos los usuarios
             IEnumerable<Persona> filtrados = _personas;
-
-            // filtro por Activo
-            if (!chkMostrarInactivos.Checked)
-                filtrados = filtrados.Where(u => u.Activo);
 
             // filtro por búsqueda
             string filtro = txtBuscar.Text.Trim().ToLower();

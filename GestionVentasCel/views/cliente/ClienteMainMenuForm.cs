@@ -135,7 +135,8 @@ namespace GestionVentasCel.views.usuario_empleado
                     if (form.ShowDialog() == DialogResult.Cancel)
                     {
                         return;
-                    } else
+                    }
+                    else
                     {
                         persona = form.PersonaSeleccionada;
                     }

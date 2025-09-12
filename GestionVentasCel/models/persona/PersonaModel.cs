@@ -34,7 +34,5 @@ namespace GestionVentasCel.models.persona
 
         [MaxLength(45)]
         public string? Ciudad { get; set; }
-
-        public bool Activo { get; set; } = true;
     }
 }

@@ -131,7 +131,7 @@ namespace GestionVentasCel.service.cliente.impl
             // Como viene trackeado de la db, es mas seguro seleccionarlo desde la cuenta corriente, y eliminarlo desde la Icollection
             var movimientoDB = cuenta.Movimientos.FirstOrDefault(m => m.Id == movimiento.Id) ??
                 throw new ArgumentException("Se intentó eliminar un movimiento de una cuenta corriente a la que no pertenecía"); ;
-            
+
             cuenta.Movimientos.Remove(movimientoDB!);
 
             _repoCuentaCorriente.Update(cuenta);
