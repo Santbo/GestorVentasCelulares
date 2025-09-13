@@ -81,9 +81,16 @@ namespace GestionVentasCel.controller.cliente
             _service.ActualizarMovimientoCuentaCorriente(movimiento: movimiento);
         }
 
-        internal void EliminarMovimientoCC(MovimientoCuentaCorriente movimiento)
+        public void EliminarMovimientoCC(MovimientoCuentaCorriente movimiento)
         {
             _service.EliminarMovimiento(movimiento);
         }
+
+        public CuentaCorriente? ObtenerCuentaCorriente(Cliente cliente)
+        {
+            return _service.ObtenerCuentaCorriente(cliente);
+        }
+
+
     }
 }

@@ -56,22 +56,24 @@ namespace GestionVentasCel.views.usuario_empleado
 
             }
 
-            // Organizar el orden de las columnas
-            dgvListarClientes.Columns["Nombre"].DisplayIndex = 0;
-            dgvListarClientes.Columns["Apellido"].DisplayIndex = 1;
-            dgvListarClientes.Columns["Email"].DisplayIndex = 2;
-            dgvListarClientes.Columns["Telefono"].DisplayIndex = 3;
-            dgvListarClientes.Columns["TipoDocumento"].DisplayIndex = 4;
-            dgvListarClientes.Columns["Dni"].DisplayIndex = 5;
-            dgvListarClientes.Columns["Calle"].DisplayIndex = 6;
-            dgvListarClientes.Columns["Ciudad"].DisplayIndex = 7;
-            dgvListarClientes.Columns["CondicionIVA"].DisplayIndex = 8;
-            dgvListarClientes.Columns["Activo"].DisplayIndex = 10;
+
 
             dgvListarClientes.DataBindingComplete += (s, e) =>
             {
 
+                // Organizar el orden de las columnas despues de que se hayan bindeado todos los datos
+                dgvListarClientes.Columns["Nombre"].DisplayIndex = 0;
+                dgvListarClientes.Columns["Apellido"].DisplayIndex = 1;
+                dgvListarClientes.Columns["Email"].DisplayIndex = 2;
+                dgvListarClientes.Columns["Telefono"].DisplayIndex = 3;
+                dgvListarClientes.Columns["TipoDocumento"].DisplayIndex = 4;
+                dgvListarClientes.Columns["Dni"].DisplayIndex = 5;
+                dgvListarClientes.Columns["Calle"].DisplayIndex = 6;
+                dgvListarClientes.Columns["Ciudad"].DisplayIndex = 7;
+                dgvListarClientes.Columns["CondicionIVA"].DisplayIndex = 8;
                 dgvListarClientes.Columns["CuentaCorrienteTexto"].DisplayIndex = 9;
+                dgvListarClientes.Columns["Activo"].DisplayIndex = 10;
+
 
                 foreach (DataGridViewRow row in dgvListarClientes.Rows)
                 {
@@ -228,8 +230,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         "cliente Guardado",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-
                         CargarClientes();
+                        ConfigurarDGV();
                     }
                 }
             }

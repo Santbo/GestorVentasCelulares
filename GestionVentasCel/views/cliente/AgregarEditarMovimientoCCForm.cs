@@ -14,7 +14,8 @@ namespace GestionVentasCel.views.usuario_empleado
         private readonly bool _editando;
 
         private CuentaCorriente _cuenta { get; set; }
-        private MovimientoCuentaCorriente _movimiento { get; set; }
+        private MovimientoCuentaCorriente _movimientoEditable { get; set; }
+        private MovimientoCuentaCorriente _movimientoOriginal { get; set; }
 
         private BindingSource _movimientoBinding;
         public AgregarEditarMovimientoCCForm(
@@ -32,7 +33,19 @@ namespace GestionVentasCel.views.usuario_empleado
             _cuenta = cuentaCorriente;
             _editando = movimiento != null;
 
-            _movimiento = _editando ? movimiento : new MovimientoCuentaCorriente {  CuentaCorriente = _cuenta };
+            _movimientoOriginal = _editando ? movimiento : new MovimientoCuentaCorriente {  CuentaCorriente = _cuenta };
+
+            // Usado para descartar cambios
+            _movimientoEditable = new MovimientoCuentaCorriente
+            {
+                Id = _movimientoOriginal.Id,
+                CuentaCorrienteId = _movimientoOriginal.CuentaCorrienteId,
+                CuentaCorriente = _movimientoOriginal.CuentaCorriente,
+                Fecha = _movimientoOriginal.Fecha,
+                Monto = _movimientoOriginal.Monto,
+                Tipo = _movimientoOriginal.Tipo,
+                Descripcion = _movimientoOriginal.Descripcion
+            };
             
             CrearBindings();
 
@@ -42,7 +55,7 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             // Inicializar BindingSource
             _movimientoBinding = new BindingSource();
-            _movimientoBinding.DataSource = _movimiento;
+            _movimientoBinding.DataSource = _movimientoEditable;
 
             // Monto
             nMonto.DataBindings.Add("Value", _movimientoBinding, "Monto", true);
@@ -54,7 +67,7 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 // Setear por defecto a Now, porque si no, al guardar un movimiento, el valor queda vacío
                 dtpFecha.Value = DateTime.Now;
-                _movimiento.Fecha = dtpFecha.Value;
+                _movimientoEditable.Fecha = dtpFecha.Value;
             }
 
             // Descripcion
@@ -97,17 +110,26 @@ namespace GestionVentasCel.views.usuario_empleado
 
             if (CamposValidos())
             {
+                // Antes había un bug que, debido a que se hacian bindings directo sobre el modelo
+                // entonces cualquier cambio se propagaba por todo el modelo de CuentaCorriente e incluso el de 
+                // cliente.El tener un modelo original y uno editable asegura que solamente se cambien
+                // los datos si se presiona guardar, porque antes se cambiaban incluso si se ponía descartar.
+                _movimientoOriginal.Fecha = _movimientoEditable.Fecha;
+                _movimientoOriginal.Monto = _movimientoEditable.Monto;
+                _movimientoOriginal.Tipo = _movimientoEditable.Tipo;
+                _movimientoOriginal.Descripcion = _movimientoEditable.Descripcion;
+
                 try
                 {
                     if (_editando)
                     {
-                        _clienteController.ActualizarMovimientoCuentaCorriente(movimiento: _movimiento);
+                        _clienteController.ActualizarMovimientoCuentaCorriente(movimiento: _movimientoOriginal);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
                     {
-                        _clienteController.RegistrarMovimientoCuentaCorriente(movimiento: _movimiento);
+                        _clienteController.RegistrarMovimientoCuentaCorriente(movimiento: _movimientoOriginal);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }

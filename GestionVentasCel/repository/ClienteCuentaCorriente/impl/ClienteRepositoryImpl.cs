@@ -61,7 +61,8 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 
         public Cliente? GetById(int id)
         {
-            return _context.Clientes.FirstOrDefault(c => c.Id == id);
+            return _context.Clientes
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Cliente> ObtenerClientesSinCuentas()

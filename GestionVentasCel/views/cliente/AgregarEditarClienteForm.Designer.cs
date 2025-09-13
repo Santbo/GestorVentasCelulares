@@ -134,7 +134,7 @@
             txtTelefono.Dock = DockStyle.Bottom;
             txtTelefono.Location = new Point(0, 31);
             txtTelefono.Margin = new Padding(4);
-            txtTelefono.MaxLength = 12;
+            txtTelefono.MaxLength = 14;
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(300, 31);
             txtTelefono.TabIndex = 5;
@@ -149,6 +149,7 @@
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(300, 31);
             txtDni.TabIndex = 3;
+            txtDni.KeyPress += txtDni_KeyPress;
             // 
             // txtEmail
             // 

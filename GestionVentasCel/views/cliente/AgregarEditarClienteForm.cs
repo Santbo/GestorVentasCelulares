@@ -194,16 +194,16 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // Teléfono: Tiene el formato e.164 o entre 10 y 18 digitos
             string telefono = txtTelefono.Text.Trim();
-            if (!Regex.IsMatch(telefono, @"^\+?[0-9]{10,18}$"))
+            if (!Regex.IsMatch(telefono, @"^\+?[0-9]{10,13}$"))
             {
-                MessageBox.Show("El teléfono debe seguir el formato +549... o tener entre 10 y 18 dígitos sin caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El teléfono debe seguir el formato +549... o tener entre 10 y 13 dígitos sin caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTelefono.Focus();
                 return false;
             }
 
             // Email: Que sea un email de máximo 200 caracteres
             string email = txtEmail.Text.Trim();
-            if (email.Length > 200 || (!string.IsNullOrEmpty(email) && new EmailAddressAttribute().IsValid(email)))
+            if (email.Length > 200 || (!string.IsNullOrEmpty(email) && !(new EmailAddressAttribute().IsValid(email))))
             {
                 MessageBox.Show("El email debe ser válido, tener como máximo 200 caracteres, o estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
@@ -245,6 +245,16 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             // Permitir numeros, letras, puntos y guiones en el nombre
             if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '.' && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir unicamente números y guiones
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
                 e.Handled = true;
             }

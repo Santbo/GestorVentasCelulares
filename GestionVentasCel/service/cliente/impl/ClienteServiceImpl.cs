@@ -240,6 +240,9 @@ namespace GestionVentasCel.service.cliente.impl
             if (!cliente.CondicionIVA.HasValue)
                 throw new ArgumentException("La Condición IVA es obligatoria.");
 
+            // Asegurarse de que el cliente esté activo, había un bug de agregar clientes a personas existentes que los agregaba inactivos
+            cliente.Activo = true;
+
             _repo.Add(cliente);
         }
 
@@ -255,12 +258,12 @@ namespace GestionVentasCel.service.cliente.impl
 
         public void ToggleActivoCuentaCorriente(int id)
         {
-            var cliente = _repoCuentaCorriente.GetById(id);
+            var cuenta = _repoCuentaCorriente.GetById(id);
 
-            if (cliente != null)
+            if (cuenta != null)
             {
-                cliente.Activo = !cliente.Activo;
-                _repoCuentaCorriente.Update(cliente);
+                cuenta.Activo = !cuenta.Activo;
+                _repoCuentaCorriente.Update(cuenta);
             }
             else
             {

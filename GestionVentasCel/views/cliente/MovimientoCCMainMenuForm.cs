@@ -15,7 +15,7 @@ namespace GestionVentasCel.views.usuario_empleado
     {
         private readonly ClienteController _clienteController;
         private BindingList<MovimientoCuentaCorriente> _movimientos;
-        private readonly CuentaCorriente _cuentaCorriente;
+        private CuentaCorriente _cuentaCorriente;
         private BindingSource _bindingSource;
         public MovimientosCCMainMenuForm(ClienteController clienteController, CuentaCorriente CuentaCorriente)
         {
@@ -33,7 +33,6 @@ namespace GestionVentasCel.views.usuario_empleado
         //Se crea un bindingSource para poder filtrar entre usuarios activos e inactivos
         private void CargarMovimientos()
         {
-
             _movimientos = new BindingList<MovimientoCuentaCorriente>(_cuentaCorriente.Movimientos
                 .OrderByDescending(m => m.Fecha)
                 .ToList()
@@ -125,10 +124,8 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             using (var form = new AgregarEditarMovimientoCCForm(_clienteController, _cuentaCorriente))
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    CargarMovimientos();
-                }
+                form.ShowDialog();
+                CargarMovimientos();
             }
         }
 
@@ -156,10 +153,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
             using (var form = new AgregarEditarMovimientoCCForm(_clienteController, _cuentaCorriente, movimiento: movimiento))
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    CargarMovimientos();
-                }
+                form.ShowDialog();
+                CargarMovimientos();
             }
         }
 

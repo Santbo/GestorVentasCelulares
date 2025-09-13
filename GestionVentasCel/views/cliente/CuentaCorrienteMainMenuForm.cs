@@ -120,12 +120,8 @@ namespace GestionVentasCel.views.usuario_empleado
                     // Actualizo en la BD
                     _clienteController.ToggleActivoCuentaCorriente(id);
 
-                    // Actualizo en memoria
-                    var cuenta = _cuentas.FirstOrDefault(u => u.Id == id);
-                    if (cuenta != null)
-                        cuenta.Activo = !cuenta.Activo;
-
-                    // Reaplico el filtro inmediatamente
+                    CargarCuentas();
+                    ConfigurarDGV();
                     AplicarFiltro();
                 }
                 catch (ClienteInexistenteException ex)
@@ -134,6 +130,7 @@ namespace GestionVentasCel.views.usuario_empleado
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            
         }
 
         private void AplicarFiltro()
@@ -220,6 +217,8 @@ namespace GestionVentasCel.views.usuario_empleado
             _clienteController.CrearCuentaCorriente(cliente!);
             MessageBox.Show("La cuenta corriente se agregó correctamente", "Cuenta agregada");
             CargarCuentas();
+            ConfigurarDGV();
+            AplicarFiltro();
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -237,15 +236,11 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
                     form.FormClosed += (s, e) =>
                     {
-                        // Cuando se cierre la vista de movimientos al presionar guardar, hay que actualizar las cuentas
+                        // Cuando se cierre la vista de movimientos hay que actualizar las cuentas
                         // por si cambió el valor del saldo
-                        if (form.DialogResult == DialogResult.OK)
-                        {
-                            this.CargarCuentas();
-
-                            //TODO: Corregir el hecho de que al descartar cambios del movimiento, los datos igual se modifican, por lo que la lista d emovimientos muestra los cambios
-                            //TODO: Corregir que el campo de número de documento al agregar cliente permite ingresar letras
-                        }
+                        CargarCuentas();
+                        ConfigurarDGV();
+                        AplicarFiltro();
                     };
                     form.ShowDialog();
                 }
