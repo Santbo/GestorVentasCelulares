@@ -1,0 +1,96 @@
+﻿using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.models.persona;
+using GestionVentasCel.service.cliente;
+
+namespace GestionVentasCel.controller.cliente
+{
+    public class ClienteController
+    {
+        public readonly IClienteService _service;
+
+        public ClienteController(IClienteService service)
+        {
+            _service = service;
+        }
+
+        public void CrearCliente(Cliente cliente)
+        {
+            _service.CrearCliente(cliente);
+        }
+
+
+        public IEnumerable<Cliente> ObtenerClientes() => _service.ListarClientes();
+        public IEnumerable<Persona> ObtenerPersonasSinClientes() => _service.ObtenerPersonasSinClientes();
+
+        public void ToggleActivo(int id)
+        {
+            _service.ToggleActivo(id);
+        }
+
+        public Cliente? GetById(int id)
+        {
+            return _service.GetById(id);
+        }
+
+        public void ActualizarCliente(Cliente cliente)
+        {
+            _service.UpdateCliente(cliente);
+        }
+
+        public Persona? GetPersonaById(int id)
+        {
+            return _service.GetPersonaById(id);
+        }
+
+        public IEnumerable<CuentaCorriente> ObtenerCuentasCorrientes() => _service.ObtenerCuentasCorrientes();
+
+        public void ToggleActivoCuentaCorriente(int id)
+        {
+            _service.ToggleActivoCuentaCorriente(id);
+        }
+
+        public Decimal ObtenerSaldoCuentaCorriente(CuentaCorriente cuenta)
+        {
+            return _service.ObtenerSaldoCuentaCorriente(cuenta);
+        }
+
+
+        public DateTime? ObtenerFechaUltimoMovimiento(CuentaCorriente cuenta)
+        {
+            return _service.ObtenerFechaUltimoMovimiento(cuenta);
+        }
+
+        public void CrearCuentaCorriente(Cliente cliente)
+        {
+            _service.CrearCuentaCorriente(cliente);
+        }
+
+        public IEnumerable<Cliente> ObtenerClientesSinCuentas()
+        {
+            return _service.ObtenerClientesSinCuentas();
+        }
+
+        public void RegistrarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento)
+        {
+            _service.RegistrarMovimientoCuentaCorriente(cliente: movimiento.CuentaCorriente.Cliente, movimiento: movimiento);
+        }
+
+        public void ActualizarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento)
+        {
+            _service.ActualizarMovimientoCuentaCorriente(movimiento: movimiento);
+        }
+
+        public void EliminarMovimientoCC(MovimientoCuentaCorriente movimiento)
+        {
+            _service.EliminarMovimiento(movimiento);
+        }
+
+        public CuentaCorriente? ObtenerCuentaCorriente(Cliente cliente)
+        {
+            return _service.ObtenerCuentaCorriente(cliente);
+        }
+
+
+    }
+}
