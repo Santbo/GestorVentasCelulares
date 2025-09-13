@@ -121,8 +121,8 @@ namespace GestionVentasCel
         private void comprasMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new CompraMainMenuForm(
-                            _serviceProvider.GetRequiredService<ProveedorController>(),
-                _serviceProvider.GetRequiredService<CompraController>(),
+                            _serviceProvider.GetRequiredService<CompraController>(),
+                _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<ArticuloController>()));
         }
     }

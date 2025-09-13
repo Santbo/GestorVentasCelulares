@@ -40,7 +40,7 @@ namespace GestionVentasCel.data
 
             modelBuilder.Entity<Cliente>()
                 .Property(p => p.CondicionIVA)
-                .HasConversion<string>():
+                .HasConversion<string>();
 
 
             modelBuilder.Entity<Usuario>()
