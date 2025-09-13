@@ -1,5 +1,6 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
+using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.compra;
@@ -7,8 +8,12 @@ using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.usuario_empleado;
+
+using Microsoft.Extensions.DependencyInjection;
+
 using GestionVentasCel.views.proveedor;
 using GestionVentasCel.views.compra;
+
 
 namespace GestionVentasCel
 {
@@ -16,6 +21,14 @@ namespace GestionVentasCel
     {
         //Depende el rol que se acceda se muestran los Menu Strip
         public RolEnum RolAccedido { get; set; }
+
+        private readonly IServiceProvider _serviceProvider;
+
+        public MainMenuForm(IServiceProvider serviceProvider)
+        {
+            InitializeComponent();
+            _serviceProvider = serviceProvider;
+
         private readonly UsuarioController _usuarioController;
         private readonly CategoriaController _categoriaController;
         private readonly ArticuloController _articuloController;
@@ -33,6 +46,7 @@ namespace GestionVentasCel
             _articuloController = articuloController;
             _proveedorController = proveedorController;
             _compraController = compraController;
+
 
         }
 
@@ -73,7 +87,7 @@ namespace GestionVentasCel
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new UsuarioMainMenuForm(_usuarioController));
+            AbrirFormularioHijo(new UsuarioMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
         }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
@@ -97,12 +111,22 @@ namespace GestionVentasCel
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new CategoriaMainMenuForm(_categoriaController));
+            AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void ArticulosMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new ArticuloMainMenuForm(_articuloController, _categoriaController));
+            AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>()));
+        }
+
+        private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
+        }
+
+        private void gestionarCuentasCorrientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new CuentaCorrienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
 
         private void proveedoresMenuItem_Click(object sender, EventArgs e)
