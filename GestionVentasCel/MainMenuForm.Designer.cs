@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        
 
         /// <summary>
         ///  Required method for Designer support - do not modify
@@ -33,6 +33,12 @@
             gestionarArticulosToolStripMenuItem = new ToolStripMenuItem();
             categoriasMenuItem = new ToolStripMenuItem();
             ArticulosMenuItem = new ToolStripMenuItem();
+
+            panelContenedor = new Panel();
+            gestionarProveedoresToolStripMenuItem = new ToolStripMenuItem();
+            proveedoresMenuItem = new ToolStripMenuItem();
+            comprasMenuItem = new ToolStripMenuItem();
+
             clientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarClientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarCuentasCorrientesToolStripMenuItem = new ToolStripMenuItem();
@@ -44,7 +50,7 @@
             // 
             menuStrip1.BackColor = SystemColors.ActiveCaption;
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, gestionarProveedoresToolStripMenuItem, clientesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(8, 2, 0, 2);
@@ -80,6 +86,38 @@
             ArticulosMenuItem.Text = "Articulos";
             ArticulosMenuItem.Click += ArticulosMenuItem_Click;
             // 
+
+            // panelContenedor
+            // 
+            panelContenedor.Dock = DockStyle.Fill;
+            panelContenedor.Location = new Point(0, 33);
+            panelContenedor.Margin = new Padding(4, 4, 4, 4);
+            panelContenedor.Name = "panelContenedor";
+            panelContenedor.Size = new Size(1000, 529);
+            panelContenedor.TabIndex = 1;
+            // 
+            // gestionarProveedoresToolStripMenuItem
+            // 
+            gestionarProveedoresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { proveedoresMenuItem, comprasMenuItem });
+            gestionarProveedoresToolStripMenuItem.Name = "gestionarProveedoresToolStripMenuItem";
+            gestionarProveedoresToolStripMenuItem.Size = new Size(177, 29);
+            gestionarProveedoresToolStripMenuItem.Text = "Gestionar Proveedores";
+            // 
+            // proveedoresMenuItem
+            // 
+            proveedoresMenuItem.Name = "proveedoresMenuItem";
+            proveedoresMenuItem.Size = new Size(270, 34);
+            proveedoresMenuItem.Text = "Proveedores";
+            proveedoresMenuItem.Click += proveedoresMenuItem_Click;
+            // 
+            // comprasMenuItem
+            // 
+            comprasMenuItem.Name = "comprasMenuItem";
+            comprasMenuItem.Size = new Size(270, 34);
+            comprasMenuItem.Text = "Compras";
+            comprasMenuItem.Click += comprasMenuItem_Click;
+            // 
+
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarClientesToolStripMenuItem, gestionarCuentasCorrientesToolStripMenuItem });
@@ -129,7 +167,7 @@
             PerformLayout();
         }
 
-        #endregion
+          
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem UsuarioMenuItem;
@@ -137,6 +175,9 @@
         private ToolStripMenuItem gestionarArticulosToolStripMenuItem;
         private ToolStripMenuItem categoriasMenuItem;
         private ToolStripMenuItem ArticulosMenuItem;
+        private ToolStripMenuItem gestionarProveedoresToolStripMenuItem;
+        private ToolStripMenuItem proveedoresMenuItem;
+        private ToolStripMenuItem comprasMenuItem;
         private ToolStripMenuItem clientesToolStripMenuItem;
         private ToolStripMenuItem gestionarClientesToolStripMenuItem;
         private ToolStripMenuItem gestionarCuentasCorrientesToolStripMenuItem;

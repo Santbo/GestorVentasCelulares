@@ -2,11 +2,18 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.usuario;
+using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.compra;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.usuario_empleado;
+
 using Microsoft.Extensions.DependencyInjection;
+
+using GestionVentasCel.views.proveedor;
+using GestionVentasCel.views.compra;
+
 
 namespace GestionVentasCel
 {
@@ -14,20 +21,41 @@ namespace GestionVentasCel
     {
         //Depende el rol que se acceda se muestran los Menu Strip
         public RolEnum RolAccedido { get; set; }
+
         private readonly IServiceProvider _serviceProvider;
 
         public MainMenuForm(IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
+
+        private readonly UsuarioController _usuarioController;
+        private readonly CategoriaController _categoriaController;
+        private readonly ArticuloController _articuloController;
+        private readonly ProveedorController _proveedorController;
+        private readonly CompraController _compraController;
+        public MainMenuForm(UsuarioController usuarioController,
+                            CategoriaController categoriaController,
+                            ArticuloController articuloController,
+                            ProveedorController proveedorController,
+                            CompraController compraController)
+        {
+            InitializeComponent();
+            _usuarioController = usuarioController;
+            _categoriaController = categoriaController;
+            _articuloController = articuloController;
+            _proveedorController = proveedorController;
+            _compraController = compraController;
+
+
         }
 
         //Creamos un metodo para que la X del formulario funcione con un MessageBox
         private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var result = MessageBox.Show(
-            "¿Seguro que desea salir?",
-            "Confirmación",
+            "ï¿½Seguro que desea salir?",
+            "Confirmaciï¿½n",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question
             );
@@ -41,7 +69,7 @@ namespace GestionVentasCel
         //Metodo para abrir formularios hijos y embeberlos en el MainMenu
         private void AbrirFormularioHijo(Form formularioHijo)
         {
-            // Limpiar lo que ya esté en el panel
+            // Limpiar lo que ya estï¿½ en el panel
             if (this.panelContenedor.Controls.Count > 0)
                 this.panelContenedor.Controls.RemoveAt(0);
 
@@ -99,6 +127,16 @@ namespace GestionVentasCel
         private void gestionarCuentasCorrientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new CuentaCorrienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
+        }
+
+        private void proveedoresMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new ProveedorMainMenuForm(_proveedorController, _compraController, _articuloController));
+        }
+
+        private void comprasMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo(new CompraMainMenuForm(_compraController, _proveedorController, _articuloController));
         }
     }
 }

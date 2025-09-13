@@ -16,7 +16,28 @@
     <Compile Update="views\categoria\CategoriaMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\compra\AgregarEditarCompraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\compra\CompraMainMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\compra\FiltroFechaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\compra\VerDetallesCompraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\login\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\proveedor\AgregarEditarProveedorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\proveedor\ComprasProveedorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\proveedor\ProveedorMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="views\usuario-empleado\AgregarEditarEmpleadoForm.cs">
