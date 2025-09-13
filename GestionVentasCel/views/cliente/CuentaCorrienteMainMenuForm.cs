@@ -231,18 +231,16 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             if (dgvListarCuentas.CurrentRow != null)
             {
-                // En teoría, la fecha siempre tiene que ser datetime. Esto se va a romper si en algun momento se cambia el tipo 
-                // del dato.
-                if (dgvListarCuentas.CurrentRow.Cells["FechaUltimo"].Value is not DateTime)
-                {
-                    MessageBox.Show("No hay movimientos registrados", "No hay movimientos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
                 CuentaCorriente cuenta = dgvListarCuentas.CurrentRow.DataBoundItem as CuentaCorriente;
 
                 using (var form = new MovimientosCCMainMenuForm(_clienteController, CuentaCorriente: cuenta!))
                 {
+                    form.FormClosed += (s, e) =>
+                    {
+                        // Cuando se cierre la vista de movimientos, hay que actualizar las cuentas
+                        // por si cambió el valor del saldo
+                        this.CargarCuentas();
+                    };
                     form.ShowDialog();
                 }
 

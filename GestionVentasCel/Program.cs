@@ -84,7 +84,7 @@ namespace GestionVentasCel
 
             // Registrar forms
             services.AddTransient<LoginForm>();
-            services.AddTransient<AgregarEditarClienteForm>();
+            services.AddTransient<AgregarEditarMovimientoCCForm>();
 
             // Construir el proveedor de servicios
             var serviceProvider = services.BuildServiceProvider();

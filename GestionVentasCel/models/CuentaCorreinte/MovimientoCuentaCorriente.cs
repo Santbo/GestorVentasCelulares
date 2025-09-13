@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using GestionVentasCel.enumerations.cuentaCorriente;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,5 +17,8 @@ namespace GestionVentasCel.models.CuentaCorreinte
         public decimal Monto { get; set; }
         [Required]
         public TipoMovimiento Tipo { get; set; }
+
+        [MaxLength(255), DisplayName("Descripción")]
+        public string? Descripcion {  get; set; }
     }
 }

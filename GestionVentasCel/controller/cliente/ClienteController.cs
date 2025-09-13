@@ -70,5 +70,20 @@ namespace GestionVentasCel.controller.cliente
         {
             return _service.ObtenerClientesSinCuentas();
         }
+
+        public void RegistrarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento)
+        {
+            _service.RegistrarMovimientoCuentaCorriente(cliente: movimiento.CuentaCorriente.Cliente, movimiento: movimiento);
+        }
+
+        public void ActualizarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento)
+        {
+            _service.ActualizarMovimientoCuentaCorriente(movimiento: movimiento);
+        }
+
+        internal void EliminarMovimientoCC(MovimientoCuentaCorriente movimiento)
+        {
+            _service.EliminarMovimiento(movimiento);
+        }
     }
 }

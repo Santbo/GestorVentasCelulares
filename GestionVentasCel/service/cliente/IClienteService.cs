@@ -68,5 +68,6 @@ namespace GestionVentasCel.service.cliente
         void ToggleActivoCuentaCorriente(int id);
         DateTime? ObtenerFechaUltimoMovimiento(CuentaCorriente cuenta);
         IEnumerable<Cliente> ObtenerClientesSinCuentas();
+        void ActualizarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento);
     }
 }

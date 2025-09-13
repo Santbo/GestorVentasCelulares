@@ -181,7 +181,7 @@ namespace GestionVentasCel.service.cliente.impl
 
         public void RegistrarMovimientoCuentaCorriente(Cliente cliente, MovimientoCuentaCorriente movimiento)
         {
-            var cuenta = this.ObtenerCuentaCorriente(cliente) ?? throw new CuentaCorrienteInexistenteException("Se intentó registrar un movimiento a una cuenta corriente que no existe.");
+            var cuenta = cliente.CuentaCorriente ?? throw new CuentaCorrienteInexistenteException("Se intentó registrar un movimiento a una cuenta corriente que no existe.");
 
             cuenta.Movimientos.Add(movimiento);
 
@@ -290,6 +290,28 @@ namespace GestionVentasCel.service.cliente.impl
         public IEnumerable<Cliente> ObtenerClientesSinCuentas()
         {
             return _repo.ObtenerClientesSinCuentas();
+        }
+
+        public void ActualizarMovimientoCuentaCorriente(MovimientoCuentaCorriente movimiento)
+        {
+            var cuenta = movimiento.CuentaCorriente;
+
+            var movimientoEnDB = cuenta.Movimientos
+                .Where(m => m.Id == movimiento.Id)
+                .FirstOrDefault();
+
+            if (movimientoEnDB != null)
+            {
+                movimientoEnDB.Tipo = movimiento.Tipo;
+                movimientoEnDB.Fecha = movimiento.Fecha;
+                movimientoEnDB.Monto = movimiento.Monto;
+
+            } else
+            {
+                throw new MovimientoInexistenteException("Se intentó actualizar un movimiento de CC que no existe en la base de datos");
+            }
+
+            _repoCuentaCorriente.Update(cuenta);
         }
     }
 }

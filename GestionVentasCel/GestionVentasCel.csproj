@@ -29,6 +29,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="views\cliente\AgregarEditarMovimientoCCForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="views\cliente\AgregarEditarClienteForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

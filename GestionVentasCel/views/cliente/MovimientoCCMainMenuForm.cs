@@ -3,6 +3,8 @@ using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.cuentaCorriente;
+using GestionVentasCel.exceptions.cliente;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 
 namespace GestionVentasCel.views.usuario_empleado
@@ -32,7 +34,10 @@ namespace GestionVentasCel.views.usuario_empleado
         private void CargarMovimientos()
         {
 
-            _movimientos = new BindingList<MovimientoCuentaCorriente>(_cuentaCorriente.Movimientos.ToList());
+            _movimientos = new BindingList<MovimientoCuentaCorriente>(_cuentaCorriente.Movimientos
+                .OrderByDescending(m => m.Fecha)
+                .ToList()
+            );
 
             _bindingSource = new BindingSource();
             _bindingSource.DataSource = _movimientos;
@@ -51,37 +56,37 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // Se agregan las columnas de "Saldo", se ocultan "Movimientos",
             // Se agrega la columna "Fecha del ultimo movimiento"
-            dgvListarCuentas.DataSource = _bindingSource;
-            dgvListarCuentas.Columns["Id"].Visible = false;
-            dgvListarCuentas.Columns["CuentaCorrienteId"].Visible = false;
-            dgvListarCuentas.Columns["CuentaCorriente"].Visible = false;
-            dgvListarCuentas.Columns["Tipo"].Visible = false;
-            dgvListarCuentas.Columns["Monto"].Visible = false;
+            dgvListarMovimientos.DataSource = _bindingSource;
+            dgvListarMovimientos.Columns["Id"].Visible = false;
+            dgvListarMovimientos.Columns["CuentaCorrienteId"].Visible = false;
+            dgvListarMovimientos.Columns["CuentaCorriente"].Visible = false;
+            dgvListarMovimientos.Columns["Tipo"].Visible = false;
+            dgvListarMovimientos.Columns["Monto"].Visible = false;
 
 
 
-            if (dgvListarCuentas.Columns["MontoFormateado"] == null)
+            if (dgvListarMovimientos.Columns["MontoFormateado"] == null)
             {
-                dgvListarCuentas.Columns.Add("MontoFormateado", "Monto");
+                dgvListarMovimientos.Columns.Add("MontoFormateado", "Monto");
             }
 
             // Organizar las columnas
-            dgvListarCuentas.Columns["Fecha"].DisplayIndex = 0;
-            dgvListarCuentas.Columns["MontoFormateado"].DisplayIndex = 1;
+            dgvListarMovimientos.Columns["Fecha"].DisplayIndex = 0;
+            dgvListarMovimientos.Columns["MontoFormateado"].DisplayIndex = 1;
 
             // Establecer el formato de la celda del monto, esto no se puede hacer de otra forma
             // porque el dgv espera un decimal. De esta forma, el formato se aplcia automaticamente
 
-            dgvListarCuentas.Columns["MontoFormateado"].DefaultCellStyle.Format = "C2"; // Como moneda con dos decimales
-            dgvListarCuentas.Columns["MontoFormateado"].DefaultCellStyle.FormatProvider = new CultureInfo("es-AR"); // Como pesos
+            dgvListarMovimientos.Columns["MontoFormateado"].DefaultCellStyle.Format = "C2"; // Como moneda con dos decimales
+            dgvListarMovimientos.Columns["MontoFormateado"].DefaultCellStyle.FormatProvider = new CultureInfo("es-AR"); // Como pesos
 
 
 
-            dgvListarCuentas.DataBindingComplete += (s, e) =>
+            dgvListarMovimientos.DataBindingComplete += (s, e) =>
             {
                 // Como no se muestra el campo Tipo de movimiento, el campo MontoFormateado debería tener negativo o positivo según
                 // corresponda
-                foreach (DataGridViewRow row in dgvListarCuentas.Rows)
+                foreach (DataGridViewRow row in dgvListarMovimientos.Rows)
                 {
                     if (row.DataBoundItem is MovimientoCuentaCorriente movimiento)
                     {
@@ -118,13 +123,69 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            CargarMovimientos();
+            using (var form = new AgregarEditarMovimientoCCForm(_clienteController, _cuentaCorriente))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    CargarMovimientos();
+                }
+            }
         }
+
+
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltro();
         }
 
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            MovimientoCuentaCorriente movimiento;
+
+            if (dgvListarMovimientos.CurrentRow != null)
+            {
+                movimiento = (MovimientoCuentaCorriente)dgvListarMovimientos.CurrentRow.DataBoundItem;
+
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un movimiento para editar", "Seleccione un movimiento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (var form = new AgregarEditarMovimientoCCForm(_clienteController, _cuentaCorriente, movimiento: movimiento))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    CargarMovimientos();
+                }
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            MovimientoCuentaCorriente movimiento;
+
+            if (dgvListarMovimientos.CurrentRow != null)
+            {
+                movimiento = (MovimientoCuentaCorriente)dgvListarMovimientos.CurrentRow.DataBoundItem;
+
+                var dialogResult = MessageBox.Show("¿Está seguro que quiere eliminar el movimiento? Esta acción es irreversible", "Eliminando un movimiento", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    _clienteController.EliminarMovimientoCC(movimiento);
+                    CargarMovimientos();
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un movimiento para borrar", "Seleccione un movimiento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
 }

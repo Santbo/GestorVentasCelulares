@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             panelBtn = new Panel();
+            lblSaldoActual = new Label();
             txtBuscar = new TextBox();
-            btnToggleActivo = new Button();
-            btnVerMovimientos = new Button();
+            btnEliminar = new Button();
+            btnEditar = new Button();
             btnAgregar = new Button();
             panelContenedor = new Panel();
-            dgvListarCuentas = new DataGridView();
-            lblSaldoActual = new Label();
+            dgvListarMovimientos = new DataGridView();
             panelBtn.SuspendLayout();
             panelContenedor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvListarCuentas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvListarMovimientos).BeginInit();
             SuspendLayout();
             // 
             // panelBtn
@@ -46,8 +46,8 @@
             panelBtn.BackColor = SystemColors.ActiveCaption;
             panelBtn.Controls.Add(lblSaldoActual);
             panelBtn.Controls.Add(txtBuscar);
-            panelBtn.Controls.Add(btnToggleActivo);
-            panelBtn.Controls.Add(btnVerMovimientos);
+            panelBtn.Controls.Add(btnEliminar);
+            panelBtn.Controls.Add(btnEditar);
             panelBtn.Controls.Add(btnAgregar);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
@@ -55,6 +55,15 @@
             panelBtn.Name = "panelBtn";
             panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 0;
+            // 
+            // lblSaldoActual
+            // 
+            lblSaldoActual.AutoSize = true;
+            lblSaldoActual.Location = new Point(13, 51);
+            lblSaldoActual.Name = "lblSaldoActual";
+            lblSaldoActual.Size = new Size(117, 25);
+            lblSaldoActual.TabIndex = 5;
+            lblSaldoActual.Text = "Saldo actual: ";
             // 
             // txtBuscar
             // 
@@ -66,27 +75,29 @@
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
-            // btnToggleActivo
+            // btnEliminar
             // 
-            btnToggleActivo.Anchor = AnchorStyles.Right;
-            btnToggleActivo.Location = new Point(449, 8);
-            btnToggleActivo.Margin = new Padding(4);
-            btnToggleActivo.Name = "btnToggleActivo";
-            btnToggleActivo.Size = new Size(201, 75);
-            btnToggleActivo.TabIndex = 2;
-            btnToggleActivo.Text = "Eliminar";
-            btnToggleActivo.UseVisualStyleBackColor = true;
+            btnEliminar.Anchor = AnchorStyles.Right;
+            btnEliminar.Location = new Point(449, 8);
+            btnEliminar.Margin = new Padding(4);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(201, 75);
+            btnEliminar.TabIndex = 2;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
-            // btnVerMovimientos
+            // btnEditar
             // 
-            btnVerMovimientos.Anchor = AnchorStyles.Right;
-            btnVerMovimientos.Location = new Point(658, 8);
-            btnVerMovimientos.Margin = new Padding(4);
-            btnVerMovimientos.Name = "btnVerMovimientos";
-            btnVerMovimientos.Size = new Size(160, 75);
-            btnVerMovimientos.TabIndex = 1;
-            btnVerMovimientos.Text = "Editar";
-            btnVerMovimientos.UseVisualStyleBackColor = true;
+            btnEditar.Anchor = AnchorStyles.Right;
+            btnEditar.Location = new Point(658, 8);
+            btnEditar.Margin = new Padding(4);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(160, 75);
+            btnEditar.TabIndex = 1;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnAgregar
             // 
@@ -102,7 +113,7 @@
             // 
             // panelContenedor
             // 
-            panelContenedor.Controls.Add(dgvListarCuentas);
+            panelContenedor.Controls.Add(dgvListarMovimientos);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 0);
             panelContenedor.Margin = new Padding(4);
@@ -110,29 +121,21 @@
             panelContenedor.Size = new Size(1000, 476);
             panelContenedor.TabIndex = 1;
             // 
-            // dgvListarCuentas
+            // dgvListarMovimientos
             // 
-            dgvListarCuentas.AllowUserToAddRows = false;
-            dgvListarCuentas.AllowUserToDeleteRows = false;
-            dgvListarCuentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvListarCuentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListarCuentas.Dock = DockStyle.Fill;
-            dgvListarCuentas.Location = new Point(0, 0);
-            dgvListarCuentas.Margin = new Padding(4);
-            dgvListarCuentas.Name = "dgvListarCuentas";
-            dgvListarCuentas.ReadOnly = true;
-            dgvListarCuentas.RowHeadersWidth = 51;
-            dgvListarCuentas.Size = new Size(1000, 476);
-            dgvListarCuentas.TabIndex = 0;
-            // 
-            // lblSaldoActual
-            // 
-            lblSaldoActual.AutoSize = true;
-            lblSaldoActual.Location = new Point(13, 51);
-            lblSaldoActual.Name = "lblSaldoActual";
-            lblSaldoActual.Size = new Size(117, 25);
-            lblSaldoActual.TabIndex = 5;
-            lblSaldoActual.Text = "Saldo actual: ";
+            dgvListarMovimientos.AllowUserToAddRows = false;
+            dgvListarMovimientos.AllowUserToDeleteRows = false;
+            dgvListarMovimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvListarMovimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvListarMovimientos.Dock = DockStyle.Fill;
+            dgvListarMovimientos.Location = new Point(0, 0);
+            dgvListarMovimientos.Margin = new Padding(4);
+            dgvListarMovimientos.MultiSelect = false;
+            dgvListarMovimientos.Name = "dgvListarMovimientos";
+            dgvListarMovimientos.ReadOnly = true;
+            dgvListarMovimientos.RowHeadersWidth = 51;
+            dgvListarMovimientos.Size = new Size(1000, 476);
+            dgvListarMovimientos.TabIndex = 0;
             // 
             // MovimientosCCMainMenuForm
             // 
@@ -149,7 +152,7 @@
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
             panelContenedor.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvListarCuentas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvListarMovimientos).EndInit();
             ResumeLayout(false);
         }
 
@@ -157,9 +160,9 @@
 
         private Panel panelBtn;
         private Panel panelContenedor;
-        private DataGridView dgvListarCuentas;
-        private Button btnToggleActivo;
-        private Button btnVerMovimientos;
+        private DataGridView dgvListarMovimientos;
+        private Button btnEliminar;
+        private Button btnEditar;
         private Button btnAgregar;
         private TextBox txtBuscar;
         private Label lblSaldoActual;
