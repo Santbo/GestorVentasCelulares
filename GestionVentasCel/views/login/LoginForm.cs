@@ -1,4 +1,6 @@
+
 ﻿using GestionVentasCel.controller.usuario;
+
 using GestionVentasCel.data;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,15 +11,19 @@ namespace GestionVentasCel.views
 
         private readonly AppDbContext _context;
         private readonly UsuarioController _usuarioController;
+
         private readonly IServiceProvider _serviceProvider;
         public LoginForm(AppDbContext context,
                         IServiceProvider serviceProvider
+
                         )
         {
             InitializeComponent();
             _context = context;
+
             _serviceProvider = serviceProvider;
             _usuarioController = _serviceProvider.GetRequiredService<UsuarioController>();
+
 
         }
 
@@ -33,7 +39,9 @@ namespace GestionVentasCel.views
             if (usuario != null)
             {
                 MessageBox.Show($"Bienvenido {usuario.Username}");
+
                 var main = new MainMenuForm(_serviceProvider);
+
                 main.RolAccedido = usuario.Rol;
 
                 // Suscribirse al evento de cerrado del MainMenu
