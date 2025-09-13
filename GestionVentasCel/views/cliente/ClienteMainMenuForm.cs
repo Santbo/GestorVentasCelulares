@@ -193,6 +193,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
                     MessageBox.Show("El cliente se agregó correctamente", "Cliente agregado");
                     CargarClientes();
+                    ConfigurarDGV();
                 }
 
             }

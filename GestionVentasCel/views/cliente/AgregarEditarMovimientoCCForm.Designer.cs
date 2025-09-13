@@ -244,7 +244,6 @@
             Name = "AgregarEditarMovimientoCCForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarMovimientoCCForm_FormClosing;
-            Load += AgregarEditarEmpleadoForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nMonto).EndInit();

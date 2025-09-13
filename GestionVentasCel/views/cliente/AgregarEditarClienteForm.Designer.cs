@@ -149,7 +149,6 @@
             txtDni.Name = "txtDni";
             txtDni.Size = new Size(300, 31);
             txtDni.TabIndex = 3;
-            txtDni.KeyPress += txtDni_KeyPress;
             // 
             // txtEmail
             // 
@@ -421,7 +420,6 @@
             Name = "AgregarEditarClienteForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarEmpleadoForm_FormClosing;
-            Load += AgregarEditarEmpleadoForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

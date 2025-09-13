@@ -237,9 +237,15 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
                     form.FormClosed += (s, e) =>
                     {
-                        // Cuando se cierre la vista de movimientos, hay que actualizar las cuentas
+                        // Cuando se cierre la vista de movimientos al presionar guardar, hay que actualizar las cuentas
                         // por si cambió el valor del saldo
-                        this.CargarCuentas();
+                        if (form.DialogResult == DialogResult.OK)
+                        {
+                            this.CargarCuentas();
+
+                            //TODO: Corregir el hecho de que al descartar cambios del movimiento, los datos igual se modifican, por lo que la lista d emovimientos muestra los cambios
+                            //TODO: Corregir que el campo de número de documento al agregar cliente permite ingresar letras
+                        }
                     };
                     form.ShowDialog();
                 }

@@ -24,6 +24,10 @@ namespace GestionVentasCel.views.usuario_empleado
         )
         {
             InitializeComponent();
+
+            this.CancelButton = btnDescartar;
+
+
             _clienteController = clienteController;
             _cuenta = cuentaCorriente;
             _editando = movimiento != null;
@@ -84,6 +88,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnDescartar_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -129,97 +134,36 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // Validar si el monto es mayor a 1000000 
 
+            // Fecha: Entre el 1 de enero del 2000 y mañana. No se por qué se usarían valores distintos a estos
+            DateTime fecha = dtpFecha.Value;
+            if (fecha < new DateTime(2000, 1, 1) || fecha > DateTime.Today.AddDays(1))
+            {
+                MessageBox.Show("La fecha debe estar entre el 01/01/2000 y mañana.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpFecha.Focus();
+                return false;
+            }
 
-            //if (string.IsNullOrWhiteSpace(txtNombre.Text))
-            //{
-            //    MessageBox.Show("El Nombre es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtNombre.Focus();
-            //    return false;
-            //}
+            // Monto: > 0 y < 10,000,000
+            decimal monto = nMonto.Value;
+            if (monto <= 0 || monto >= 10000000)
+            {
+                MessageBox.Show("El monto debe ser mayor que 0 y menor que 10.000.000.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nMonto.Focus();
+                return false;
+            }
 
-            //if (string.IsNullOrWhiteSpace(txtDni.Text))
-            //{
-            //    MessageBox.Show("El Número de documento es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtDni.Focus();
-            //    return false;
-            //}
-
-            //if (!txtDni.Text.All(char.IsDigit))
-            //{
-            //    MessageBox.Show("El Número de documento solo puede contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtDni.Focus();
-            //    return false;
-            //}
-
-            //if (comboTipoMov.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Debe seleccionar un Tipo de Documento.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    comboTipoMov.Focus();
-            //    return false;
-            //}
-
-            //if (comboIVA.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Debe seleccionar una Condición IVA.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    comboIVA.Focus();
-            //    return false;
-            //}
-
-            //if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-            //{
-            //    MessageBox.Show("El Teléfono es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtTelefono.Focus();
-            //    return false;
-            //}
-
-            //if (string.IsNullOrWhiteSpace(txtCalle.Text))
-            //{
-            //    MessageBox.Show("La Calle es obligatoria.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtCalle.Focus();
-            //    return false;
-            //}
-
-            //if (string.IsNullOrWhiteSpace(txtCiudad.Text))
-            //{
-            //    MessageBox.Show("La Ciudad es obligatoria.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    txtCiudad.Focus();
-            //    return false;
-            //}
-
+            // Descripción: max 255 caracteres
+            string descripcion = txtDescripcion.Text;
+            if (descripcion.Length > 255)
+            {
+                MessageBox.Show("La descripción no puede tener más de 255 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcion.Focus();
+                return false;
+            }
 
             return true;
 
 
-
-        }
-
-        private void AgregarEditarEmpleadoForm_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Solo acepta dígitos y la tecla backspace
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
         }
     }
 }
