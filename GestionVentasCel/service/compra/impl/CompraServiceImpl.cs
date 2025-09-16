@@ -173,6 +173,12 @@ namespace GestionVentasCel.service.compra.impl
                 else
                 {
                     // Restar stock al eliminar compra
+                    // Esto es todo un tema, porque si se editó el stock manualmente, o se vendió un poco de stock 
+                    // y luego se eliminó una compra, se rompe la consistencia, porque el código elimina artículos que ya no existen
+                    // Por ejemplo, si se compran 5 teléfonos, y se venden 4, entonces quedaría un solo teléfno
+                    // Si luego de esa venta, se elimina la compra de los 5 teléfonos, el código restaría esa cantidad y quedaríamos con -4 teléfonos
+                    // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
+                    // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
                     articulo.Stock -= cantidad;
                     
                     // Si el stock llega a 0, mantener el precio actual
