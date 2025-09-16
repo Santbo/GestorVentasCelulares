@@ -16,9 +16,9 @@ namespace GestionVentasCel.service.compra.impl
         private readonly IHistorialPrecioService _historialPrecioService;
         private readonly IConfiguracionPreciosService _configuracionPreciosService;
 
-        public CompraServiceImpl(ICompraRepository repo, 
-                                    IDetalleCompraRepository detalleRepo, 
-                                    IArticuloService articuloService, 
+        public CompraServiceImpl(ICompraRepository repo,
+                                    IDetalleCompraRepository detalleRepo,
+                                    IArticuloService articuloService,
                                     IHistorialPrecioService historialPrecioService,
                                     IConfiguracionPreciosService configuracionPreciosService)
         {
@@ -37,7 +37,7 @@ namespace GestionVentasCel.service.compra.impl
         public void AgregarCompraConDetalles(Compra compra, List<DetalleCompra> detalles)
         {
 
-           
+
             if (!_configuracionPreciosService.MargenExist(1))
             {
                 throw new MargenNoAgregadoException("Margen no agregado. Por favor agrega un margen de actualizacion de precios");
@@ -56,7 +56,7 @@ namespace GestionVentasCel.service.compra.impl
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
 
                 // Actualizar stock del artículo
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "nueva");
             }
 
             _detalleRepo.AddRange(detalles);
@@ -102,11 +102,11 @@ namespace GestionVentasCel.service.compra.impl
             // Obtener detalles existentes para revertir stock
             var detallesExistentes = _detalleRepo.GetByCompraId(compra.Id);
 
-            // Revertir stock de detalles existentes
-            foreach (var detalleExistente in detallesExistentes)
-            {
-                ActualizarStockArticulo(detalleExistente.ArticuloId, detalleExistente.Cantidad, detalleExistente.PrecioUnitario, false);
-            }
+            //// Revertir stock de detalles existentes
+            //foreach (var detalleExistente in detallesExistentes)
+            //{
+            //    ActualizarStockArticulo(detalleExistente.ArticuloId, detalleExistente.Cantidad, detalleExistente.PrecioUnitario, false);
+            //}
 
             // Actualizar la compra
             compra.Total = CalcularTotal(detalles);
@@ -122,7 +122,7 @@ namespace GestionVentasCel.service.compra.impl
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
 
                 // Actualizar stock del artículo
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "edicion");
             }
 
             _detalleRepo.AddRange(detalles);
@@ -141,7 +141,7 @@ namespace GestionVentasCel.service.compra.impl
             // Revertir stock de cada detalle
             foreach (var detalle in detalles)
             {
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, false);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "eliminacion");
             }
 
             _repo.Delete(id);
@@ -167,84 +167,131 @@ namespace GestionVentasCel.service.compra.impl
             return detalles.Sum(d => d.Cantidad * d.PrecioUnitario);
         }
 
-        private void ActualizarStockArticulo(int articuloId, int cantidad, decimal precioUnitario, bool esCompra)
+        //private void ActualizarStockArticulo(int articuloId, int cantidad, decimal precioUnitario, bool esCompra)
+        //{
+        //    var articulo = _articuloService.GetById(articuloId);
+        //    if (articulo != null)
+        //    {
+        //        if (esCompra)
+        //        {
+        //            // Agregar stock al comprar
+        //            articulo.Stock += cantidad;
+        //            var margenAumento = _configuracionPreciosService.GetById(1);
+
+        //            // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
+        //            if (articulo.Stock == cantidad || articulo.Precio == 0)
+        //            {
+        //                // Registrar cambio de precio
+        //                articulo.Precio = precioUnitario * margenAumento.MargenAumento ;
+        //                _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
+        //            } else
+        //            {
+
+
+        //                if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
+        //                {
+        //                    articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+        //                    _historialPrecioService.RegistrarCambioPrecio(
+        //                        articuloId,
+        //                        articulo.Precio,
+        //                        precioUnitario,
+        //                        "Compra (ajuste por aumento)"
+        //                    );
+        //                }
+
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Restar stock al eliminar compra
+        //            // Esto es todo un tema, porque si se editó el stock manualmente, o se vendió un poco de stock 
+        //            // y luego se eliminó una compra, se rompe la consistencia, porque el código elimina artículos que ya no existen
+        //            // Por ejemplo, si se compran 5 teléfonos, y se venden 4, entonces quedaría un solo teléfno
+        //            // Si luego de esa venta, se elimina la compra de los 5 teléfonos, el código restaría esa cantidad y quedaríamos con -4 teléfonos
+        //            // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
+        //            // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
+        //            articulo.Stock -= cantidad;
+        //            var margenAumento = _configuracionPreciosService.GetById(1);
+
+        //            // Si el stock llega a 0, mantener el precio actual
+        //            if (articulo.Stock > 0)
+        //            {
+        //                // Recuperar el precio anterior del historial
+        //                var ultimoPrecio = _historialPrecioService.GetUltimoPrecio(articuloId);
+        //                if (ultimoPrecio != null && ultimoPrecio.PrecioAnterior > 0)
+        //                {
+        //                    // Registrar cambio de precio
+        //                    articulo.Precio = ultimoPrecio.PrecioAnterior * margenAumento.MargenAumento;
+        //                    _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, ultimoPrecio.PrecioAnterior, "EliminacionCompra");
+        //                } else
+        //                {
+
+        //                    if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
+        //                    {
+        //                        articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+        //                        _historialPrecioService.RegistrarCambioPrecio(
+        //                            articuloId,
+        //                            articulo.Precio,
+        //                            precioUnitario,
+        //                            "Compra (ajuste por aumento)"
+        //                        );
+        //                    }
+        //                }
+
+
+        //            }
+        //        }
+
+        //        _articuloService.UpdateArticulo(articulo);
+        //    }
+        //}
+
+        private void ActualizarStockArticulo(int articuloId, int cantidad, decimal precioUnitario, string tipoOperacion)
         {
             var articulo = _articuloService.GetById(articuloId);
-            if (articulo != null)
+            if (articulo == null) return;
+
+            var margenAumento = _configuracionPreciosService.GetById(1);
+
+            switch (tipoOperacion)
             {
-                if (esCompra)
-                {
-                    // Agregar stock al comprar
+                case "nueva":
                     articulo.Stock += cantidad;
-                    var margenAumento = _configuracionPreciosService.GetById(1);
 
-                    // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
-                    if (articulo.Stock == cantidad || articulo.Precio == 0)
+                    if (articulo.Stock == cantidad || articulo.Precio == 0 || precioUnitario > articulo.Precio)
                     {
-                        // Registrar cambio de precio
-                        articulo.Precio = precioUnitario * margenAumento.MargenAumento ;
-                        _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
-                    } else
-                    {
-                        
-                        
-                        if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
-                        {
-                            articulo.Precio = precioUnitario * margenAumento.MargenAumento;
-                            _historialPrecioService.RegistrarCambioPrecio(
-                                articuloId,
-                                articulo.Precio,
-                                precioUnitario,
-                                "Compra (ajuste por aumento)"
-                            );
-                        }
-                        
+                        articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+                        _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra nueva");
                     }
-                }
-                else
-                {
-                    // Restar stock al eliminar compra
-                    // Esto es todo un tema, porque si se editó el stock manualmente, o se vendió un poco de stock 
-                    // y luego se eliminó una compra, se rompe la consistencia, porque el código elimina artículos que ya no existen
-                    // Por ejemplo, si se compran 5 teléfonos, y se venden 4, entonces quedaría un solo teléfno
-                    // Si luego de esa venta, se elimina la compra de los 5 teléfonos, el código restaría esa cantidad y quedaríamos con -4 teléfonos
-                    // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
-                    // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
-                    articulo.Stock -= cantidad;
-                    var margenAumento = _configuracionPreciosService.GetById(1);
+                    break;
 
-                    // Si el stock llega a 0, mantener el precio actual
+                case "edicion":
+                    // Podés decidir si sumás, restás o dejás igual el stock según el contexto
+                    articulo.Stock += cantidad;
+
+                    if (precioUnitario > articulo.Precio)
+                    {
+                        articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+                        _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra editada");
+                    }
+                    break;
+
+                case "eliminacion":
+                    articulo.Stock -= cantidad;
+
                     if (articulo.Stock > 0)
                     {
-                        // Recuperar el precio anterior del historial
                         var ultimoPrecio = _historialPrecioService.GetUltimoPrecio(articuloId);
                         if (ultimoPrecio != null && ultimoPrecio.PrecioAnterior > 0)
                         {
-                            // Registrar cambio de precio
-                            articulo.Precio = ultimoPrecio.PrecioAnterior * margenAumento.MargenAumento;
-                            _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, ultimoPrecio.PrecioAnterior, "EliminacionCompra");
-                        } else
-                        {
-                            
-                            if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
-                            {
-                                articulo.Precio = precioUnitario * margenAumento.MargenAumento;
-                                _historialPrecioService.RegistrarCambioPrecio(
-                                    articuloId,
-                                    articulo.Precio,
-                                    precioUnitario,
-                                    "Compra (ajuste por aumento)"
-                                );
-                            }
+                            articulo.Precio = ultimoPrecio.PrecioAnterior;
+                            _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, ultimoPrecio.PrecioAnterior, "Compra eliminada");
                         }
-
-
                     }
-                }
-
-                _articuloService.UpdateArticulo(articulo);
+                    break;
             }
-        }
 
+            _articuloService.UpdateArticulo(articulo);
+        }
     }
 }
