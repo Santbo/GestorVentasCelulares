@@ -1,3 +1,4 @@
+using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
@@ -38,18 +39,14 @@ namespace GestionVentasCel.views.compra
 
             lblProveedor.Text = _compra.Proveedor?.Nombre ?? "N/A";
             lblFecha.Text = _compra.Fecha.ToString("dd/MM/yyyy HH:mm");
-            lblTotal.Text = _compra.Total.ToString("C");
+            lblTotal.Text = _compra.Total.ToString("C2", new CultureInfo("es-AR"));
             lblObservaciones.Text = _compra.Observaciones ?? "Sin observaciones";
 
+            dgvDetalles.AutoGenerateColumns = false;
             // Cargar detalles en el grid
             dgvDetalles.DataSource = _compra.Detalles.ToList();
 
-            //Ocultar columnas
-            dgvDetalles.Columns["Articulo"].Visible = false;
-            dgvDetalles.Columns["ArticuloId"].Visible = false;
-            dgvDetalles.Columns["Compra"].Visible = false;
-            dgvDetalles.Columns["CompraId"].Visible = false;
-
+            
             // Configurar columnas para mostrar información relevante
             ConfigurarColumnasDetalle();
 
@@ -101,7 +98,7 @@ namespace GestionVentasCel.views.compra
                     HeaderText = "Precio Unitario",
                     DataPropertyName = "PrecioUnitario",
                     Width = 120,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", FormatProvider = new CultureInfo("es-AR") }
                 };
                 dgvDetalles.Columns.Add(columnaPrecioUnitario);
 
@@ -112,7 +109,7 @@ namespace GestionVentasCel.views.compra
                     HeaderText = "Subtotal",
                     DataPropertyName = "Subtotal",
                     Width = 120,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", FormatProvider = new CultureInfo("es-AR") }
                 };
                 dgvDetalles.Columns.Add(columnaSubtotal);
 

@@ -38,8 +38,8 @@ namespace GestionVentasCel.views.compra
 
                 // Configurar DataGridView con generación automática deshabilitada
                 dgvListarCompras.AutoGenerateColumns = false;
-                ConfigurarColumnas();
                 dgvListarCompras.DataSource = _bindingSource;
+                ConfigurarColumnas();
             }
             catch (Exception ex)
             {
@@ -54,19 +54,25 @@ namespace GestionVentasCel.views.compra
             {
                 // Limpiar columnas existentes
                 dgvListarCompras.Columns.Clear();
-
-                // Crear columna de ID (oculta)
-                var columnaId = new DataGridViewTextBoxColumn
+                if (dgvListarCompras.Columns["Id"] == null)
                 {
-                    Name = "Id",
-                    HeaderText = "ID",
-                    DataPropertyName = "Id",
-                    Width = 50,
-                    Visible = false
-                };
-                dgvListarCompras.Columns.Add(columnaId);
+                    // Crear columna de ID (oculta)
+                    var columnaId = new DataGridViewTextBoxColumn
+                    {
+                        Name = "Id",
+                        HeaderText = "ID",
+                        DataPropertyName = "Id",
+                        Width = 50,
+                    };
+                    dgvListarCompras.Columns.Add(columnaId);
+                    // Se tiene que ocultar la columna porque el Add pone automáticamente .Visible = true
+                    dgvListarCompras.Columns["Id"].Visible = false;
+
+                }
+                
 
                 // Crear columna de Fecha
+
                 var columnaFecha = new DataGridViewTextBoxColumn
                 {
                     Name = "Fecha",

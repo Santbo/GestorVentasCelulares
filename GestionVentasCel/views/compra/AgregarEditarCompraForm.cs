@@ -1,10 +1,13 @@
+using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.compra;
 using GestionVentasCel.exceptions.configPrecios;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.views.compra
 {
@@ -13,6 +16,7 @@ namespace GestionVentasCel.views.compra
         private readonly CompraController _compraController;
         private readonly ProveedorController _proveedorController;
         private readonly ArticuloController _articuloController;
+        private IEnumerable<Articulo> articulo { get; set; }
 
         public ModoFormulario Modo { get; set; }
         public Compra CompraActual { get; set; } = null!;
@@ -29,7 +33,6 @@ namespace GestionVentasCel.views.compra
             _articuloController = articuloController;
 
             CargarComboBoxes();
-            ConfigurarValidaciones();
         }
 
         private void CargarComboBoxes()
@@ -62,12 +65,12 @@ namespace GestionVentasCel.views.compra
                 cmbProveedor.ValueMember = "Id";
 
                 // Cargar artículos activos
-                var articulos = _articuloController.ObtenerArticulos()
+                articulo = _articuloController.ObtenerArticulos()
                     .Where(a => a.Activo)
                     .OrderBy(a => a.Nombre)
                     .ToList();
 
-                cmbArticulo.DataSource = articulos;
+                cmbArticulo.DataSource = articulo;
                 cmbArticulo.DisplayMember = "Nombre";
                 cmbArticulo.ValueMember = "Id";
             }
@@ -76,19 +79,6 @@ namespace GestionVentasCel.views.compra
                 MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void ConfigurarValidaciones()
-        {
-            // Configurar límites de caracteres según los atributos del modelo
-            txtObservaciones.MaxLength = 500;
-
-            // Configurar eventos de validación
-            txtObservaciones.TextChanged += ValidarLongitudCampo;
-
-            // Configurar validaciones para campos numéricos
-            numCantidad.ValueChanged += ValidarCantidad;
-            numPrecioUnitario.ValueChanged += ValidarPrecio;
         }
 
         private void AgregarEditarCompraForm_Load(object sender, EventArgs e)
@@ -119,7 +109,7 @@ namespace GestionVentasCel.views.compra
             dtpFecha.Value = CompraActual.Fecha;
             cmbProveedor.SelectedValue = CompraActual.ProveedorId;
             txtObservaciones.Text = CompraActual.Observaciones ?? "";
-            txtTotal.Text = CompraActual.Total.ToString("C");
+            txtTotal.Text = CompraActual.Total.ToString("C2", new CultureInfo("es-AR"));
 
             // Cargar detalles
             _detalles = CompraActual.Detalles?.ToList() ?? new List<DetalleCompra>();
@@ -130,16 +120,29 @@ namespace GestionVentasCel.views.compra
         {
             if (ValidarDetalle())
             {
-                // TODO: Obtener artículo seleccionado cuando se implemente la carga
-                var detalle = new DetalleCompra
-                {
-                    ArticuloId = (int)cmbArticulo.SelectedValue,
-                    Cantidad = (int)numCantidad.Value,
-                    PrecioUnitario = numPrecioUnitario.Value,
-                    Subtotal = (int)numCantidad.Value * numPrecioUnitario.Value
-                };
+                // TODO: Si se agrego anteriormente el articulo se actualiza, si no se lo agrega
 
-                _detalles.Add(detalle);
+                var detalleArticulo = _detalles.FirstOrDefault(d => d.ArticuloId == (int)cmbArticulo.SelectedValue);
+
+                if (detalleArticulo != null)
+                {
+                    detalleArticulo.Cantidad += (int)numCantidad.Value;
+                    detalleArticulo.PrecioUnitario = numPrecioUnitario.Value;
+                    detalleArticulo.Subtotal = (int)numCantidad.Value * numPrecioUnitario.Value;
+                }else
+                {
+                    var detalle = new DetalleCompra
+                    {
+                        ArticuloId = (int)cmbArticulo.SelectedValue,
+                        Articulo = cmbArticulo.SelectedItem as Articulo,
+                        Cantidad = (int)numCantidad.Value,
+                        PrecioUnitario = numPrecioUnitario.Value,
+                        Subtotal = (int)numCantidad.Value * numPrecioUnitario.Value
+                    };
+
+                    _detalles.Add(detalle);
+                }
+                    
                 ActualizarGridDetalles();
                 LimpiarCamposDetalle();
                 ActualizarTotal();
@@ -173,6 +176,7 @@ namespace GestionVentasCel.views.compra
                 dgvDetalles.Columns["ArticuloId"].Visible = false;
                 dgvDetalles.Columns["Compra"].Visible = false;
                 dgvDetalles.Columns["Articulo"].Visible = true;
+             
             }
         }
 
@@ -216,6 +220,11 @@ namespace GestionVentasCel.views.compra
         {
             if (ValidarCompra())
             {
+
+                foreach(DetalleCompra detalle in _detalles)
+                {
+                    detalle.Articulo = null;
+                }
                 try
                 {
                     if (Modo == ModoFormulario.Agregar)
@@ -314,83 +323,5 @@ namespace GestionVentasCel.views.compra
             }
         }
 
-        #region Métodos de Validación
-
-        private void ValidarLongitudCampo(object sender, EventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (textBox.Text.Length > textBox.MaxLength)
-                {
-                    textBox.BackColor = Color.LightYellow;
-                    MostrarError(textBox, $"Máximo {textBox.MaxLength} caracteres");
-                }
-                else
-                {
-                    textBox.BackColor = Color.White;
-                    LimpiarError(textBox);
-                }
-            }
-        }
-
-        private void ValidarCantidad(object sender, EventArgs e)
-        {
-            var numericUpDown = sender as NumericUpDown;
-            if (numericUpDown != null)
-            {
-                if (numericUpDown.Value <= 0)
-                {
-                    numericUpDown.BackColor = Color.LightPink;
-                    MostrarError(numericUpDown, "La cantidad debe ser mayor a 0");
-                }
-                else
-                {
-                    numericUpDown.BackColor = Color.White;
-                    LimpiarError(numericUpDown);
-                }
-            }
-        }
-
-        private void ValidarPrecio(object sender, EventArgs e)
-        {
-            var numericUpDown = sender as NumericUpDown;
-            if (numericUpDown != null)
-            {
-                if (numericUpDown.Value <= 0)
-                {
-                    numericUpDown.BackColor = Color.LightPink;
-                    MostrarError(numericUpDown, "El precio debe ser mayor a 0");
-                }
-                else if (numericUpDown.Value > 999999.99m)
-                {
-                    numericUpDown.BackColor = Color.LightYellow;
-                    MostrarError(numericUpDown, "El precio no puede ser mayor a 999,999.99");
-                }
-                else
-                {
-                    numericUpDown.BackColor = Color.White;
-                    LimpiarError(numericUpDown);
-                }
-            }
-        }
-
-        private void MostrarError(Control control, string mensaje)
-        {
-            // Crear o actualizar tooltip de error
-            var toolTip = new ToolTip();
-            toolTip.IsBalloon = true;
-            toolTip.ToolTipIcon = ToolTipIcon.Warning;
-            toolTip.Show(mensaje, control, 0, -50, 3000);
-        }
-
-        private void LimpiarError(Control control)
-        {
-            // Limpiar tooltips existentes
-            var toolTip = new ToolTip();
-            toolTip.Hide(control);
-        }
-
-        #endregion
     }
 }

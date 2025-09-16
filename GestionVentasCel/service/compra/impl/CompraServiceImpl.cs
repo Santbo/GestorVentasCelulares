@@ -176,26 +176,27 @@ namespace GestionVentasCel.service.compra.impl
                 {
                     // Agregar stock al comprar
                     articulo.Stock += cantidad;
+                    var margenAumento = _configuracionPreciosService.GetById(1);
 
                     // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
                     if (articulo.Stock == cantidad || articulo.Precio == 0)
                     {
                         // Registrar cambio de precio
+                        articulo.Precio = precioUnitario * margenAumento.MargenAumento ;
                         _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
-                        articulo.Precio = precioUnitario;
                     } else
                     {
                         
-                        var margenAumento = _configuracionPreciosService.GetById(1);
+                        
                         if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
                         {
+                            articulo.Precio = precioUnitario * margenAumento.MargenAumento;
                             _historialPrecioService.RegistrarCambioPrecio(
                                 articuloId,
                                 articulo.Precio,
                                 precioUnitario,
                                 "Compra (ajuste por aumento)"
                             );
-                            articulo.Precio = precioUnitario * margenAumento.MargenAumento;
                         }
                         
                     }
@@ -210,6 +211,7 @@ namespace GestionVentasCel.service.compra.impl
                     // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
                     // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
                     articulo.Stock -= cantidad;
+                    var margenAumento = _configuracionPreciosService.GetById(1);
 
                     // Si el stock llega a 0, mantener el precio actual
                     if (articulo.Stock > 0)
@@ -219,9 +221,24 @@ namespace GestionVentasCel.service.compra.impl
                         if (ultimoPrecio != null && ultimoPrecio.PrecioAnterior > 0)
                         {
                             // Registrar cambio de precio
+                            articulo.Precio = ultimoPrecio.PrecioAnterior * margenAumento.MargenAumento;
                             _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, ultimoPrecio.PrecioAnterior, "EliminacionCompra");
-                            articulo.Precio = ultimoPrecio.PrecioAnterior;
+                        } else
+                        {
+                            
+                            if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
+                            {
+                                articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+                                _historialPrecioService.RegistrarCambioPrecio(
+                                    articuloId,
+                                    articulo.Precio,
+                                    precioUnitario,
+                                    "Compra (ajuste por aumento)"
+                                );
+                            }
                         }
+
+
                     }
                 }
 
