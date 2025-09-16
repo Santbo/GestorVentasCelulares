@@ -159,15 +159,16 @@ namespace GestionVentasCel.service.compra.impl
                 if (esCompra)
                 {
                     // Agregar stock al comprar
-                    articulo.Stock += cantidad;
+                    articulo.Stock += cantidad; 
                     
-                    // Actualizar precio si es la primera compra o si el stock llega a 0
+                    // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
                     if (articulo.Stock == cantidad || articulo.Precio == 0)
                     {
                         // Registrar cambio de precio
                         _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
                         articulo.Precio = precioUnitario;
-                    }
+                    } //TODO: Si no es la primera compra, entonces se tiene que actualizar el precio solamente si el nuevo precio es mayor al viejo
+                      // sería un if precio * 1.51 > precio_actual then actualizar básicamente, aunque el 1.51 debería poder fijarse manualmente
                 }
                 else
                 {
