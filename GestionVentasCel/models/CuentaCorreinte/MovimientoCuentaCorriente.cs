@@ -19,6 +19,6 @@ namespace GestionVentasCel.models.CuentaCorreinte
         public TipoMovimiento Tipo { get; set; }
 
         [MaxLength(255), DisplayName("Descripción")]
-        public string? Descripcion {  get; set; }
+        public string? Descripcion { get; set; }
     }
 }

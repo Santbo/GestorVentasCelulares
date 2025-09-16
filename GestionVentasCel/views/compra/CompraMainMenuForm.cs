@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Data;
+using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.controller.articulo;
 using GestionVentasCel.models.compra;
 
 namespace GestionVentasCel.views.compra
@@ -15,8 +15,8 @@ namespace GestionVentasCel.views.compra
         private BindingList<Compra> _compras = null!;
         private BindingSource _bindingSource = null!;
 
-        public CompraMainMenuForm(CompraController compraController, 
-                                 ProveedorController proveedorController, 
+        public CompraMainMenuForm(CompraController compraController,
+                                 ProveedorController proveedorController,
                                  ArticuloController articuloController)
         {
             InitializeComponent();
@@ -43,7 +43,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar compras: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar compras: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -110,7 +110,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar columnas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al configurar columnas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -129,7 +129,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al abrir formulario de agregar: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al abrir formulario de agregar: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -157,13 +157,13 @@ namespace GestionVentasCel.views.compra
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia", 
+                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al editar compra: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al editar compra: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -187,19 +187,19 @@ namespace GestionVentasCel.views.compra
                     {
                         _compraController.EliminarCompra(id);
                         CargarCompras();
-                        MessageBox.Show("Compra eliminada correctamente.", "Éxito", 
+                        MessageBox.Show("Compra eliminada correctamente.", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia", 
+                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al eliminar compra: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al eliminar compra: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -221,13 +221,13 @@ namespace GestionVentasCel.views.compra
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia", 
+                    MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al ver detalle: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al ver detalle: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -255,7 +255,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al buscar: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -273,7 +273,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al filtrar por fecha: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al filtrar por fecha: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -287,7 +287,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al limpiar filtros: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al limpiar filtros: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

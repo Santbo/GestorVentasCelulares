@@ -1,9 +1,9 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
-using GestionVentasCel.controller.usuario;
-using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.repository.articulo.impl;
@@ -11,28 +11,28 @@ using GestionVentasCel.repository.categoria;
 using GestionVentasCel.repository.categoria.impl;
 using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ClienteCuentaCorriente.impl;
-using GestionVentasCel.repository.persona;
-using GestionVentasCel.repository.persona.impl;
-using GestionVentasCel.repository.usuario;
-using GestionVentasCel.repository.usuario.impl;
-using GestionVentasCel.repository.proveedor;
-using GestionVentasCel.repository.proveedor.impl;
 using GestionVentasCel.repository.compra;
 using GestionVentasCel.repository.compra.impl;
+using GestionVentasCel.repository.persona;
+using GestionVentasCel.repository.persona.impl;
+using GestionVentasCel.repository.proveedor;
+using GestionVentasCel.repository.proveedor.impl;
+using GestionVentasCel.repository.usuario;
+using GestionVentasCel.repository.usuario.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
-using GestionVentasCel.service.persona;
-using GestionVentasCel.service.persona.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
 using GestionVentasCel.service.cliente;
 using GestionVentasCel.service.cliente.impl;
-using GestionVentasCel.service.usuario;
-using GestionVentasCel.service.usuario.impl;
-using GestionVentasCel.service.proveedor;
-using GestionVentasCel.service.proveedor.impl;
 using GestionVentasCel.service.compra;
 using GestionVentasCel.service.compra.impl;
+using GestionVentasCel.service.persona;
+using GestionVentasCel.service.persona.impl;
+using GestionVentasCel.service.proveedor;
+using GestionVentasCel.service.proveedor.impl;
+using GestionVentasCel.service.usuario;
+using GestionVentasCel.service.usuario.impl;
 using GestionVentasCel.views;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.EntityFrameworkCore;
@@ -74,7 +74,7 @@ namespace GestionVentasCel
 
             // Registrar DbContext
             services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)), 
+                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 39)),
                     mySqlOptions => mySqlOptions.EnableRetryOnFailure(
                         maxRetryCount: 10,
                         maxRetryDelay: TimeSpan.FromSeconds(60),
@@ -86,7 +86,7 @@ namespace GestionVentasCel
             services.AddTransient<IUsuarioRepository, UsuarioRepositoryImpl>();
             services.AddTransient<ICategoriaRepository, CategoriaRepositoryImpl>();
             services.AddTransient<IArticuloRepository, ArticuloRepositoryImpl>();
-           services.AddTransient<IProveedorRepository, ProveedorRepositoryImpl>();
+            services.AddTransient<IProveedorRepository, ProveedorRepositoryImpl>();
             services.AddTransient<ICompraRepository, CompraRepositoryImpl>();
             services.AddTransient<IDetalleCompraRepository, DetalleCompraRepositoryImpl>();
 
@@ -94,28 +94,28 @@ namespace GestionVentasCel
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepositoryImpl>();
             services.AddTransient<IMovimientoCuentaCorrienteRepository, MovimientoCuentaCorrienteRepositoryImpl>();
             services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
-
+            
 
 
             // Registrar servicios
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
             services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
             services.AddTransient<IArticuloService, ArticuloServiceImpl>();
-            services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
-            services.AddTransient<ICuitValidationService, CuitValidationServiceImpl>();
             services.AddTransient<IProveedorService, ProveedorServiceImpl>();
-
             services.AddTransient<ICompraService, CompraServiceImpl>();
-           services.AddTransient<IClienteService, ClienteServiceImpl>();
+            services.AddTransient<IClienteService, ClienteServiceImpl>();
+            services.AddTransient<ICuitValidationService, CuitValidationServiceImpl>();
+            services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
+
 
 
             // Registrar controllers
             services.AddTransient<UsuarioController>();
             services.AddTransient<CategoriaController>();
             services.AddTransient<ArticuloController>();
-           services.AddTransient<ProveedorController>();
+            services.AddTransient<ProveedorController>();
             services.AddTransient<CompraController>();
-           services.AddTransient<ClienteController>();
+            services.AddTransient<ClienteController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();
@@ -141,7 +141,7 @@ namespace GestionVentasCel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al conectar con la base de datos:\n\n{ex.Message}\n\nVerifica que:\n- MySQL esté ejecutándose\n- La base de datos 'dbsistemaprogramacion' exista\n- Las credenciales sean correctas", 
+                MessageBox.Show($"Error al conectar con la base de datos:\n\n{ex.Message}\n\nVerifica que:\n- MySQL esté ejecutándose\n- La base de datos 'dbsistemaprogramacion' exista\n- Las credenciales sean correctas",
                     "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

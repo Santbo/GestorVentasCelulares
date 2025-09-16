@@ -1,11 +1,9 @@
+using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.controller.articulo;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.compra;
 using GestionVentasCel.models.compra;
-using GestionVentasCel.models.proveedor;
-using GestionVentasCel.models.articulo;
 
 namespace GestionVentasCel.views.compra
 {
@@ -20,15 +18,15 @@ namespace GestionVentasCel.views.compra
 
         private List<DetalleCompra> _detalles = new List<DetalleCompra>();
 
-        public AgregarEditarCompraForm(CompraController compraController, 
-                                      ProveedorController proveedorController, 
+        public AgregarEditarCompraForm(CompraController compraController,
+                                      ProveedorController proveedorController,
                                       ArticuloController articuloController)
         {
             InitializeComponent();
             _compraController = compraController;
             _proveedorController = proveedorController;
             _articuloController = articuloController;
-            
+
             CargarComboBoxes();
             ConfigurarValidaciones();
         }
@@ -40,14 +38,14 @@ namespace GestionVentasCel.views.compra
                 // Validar que los controladores no sean null
                 if (_proveedorController == null)
                 {
-                    MessageBox.Show("Error: Controlador de proveedores no inicializado.", "Error", 
+                    MessageBox.Show("Error: Controlador de proveedores no inicializado.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (_articuloController == null)
                 {
-                    MessageBox.Show("Error: Controlador de artículos no inicializado.", "Error", 
+                    MessageBox.Show("Error: Controlador de artículos no inicializado.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -74,7 +72,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -86,7 +84,7 @@ namespace GestionVentasCel.views.compra
 
             // Configurar eventos de validación
             txtObservaciones.TextChanged += ValidarLongitudCampo;
-            
+
             // Configurar validaciones para campos numéricos
             numCantidad.ValueChanged += ValidarCantidad;
             numPrecioUnitario.ValueChanged += ValidarPrecio;
@@ -112,7 +110,7 @@ namespace GestionVentasCel.views.compra
         {
             if (CompraActual == null)
             {
-                MessageBox.Show("Error: No hay datos de compra para cargar.", "Error", 
+                MessageBox.Show("Error: No hay datos de compra para cargar.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -166,7 +164,7 @@ namespace GestionVentasCel.views.compra
         {
             dgvDetalles.DataSource = null;
             dgvDetalles.DataSource = _detalles ?? new List<DetalleCompra>();
-            
+
             if (dgvDetalles.Columns.Count > 0)
             {
                 dgvDetalles.Columns["Id"].Visible = false;

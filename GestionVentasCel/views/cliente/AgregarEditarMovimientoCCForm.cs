@@ -1,10 +1,7 @@
 ﻿using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.cuentaCorriente;
-using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.cliente;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
-using GestionVentasCel.models.persona;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -33,7 +30,7 @@ namespace GestionVentasCel.views.usuario_empleado
             _cuenta = cuentaCorriente;
             _editando = movimiento != null;
 
-            _movimientoOriginal = _editando ? movimiento : new MovimientoCuentaCorriente {  CuentaCorriente = _cuenta };
+            _movimientoOriginal = _editando ? movimiento : new MovimientoCuentaCorriente { CuentaCorriente = _cuenta };
 
             // Usado para descartar cambios
             _movimientoEditable = new MovimientoCuentaCorriente
@@ -46,7 +43,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 Tipo = _movimientoOriginal.Tipo,
                 Descripcion = _movimientoOriginal.Descripcion
             };
-            
+
             CrearBindings();
 
         }

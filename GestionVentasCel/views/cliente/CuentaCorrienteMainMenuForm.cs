@@ -130,7 +130,7 @@ namespace GestionVentasCel.views.usuario_empleado
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            
+
         }
 
         private void AplicarFiltro()

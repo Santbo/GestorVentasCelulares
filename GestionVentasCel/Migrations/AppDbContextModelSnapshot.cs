@@ -178,74 +178,6 @@ namespace GestionVentasCel.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("LimiteCredito")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("Observaciones")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<decimal>("Saldo")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId")
-                        .IsUnique();
-
-                    b.ToTable("CuentasCorrientes");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.MovimientoCuentaCorriente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CuentaCorrienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("Referencia")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuentaCorrienteId");
-
-                    b.ToTable("MovimientosCuentasCorrientes");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.Property<int>("Id")
@@ -393,26 +325,6 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Articulo");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.cliente.Cliente", "Cliente")
-                        .WithOne("CuentaCorriente")
-                        .HasForeignKey("GestionVentasCel.models.cliente.CuentaCorriente", "ClienteId");
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.MovimientoCuentaCorriente", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.cliente.CuentaCorriente", "CuentaCorriente")
-                        .WithMany("Movimientos")
-                        .HasForeignKey("CuentaCorrienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CuentaCorriente");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.HasOne("GestionVentasCel.models.proveedor.Proveedor", "Proveedor")
@@ -480,19 +392,12 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Articulos");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.Navigation("Movimientos");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.Navigation("Detalles");
                 });
 
-
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
-
                 {
                     b.Navigation("CuentaCorriente");
                 });

@@ -1,16 +1,15 @@
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
-using GestionVentasCel.controller.usuario;
-using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
-using GestionVentasCel.views.usuario_empleado;
-using GestionVentasCel.views.proveedor;
 using GestionVentasCel.views.compra;
-
+using GestionVentasCel.views.proveedor;
+using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
 
 

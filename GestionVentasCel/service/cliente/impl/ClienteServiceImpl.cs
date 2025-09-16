@@ -309,7 +309,8 @@ namespace GestionVentasCel.service.cliente.impl
                 movimientoEnDB.Fecha = movimiento.Fecha;
                 movimientoEnDB.Monto = movimiento.Monto;
 
-            } else
+            }
+            else
             {
                 throw new MovimientoInexistenteException("Se intentó actualizar un movimiento de CC que no existe en la base de datos");
             }
