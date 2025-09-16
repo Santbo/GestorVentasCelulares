@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Data;
+using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.controller.articulo;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.views.compra;
@@ -18,7 +18,7 @@ namespace GestionVentasCel.views.proveedor
         private BindingList<Compra> _compras = null!;
         private BindingSource _bindingSource = null!;
 
-        public ComprasProveedorForm(CompraController compraController, 
+        public ComprasProveedorForm(CompraController compraController,
                                    ProveedorController proveedorController,
                                    ArticuloController articuloController,
                                    Proveedor proveedor)
@@ -28,7 +28,7 @@ namespace GestionVentasCel.views.proveedor
             _proveedorController = proveedorController;
             _articuloController = articuloController;
             _proveedor = proveedor;
-            
+
             this.Text = $"Compras de {_proveedor.Nombre}";
             CargarCompras();
         }
@@ -40,7 +40,7 @@ namespace GestionVentasCel.views.proveedor
                 // Verificar que el controlador esté disponible
                 if (_compraController == null)
                 {
-                    MessageBox.Show("Error: Controlador de compras no está inicializado.", "Error", 
+                    MessageBox.Show("Error: Controlador de compras no está inicializado.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -48,7 +48,7 @@ namespace GestionVentasCel.views.proveedor
                 // Verificar que el proveedor esté disponible
                 if (_proveedor == null)
                 {
-                    MessageBox.Show("Error: Proveedor no está inicializado.", "Error", 
+                    MessageBox.Show("Error: Proveedor no está inicializado.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -66,7 +66,7 @@ namespace GestionVentasCel.views.proveedor
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar compras: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Error", 
+                MessageBox.Show($"Error al cargar compras: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -123,7 +123,7 @@ namespace GestionVentasCel.views.proveedor
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar columnas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al configurar columnas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -144,7 +144,7 @@ namespace GestionVentasCel.views.proveedor
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia", 
+                MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -170,7 +170,7 @@ namespace GestionVentasCel.views.proveedor
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia", 
+                MessageBox.Show("Por favor, seleccione una compra de la lista.", "Advertencia",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

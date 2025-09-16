@@ -327,7 +327,7 @@ namespace GestionVentasCel.views.proveedor
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
                 e.Handled = true;
-                
+
                 // Mostrar tooltip de error
                 var textBox = sender as TextBox;
                 if (textBox != null)

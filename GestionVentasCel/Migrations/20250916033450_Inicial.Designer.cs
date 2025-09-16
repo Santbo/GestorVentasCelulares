@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250913165039_Inicial")]
+    [Migration("20250916033450_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -122,6 +122,37 @@ namespace GestionVentasCel.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Articulos");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.articulo.HistorialPrecio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaCambio")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Motivo")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("PrecioAnterior")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("PrecioNuevo")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.ToTable("HistorialPrecios");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
@@ -287,6 +318,10 @@ namespace GestionVentasCel.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("TipoProveedor")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.ToTable("Proveedores", (string)null);
                 });
 
@@ -343,6 +378,17 @@ namespace GestionVentasCel.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.articulo.HistorialPrecio", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>

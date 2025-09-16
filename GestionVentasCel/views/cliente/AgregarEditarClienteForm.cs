@@ -31,7 +31,6 @@ namespace GestionVentasCel.views.usuario_empleado
                     ? cliente!
                     : new Cliente
                     {
-                        Id = persona.Id,
                         Nombre = persona.Nombre,
                         Apellido = persona.Apellido,
                         TipoDocumento = persona.TipoDocumento,

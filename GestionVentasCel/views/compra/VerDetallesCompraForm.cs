@@ -1,7 +1,7 @@
-using GestionVentasCel.models.compra;
+using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.controller.articulo;
+using GestionVentasCel.models.compra;
 
 namespace GestionVentasCel.views.compra
 {
@@ -19,7 +19,7 @@ namespace GestionVentasCel.views.compra
             CargarDatos();
         }
 
-        public VerDetallesCompraForm(Compra compra, 
+        public VerDetallesCompraForm(Compra compra,
                                    CompraController compraController,
                                    ProveedorController proveedorController,
                                    ArticuloController articuloController)
@@ -35,7 +35,7 @@ namespace GestionVentasCel.views.compra
         private void CargarDatos()
         {
             this.Text = $"Detalles de Compra - {_compra.Fecha:dd/MM/yyyy}";
-            
+
             lblProveedor.Text = _compra.Proveedor?.Nombre ?? "N/A";
             lblFecha.Text = _compra.Fecha.ToString("dd/MM/yyyy HH:mm");
             lblTotal.Text = _compra.Total.ToString("C");
@@ -43,7 +43,7 @@ namespace GestionVentasCel.views.compra
 
             // Cargar detalles en el grid
             dgvDetalles.DataSource = _compra.Detalles.ToList();
-            
+
             // Configurar columnas para mostrar información relevante
             ConfigurarColumnasDetalle();
 
@@ -115,7 +115,7 @@ namespace GestionVentasCel.views.compra
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al configurar columnas del detalle: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al configurar columnas del detalle: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

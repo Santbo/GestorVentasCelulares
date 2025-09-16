@@ -41,7 +41,7 @@ namespace GestionVentasCel.repository.proveedor.impl
 
         public bool DocumentoExist(string documento, string tipoDocumento)
         {
-            return _context.Proveedores.Any(p => p.Dni == documento && 
+            return _context.Proveedores.Any(p => p.Dni == documento &&
                                                p.TipoDocumento.ToString() == tipoDocumento);
         }
 

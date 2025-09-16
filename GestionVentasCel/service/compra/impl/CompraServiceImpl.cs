@@ -29,20 +29,20 @@ namespace GestionVentasCel.service.compra.impl
         {
             // Calcular el total
             compra.Total = CalcularTotal(detalles);
-            
+
             // Agregar la compra
             _repo.Add(compra);
-            
+
             // Agregar los detalles y actualizar stock
             foreach (var detalle in detalles)
             {
                 detalle.CompraId = compra.Id;
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
-                
+
                 // Actualizar stock del artículo
                 ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
             }
-            
+
             _detalleRepo.AddRange(detalles);
         }
 
@@ -85,7 +85,7 @@ namespace GestionVentasCel.service.compra.impl
 
             // Obtener detalles existentes para revertir stock
             var detallesExistentes = _detalleRepo.GetByCompraId(compra.Id);
-            
+
             // Revertir stock de detalles existentes
             foreach (var detalleExistente in detallesExistentes)
             {
@@ -104,11 +104,11 @@ namespace GestionVentasCel.service.compra.impl
             {
                 detalle.CompraId = compra.Id;
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
-                
+
                 // Actualizar stock del artículo
                 ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
             }
-            
+
             _detalleRepo.AddRange(detalles);
         }
 
@@ -121,7 +121,7 @@ namespace GestionVentasCel.service.compra.impl
 
             // Obtener detalles para revertir stock
             var detalles = _detalleRepo.GetByCompraId(id);
-            
+
             // Revertir stock de cada detalle
             foreach (var detalle in detalles)
             {
@@ -159,8 +159,8 @@ namespace GestionVentasCel.service.compra.impl
                 if (esCompra)
                 {
                     // Agregar stock al comprar
-                    articulo.Stock += cantidad; 
-                    
+                    articulo.Stock += cantidad;
+
                     // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
                     if (articulo.Stock == cantidad || articulo.Precio == 0)
                     {
@@ -180,7 +180,7 @@ namespace GestionVentasCel.service.compra.impl
                     // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
                     // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
                     articulo.Stock -= cantidad;
-                    
+
                     // Si el stock llega a 0, mantener el precio actual
                     if (articulo.Stock > 0)
                     {
@@ -194,7 +194,7 @@ namespace GestionVentasCel.service.compra.impl
                         }
                     }
                 }
-                
+
                 _articuloService.UpdateArticulo(articulo);
             }
         }

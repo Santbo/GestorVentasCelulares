@@ -1,6 +1,5 @@
 using GestionVentasCel.data;
 using GestionVentasCel.models.articulo;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.service.articulo.impl
 {

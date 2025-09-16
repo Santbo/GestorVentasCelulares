@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Data;
-using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.models.proveedor;
 
 namespace GestionVentasCel.views.proveedor
@@ -15,7 +15,7 @@ namespace GestionVentasCel.views.proveedor
         private BindingList<Proveedor> _proveedores;
         private BindingSource _bindingSource;
 
-        public ProveedorMainMenuForm(ProveedorController proveedorController, 
+        public ProveedorMainMenuForm(ProveedorController proveedorController,
                                    CompraController compraController,
                                    ArticuloController articuloController)
         {
@@ -51,7 +51,7 @@ namespace GestionVentasCel.views.proveedor
             {
                 int id = (int)dgvListarProveedores.CurrentRow.Cells["Id"].Value;
                 var proveedor = _proveedorController.GetById(id);
-                
+
                 if (proveedor == null)
                 {
                     MessageBox.Show("Proveedor no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

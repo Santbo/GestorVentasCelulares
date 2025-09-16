@@ -1,14 +1,11 @@
 ﻿using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.compra;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.proveedor;
-using GestionVentasCel.models.compra;
-using GestionVentasCel.models.cliente;
-using GestionVentasCel.enumerations.persona;
-using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -38,8 +35,8 @@ namespace GestionVentasCel.data
         {
             modelBuilder.Entity<Persona>().ToTable("Personas");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
-           modelBuilder.Entity<Proveedor>().ToTable("Proveedores");
-           modelBuilder.Entity<Cliente>().ToTable("Clientes");
+            modelBuilder.Entity<Proveedor>().ToTable("Proveedores");
+            modelBuilder.Entity<Cliente>().ToTable("Clientes");
 
             modelBuilder.Entity<Cliente>()
                 .Property(p => p.CondicionIVA)

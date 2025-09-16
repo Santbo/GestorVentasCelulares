@@ -3,8 +3,6 @@ using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.cuentaCorriente;
-using GestionVentasCel.exceptions.cliente;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 
 namespace GestionVentasCel.views.usuario_empleado

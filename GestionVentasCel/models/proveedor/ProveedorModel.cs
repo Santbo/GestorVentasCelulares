@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.persona;
-using GestionVentasCel.enumerations.persona;
 
 namespace GestionVentasCel.models.proveedor
 {

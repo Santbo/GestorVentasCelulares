@@ -22,7 +22,7 @@ namespace GestionVentasCel.views.compra
 
             FechaDesde = dtpFechaDesde.Value.Date;
             FechaHasta = dtpFechaHasta.Value.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-            
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

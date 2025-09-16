@@ -1,6 +1,4 @@
 using GestionVentasCel.data;
-using GestionVentasCel.exceptions.persona;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.service.persona.impl
 {
@@ -37,7 +35,7 @@ namespace GestionVentasCel.service.persona.impl
             cuit = FormatearCuit(cuit);
 
             var query = _context.Personas.Where(p => p.Dni == cuit);
-            
+
             if (excludeId.HasValue)
             {
                 query = query.Where(p => p.Id != excludeId.Value);
