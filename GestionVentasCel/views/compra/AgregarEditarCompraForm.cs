@@ -3,6 +3,7 @@ using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.compra;
+using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.compra;
 
 namespace GestionVentasCel.views.compra
@@ -171,7 +172,7 @@ namespace GestionVentasCel.views.compra
                 dgvDetalles.Columns["CompraId"].Visible = false;
                 dgvDetalles.Columns["ArticuloId"].Visible = false;
                 dgvDetalles.Columns["Compra"].Visible = false;
-                dgvDetalles.Columns["Articulo"].Visible = false;
+                dgvDetalles.Columns["Articulo"].Visible = true;
             }
         }
 
@@ -251,8 +252,15 @@ namespace GestionVentasCel.views.compra
                 Activo = true
             };
 
-            _compraController.CrearCompraConDetalles(compra, _detalles);
-            MessageBox.Show("Compra creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+
+                _compraController.CrearCompraConDetalles(compra, _detalles);
+                MessageBox.Show("Compra creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } catch (MargenNoAgregadoException ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void ActualizarCompra()

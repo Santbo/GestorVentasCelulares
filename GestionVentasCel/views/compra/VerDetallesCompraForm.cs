@@ -44,6 +44,12 @@ namespace GestionVentasCel.views.compra
             // Cargar detalles en el grid
             dgvDetalles.DataSource = _compra.Detalles.ToList();
 
+            //Ocultar columnas
+            dgvDetalles.Columns["Articulo"].Visible = false;
+            dgvDetalles.Columns["ArticuloId"].Visible = false;
+            dgvDetalles.Columns["Compra"].Visible = false;
+            dgvDetalles.Columns["CompraId"].Visible = false;
+
             // Configurar columnas para mostrar información relevante
             ConfigurarColumnasDetalle();
 
@@ -112,6 +118,8 @@ namespace GestionVentasCel.views.compra
 
                 // Configurar evento para llenar el nombre del producto
                 dgvDetalles.CellFormatting += DgvDetalles_CellFormatting;
+
+                
             }
             catch (Exception ex)
             {

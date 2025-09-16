@@ -189,6 +189,85 @@ namespace GestionVentasCel.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Observaciones")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<int>("ProveedorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProveedorId");
+
+                    b.ToTable("Compras");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.compra.DetalleCompra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompraId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("CompraId");
+
+                    b.ToTable("DetallesCompra");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.configPrecios.ConfiguracionPrecios", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("MargenAumento")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UltimaActualizacion")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfiguracionPrecios");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.persona.Persona", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Apellido")
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
@@ -217,6 +296,9 @@ namespace GestionVentasCel.Migrations
                     b.Property<string>("Telefono")
                         .HasMaxLength(18)
                         .HasColumnType("varchar(18)");
+
+                    b.Property<int?>("TipoDocumento")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -385,11 +467,6 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
                 {
                     b.Navigation("Movimientos");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
-                {
-                    b.Navigation("Articulos");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>

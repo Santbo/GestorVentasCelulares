@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250916033450_Inicial")]
-    partial class Inicial
+    [Migration("20250916063109_nuevaMigracion")]
+    partial class nuevaMigracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,6 +244,25 @@ namespace GestionVentasCel.Migrations
                     b.ToTable("DetallesCompra");
                 });
 
+            modelBuilder.Entity("GestionVentasCel.models.configPrecios.ConfiguracionPrecios", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("MargenAumento")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UltimaActualizacion")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfiguracionPrecios");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.persona.Persona", b =>
                 {
                     b.Property<int>("Id")
@@ -372,7 +391,7 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
                 {
                     b.HasOne("GestionVentasCel.models.categoria.Categoria", "Categoria")
-                        .WithMany("Articulos")
+                        .WithMany()
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -451,11 +470,6 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
                 {
                     b.Navigation("Movimientos");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
-                {
-                    b.Navigation("Articulos");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>

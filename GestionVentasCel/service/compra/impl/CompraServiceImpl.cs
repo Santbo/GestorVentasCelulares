@@ -1,7 +1,10 @@
 using GestionVentasCel.exceptions.compra;
+using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.repository.compra;
+using GestionVentasCel.repository.configPrecios;
 using GestionVentasCel.service.articulo;
+using GestionVentasCel.service.configPrecios;
 
 namespace GestionVentasCel.service.compra.impl
 {
@@ -11,13 +14,19 @@ namespace GestionVentasCel.service.compra.impl
         private readonly IDetalleCompraRepository _detalleRepo;
         private readonly IArticuloService _articuloService;
         private readonly IHistorialPrecioService _historialPrecioService;
+        private readonly IConfiguracionPreciosService _configuracionPreciosService;
 
-        public CompraServiceImpl(ICompraRepository repo, IDetalleCompraRepository detalleRepo, IArticuloService articuloService, IHistorialPrecioService historialPrecioService)
+        public CompraServiceImpl(ICompraRepository repo, 
+                                    IDetalleCompraRepository detalleRepo, 
+                                    IArticuloService articuloService, 
+                                    IHistorialPrecioService historialPrecioService,
+                                    IConfiguracionPreciosService configuracionPreciosService)
         {
             _repo = repo;
             _detalleRepo = detalleRepo;
             _articuloService = articuloService;
             _historialPrecioService = historialPrecioService;
+            _configuracionPreciosService = configuracionPreciosService;
         }
 
         public void AgregarCompra(Compra compra)
@@ -27,6 +36,13 @@ namespace GestionVentasCel.service.compra.impl
 
         public void AgregarCompraConDetalles(Compra compra, List<DetalleCompra> detalles)
         {
+
+           
+            if (!_configuracionPreciosService.MargenExist(1))
+            {
+                throw new MargenNoAgregadoException("Margen no agregado. Por favor agrega un margen de actualizacion de precios");
+
+            }
             // Calcular el total
             compra.Total = CalcularTotal(detalles);
 
@@ -167,8 +183,22 @@ namespace GestionVentasCel.service.compra.impl
                         // Registrar cambio de precio
                         _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
                         articulo.Precio = precioUnitario;
-                    } //TODO: Si no es la primera compra, entonces se tiene que actualizar el precio solamente si el nuevo precio es mayor al viejo
-                      // sería un if precio * 1.51 > precio_actual then actualizar básicamente, aunque el 1.51 debería poder fijarse manualmente
+                    } else
+                    {
+                        
+                        var margenAumento = _configuracionPreciosService.GetById(1);
+                        if (precioUnitario >= articulo.Precio * margenAumento.MargenAumento)
+                        {
+                            _historialPrecioService.RegistrarCambioPrecio(
+                                articuloId,
+                                articulo.Precio,
+                                precioUnitario,
+                                "Compra (ajuste por aumento)"
+                            );
+                            articulo.Precio = precioUnitario * margenAumento.MargenAumento;
+                        }
+                        
+                    }
                 }
                 else
                 {
@@ -198,5 +228,6 @@ namespace GestionVentasCel.service.compra.impl
                 _articuloService.UpdateArticulo(articulo);
             }
         }
+
     }
 }

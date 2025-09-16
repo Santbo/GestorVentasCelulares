@@ -2,6 +2,7 @@
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.models.proveedor;
@@ -29,6 +30,8 @@ namespace GestionVentasCel.data
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<CuentaCorriente> CuentasCorrientes { get; set; }
         public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
+
+        public DbSet<ConfiguracionPrecios> ConfiguracionPrecios { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

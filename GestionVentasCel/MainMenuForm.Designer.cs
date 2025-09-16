@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        
+
 
         /// <summary>
         ///  Required method for Designer support - do not modify
@@ -33,16 +33,14 @@
             gestionarArticulosToolStripMenuItem = new ToolStripMenuItem();
             categoriasMenuItem = new ToolStripMenuItem();
             ArticulosMenuItem = new ToolStripMenuItem();
-
-            panelContenedor = new Panel();
             gestionarProveedoresToolStripMenuItem = new ToolStripMenuItem();
             proveedoresMenuItem = new ToolStripMenuItem();
             comprasMenuItem = new ToolStripMenuItem();
-
             clientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarClientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarCuentasCorrientesToolStripMenuItem = new ToolStripMenuItem();
             panelContenedor = new Panel();
+            aumentarMargenMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,15 +51,14 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, gestionarProveedoresToolStripMenuItem, clientesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new Padding(8, 2, 0, 2);
-            menuStrip1.Size = new Size(1000, 33);
+            menuStrip1.Size = new Size(800, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
             // UsuarioMenuItem
             // 
             UsuarioMenuItem.Name = "UsuarioMenuItem";
-            UsuarioMenuItem.Size = new Size(116, 29);
+            UsuarioMenuItem.Size = new Size(97, 24);
             UsuarioMenuItem.Text = "Empleados";
             UsuarioMenuItem.Click += UsuarioMenuItem_Click;
             // 
@@ -69,94 +66,88 @@
             // 
             gestionarArticulosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { categoriasMenuItem, ArticulosMenuItem });
             gestionarArticulosToolStripMenuItem.Name = "gestionarArticulosToolStripMenuItem";
-            gestionarArticulosToolStripMenuItem.Size = new Size(177, 29);
+            gestionarArticulosToolStripMenuItem.Size = new Size(148, 24);
             gestionarArticulosToolStripMenuItem.Text = "Gestionar Articulos";
             // 
             // categoriasMenuItem
             // 
             categoriasMenuItem.Name = "categoriasMenuItem";
-            categoriasMenuItem.Size = new Size(198, 34);
+            categoriasMenuItem.Size = new Size(163, 26);
             categoriasMenuItem.Text = "Categorias";
             categoriasMenuItem.Click += categoriasMenuItem_Click;
             // 
             // ArticulosMenuItem
             // 
             ArticulosMenuItem.Name = "ArticulosMenuItem";
-            ArticulosMenuItem.Size = new Size(198, 34);
+            ArticulosMenuItem.Size = new Size(163, 26);
             ArticulosMenuItem.Text = "Articulos";
             ArticulosMenuItem.Click += ArticulosMenuItem_Click;
             // 
-
-            // panelContenedor
-            // 
-            panelContenedor.Dock = DockStyle.Fill;
-            panelContenedor.Location = new Point(0, 33);
-            panelContenedor.Margin = new Padding(4, 4, 4, 4);
-            panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(1000, 529);
-            panelContenedor.TabIndex = 1;
-            // 
             // gestionarProveedoresToolStripMenuItem
             // 
-            gestionarProveedoresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { proveedoresMenuItem, comprasMenuItem });
+            gestionarProveedoresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { proveedoresMenuItem, comprasMenuItem, aumentarMargenMenuItem });
             gestionarProveedoresToolStripMenuItem.Name = "gestionarProveedoresToolStripMenuItem";
-            gestionarProveedoresToolStripMenuItem.Size = new Size(177, 29);
+            gestionarProveedoresToolStripMenuItem.Size = new Size(172, 24);
             gestionarProveedoresToolStripMenuItem.Text = "Gestionar Proveedores";
             // 
             // proveedoresMenuItem
             // 
             proveedoresMenuItem.Name = "proveedoresMenuItem";
-            proveedoresMenuItem.Size = new Size(270, 34);
+            proveedoresMenuItem.Size = new Size(224, 26);
             proveedoresMenuItem.Text = "Proveedores";
             proveedoresMenuItem.Click += proveedoresMenuItem_Click;
             // 
             // comprasMenuItem
             // 
             comprasMenuItem.Name = "comprasMenuItem";
-            comprasMenuItem.Size = new Size(270, 34);
+            comprasMenuItem.Size = new Size(224, 26);
             comprasMenuItem.Text = "Compras";
             comprasMenuItem.Click += comprasMenuItem_Click;
             // 
-
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarClientesToolStripMenuItem, gestionarCuentasCorrientesToolStripMenuItem });
             clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            clientesToolStripMenuItem.Size = new Size(89, 29);
+            clientesToolStripMenuItem.Size = new Size(75, 24);
             clientesToolStripMenuItem.Text = "Clientes";
             // 
             // gestionarClientesToolStripMenuItem
             // 
             gestionarClientesToolStripMenuItem.Name = "gestionarClientesToolStripMenuItem";
-            gestionarClientesToolStripMenuItem.Size = new Size(342, 34);
+            gestionarClientesToolStripMenuItem.Size = new Size(282, 26);
             gestionarClientesToolStripMenuItem.Text = "Gestionar Clientes";
             gestionarClientesToolStripMenuItem.Click += gestionarClientesToolStripMenuItem_Click;
             // 
             // gestionarCuentasCorrientesToolStripMenuItem
             // 
             gestionarCuentasCorrientesToolStripMenuItem.Name = "gestionarCuentasCorrientesToolStripMenuItem";
-            gestionarCuentasCorrientesToolStripMenuItem.Size = new Size(342, 34);
+            gestionarCuentasCorrientesToolStripMenuItem.Size = new Size(282, 26);
             gestionarCuentasCorrientesToolStripMenuItem.Text = "Gestionar Cuentas Corrientes";
             gestionarCuentasCorrientesToolStripMenuItem.Click += gestionarCuentasCorrientesToolStripMenuItem_Click;
             // 
             // panelContenedor
             // 
             panelContenedor.Dock = DockStyle.Fill;
-            panelContenedor.Location = new Point(0, 33);
-            panelContenedor.Margin = new Padding(4);
+            panelContenedor.Location = new Point(0, 28);
             panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(1000, 529);
+            panelContenedor.Size = new Size(800, 422);
             panelContenedor.TabIndex = 1;
+            // 
+            // aumentarMargenMenuItem
+            // 
+            aumentarMargenMenuItem.Name = "aumentarMargenMenuItem";
+            aumentarMargenMenuItem.Size = new Size(224, 26);
+            aumentarMargenMenuItem.Text = "Aumentar Margen";
+            aumentarMargenMenuItem.Click += aumentarMargenMenuItem_Click;
             // 
             // MainMenuForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(800, 450);
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Margin = new Padding(4);
             Name = "MainMenuForm";
             WindowState = FormWindowState.Maximized;
             FormClosing += MainMenuForm_FormClosing;
@@ -167,7 +158,7 @@
             PerformLayout();
         }
 
-          
+
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem UsuarioMenuItem;
@@ -181,5 +172,6 @@
         private ToolStripMenuItem clientesToolStripMenuItem;
         private ToolStripMenuItem gestionarClientesToolStripMenuItem;
         private ToolStripMenuItem gestionarCuentasCorrientesToolStripMenuItem;
+        private ToolStripMenuItem aumentarMargenMenuItem;
     }
 }
