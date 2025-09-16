@@ -6,6 +6,7 @@ using GestionVentasCel.models.persona;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.models.cliente;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.usuarios;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +24,12 @@ namespace GestionVentasCel.data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
-       public DbSet<Proveedor> Proveedores { get; set; }
+
+        public DbSet<HistorialPrecio> HistorialPrecios { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<DetalleCompra> DetallesCompra { get; set; }
-       public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
         public DbSet<CuentaCorriente> CuentasCorrientes { get; set; }
         public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
 
@@ -45,8 +48,15 @@ namespace GestionVentasCel.data
 
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.Rol)
-
                .HasConversion<string>();
+
+
+            modelBuilder.Entity<Proveedor>()
+                .Property(p => p.TipoProveedor)
+                .HasConversion<string>();
+
+
+
 
             // Hacher que cuenta corriente y cliente sean 1:1 opcional
             modelBuilder.Entity<Cliente>()
@@ -55,10 +65,13 @@ namespace GestionVentasCel.data
                 .HasForeignKey<CuentaCorriente>(cc => cc.ClienteId) // Se pone la fk
                 .IsRequired(false); // y se hace opcional
 
+
             modelBuilder.Entity<MovimientoCuentaCorriente>()
                 .Property(m => m.Tipo)
                 .HasConversion<string>();
-       }
+
+        }
+
 
     }
 

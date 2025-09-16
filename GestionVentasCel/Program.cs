@@ -21,6 +21,8 @@ using GestionVentasCel.repository.compra;
 using GestionVentasCel.repository.compra.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
+using GestionVentasCel.service.persona;
+using GestionVentasCel.service.persona.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
 using GestionVentasCel.service.cliente;
@@ -99,7 +101,10 @@ namespace GestionVentasCel
             services.AddTransient<IUsuarioService, UsuarioServiceImpl>();
             services.AddTransient<ICategoriaService, CategoriaServiceImpl>();
             services.AddTransient<IArticuloService, ArticuloServiceImpl>();
-           services.AddTransient<IProveedorService, ProveedorServiceImpl>();
+            services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
+            services.AddTransient<ICuitValidationService, CuitValidationServiceImpl>();
+            services.AddTransient<IProveedorService, ProveedorServiceImpl>();
+
             services.AddTransient<ICompraService, CompraServiceImpl>();
            services.AddTransient<IClienteService, ClienteServiceImpl>();
 
