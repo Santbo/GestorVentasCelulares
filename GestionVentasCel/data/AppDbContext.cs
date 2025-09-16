@@ -1,5 +1,7 @@
 ﻿using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
+using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.proveedor;
@@ -22,6 +24,7 @@ namespace GestionVentasCel.data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
+
         public DbSet<HistorialPrecio> HistorialPrecios { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Compra> Compras { get; set; }
@@ -30,51 +33,45 @@ namespace GestionVentasCel.data
         public DbSet<CuentaCorriente> CuentasCorrientes { get; set; }
         public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>().ToTable("Personas");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
-            modelBuilder.Entity<Proveedor>().ToTable("Proveedores");
+           modelBuilder.Entity<Proveedor>().ToTable("Proveedores");
+           modelBuilder.Entity<Cliente>().ToTable("Clientes");
 
-            modelBuilder.Entity<Persona>()
+            modelBuilder.Entity<Cliente>()
                 .Property(p => p.CondicionIVA)
-                .HasConversion(
-                    v => v == null ? null : v.ToString().Replace("ResponsableInscripto", "Responsable Inscripto")
-                                                      .Replace("ResponsableNoInscripto", "Responsable No Inscripto")
-                                                      .Replace("ConsumidorFinal", "Consumidor Final")
-                                                      .Replace("NoResponsable", "No Responsable"),
-                    v => v == null ? null : (CondicionIVA)Enum.Parse(typeof(CondicionIVA), v.Replace(" ", ""))
-                );
+                .HasConversion<string>();
+
 
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.Rol)
-                .HasConversion(
-                    v => v.ToString().Replace("Admin", "Administrador")
-                                      .Replace("Tecnico", "Técnico"),
-                    v => v == "Cliente" ? RolEnum.Vendedor : 
-                         (RolEnum)Enum.Parse(typeof(RolEnum), v.Replace("Administrador", "Admin")
-                                                               .Replace("Técnico", "Tecnico"))
-                );
+               .HasConversion<string>();
 
-            modelBuilder.Entity<Cliente>()
-                .Property(c => c.TipoCliente)
-                .HasConversion<string>();
 
             modelBuilder.Entity<Proveedor>()
                 .Property(p => p.TipoProveedor)
                 .HasConversion<string>();
 
-            // Configurar relación Cliente - CuentaCorriente
+
+
+
+            // Hacher que cuenta corriente y cliente sean 1:1 opcional
             modelBuilder.Entity<Cliente>()
-                .HasOne(c => c.CuentaCorriente)
-                .WithOne(cc => cc.Cliente)
-                .HasForeignKey<CuentaCorriente>(cc => cc.ClienteId)
-                .IsRequired(false);
+                .HasOne(c => c.CuentaCorriente) // Cliente tiene una cuenta corriente
+                .WithOne(cc => cc.Cliente) // Con un cliente
+                .HasForeignKey<CuentaCorriente>(cc => cc.ClienteId) // Se pone la fk
+                .IsRequired(false); // y se hace opcional
+
 
             modelBuilder.Entity<MovimientoCuentaCorriente>()
                 .Property(m => m.Tipo)
                 .HasConversion<string>();
+
         }
+
 
     }
 

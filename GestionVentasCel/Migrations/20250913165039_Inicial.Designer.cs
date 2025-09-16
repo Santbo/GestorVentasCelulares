@@ -4,6 +4,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250913165039_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,37 +124,6 @@ namespace GestionVentasCel.Migrations
                     b.ToTable("Articulos");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.articulo.HistorialPrecio", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ArticuloId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCambio")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Motivo")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<decimal>("PrecioAnterior")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<decimal>("PrecioNuevo")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticuloId");
-
-                    b.ToTable("HistorialPrecios");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
                 {
                     b.Property<int>("Id")
@@ -176,74 +148,6 @@ namespace GestionVentasCel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorias");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("LimiteCredito")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("Observaciones")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<decimal>("Saldo")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId")
-                        .IsUnique();
-
-                    b.ToTable("CuentasCorrientes");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.MovimientoCuentaCorriente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CuentaCorrienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("Referencia")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuentaCorrienteId");
-
-                    b.ToTable("MovimientosCuentasCorrientes");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
@@ -383,10 +287,6 @@ namespace GestionVentasCel.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("TipoProveedor")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.ToTable("Proveedores", (string)null);
                 });
 
@@ -443,37 +343,6 @@ namespace GestionVentasCel.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.articulo.HistorialPrecio", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
-                        .WithMany()
-                        .HasForeignKey("ArticuloId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Articulo");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.cliente.Cliente", "Cliente")
-                        .WithOne("CuentaCorriente")
-                        .HasForeignKey("GestionVentasCel.models.cliente.CuentaCorriente", "ClienteId");
-
-                    b.Navigation("Cliente");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.cliente.MovimientoCuentaCorriente", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.cliente.CuentaCorriente", "CuentaCorriente")
-                        .WithMany("Movimientos")
-                        .HasForeignKey("CuentaCorrienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CuentaCorriente");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
@@ -543,19 +412,12 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Articulos");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.cliente.CuentaCorriente", b =>
-                {
-                    b.Navigation("Movimientos");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.Navigation("Detalles");
                 });
 
-
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
-
                 {
                     b.Navigation("CuentaCorriente");
                 });

@@ -38,7 +38,7 @@ namespace GestionVentasCel.views.proveedor
             cmbTipoDocumento.SelectedIndex = 0;
 
             // Cargar condiciones de IVA
-            cmbCondicionIVA.DataSource = Enum.GetValues(typeof(CondicionIVA));
+            cmbCondicionIVA.DataSource = Enum.GetValues(typeof(CondicionIVAEnum));
             cmbCondicionIVA.SelectedIndex = 0;
         }
 
@@ -165,7 +165,7 @@ namespace GestionVentasCel.views.proveedor
                 Apellido = txtApellido.Text.Trim() != "" ? txtApellido.Text.Trim() : null,
                 TipoDocumento = (TipoDocumentoEnum)cmbTipoDocumento.SelectedItem,
                 Dni = txtDocumento.Text.Trim() != "" ? txtDocumento.Text.Trim() : null,
-                CondicionIVA = (CondicionIVA)cmbCondicionIVA.SelectedItem,
+                CondicionIVA = (CondicionIVAEnum)cmbCondicionIVA.SelectedItem,
                 Telefono = txtTelefono.Text.Trim() != "" ? txtTelefono.Text.Trim() : null,
                 Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null,
                 Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null,
@@ -184,7 +184,7 @@ namespace GestionVentasCel.views.proveedor
             ProveedorActual.Apellido = txtApellido.Text.Trim() != "" ? txtApellido.Text.Trim() : null;
             ProveedorActual.TipoDocumento = (TipoDocumentoEnum)cmbTipoDocumento.SelectedItem;
             ProveedorActual.Dni = txtDocumento.Text.Trim() != "" ? txtDocumento.Text.Trim() : null;
-            ProveedorActual.CondicionIVA = (CondicionIVA)cmbCondicionIVA.SelectedItem;
+            ProveedorActual.CondicionIVA = (CondicionIVAEnum)cmbCondicionIVA.SelectedItem;
             ProveedorActual.Telefono = txtTelefono.Text.Trim() != "" ? txtTelefono.Text.Trim() : null;
             ProveedorActual.Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null;
             ProveedorActual.Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null;

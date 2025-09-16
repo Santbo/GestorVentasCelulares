@@ -33,13 +33,16 @@
             gestionarArticulosToolStripMenuItem = new ToolStripMenuItem();
             categoriasMenuItem = new ToolStripMenuItem();
             ArticulosMenuItem = new ToolStripMenuItem();
+
             panelContenedor = new Panel();
             gestionarProveedoresToolStripMenuItem = new ToolStripMenuItem();
             proveedoresMenuItem = new ToolStripMenuItem();
             comprasMenuItem = new ToolStripMenuItem();
+
             clientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarClientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarCuentasCorrientesToolStripMenuItem = new ToolStripMenuItem();
+            panelContenedor = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -72,17 +75,18 @@
             // categoriasMenuItem
             // 
             categoriasMenuItem.Name = "categoriasMenuItem";
-            categoriasMenuItem.Size = new Size(270, 34);
+            categoriasMenuItem.Size = new Size(198, 34);
             categoriasMenuItem.Text = "Categorias";
             categoriasMenuItem.Click += categoriasMenuItem_Click;
             // 
             // ArticulosMenuItem
             // 
             ArticulosMenuItem.Name = "ArticulosMenuItem";
-            ArticulosMenuItem.Size = new Size(270, 34);
+            ArticulosMenuItem.Size = new Size(198, 34);
             ArticulosMenuItem.Text = "Articulos";
             ArticulosMenuItem.Click += ArticulosMenuItem_Click;
             // 
+
             // panelContenedor
             // 
             panelContenedor.Dock = DockStyle.Fill;
@@ -113,6 +117,7 @@
             comprasMenuItem.Text = "Compras";
             comprasMenuItem.Click += comprasMenuItem_Click;
             // 
+
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarClientesToolStripMenuItem, gestionarCuentasCorrientesToolStripMenuItem });
@@ -125,12 +130,23 @@
             gestionarClientesToolStripMenuItem.Name = "gestionarClientesToolStripMenuItem";
             gestionarClientesToolStripMenuItem.Size = new Size(342, 34);
             gestionarClientesToolStripMenuItem.Text = "Gestionar Clientes";
+            gestionarClientesToolStripMenuItem.Click += gestionarClientesToolStripMenuItem_Click;
             // 
             // gestionarCuentasCorrientesToolStripMenuItem
             // 
             gestionarCuentasCorrientesToolStripMenuItem.Name = "gestionarCuentasCorrientesToolStripMenuItem";
             gestionarCuentasCorrientesToolStripMenuItem.Size = new Size(342, 34);
             gestionarCuentasCorrientesToolStripMenuItem.Text = "Gestionar Cuentas Corrientes";
+            gestionarCuentasCorrientesToolStripMenuItem.Click += gestionarCuentasCorrientesToolStripMenuItem_Click;
+            // 
+            // panelContenedor
+            // 
+            panelContenedor.Dock = DockStyle.Fill;
+            panelContenedor.Location = new Point(0, 33);
+            panelContenedor.Margin = new Padding(4);
+            panelContenedor.Name = "panelContenedor";
+            panelContenedor.Size = new Size(1000, 529);
+            panelContenedor.TabIndex = 1;
             // 
             // MainMenuForm
             // 
@@ -140,7 +156,7 @@
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "MainMenuForm";
             WindowState = FormWindowState.Maximized;
             FormClosing += MainMenuForm_FormClosing;

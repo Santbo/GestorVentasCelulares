@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.enumerations.persona;
 
@@ -15,5 +17,11 @@ namespace GestionVentasCel.models.proveedor
 
         [MaxLength(200)]
         public string? Observaciones { get; set; }
+
+        [Required]
+        public bool Activo { get; set; } = true;
+
+        [DisplayName("Condición ante IVA")]
+        public CondicionIVAEnum? CondicionIVA { get; set; }
     }
 }
