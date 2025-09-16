@@ -4,6 +4,7 @@ using GestionVentasCel.models.persona;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.models.cliente;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.usuarios;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,13 @@ namespace GestionVentasCel.data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
+        public DbSet<HistorialPrecio> HistorialPrecios { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<DetalleCompra> DetallesCompra { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<CuentaCorriente> CuentasCorrientes { get; set; }
+        public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +55,25 @@ namespace GestionVentasCel.data
                          (RolEnum)Enum.Parse(typeof(RolEnum), v.Replace("Administrador", "Admin")
                                                                .Replace("Técnico", "Tecnico"))
                 );
+
+            modelBuilder.Entity<Cliente>()
+                .Property(c => c.TipoCliente)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Proveedor>()
+                .Property(p => p.TipoProveedor)
+                .HasConversion<string>();
+
+            // Configurar relación Cliente - CuentaCorriente
+            modelBuilder.Entity<Cliente>()
+                .HasOne(c => c.CuentaCorriente)
+                .WithOne(cc => cc.Cliente)
+                .HasForeignKey<CuentaCorriente>(cc => cc.ClienteId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<MovimientoCuentaCorriente>()
+                .Property(m => m.Tipo)
+                .HasConversion<string>();
         }
 
     }

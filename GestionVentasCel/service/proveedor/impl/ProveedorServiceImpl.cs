@@ -1,20 +1,41 @@
 using GestionVentasCel.exceptions.proveedor;
+using GestionVentasCel.exceptions.persona;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.repository.proveedor;
+using GestionVentasCel.service.persona;
 
 namespace GestionVentasCel.service.proveedor.impl
 {
     public class ProveedorServiceImpl : IProveedorService
     {
         private readonly IProveedorRepository _repo;
+        private readonly ICuitValidationService _cuitValidationService;
 
-        public ProveedorServiceImpl(IProveedorRepository repo)
+        public ProveedorServiceImpl(IProveedorRepository repo, ICuitValidationService cuitValidationService)
         {
             _repo = repo;
+            _cuitValidationService = cuitValidationService;
         }
 
         public void AgregarProveedor(Proveedor proveedor)
         {
+            // Validar CUIT si es CUIT
+            if (proveedor.TipoDocumento?.ToString() == "CUIT")
+            {
+                if (!_cuitValidationService.ValidarCuit(proveedor.Dni ?? ""))
+                {
+                    throw new CuitDuplicadoException("El CUIT ingresado no es válido.");
+                }
+
+                if (_cuitValidationService.CuitExiste(proveedor.Dni ?? ""))
+                {
+                    throw new CuitDuplicadoException("Ya existe un proveedor con este CUIT.");
+                }
+
+                // Formatear el CUIT
+                proveedor.Dni = _cuitValidationService.FormatearCuit(proveedor.Dni ?? "");
+            }
+
             if (_repo.DocumentoExist(proveedor.Dni ?? "", proveedor.TipoDocumento?.ToString() ?? ""))
             {
                 throw new ProveedorExistenteException("Ya existe un proveedor con este documento.");
@@ -38,6 +59,23 @@ namespace GestionVentasCel.service.proveedor.impl
             if (!_repo.Exist(proveedor.Id))
             {
                 throw new ProveedorNoEncontradoException("Proveedor no encontrado.");
+            }
+
+            // Validar CUIT si es CUIT
+            if (proveedor.TipoDocumento?.ToString() == "CUIT")
+            {
+                if (!_cuitValidationService.ValidarCuit(proveedor.Dni ?? ""))
+                {
+                    throw new CuitDuplicadoException("El CUIT ingresado no es válido.");
+                }
+
+                if (_cuitValidationService.CuitExiste(proveedor.Dni ?? "", proveedor.Id))
+                {
+                    throw new CuitDuplicadoException("Ya existe otro proveedor con este CUIT.");
+                }
+
+                // Formatear el CUIT
+                proveedor.Dni = _cuitValidationService.FormatearCuit(proveedor.Dni ?? "");
             }
 
             _repo.Update(proveedor);
