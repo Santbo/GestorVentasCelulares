@@ -178,7 +178,7 @@ namespace GestionVentasCel.views.usuario_empleado
             AplicarFiltro();
         }
 
-        private void UsuarioMainMenuForm_Load(object sender, EventArgs e)
+        private void ConfigurarEstilosVisuales()
         {
             this.panelHeader.BackColor = Tema.ColorSuperficie;
             this.splitContainer1.BackColor = Tema.ColorSuperficie;
@@ -213,38 +213,57 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvListarUsuarios.MultiSelect = false;
             dgvListarUsuarios.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
-
-
         }
 
-
-
-        // Capturar los atajos para los botones
-        private void UsuarioMainMenuForm_KeyDown(object sender, KeyEventArgs e)
+        private void ConfigurarAtajos()
         {
-            if (e.Control && e.KeyCode == Keys.N)
-            {
-                // Control N para nuevo usuario
-                btnAgregar.PerformClick();
-            }
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
 
-            if (e.Control && e.KeyCode == Keys.U)
+            this.KeyDown += (s, e) =>
             {
-                // Control U para actualizar el usuario
-                btnUpdate.PerformClick();
-            }
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control N para nuevo usuario
+                    btnAgregar.PerformClick();
+                }
 
-            if (e.Control && e.KeyCode == Keys.F)
-            {
-                // Control F para buscar usuarios
-                txtBuscar.Focus();
-            }
+                if (e.Control && e.KeyCode == Keys.U)
+                {
+                    // Control U para actualizar el usuario
+                    btnUpdate.PerformClick();
+                }
 
-            // Supr para habilitar/deshabilitar el usuario
-            if (e.KeyCode == Keys.Delete)
-            {
-                btnToggleActivo.PerformClick();
-            }
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+
+                // Supr para habilitar/deshabilitar el usuario
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnToggleActivo.PerformClick();
+                }
+            };
+        }
+        /// <summary>
+        /// Configurar los estilos visuales y la interacción del formulario.
+        /// 
+        /// Para extender la misma funcionalidad a otros formularios, es cuestión de 
+        /// copiar las funciones ConfigurarEstilosVisuales() y ConfigurarAtajos(), implementar
+        /// la lógica en cada una, y agregarlas al evento Load del formulario.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UsuarioMainMenuForm_Load(object sender, EventArgs e)
+        {
+
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
+
         }
     }
 }

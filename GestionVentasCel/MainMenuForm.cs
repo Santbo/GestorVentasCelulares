@@ -62,6 +62,10 @@ namespace GestionVentasCel
             this.panelContenedor.Tag = formularioHijo;
 
             formularioHijo.Show();
+            // Hay un bug molesto que hace que tengas que hacer click en el formulario que se abre para
+            // que se puedan usar los atajos que define. Eso es porque el abrir el formulario no garantiza que tenga el foco.
+            // HAcerle foco manual arregla eso
+            formularioHijo.Focus(); 
         }
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)

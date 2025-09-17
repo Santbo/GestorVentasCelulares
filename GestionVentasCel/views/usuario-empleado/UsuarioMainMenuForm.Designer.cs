@@ -205,7 +205,6 @@
             Name = "UsuarioMainMenuForm";
             Text = "UsuarioMainMenu";
             Load += UsuarioMainMenuForm_Load;
-            KeyDown += UsuarioMainMenuForm_KeyDown;
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
             panelContenedor.ResumeLayout(false);
