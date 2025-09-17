@@ -52,11 +52,6 @@ namespace GestionVentasCel.controller.compra
             return _service.GetByProveedor(proveedorId);
         }
 
-        public IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            return _service.GetByFecha(fechaDesde, fechaHasta);
-        }
-
         public Compra? GetById(int id)
         {
             return _service.GetById(id);

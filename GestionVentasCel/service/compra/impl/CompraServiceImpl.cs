@@ -77,11 +77,6 @@ namespace GestionVentasCel.service.compra.impl
             return _repo.GetByProveedor(proveedorId);
         }
 
-        public IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            return _repo.GetByFecha(fechaDesde, fechaHasta);
-        }
-
         public void ActualizarCompra(Compra compra)
         {
             if (!_repo.Exist(compra.Id))

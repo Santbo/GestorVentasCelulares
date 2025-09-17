@@ -26,7 +26,7 @@ namespace GestionVentasCel.views.proveedor
             InitializeComponent();
             _proveedorController = proveedorController;
             CargarComboBoxes();
-            
+
         }
 
         #endregion
@@ -130,7 +130,6 @@ namespace GestionVentasCel.views.proveedor
             txtEmail.Text = ProveedorActual.Email ?? "";
             txtCalle.Text = ProveedorActual.Calle ?? "";
             txtCiudad.Text = ProveedorActual.Ciudad ?? "";
-            txtObservaciones.Text = ProveedorActual.Observaciones ?? "";
         }
 
         private void CrearProveedor()
@@ -146,7 +145,6 @@ namespace GestionVentasCel.views.proveedor
                 Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null,
                 Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null,
                 Ciudad = txtCiudad.Text.Trim() != "" ? txtCiudad.Text.Trim() : null,
-                Observaciones = txtObservaciones.Text.Trim() != "" ? txtObservaciones.Text.Trim() : null,
                 Activo = true
             };
 
@@ -165,7 +163,6 @@ namespace GestionVentasCel.views.proveedor
             ProveedorActual.Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null;
             ProveedorActual.Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null;
             ProveedorActual.Ciudad = txtCiudad.Text.Trim() != "" ? txtCiudad.Text.Trim() : null;
-            ProveedorActual.Observaciones = txtObservaciones.Text.Trim() != "" ? txtObservaciones.Text.Trim() : null;
 
             _proveedorController.ActualizarProveedor(ProveedorActual);
             MessageBox.Show("Proveedor actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -235,6 +232,15 @@ namespace GestionVentasCel.views.proveedor
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+
                 e.Handled = true;
             }
         }

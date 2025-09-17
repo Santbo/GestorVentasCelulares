@@ -26,10 +26,6 @@ namespace GestionVentasCel.models.compra
 
         public bool Activo { get; set; } = true;
 
-        // Propiedad calculada para mostrar el nombre del proveedor
-        [NotMapped]
-        public string NombreProveedor => Proveedor?.Nombre ?? "Sin proveedor";
-
         // Navegación hacia detalles
         public virtual ICollection<DetalleCompra> Detalles { get; set; } = new List<DetalleCompra>();
     }

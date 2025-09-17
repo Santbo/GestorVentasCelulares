@@ -9,7 +9,6 @@ namespace GestionVentasCel.repository.compra
         IEnumerable<Compra> GetAll();
         IEnumerable<Compra> GetAllWithDetails();
         IEnumerable<Compra> GetByProveedor(int proveedorId);
-        IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta);
         void Add(Compra compra);
         void Update(Compra compra);
         void Delete(int id);

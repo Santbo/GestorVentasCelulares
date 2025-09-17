@@ -54,15 +54,6 @@ namespace GestionVentasCel.repository.compra.impl
                 .ToList();
         }
 
-        public IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            return _context.Compras
-                .Include(c => c.Proveedor)
-                .Where(c => c.Activo && c.Fecha >= fechaDesde && c.Fecha <= fechaHasta)
-                .AsNoTracking()
-                .ToList();
-        }
-
         public IEnumerable<Compra> GetByProveedor(int proveedorId)
         {
             return _context.Compras

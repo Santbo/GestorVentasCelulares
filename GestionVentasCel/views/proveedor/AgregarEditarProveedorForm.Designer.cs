@@ -46,8 +46,6 @@ namespace GestionVentasCel.views.proveedor
             txtCalle = new TextBox();
             lblCiudad = new Label();
             txtCiudad = new TextBox();
-            lblObservaciones = new Label();
-            txtObservaciones = new TextBox();
             btnGuardar = new Button();
             btnDescartar = new Button();
             SuspendLayout();
@@ -164,7 +162,7 @@ namespace GestionVentasCel.views.proveedor
             txtTelefono.PlaceholderText = "(Opcional)";
             txtTelefono.Size = new Size(228, 27);
             txtTelefono.TabIndex = 11;
-            txtTelefono.KeyPress += txtDocumento_KeyPress;
+            txtTelefono.KeyPress += txtTelefono_KeyPress;
             // 
             // lblEmail
             // 
@@ -223,30 +221,10 @@ namespace GestionVentasCel.views.proveedor
             txtCiudad.Size = new Size(228, 27);
             txtCiudad.TabIndex = 17;
             // 
-            // lblObservaciones
-            // 
-            lblObservaciones.AutoSize = true;
-            lblObservaciones.Location = new Point(14, 240);
-            lblObservaciones.Name = "lblObservaciones";
-            lblObservaciones.Size = new Size(108, 20);
-            lblObservaciones.TabIndex = 18;
-            lblObservaciones.Text = "Observaciones:";
-            // 
-            // txtObservaciones
-            // 
-            txtObservaciones.Location = new Point(14, 264);
-            txtObservaciones.Margin = new Padding(3, 4, 3, 4);
-            txtObservaciones.MaxLength = 256;
-            txtObservaciones.Multiline = true;
-            txtObservaciones.Name = "txtObservaciones";
-            txtObservaciones.PlaceholderText = "(Opcional)";
-            txtObservaciones.ScrollBars = ScrollBars.Vertical;
-            txtObservaciones.Size = new Size(820, 132);
-            txtObservaciones.TabIndex = 19;
-            // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(657, 427);
+            btnGuardar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGuardar.Location = new Point(656, 254);
             btnGuardar.Margin = new Padding(3, 4, 3, 4);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(86, 40);
@@ -257,7 +235,8 @@ namespace GestionVentasCel.views.proveedor
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(750, 427);
+            btnDescartar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnDescartar.Location = new Point(748, 254);
             btnDescartar.Margin = new Padding(3, 4, 3, 4);
             btnDescartar.Name = "btnDescartar";
             btnDescartar.Size = new Size(86, 40);
@@ -268,13 +247,13 @@ namespace GestionVentasCel.views.proveedor
             // 
             // AgregarEditarProveedorForm
             // 
+            AcceptButton = btnGuardar;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(848, 483);
+            CancelButton = btnDescartar;
+            ClientSize = new Size(848, 305);
             Controls.Add(btnDescartar);
             Controls.Add(btnGuardar);
-            Controls.Add(txtObservaciones);
-            Controls.Add(lblObservaciones);
             Controls.Add(txtCiudad);
             Controls.Add(lblCiudad);
             Controls.Add(txtCalle);
@@ -293,7 +272,7 @@ namespace GestionVentasCel.views.proveedor
             Controls.Add(lblApellido);
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -326,8 +305,6 @@ namespace GestionVentasCel.views.proveedor
         private TextBox txtCalle;
         private Label lblCiudad;
         private TextBox txtCiudad;
-        private Label lblObservaciones;
-        private TextBox txtObservaciones;
         private Button btnGuardar;
         private Button btnDescartar;
     }
