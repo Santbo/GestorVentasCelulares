@@ -7,10 +7,13 @@
         /// </summary>
         public static Color ColorSuperficie = ColorTranslator.FromHtml("#f1faee");
 
+        public static Color ColorSuperficieOscuro = ColorTranslator.FromHtml("#8d99ae");
+
         /// <summary>
         /// Color para los fondos (barras de menús y controles). Azul oscuro.
         /// </summary>
         public static Color ColorFondo = ColorTranslator.FromHtml("#1d3557");
+        public static Color ColorHoverFondo = ColorTranslator.FromHtml("#25446f");
 
         /// <summary>
         /// Color para botones y esas cosas (acciones primarias, aceptar, guardar, etc). Azul claro

@@ -5,6 +5,7 @@ using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.temas;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
@@ -66,11 +67,17 @@ namespace GestionVentasCel
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Empleados - SGVC";
             AbrirFormularioHijo(new UsuarioMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
         }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
+            // Establecer estilos
+            this.menuStrip1.BackColor = Tema.ColorSuperficie;
+            this.menuStrip1.ForeColor = Tema.ColorTextoSecundario;
+            this.panelContenedor.BackColor = Tema.ColorSuperficieOscuro;
+
             switch (RolAccedido)
             {
                 case RolEnum.Admin:
@@ -90,26 +97,31 @@ namespace GestionVentasCel
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Categorías - SGVC";
             AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void ArticulosMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Artículos - SGVC";
             AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Clientes - SGVC";
             AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
 
         private void gestionarCuentasCorrientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Cuentas corrientes - SGVC";
             AbrirFormularioHijo(new CuentaCorrienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
 
         private void proveedoresMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Proveedores - SGVC";
             AbrirFormularioHijo(new ProveedorMainMenuForm(
                 _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<CompraController>(),
@@ -119,6 +131,7 @@ namespace GestionVentasCel
 
         private void comprasMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Compras - SGVC";
             AbrirFormularioHijo(new CompraMainMenuForm(
                             _serviceProvider.GetRequiredService<CompraController>(),
                 _serviceProvider.GetRequiredService<ProveedorController>(),

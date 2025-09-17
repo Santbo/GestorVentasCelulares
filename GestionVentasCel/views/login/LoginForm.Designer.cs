@@ -213,6 +213,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DeepSkyBlue;
+            CancelButton = btnSalir;
             ClientSize = new Size(860, 562);
             Controls.Add(label3);
             Controls.Add(label2);
