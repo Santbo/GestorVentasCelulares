@@ -32,8 +32,6 @@ using GestionVentasCel.service.compra;
 using GestionVentasCel.service.compra.impl;
 using GestionVentasCel.service.configPrecios;
 using GestionVentasCel.service.configPrecios.impl;
-using GestionVentasCel.service.persona;
-using GestionVentasCel.service.persona.impl;
 using GestionVentasCel.service.proveedor;
 using GestionVentasCel.service.proveedor.impl;
 using GestionVentasCel.service.usuario;
@@ -110,7 +108,6 @@ namespace GestionVentasCel
             services.AddTransient<IProveedorService, ProveedorServiceImpl>();
             services.AddTransient<ICompraService, CompraServiceImpl>();
             services.AddTransient<IClienteService, ClienteServiceImpl>();
-            services.AddTransient<ICuitValidationService, CuitValidationServiceImpl>();
             services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
             services.AddTransient<IConfiguracionPreciosService, ConfiguracionPreciosServiceImpl>();
 

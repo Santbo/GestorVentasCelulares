@@ -1,6 +1,8 @@
+using System.Text.RegularExpressions;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.persona;
+using GestionVentasCel.exceptions.persona;
 using GestionVentasCel.exceptions.proveedor;
 using GestionVentasCel.models.proveedor;
 
@@ -24,7 +26,7 @@ namespace GestionVentasCel.views.proveedor
             InitializeComponent();
             _proveedorController = proveedorController;
             CargarComboBoxes();
-            ConfigurarValidaciones();
+            
         }
 
         #endregion
@@ -40,31 +42,6 @@ namespace GestionVentasCel.views.proveedor
             // Cargar condiciones de IVA
             cmbCondicionIVA.DataSource = Enum.GetValues(typeof(CondicionIVAEnum));
             cmbCondicionIVA.SelectedIndex = 0;
-        }
-
-        private void ConfigurarValidaciones()
-        {
-            // Configurar límites de caracteres según los atributos del modelo
-            txtNombre.MaxLength = 45;
-            txtApellido.MaxLength = 45;
-            txtDocumento.MaxLength = 45;
-            txtTelefono.MaxLength = 18;
-            txtEmail.MaxLength = 200;
-            txtCalle.MaxLength = 45;
-            txtCiudad.MaxLength = 45;
-            txtObservaciones.MaxLength = 200;
-
-            // Configurar eventos de validación
-            txtNombre.TextChanged += ValidarCampoObligatorio;
-            txtApellido.TextChanged += ValidarLongitudCampo;
-            txtDocumento.TextChanged += ValidarCampoObligatorio;
-            txtDocumento.KeyPress += SoloNumeros;
-            txtTelefono.TextChanged += ValidarLongitudCampo;
-            txtTelefono.KeyPress += SoloNumeros;
-            txtEmail.TextChanged += ValidarEmail;
-            txtCalle.TextChanged += ValidarLongitudCampo;
-            txtCiudad.TextChanged += ValidarLongitudCampo;
-            txtObservaciones.TextChanged += ValidarLongitudCampo;
         }
 
         #endregion
@@ -83,7 +60,6 @@ namespace GestionVentasCel.views.proveedor
             {
                 this.Text = "Agregar Proveedor";
                 btnGuardar.Text = "Guardar";
-                dtpFechaNacimiento.Value = DateTime.Now.AddYears(-25); // Fecha por defecto
             }
         }
 
@@ -109,9 +85,9 @@ namespace GestionVentasCel.views.proveedor
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                catch (Exception ex)
+                catch (DocumentoDuplicadoException ex)
                 {
-                    MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -204,11 +180,26 @@ namespace GestionVentasCel.views.proveedor
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtDocumento.Text))
+            // DNI: Asegurarse de que esté entre 8 y 13 caracteres
+            string dni = txtDocumento.Text.Trim();
+            if (dni.Length < 8 || dni.Length > 13)
             {
-                MessageBox.Show("El documento es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDocumento.Focus();
                 return false;
+            }
+
+            // DNI: Si se seleccionó CUIT, entonces tiene que seguir el formato correcto
+            if ((TipoDocumentoEnum)cmbTipoDocumento.SelectedItem != TipoDocumentoEnum.DNI)
+            {
+                // Tiene que empezar con dos digitos, seguido de un guion, ocho digitos, un guion y terminar con un digito
+                if (!Regex.IsMatch(dni, @"^\d{2}-\d{8}-\d{1}$"))
+                {
+                    MessageBox.Show("El formato del CUIT/CUIL debe ser XX-XXXXXXXX-X.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDocumento.Focus();
+                    return false;
+
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !EsEmailValido(txtEmail.Text))
@@ -238,105 +229,14 @@ namespace GestionVentasCel.views.proveedor
 
         #region Métodos de Validación
 
-        private void ValidarCampoObligatorio(object sender, EventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    textBox.BackColor = Color.LightPink;
-                    MostrarError(textBox, "Este campo es obligatorio");
-                }
-                else
-                {
-                    textBox.BackColor = Color.White;
-                    LimpiarError(textBox);
-                }
-            }
-        }
+        #endregion
 
-        private void ValidarLongitudCampo(object sender, EventArgs e)
+        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
         {
-            var textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (textBox.Text.Length > textBox.MaxLength)
-                {
-                    textBox.BackColor = Color.LightYellow;
-                    MostrarError(textBox, $"Máximo {textBox.MaxLength} caracteres");
-                }
-                else
-                {
-                    textBox.BackColor = Color.White;
-                    LimpiarError(textBox);
-                }
-            }
-        }
-
-        private void ValidarEmail(object sender, EventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (!string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    if (!EsEmailValido(textBox.Text))
-                    {
-                        textBox.BackColor = Color.LightPink;
-                        MostrarError(textBox, "Formato de email inválido");
-                    }
-                    else if (textBox.Text.Length > textBox.MaxLength)
-                    {
-                        textBox.BackColor = Color.LightYellow;
-                        MostrarError(textBox, $"Máximo {textBox.MaxLength} caracteres");
-                    }
-                    else
-                    {
-                        textBox.BackColor = Color.White;
-                        LimpiarError(textBox);
-                    }
-                }
-                else
-                {
-                    textBox.BackColor = Color.White;
-                    LimpiarError(textBox);
-                }
-            }
-        }
-
-        private void MostrarError(TextBox textBox, string mensaje)
-        {
-            // Crear o actualizar tooltip de error
-            var toolTip = new ToolTip();
-            toolTip.IsBalloon = true;
-            toolTip.ToolTipIcon = ToolTipIcon.Warning;
-            toolTip.Show(mensaje, textBox, 0, -50, 3000);
-        }
-
-        private void LimpiarError(TextBox textBox)
-        {
-            // Limpiar tooltips existentes
-            var toolTip = new ToolTip();
-            toolTip.Hide(textBox);
-        }
-
-        private void SoloNumeros(object sender, KeyPressEventArgs e)
-        {
-            // Permitir solo números, teclas de control (backspace, delete, etc.) y guiones
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
                 e.Handled = true;
-
-                // Mostrar tooltip de error
-                var textBox = sender as TextBox;
-                if (textBox != null)
-                {
-                    MostrarError(textBox, "Solo se permiten números y guiones");
-                }
             }
         }
-
-        #endregion
     }
 }

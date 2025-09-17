@@ -20,7 +20,7 @@ namespace GestionVentasCel.views.proveedor
             base.Dispose(disposing);
         }
 
-         
+
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -50,48 +50,51 @@ namespace GestionVentasCel.views.proveedor
             txtObservaciones = new TextBox();
             btnGuardar = new Button();
             btnDescartar = new Button();
-            dtpFechaNacimiento = new DateTimePicker();
-            lblFechaNacimiento = new Label();
             SuspendLayout();
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(12, 15);
+            lblNombre.Location = new Point(14, 20);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(51, 15);
+            lblNombre.Size = new Size(67, 20);
             lblNombre.TabIndex = 0;
             lblNombre.Text = "Nombre:";
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(12, 33);
+            txtNombre.Location = new Point(14, 44);
+            txtNombre.Margin = new Padding(3, 4, 3, 4);
+            txtNombre.MaxLength = 45;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(200, 23);
+            txtNombre.Size = new Size(228, 27);
             txtNombre.TabIndex = 1;
             // 
             // lblApellido
             // 
             lblApellido.AutoSize = true;
-            lblApellido.Location = new Point(218, 15);
+            lblApellido.Location = new Point(249, 20);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(51, 15);
+            lblApellido.Size = new Size(69, 20);
             lblApellido.TabIndex = 2;
             lblApellido.Text = "Apellido:";
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(218, 33);
+            txtApellido.Location = new Point(249, 44);
+            txtApellido.Margin = new Padding(3, 4, 3, 4);
+            txtApellido.MaxLength = 45;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(200, 23);
+            txtApellido.PlaceholderText = "(Opcional)";
+            txtApellido.Size = new Size(228, 27);
             txtApellido.TabIndex = 3;
             // 
             // lblTipoDocumento
             // 
             lblTipoDocumento.AutoSize = true;
-            lblTipoDocumento.Location = new Point(424, 15);
+            lblTipoDocumento.Location = new Point(485, 20);
             lblTipoDocumento.Name = "lblTipoDocumento";
-            lblTipoDocumento.Size = new Size(103, 15);
+            lblTipoDocumento.Size = new Size(124, 20);
             lblTipoDocumento.TabIndex = 4;
             lblTipoDocumento.Text = "Tipo Documento:";
             // 
@@ -99,33 +102,37 @@ namespace GestionVentasCel.views.proveedor
             // 
             cmbTipoDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTipoDocumento.FormattingEnabled = true;
-            cmbTipoDocumento.Location = new Point(424, 33);
+            cmbTipoDocumento.Location = new Point(485, 44);
+            cmbTipoDocumento.Margin = new Padding(3, 4, 3, 4);
             cmbTipoDocumento.Name = "cmbTipoDocumento";
-            cmbTipoDocumento.Size = new Size(150, 23);
+            cmbTipoDocumento.Size = new Size(171, 28);
             cmbTipoDocumento.TabIndex = 5;
             // 
             // lblDocumento
             // 
             lblDocumento.AutoSize = true;
-            lblDocumento.Location = new Point(580, 15);
+            lblDocumento.Location = new Point(663, 20);
             lblDocumento.Name = "lblDocumento";
-            lblDocumento.Size = new Size(70, 15);
+            lblDocumento.Size = new Size(90, 20);
             lblDocumento.TabIndex = 6;
             lblDocumento.Text = "Documento:";
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(580, 33);
+            txtDocumento.Location = new Point(663, 44);
+            txtDocumento.Margin = new Padding(3, 4, 3, 4);
+            txtDocumento.MaxLength = 13;
             txtDocumento.Name = "txtDocumento";
-            txtDocumento.Size = new Size(150, 23);
+            txtDocumento.Size = new Size(171, 27);
             txtDocumento.TabIndex = 7;
+            txtDocumento.KeyPress += txtDocumento_KeyPress;
             // 
             // lblCondicionIVA
             // 
             lblCondicionIVA.AutoSize = true;
-            lblCondicionIVA.Location = new Point(12, 70);
+            lblCondicionIVA.Location = new Point(14, 93);
             lblCondicionIVA.Name = "lblCondicionIVA";
-            lblCondicionIVA.Size = new Size(91, 15);
+            lblCondicionIVA.Size = new Size(105, 20);
             lblCondicionIVA.TabIndex = 8;
             lblCondicionIVA.Text = "Condición IVA:";
             // 
@@ -133,98 +140,116 @@ namespace GestionVentasCel.views.proveedor
             // 
             cmbCondicionIVA.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCondicionIVA.FormattingEnabled = true;
-            cmbCondicionIVA.Location = new Point(12, 88);
+            cmbCondicionIVA.Location = new Point(14, 117);
+            cmbCondicionIVA.Margin = new Padding(3, 4, 3, 4);
             cmbCondicionIVA.Name = "cmbCondicionIVA";
-            cmbCondicionIVA.Size = new Size(200, 23);
+            cmbCondicionIVA.Size = new Size(228, 28);
             cmbCondicionIVA.TabIndex = 9;
             // 
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(218, 70);
+            lblTelefono.Location = new Point(249, 93);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(52, 15);
+            lblTelefono.Size = new Size(70, 20);
             lblTelefono.TabIndex = 10;
             lblTelefono.Text = "Teléfono:";
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(218, 88);
+            txtTelefono.Location = new Point(249, 117);
+            txtTelefono.Margin = new Padding(3, 4, 3, 4);
+            txtTelefono.MaxLength = 15;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(200, 23);
+            txtTelefono.PlaceholderText = "(Opcional)";
+            txtTelefono.Size = new Size(228, 27);
             txtTelefono.TabIndex = 11;
+            txtTelefono.KeyPress += txtDocumento_KeyPress;
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(424, 70);
+            lblEmail.Location = new Point(485, 93);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(39, 15);
+            lblEmail.Size = new Size(49, 20);
             lblEmail.TabIndex = 12;
             lblEmail.Text = "Email:";
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(424, 88);
+            txtEmail.Location = new Point(485, 117);
+            txtEmail.Margin = new Padding(3, 4, 3, 4);
+            txtEmail.MaxLength = 45;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(306, 23);
+            txtEmail.PlaceholderText = "(Opcional)";
+            txtEmail.Size = new Size(349, 27);
             txtEmail.TabIndex = 13;
             // 
             // lblCalle
             // 
             lblCalle.AutoSize = true;
-            lblCalle.Location = new Point(12, 125);
+            lblCalle.Location = new Point(14, 167);
             lblCalle.Name = "lblCalle";
-            lblCalle.Size = new Size(33, 15);
+            lblCalle.Size = new Size(45, 20);
             lblCalle.TabIndex = 14;
             lblCalle.Text = "Calle:";
             // 
             // txtCalle
             // 
-            txtCalle.Location = new Point(12, 143);
+            txtCalle.Location = new Point(14, 191);
+            txtCalle.Margin = new Padding(3, 4, 3, 4);
+            txtCalle.MaxLength = 45;
             txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(200, 23);
+            txtCalle.PlaceholderText = "(Opcional)";
+            txtCalle.Size = new Size(228, 27);
             txtCalle.TabIndex = 15;
             // 
             // lblCiudad
             // 
             lblCiudad.AutoSize = true;
-            lblCiudad.Location = new Point(218, 125);
+            lblCiudad.Location = new Point(249, 167);
             lblCiudad.Name = "lblCiudad";
-            lblCiudad.Size = new Size(45, 15);
+            lblCiudad.Size = new Size(59, 20);
             lblCiudad.TabIndex = 16;
             lblCiudad.Text = "Ciudad:";
             // 
             // txtCiudad
             // 
-            txtCiudad.Location = new Point(218, 143);
+            txtCiudad.Location = new Point(249, 191);
+            txtCiudad.Margin = new Padding(3, 4, 3, 4);
+            txtCiudad.MaxLength = 45;
             txtCiudad.Name = "txtCiudad";
-            txtCiudad.Size = new Size(200, 23);
+            txtCiudad.PlaceholderText = "(Opcional)";
+            txtCiudad.Size = new Size(228, 27);
             txtCiudad.TabIndex = 17;
             // 
             // lblObservaciones
             // 
             lblObservaciones.AutoSize = true;
-            lblObservaciones.Location = new Point(12, 180);
+            lblObservaciones.Location = new Point(14, 240);
             lblObservaciones.Name = "lblObservaciones";
-            lblObservaciones.Size = new Size(87, 15);
+            lblObservaciones.Size = new Size(108, 20);
             lblObservaciones.TabIndex = 18;
             lblObservaciones.Text = "Observaciones:";
             // 
             // txtObservaciones
             // 
-            txtObservaciones.Location = new Point(12, 198);
+            txtObservaciones.Location = new Point(14, 264);
+            txtObservaciones.Margin = new Padding(3, 4, 3, 4);
+            txtObservaciones.MaxLength = 256;
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
+            txtObservaciones.PlaceholderText = "(Opcional)";
             txtObservaciones.ScrollBars = ScrollBars.Vertical;
-            txtObservaciones.Size = new Size(718, 100);
+            txtObservaciones.Size = new Size(820, 132);
             txtObservaciones.TabIndex = 19;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(575, 320);
+            btnGuardar.Location = new Point(657, 427);
+            btnGuardar.Margin = new Padding(3, 4, 3, 4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(75, 30);
+            btnGuardar.Size = new Size(86, 40);
             btnGuardar.TabIndex = 20;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -232,37 +257,20 @@ namespace GestionVentasCel.views.proveedor
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(656, 320);
+            btnDescartar.Location = new Point(750, 427);
+            btnDescartar.Margin = new Padding(3, 4, 3, 4);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(75, 30);
+            btnDescartar.Size = new Size(86, 40);
             btnDescartar.TabIndex = 21;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
             btnDescartar.Click += btnDescartar_Click;
             // 
-            // dtpFechaNacimiento
-            // 
-            dtpFechaNacimiento.Location = new Point(424, 143);
-            dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            dtpFechaNacimiento.Size = new Size(200, 23);
-            dtpFechaNacimiento.TabIndex = 22;
-            // 
-            // lblFechaNacimiento
-            // 
-            lblFechaNacimiento.AutoSize = true;
-            lblFechaNacimiento.Location = new Point(424, 125);
-            lblFechaNacimiento.Name = "lblFechaNacimiento";
-            lblFechaNacimiento.Size = new Size(103, 15);
-            lblFechaNacimiento.TabIndex = 23;
-            lblFechaNacimiento.Text = "Fecha Nacimiento:";
-            // 
             // AgregarEditarProveedorForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(742, 362);
-            Controls.Add(lblFechaNacimiento);
-            Controls.Add(dtpFechaNacimiento);
+            ClientSize = new Size(848, 483);
             Controls.Add(btnDescartar);
             Controls.Add(btnGuardar);
             Controls.Add(txtObservaciones);
@@ -286,18 +294,19 @@ namespace GestionVentasCel.views.proveedor
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AgregarEditarProveedorForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Agregar Proveedor";
-            Load += AgregarEditarProveedorForm_Load;
             FormClosing += AgregarEditarProveedorForm_FormClosing;
+            Load += AgregarEditarProveedorForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
-          
+
 
         private Label lblNombre;
         private TextBox txtNombre;
@@ -321,7 +330,5 @@ namespace GestionVentasCel.views.proveedor
         private TextBox txtObservaciones;
         private Button btnGuardar;
         private Button btnDescartar;
-        private DateTimePicker dtpFechaNacimiento;
-        private Label lblFechaNacimiento;
     }
 }
