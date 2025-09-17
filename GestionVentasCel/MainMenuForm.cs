@@ -30,19 +30,18 @@ namespace GestionVentasCel
 
         }
 
-        //Creamos un metodo para que la X del formulario funcione con un MessageBox
         private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var result = MessageBox.Show(
-            "�Seguro que desea salir?",
-            "Confirmaci�n",
+            "¿Seguro que desea salir?",
+            "Confirmación",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question
             );
 
             if (result == DialogResult.No)
             {
-                e.Cancel = true; // Cancela el cierre
+                e.Cancel = true;
             }
         }
 
@@ -75,7 +74,6 @@ namespace GestionVentasCel
         {
             // Establecer estilos
             this.menuStrip1.BackColor = Tema.ColorSuperficie;
-            this.menuStrip1.ForeColor = Tema.ColorTextoSecundario;
             this.panelContenedor.BackColor = Tema.ColorSuperficieOscuro;
 
             switch (RolAccedido)
