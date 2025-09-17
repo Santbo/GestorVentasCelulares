@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.models.categoria;
 
@@ -12,7 +13,7 @@ namespace GestionVentasCel.models.articulo
         [Required, MaxLength(45)]
         public string Nombre { get; set; }
 
-        [Required]
+        [Required, DisplayName("Stock crítico")]
         public int Aviso_stock { get; set; }
 
         [Required, Column(TypeName = "decimal(10,2)")]
@@ -24,11 +25,12 @@ namespace GestionVentasCel.models.articulo
         [Required, MaxLength(45)]
         public string Marca { get; set; }
 
-        [MaxLength(256)]
+        [MaxLength(256), DisplayName("Descripción")]
         public string? Descripcion { get; set; }
 
         public bool Activo { get; set; } = true;
 
+        [DisplayName("Categoría")]
         public Categoria? Categoria { get; set; }
 
         [Required]

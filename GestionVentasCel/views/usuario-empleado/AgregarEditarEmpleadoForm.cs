@@ -139,8 +139,6 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void ConfigurarEstilosVisuales()
         {
-            //this.Text = Modo == ModoFormulario.Editar ?
-            //    "Editar usuario" : "Agregar usuario";
 
             this.lblTitulo.Text = Modo == ModoFormulario.Editar ?
                 "Editar usuario" : "Agregar usuario";
@@ -159,15 +157,6 @@ namespace GestionVentasCel.views.usuario_empleado
             this.lblDni.ForeColor = Tema.ColorFondo;
             this.lblTelefono.ForeColor = Tema.ColorFondo;
             this.lblEmail.ForeColor = Tema.ColorFondo;
-
-            //this.txtUsuario.BackColor = Tema.ColorSuperficie;
-            //this.txtPassword.BackColor = Tema.ColorSuperficie;
-            //this.comboRol.BackColor = Tema.ColorSuperficie;
-            //this.txtNombre.BackColor = Tema.ColorSuperficie;
-            //this.txtApellido.BackColor = Tema.ColorSuperficie;
-            //this.txtDni.BackColor = Tema.ColorSuperficie;
-            //this.txtTelefono.BackColor = Tema.ColorSuperficie;
-            //this.txtEmail.BackColor = Tema.ColorSuperficie;
 
 
         }
