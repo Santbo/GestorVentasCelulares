@@ -1,4 +1,5 @@
 ﻿using GestionVentasCel.data;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,9 +53,18 @@ namespace GestionVentasCel.repository.persona.impl
 
         public IEnumerable<Persona> ObtenerPersonasSinClientes()
         {
-            return _context.Personas
-                .Where(p => !_context.Clientes.Any(c => c.Id == p.Id))
-                .ToList();
+            // Como Persona es abstracta y EF core se pone molesto,
+            // hay que traer todos los usuarios y proveedores que existes
+            // que no sean clientes, y castearlos a persona
+            var usuarios = _context.Usuarios
+                .Where(u => !_context.Clientes.Any(c => c.Id == u.Id || c.Dni == u.Dni))
+                .ToList<Persona>();
+
+            var proveedores = _context.Proveedores
+                .Where(pr => !_context.Clientes.Any(c => c.Id == pr.Id || c.Dni == pr.Dni))
+                .ToList<Persona>();
+
+            return usuarios.Concat(proveedores).ToList();
         }
     }
 }

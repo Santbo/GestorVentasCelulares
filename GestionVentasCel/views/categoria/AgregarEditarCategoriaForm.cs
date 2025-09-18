@@ -142,14 +142,8 @@ namespace GestionVentasCel.views.categoria
 
             this.BackColor = Tema.ColorSuperficie;
 
-            // Cambiar los colores de los labels y el fondo de los inputs
-            //this.lblAvisoStock.ForeColor = Tema.ColorFondo;
-            //this.lblCategoria.ForeColor = Tema.ColorFondo;
-            //this.lblDescripcion.ForeColor = Tema.ColorFondo;
-            //this.lblMarca.ForeColor = Tema.ColorFondo;
-            //this.lblNombre.ForeColor = Tema.ColorFondo;
-            //this.lblPrecio.ForeColor = Tema.ColorFondo;
-            //this.lblStock.ForeColor = Tema.ColorFondo;
+            this.lblDescripcion.ForeColor = Tema.ColorFondo;
+            this.lblNombre.ForeColor = Tema.ColorFondo;
 
 
         }
