@@ -45,8 +45,6 @@ namespace GestionVentasCel.views.categoria
                 dgvListarCategorias.Columns["Activo"].DisplayIndex = 3;
                 dgvListarCategorias.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-
-
             };
         }
 
