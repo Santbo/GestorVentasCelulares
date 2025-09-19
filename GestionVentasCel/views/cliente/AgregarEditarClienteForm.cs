@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using GestionVentasCel.controller.cliente;
+using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -257,6 +259,43 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 e.Handled = true;
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.BackColor = Tema.ColorSuperficie;
+            this.lblTituloForm.Text = this._editando ?
+                "Editar cliente" : "Agregar cliente";
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblNombre.ForeColor = Tema.ColorFondo;
+            this.lblApellido.ForeColor = Tema.ColorFondo;
+            this.lblEmail.ForeColor = Tema.ColorFondo;
+            this.lblTipoDni.ForeColor = Tema.ColorFondo;
+            this.lblDni.ForeColor = Tema.ColorFondo;
+            this.lblCalle.ForeColor = Tema.ColorFondo;
+            this.lblCondicionIva.ForeColor = Tema.ColorFondo;
+            this.lblTelefono.ForeColor = Tema.ColorFondo;
+            this.lblCiudad.ForeColor = Tema.ColorFondo;
+
+
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
+        }
+
+        private void AgregarEditarClienteForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
         }
     }
 }

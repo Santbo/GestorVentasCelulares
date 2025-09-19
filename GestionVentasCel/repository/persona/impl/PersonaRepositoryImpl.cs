@@ -54,8 +54,9 @@ namespace GestionVentasCel.repository.persona.impl
         public IEnumerable<Persona> ObtenerPersonasSinClientes()
         {
             // Como Persona es abstracta y EF core se pone molesto,
-            // hay que traer todos los usuarios y proveedores que existes
-            // que no sean clientes, y castearlos a persona
+            // hay que traer todos los usuarios y proveedores que existen
+            // que no sean clientes o compartan el dni con clientes, y castearlos a persona
+
             var usuarios = _context.Usuarios
                 .Where(u => !_context.Clientes.Any(c => c.Id == u.Id || c.Dni == u.Dni))
                 .ToList<Persona>();

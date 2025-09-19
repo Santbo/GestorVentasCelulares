@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitulo = new Label();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarClienteForm));
             btnDescartar = new Button();
             btnGuardar = new Button();
             txtNombre = new TextBox();
@@ -36,15 +37,15 @@
             txtTelefono = new TextBox();
             txtDni = new TextBox();
             txtEmail = new TextBox();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
+            lblNombre = new Label();
+            lblApellido = new Label();
+            lblTelefono = new Label();
+            lblDni = new Label();
+            lblEmail = new Label();
+            lblTipoDni = new Label();
             comboTipoDoc = new ComboBox();
             comboIVA = new ComboBox();
-            label1 = new Label();
+            lblCondicionIva = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
@@ -54,12 +55,15 @@
             panel7 = new Panel();
             panel8 = new Panel();
             panel9 = new Panel();
-            label2 = new Label();
+            lblCalle = new Label();
             txtCalle = new TextBox();
             panel10 = new Panel();
-            label3 = new Label();
+            lblCiudad = new Label();
             txtCiudad = new TextBox();
             panel11 = new Panel();
+            btnSalir = new Button();
+            imageList1 = new ImageList(components);
+            lblTituloForm = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -72,18 +76,6 @@
             panel10.SuspendLayout();
             panel11.SuspendLayout();
             SuspendLayout();
-            // 
-            // lblTitulo
-            // 
-            lblTitulo.Dock = DockStyle.Top;
-            lblTitulo.Font = new Font("Verdana", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(0, 0);
-            lblTitulo.Margin = new Padding(4, 0, 4, 0);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(975, 44);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Agregar Cliente";
-            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnDescartar
             // 
@@ -161,71 +153,77 @@
             txtEmail.Size = new Size(300, 31);
             txtEmail.TabIndex = 6;
             // 
-            // label4
+            // lblNombre
             // 
-            label4.AutoSize = true;
-            label4.Dock = DockStyle.Top;
-            label4.Location = new Point(0, 0);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(188, 25);
-            label4.TabIndex = 14;
-            label4.Text = "Nombre / razón social";
+            lblNombre.AutoSize = true;
+            lblNombre.Dock = DockStyle.Top;
+            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNombre.Location = new Point(0, 0);
+            lblNombre.Margin = new Padding(4, 0, 4, 0);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(200, 25);
+            lblNombre.TabIndex = 14;
+            lblNombre.Text = "Nombre / razón social";
             // 
-            // label5
+            // lblApellido
             // 
-            label5.AutoSize = true;
-            label5.Dock = DockStyle.Top;
-            label5.Location = new Point(0, 0);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(78, 25);
-            label5.TabIndex = 15;
-            label5.Text = "Apellido";
+            lblApellido.AutoSize = true;
+            lblApellido.Dock = DockStyle.Top;
+            lblApellido.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblApellido.Location = new Point(0, 0);
+            lblApellido.Margin = new Padding(4, 0, 4, 0);
+            lblApellido.Name = "lblApellido";
+            lblApellido.Size = new Size(83, 25);
+            lblApellido.TabIndex = 15;
+            lblApellido.Text = "Apellido";
             // 
-            // label6
+            // lblTelefono
             // 
-            label6.AutoSize = true;
-            label6.Dock = DockStyle.Top;
-            label6.Location = new Point(0, 0);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(79, 25);
-            label6.TabIndex = 16;
-            label6.Text = "Teléfono";
+            lblTelefono.AutoSize = true;
+            lblTelefono.Dock = DockStyle.Top;
+            lblTelefono.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTelefono.Location = new Point(0, 0);
+            lblTelefono.Margin = new Padding(4, 0, 4, 0);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(86, 25);
+            lblTelefono.TabIndex = 16;
+            lblTelefono.Text = "Teléfono";
             // 
-            // label7
+            // lblDni
             // 
-            label7.AutoSize = true;
-            label7.Dock = DockStyle.Top;
-            label7.Location = new Point(0, 0);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(199, 25);
-            label7.TabIndex = 17;
-            label7.Text = "Número de documento";
+            lblDni.AutoSize = true;
+            lblDni.Dock = DockStyle.Top;
+            lblDni.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDni.Location = new Point(0, 0);
+            lblDni.Margin = new Padding(4, 0, 4, 0);
+            lblDni.Name = "lblDni";
+            lblDni.Size = new Size(209, 25);
+            lblDni.TabIndex = 17;
+            lblDni.Text = "Número de documento";
             // 
-            // label8
+            // lblEmail
             // 
-            label8.AutoSize = true;
-            label8.Dock = DockStyle.Top;
-            label8.Location = new Point(0, 0);
-            label8.Margin = new Padding(4, 0, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(54, 25);
-            label8.TabIndex = 18;
-            label8.Text = "Email";
+            lblEmail.AutoSize = true;
+            lblEmail.Dock = DockStyle.Top;
+            lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEmail.Location = new Point(0, 0);
+            lblEmail.Margin = new Padding(4, 0, 4, 0);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(58, 25);
+            lblEmail.TabIndex = 18;
+            lblEmail.Text = "Email";
             // 
-            // label9
+            // lblTipoDni
             // 
-            label9.AutoSize = true;
-            label9.Dock = DockStyle.Top;
-            label9.Location = new Point(0, 0);
-            label9.Margin = new Padding(4, 0, 4, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(171, 25);
-            label9.TabIndex = 19;
-            label9.Text = "Tipo de Documento";
+            lblTipoDni.AutoSize = true;
+            lblTipoDni.Dock = DockStyle.Top;
+            lblTipoDni.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTipoDni.Location = new Point(0, 0);
+            lblTipoDni.Margin = new Padding(4, 0, 4, 0);
+            lblTipoDni.Name = "lblTipoDni";
+            lblTipoDni.Size = new Size(180, 25);
+            lblTipoDni.TabIndex = 19;
+            lblTipoDni.Text = "Tipo de Documento";
             // 
             // comboTipoDoc
             // 
@@ -247,20 +245,21 @@
             comboIVA.Size = new Size(300, 33);
             comboIVA.TabIndex = 4;
             // 
-            // label1
+            // lblCondicionIva
             // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Top;
-            label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(189, 25);
-            label1.TabIndex = 21;
-            label1.Text = "Condición frente a IVA";
+            lblCondicionIva.AutoSize = true;
+            lblCondicionIva.Dock = DockStyle.Top;
+            lblCondicionIva.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCondicionIva.Location = new Point(0, 0);
+            lblCondicionIva.Margin = new Padding(4, 0, 4, 0);
+            lblCondicionIva.Name = "lblCondicionIva";
+            lblCondicionIva.Size = new Size(204, 25);
+            lblCondicionIva.TabIndex = 21;
+            lblCondicionIva.Text = "Condición frente a IVA";
             // 
             // panel1
             // 
-            panel1.Controls.Add(label4);
+            panel1.Controls.Add(lblNombre);
             panel1.Controls.Add(txtNombre);
             panel1.Location = new Point(10, 30);
             panel1.Name = "panel1";
@@ -269,7 +268,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(label1);
+            panel2.Controls.Add(lblCondicionIva);
             panel2.Controls.Add(comboIVA);
             panel2.Location = new Point(660, 30);
             panel2.Name = "panel2";
@@ -278,7 +277,7 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(label9);
+            panel3.Controls.Add(lblTipoDni);
             panel3.Controls.Add(comboTipoDoc);
             panel3.Location = new Point(332, 30);
             panel3.Name = "panel3";
@@ -287,7 +286,7 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(label8);
+            panel4.Controls.Add(lblEmail);
             panel4.Controls.Add(txtEmail);
             panel4.Location = new Point(10, 237);
             panel4.Name = "panel4";
@@ -296,7 +295,7 @@
             // 
             // panel5
             // 
-            panel5.Controls.Add(label5);
+            panel5.Controls.Add(lblApellido);
             panel5.Controls.Add(txtApellido);
             panel5.Location = new Point(10, 132);
             panel5.Name = "panel5";
@@ -305,7 +304,7 @@
             // 
             // panel6
             // 
-            panel6.Controls.Add(label6);
+            panel6.Controls.Add(lblTelefono);
             panel6.Controls.Add(txtTelefono);
             panel6.Location = new Point(660, 132);
             panel6.Name = "panel6";
@@ -314,7 +313,7 @@
             // 
             // panel7
             // 
-            panel7.Controls.Add(label7);
+            panel7.Controls.Add(lblDni);
             panel7.Controls.Add(txtDni);
             panel7.Location = new Point(332, 132);
             panel7.Name = "panel7";
@@ -333,23 +332,24 @@
             // 
             // panel9
             // 
-            panel9.Controls.Add(label2);
+            panel9.Controls.Add(lblCalle);
             panel9.Controls.Add(txtCalle);
             panel9.Location = new Point(332, 237);
             panel9.Name = "panel9";
             panel9.Size = new Size(300, 62);
             panel9.TabIndex = 7;
             // 
-            // label2
+            // lblCalle
             // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Top;
-            label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(49, 25);
-            label2.TabIndex = 18;
-            label2.Text = "Calle";
+            lblCalle.AutoSize = true;
+            lblCalle.Dock = DockStyle.Top;
+            lblCalle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCalle.Location = new Point(0, 0);
+            lblCalle.Margin = new Padding(4, 0, 4, 0);
+            lblCalle.Name = "lblCalle";
+            lblCalle.Size = new Size(53, 25);
+            lblCalle.TabIndex = 18;
+            lblCalle.Text = "Calle";
             // 
             // txtCalle
             // 
@@ -363,23 +363,24 @@
             // 
             // panel10
             // 
-            panel10.Controls.Add(label3);
+            panel10.Controls.Add(lblCiudad);
             panel10.Controls.Add(txtCiudad);
             panel10.Location = new Point(660, 237);
             panel10.Name = "panel10";
             panel10.Size = new Size(300, 62);
             panel10.TabIndex = 8;
             // 
-            // label3
+            // lblCiudad
             // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Top;
-            label3.Location = new Point(0, 0);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(68, 25);
-            label3.TabIndex = 18;
-            label3.Text = "Ciudad";
+            lblCiudad.AutoSize = true;
+            lblCiudad.Dock = DockStyle.Top;
+            lblCiudad.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCiudad.Location = new Point(0, 0);
+            lblCiudad.Margin = new Padding(4, 0, 4, 0);
+            lblCiudad.Name = "lblCiudad";
+            lblCiudad.Size = new Size(71, 25);
+            lblCiudad.TabIndex = 18;
+            lblCiudad.Text = "Ciudad";
             // 
             // txtCiudad
             // 
@@ -402,25 +403,65 @@
             panel11.Controls.Add(panel1);
             panel11.Controls.Add(panel6);
             panel11.Controls.Add(panel5);
-            panel11.Dock = DockStyle.Top;
-            panel11.Location = new Point(0, 44);
+            panel11.Location = new Point(0, 80);
             panel11.Name = "panel11";
-            panel11.Size = new Size(975, 412);
+            panel11.Size = new Size(975, 376);
             panel11.TabIndex = 33;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Cursor = Cursors.Hand;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ImageKey = "xmark-solid-full.png";
+            btnSalir.ImageList = imageList1;
+            btnSalir.Location = new Point(931, 12);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(32, 32);
+            btnSalir.TabIndex = 35;
+            btnSalir.TabStop = false;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(975, 77);
+            lblTituloForm.TabIndex = 34;
+            lblTituloForm.Text = "Agregar cliente";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // AgregarEditarClienteForm
             // 
+            AcceptButton = btnGuardar;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnDescartar;
             ClientSize = new Size(975, 562);
+            Controls.Add(btnSalir);
+            Controls.Add(lblTituloForm);
             Controls.Add(panel11);
-            Controls.Add(lblTitulo);
             Controls.Add(panel8);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "AgregarEditarClienteForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarEmpleadoForm_FormClosing;
+            Load += AgregarEditarClienteForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -445,8 +486,6 @@
         }
 
         #endregion
-
-        private Label lblTitulo;
         private Button button1;
         private Button btnDescartar;
         private Button btnGuardar;
@@ -455,15 +494,15 @@
         private TextBox txtTelefono;
         private TextBox txtDni;
         private TextBox txtEmail;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
+        private Label lblNombre;
+        private Label lblApellido;
+        private Label lblTelefono;
+        private Label lblDni;
+        private Label lblEmail;
+        private Label lblTipoDni;
         private ComboBox comboTipoDoc;
         private ComboBox comboIVA;
-        private Label label1;
+        private Label lblCondicionIva;
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
@@ -473,11 +512,14 @@
         private Panel panel7;
         private Panel panel8;
         private Panel panel9;
-        private Label label2;
+        private Label lblCalle;
         private TextBox txtCalle;
         private Panel panel10;
-        private Label label3;
+        private Label lblCiudad;
         private TextBox txtCiudad;
         private Panel panel11;
+        private Button btnSalir;
+        private Label lblTituloForm;
+        private ImageList imageList1;
     }
 }
