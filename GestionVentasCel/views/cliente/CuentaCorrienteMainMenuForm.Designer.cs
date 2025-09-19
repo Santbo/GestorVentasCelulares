@@ -35,9 +35,17 @@
             btnVerMovimientos = new Button();
             btnAgregar = new Button();
             panelContenedor = new Panel();
+            splitContainer1 = new SplitContainer();
+            panelHeader = new Panel();
+            lblTituloForm = new Label();
             dgvListarCuentas = new DataGridView();
             panelBtn.SuspendLayout();
             panelContenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvListarCuentas).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +69,7 @@
             txtBuscar.Location = new Point(15, 11);
             txtBuscar.Margin = new Padding(4);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "Buscar Cliente";
+            txtBuscar.PlaceholderText = "(Ctrl + F) Buscar cliente";
             txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
@@ -117,13 +125,54 @@
             // 
             // panelContenedor
             // 
-            panelContenedor.Controls.Add(dgvListarCuentas);
+            panelContenedor.Controls.Add(splitContainer1);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 0);
             panelContenedor.Margin = new Padding(4);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1000, 476);
             panelContenedor.TabIndex = 1;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(panelHeader);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dgvListarCuentas);
+            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
+            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.SplitterDistance = 34;
+            splitContainer1.TabIndex = 5;
+            // 
+            // panelHeader
+            // 
+            panelHeader.Controls.Add(lblTituloForm);
+            panelHeader.Dock = DockStyle.Fill;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1000, 34);
+            panelHeader.TabIndex = 1;
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Fill;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
+            lblTituloForm.Size = new Size(1000, 34);
+            lblTituloForm.TabIndex = 0;
+            lblTituloForm.Text = "Gestión de cuentas corrientes";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dgvListarCuentas
             // 
@@ -132,12 +181,12 @@
             dgvListarCuentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListarCuentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarCuentas.Dock = DockStyle.Fill;
-            dgvListarCuentas.Location = new Point(0, 0);
+            dgvListarCuentas.Location = new Point(11, 4);
             dgvListarCuentas.Margin = new Padding(4);
             dgvListarCuentas.Name = "dgvListarCuentas";
             dgvListarCuentas.ReadOnly = true;
             dgvListarCuentas.RowHeadersWidth = 51;
-            dgvListarCuentas.Size = new Size(1000, 476);
+            dgvListarCuentas.Size = new Size(978, 430);
             dgvListarCuentas.TabIndex = 0;
             // 
             // CuentaCorrienteMainMenuForm
@@ -151,9 +200,15 @@
             Margin = new Padding(4);
             Name = "CuentaCorrienteMainMenuForm";
             Text = "UsuarioMainMenu";
+            Load += CuentaCorrienteMainMenu_Load;
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
             panelContenedor.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvListarCuentas).EndInit();
             ResumeLayout(false);
         }
@@ -168,5 +223,8 @@
         private Button btnAgregar;
         private TextBox txtBuscar;
         private CheckBox chkMostrarInactivos;
+        private SplitContainer splitContainer1;
+        private Panel panelHeader;
+        private Label lblTituloForm;
     }
 }
