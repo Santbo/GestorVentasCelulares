@@ -2,6 +2,7 @@
 using GestionVentasCel.controller.usuario;
 
 using GestionVentasCel.data;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 using Humanizer;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +16,10 @@ namespace GestionVentasCel.views
         private readonly UsuarioController _usuarioController;
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly SesionUsuario _sesionUsuario;
         public LoginForm(AppDbContext context,
-                        IServiceProvider serviceProvider
-
+                        IServiceProvider serviceProvider,
+                        SesionUsuario sesionUSuario
                         )
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace GestionVentasCel.views
 
             _serviceProvider = serviceProvider;
             _usuarioController = _serviceProvider.GetRequiredService<UsuarioController>();
+            _sesionUsuario = sesionUSuario;
 
 
         }
@@ -66,11 +69,14 @@ namespace GestionVentasCel.views
 
                 var main = new MainMenuForm(_serviceProvider);
 
+                _sesionUsuario.IniciarSesion(usuario.Username, usuario.Rol);
+
                 main.RolAccedido = usuario.Rol;
 
                 // Suscribirse al evento de cerrado del MainMenu
                 main.FormClosed += (s, args) =>
                 {
+                    _sesionUsuario.CerrarSesion();
                     this.Show(); // vuelve a mostrar el login
                     txtPassword.Clear();
                 };

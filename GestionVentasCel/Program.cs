@@ -121,6 +121,9 @@ namespace GestionVentasCel
             services.AddTransient<LoginForm>();
             services.AddTransient<AgregarEditarMovimientoCCForm>();
 
+            // Registrra el singleton para sesion de usuarios
+            services.AddSingleton<SesionUsuario>();
+
             try
             {
                 // Construir el proveedor de servicios
