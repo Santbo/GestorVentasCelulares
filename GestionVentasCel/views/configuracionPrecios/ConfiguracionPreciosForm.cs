@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.configPrecios;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.configuracionPrecios
 {
@@ -21,20 +22,16 @@ namespace GestionVentasCel.views.configuracionPrecios
         {
             InitializeComponent();
             _configuracionPreciosController = configuracionPreciosController;
-        }
 
-        private void btnVer_Click(object sender, EventArgs e)
-        {
             try
             {
                 var margenActual = _configuracionPreciosController.GetById(1);
                 var porcentaje = Math.Round(100 * (margenActual.MargenAumento - 1));
-                MessageBox.Show($"Margen Actual: {porcentaje}%", "Margen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtAumento.Text = $"{porcentaje}";
 
-            }
-            catch (MargenNoAgregadoException ex)
+            } catch (MargenNoAgregadoException)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.txtAumento.Text = String.Empty;
             }
         }
 
@@ -112,6 +109,32 @@ namespace GestionVentasCel.views.configuracionPrecios
             {
                 e.Handled = true; // Si no es número válido
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.BackColor = Tema.ColorSuperficie;
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            this.lblMargen.ForeColor = Tema.ColorFondo;
+            this.lblPorcentaje.ForeColor = Tema.ColorFondo;
+
+        }
+
+        private void ConfiguracionPreciosForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
         }
     }
 }

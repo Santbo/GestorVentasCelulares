@@ -28,38 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionPreciosForm));
             txtAumento = new TextBox();
-            label2 = new Label();
+            lblMargen = new Label();
             btnGuardar = new Button();
             btnDescartar = new Button();
-            label3 = new Label();
-            label5 = new Label();
-            btnVer = new Button();
+            lblPorcentaje = new Label();
+            btnSalir = new Button();
+            imageList1 = new ImageList(components);
+            lblTituloForm = new Label();
             SuspendLayout();
             // 
             // txtAumento
             // 
-            txtAumento.Location = new Point(167, 114);
+            txtAumento.Location = new Point(233, 98);
+            txtAumento.Margin = new Padding(4);
             txtAumento.MaxLength = 3;
             txtAumento.Name = "txtAumento";
-            txtAumento.Size = new Size(45, 27);
+            txtAumento.Size = new Size(80, 31);
             txtAumento.TabIndex = 1;
             txtAumento.KeyPress += txtAumento_KeyPress;
             // 
-            // label2
+            // lblMargen
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 117);
-            label2.Name = "label2";
-            label2.Size = new Size(149, 20);
-            label2.TabIndex = 3;
-            label2.Text = "Margen de Aumento:";
+            lblMargen.AutoSize = true;
+            lblMargen.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblMargen.Location = new Point(15, 101);
+            lblMargen.Margin = new Padding(4, 0, 4, 0);
+            lblMargen.Name = "lblMargen";
+            lblMargen.Size = new Size(190, 25);
+            lblMargen.TabIndex = 3;
+            lblMargen.Text = "Margen de aumento:";
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(149, 167);
+            btnGuardar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnGuardar.Location = new Point(184, 171);
+            btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(131, 44);
+            btnGuardar.Size = new Size(164, 55);
             btnGuardar.TabIndex = 4;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -67,71 +75,96 @@
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(12, 167);
+            btnDescartar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnDescartar.Location = new Point(15, 171);
+            btnDescartar.Margin = new Padding(4);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(131, 44);
+            btnDescartar.Size = new Size(164, 55);
             btnDescartar.TabIndex = 5;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
             btnDescartar.Click += btnDescartar_Click;
             // 
-            // label3
+            // lblPorcentaje
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(218, 117);
-            label3.Name = "label3";
-            label3.Size = new Size(21, 20);
-            label3.TabIndex = 6;
-            label3.Text = "%";
+            lblPorcentaje.AutoSize = true;
+            lblPorcentaje.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblPorcentaje.Location = new Point(321, 101);
+            lblPorcentaje.Margin = new Padding(4, 0, 4, 0);
+            lblPorcentaje.Name = "lblPorcentaje";
+            lblPorcentaje.Size = new Size(28, 25);
+            lblPorcentaje.TabIndex = 6;
+            lblPorcentaje.Text = "%";
             // 
-            // label5
+            // btnSalir
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(31, 9);
-            label5.Name = "label5";
-            label5.RightToLeft = RightToLeft.No;
-            label5.Size = new Size(226, 31);
-            label5.TabIndex = 8;
-            label5.Text = "Margen de Aumento";
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Cursor = Cursors.Hand;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ImageKey = "xmark-solid-full.png";
+            btnSalir.ImageList = imageList1;
+            btnSalir.Location = new Point(324, 12);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(32, 32);
+            btnSalir.TabIndex = 37;
+            btnSalir.TabStop = false;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
-            // btnVer
+            // imageList1
             // 
-            btnVer.Location = new Point(73, 57);
-            btnVer.Name = "btnVer";
-            btnVer.Size = new Size(152, 32);
-            btnVer.TabIndex = 9;
-            btnVer.Text = "Ver Margen Actual";
-            btnVer.UseVisualStyleBackColor = true;
-            btnVer.Click += btnVer_Click;
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(368, 77);
+            lblTituloForm.TabIndex = 36;
+            lblTituloForm.Text = "Margen de ganancia";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ConfiguracionPreciosForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AcceptButton = btnGuardar;
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(308, 219);
-            Controls.Add(btnVer);
-            Controls.Add(label5);
-            Controls.Add(label3);
+            CancelButton = btnDescartar;
+            ClientSize = new Size(368, 237);
+            Controls.Add(btnSalir);
+            Controls.Add(lblTituloForm);
+            Controls.Add(lblPorcentaje);
             Controls.Add(btnDescartar);
             Controls.Add(btnGuardar);
-            Controls.Add(label2);
+            Controls.Add(lblMargen);
             Controls.Add(txtAumento);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "ConfiguracionPreciosForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += ConfiguracionPreciosForm_FormClosing;
+            Load += ConfiguracionPreciosForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private TextBox txtAumento;
-        private Label label2;
+        private Label lblMargen;
         private Button btnGuardar;
         private Button btnDescartar;
-        private Label label3;
-        private Label label5;
-        private Button btnVer;
+        private Label lblPorcentaje;
+        private Button btnSalir;
+        private Label lblTituloForm;
+        private ImageList imageList1;
     }
 }
