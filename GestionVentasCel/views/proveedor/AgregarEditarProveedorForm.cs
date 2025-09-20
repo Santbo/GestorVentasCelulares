@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.enumerations.modoForms;
@@ -5,21 +6,20 @@ using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.persona;
 using GestionVentasCel.exceptions.proveedor;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.proveedor
 {
     public partial class AgregarEditarProveedorForm : Form
     {
-        #region Campos y Propiedades
 
         private readonly ProveedorController _proveedorController;
 
         public ModoFormulario Modo { get; set; }
         public Proveedor ProveedorActual { get; set; } = null!;
 
-        #endregion
 
-        #region Constructor
+
 
         public AgregarEditarProveedorForm(ProveedorController proveedorController)
         {
@@ -29,43 +29,35 @@ namespace GestionVentasCel.views.proveedor
 
         }
 
-        #endregion
 
-        #region Métodos de Inicialización
+
 
         private void CargarComboBoxes()
         {
             // Cargar tipos de documento
-            cmbTipoDocumento.DataSource = Enum.GetValues(typeof(TipoDocumentoEnum));
-            cmbTipoDocumento.SelectedIndex = 0;
+            comboTipoDoc.DataSource = Enum.GetValues(typeof(TipoDocumentoEnum));
+            comboTipoDoc.SelectedIndex = 0;
 
             // Cargar condiciones de IVA
-            cmbCondicionIVA.DataSource = Enum.GetValues(typeof(CondicionIVAEnum));
-            cmbCondicionIVA.SelectedIndex = 0;
+            comboCondicionIVA.DataSource = Enum.GetValues(typeof(CondicionIVAEnum));
+            comboCondicionIVA.SelectedIndex = 0;
         }
 
-        #endregion
 
-        #region Eventos del Formulario
+
 
         private void AgregarEditarProveedorForm_Load(object sender, EventArgs e)
         {
+            this.ConfigurarEstilosVisuales();
             if (Modo == ModoFormulario.Editar && ProveedorActual != null)
             {
                 CargarDatosProveedor();
-                this.Text = "Editar Proveedor";
-                btnGuardar.Text = "Actualizar";
-            }
-            else
-            {
-                this.Text = "Agregar Proveedor";
-                btnGuardar.Text = "Guardar";
             }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (ValidarCampos())
+            if (CamposValidos())
             {
                 try
                 {
@@ -115,17 +107,16 @@ namespace GestionVentasCel.views.proveedor
             }
         }
 
-        #endregion
 
-        #region Métodos de Negocio
+
 
         private void CargarDatosProveedor()
         {
             txtNombre.Text = ProveedorActual.Nombre;
             txtApellido.Text = ProveedorActual.Apellido ?? "";
-            cmbTipoDocumento.SelectedItem = ProveedorActual.TipoDocumento;
-            txtDocumento.Text = ProveedorActual.Dni ?? "";
-            cmbCondicionIVA.SelectedItem = ProveedorActual.CondicionIVA;
+            comboTipoDoc.SelectedItem = ProveedorActual.TipoDocumento;
+            txtDni.Text = ProveedorActual.Dni ?? "";
+            comboCondicionIVA.SelectedItem = ProveedorActual.CondicionIVA;
             txtTelefono.Text = ProveedorActual.Telefono ?? "";
             txtEmail.Text = ProveedorActual.Email ?? "";
             txtCalle.Text = ProveedorActual.Calle ?? "";
@@ -138,9 +129,9 @@ namespace GestionVentasCel.views.proveedor
             {
                 Nombre = txtNombre.Text.Trim(),
                 Apellido = txtApellido.Text.Trim() != "" ? txtApellido.Text.Trim() : null,
-                TipoDocumento = (TipoDocumentoEnum)cmbTipoDocumento.SelectedItem,
-                Dni = txtDocumento.Text.Trim() != "" ? txtDocumento.Text.Trim() : null,
-                CondicionIVA = (CondicionIVAEnum)cmbCondicionIVA.SelectedItem,
+                TipoDocumento = (TipoDocumentoEnum)comboTipoDoc.SelectedItem,
+                Dni = txtDni.Text.Trim() != "" ? txtDni.Text.Trim() : null,
+                CondicionIVA = (CondicionIVAEnum)comboCondicionIVA.SelectedItem,
                 Telefono = txtTelefono.Text.Trim() != "" ? txtTelefono.Text.Trim() : null,
                 Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null,
                 Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null,
@@ -156,9 +147,9 @@ namespace GestionVentasCel.views.proveedor
         {
             ProveedorActual.Nombre = txtNombre.Text.Trim();
             ProveedorActual.Apellido = txtApellido.Text.Trim() != "" ? txtApellido.Text.Trim() : null;
-            ProveedorActual.TipoDocumento = (TipoDocumentoEnum)cmbTipoDocumento.SelectedItem;
-            ProveedorActual.Dni = txtDocumento.Text.Trim() != "" ? txtDocumento.Text.Trim() : null;
-            ProveedorActual.CondicionIVA = (CondicionIVAEnum)cmbCondicionIVA.SelectedItem;
+            ProveedorActual.TipoDocumento = (TipoDocumentoEnum)comboTipoDoc.SelectedItem;
+            ProveedorActual.Dni = txtDni.Text.Trim() != "" ? txtDni.Text.Trim() : null;
+            ProveedorActual.CondicionIVA = (CondicionIVAEnum)comboCondicionIVA.SelectedItem;
             ProveedorActual.Telefono = txtTelefono.Text.Trim() != "" ? txtTelefono.Text.Trim() : null;
             ProveedorActual.Email = txtEmail.Text.Trim() != "" ? txtEmail.Text.Trim() : null;
             ProveedorActual.Calle = txtCalle.Text.Trim() != "" ? txtCalle.Text.Trim() : null;
@@ -168,81 +159,144 @@ namespace GestionVentasCel.views.proveedor
             MessageBox.Show("Proveedor actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool ValidarCampos()
+        private bool CamposValidos()
         {
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            // Nombre: No puede estar vacío, ser mas de 45 caracteres (porque asi está en la db), y debe estar compuesto por por lo menos 1 letra mayuscula, minuscula, numero o un punto
+            string nombre = txtNombre.Text.Trim();
+            if (string.IsNullOrEmpty(nombre) || nombre.Length > 45 || !Regex.IsMatch(nombre, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9. ]+$"))
             {
-                MessageBox.Show("El nombre es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El nombre no puede estar vacío, tener más de 45 caracteres ni contener caracteres especiales (excepto '.').", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombre.Focus();
                 return false;
             }
 
+            // Apellido: Lo mismo que nombre, pero puede estar vacio (por eso se cambia + a * en la regex)
+            string apellido = txtApellido.Text.Trim();
+            if (apellido.Length > 45 || !Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$"))
+            {
+                MessageBox.Show("El apellido no puede tener más de 45 caracteres ni contener caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtApellido.Focus();
+                return false;
+            }
+
             // DNI: Asegurarse de que esté entre 8 y 13 caracteres
-            string dni = txtDocumento.Text.Trim();
+            string dni = txtDni.Text.Trim();
             if (dni.Length < 8 || dni.Length > 13)
             {
                 MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDocumento.Focus();
+                txtDni.Focus();
                 return false;
             }
 
             // DNI: Si se seleccionó CUIT, entonces tiene que seguir el formato correcto
-            if ((TipoDocumentoEnum)cmbTipoDocumento.SelectedItem != TipoDocumentoEnum.DNI)
+            if ((TipoDocumentoEnum)comboTipoDoc.SelectedItem != TipoDocumentoEnum.DNI)
             {
                 // Tiene que empezar con dos digitos, seguido de un guion, ocho digitos, un guion y terminar con un digito
                 if (!Regex.IsMatch(dni, @"^\d{2}-\d{8}-\d{1}$"))
                 {
                     MessageBox.Show("El formato del CUIT/CUIL debe ser XX-XXXXXXXX-X.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtDocumento.Focus();
+                    txtDni.Focus();
                     return false;
 
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !EsEmailValido(txtEmail.Text))
+            // Teléfono: Tiene el formato e.164 o entre 10 y 18 digitos
+            string telefono = txtTelefono.Text.Trim();
+            if (!string.IsNullOrEmpty(telefono) && !Regex.IsMatch(telefono, @"^\+?[0-9]{10,13}$"))
             {
-                MessageBox.Show("El formato del email no es válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El teléfono debe seguir el formato +549... o tener entre 10 y 13 dígitos sin caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Focus();
+                return false;
+            }
+
+            // Email: Que sea un email de máximo 200 caracteres
+            string email = txtEmail.Text.Trim();
+            if (email.Length > 200 || (!string.IsNullOrEmpty(email) && !(new EmailAddressAttribute().IsValid(email))))
+            {
+                MessageBox.Show("El email debe ser válido, tener como máximo 200 caracteres, o estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
                 return false;
             }
 
+            // Calle: Entre 5 y 45 caracteres, letras y numeros
+            string calle = txtCalle.Text.Trim();
+            if (calle.Length > 45 || !Regex.IsMatch(calle, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{5,}$"))
+            {
+                MessageBox.Show("La calle debe estar vacía o tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCalle.Focus();
+                return false;
+            }
+
+            // Ciudad: Entre 2 y 45 caracteres, letras y numeros
+            string ciudad = txtCiudad.Text.Trim();
+            if (ciudad.Length > 45 || !Regex.IsMatch(ciudad, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,}$"))
+            {
+                MessageBox.Show("La ciudad debe estar vacía o tener hasta 45 letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCiudad.Focus();
+                return false;
+            }
+
+
             return true;
         }
 
-        private bool EsEmailValido(string email)
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
+            // Solo acepta dígitos, el más y borrar
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+')
             {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
+                e.Handled = true;
             }
         }
 
-        #endregion
-
-        #region Métodos de Validación
-
-        #endregion
-
-        private void txtDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Permitir numeros, letras, puntos y guiones en el nombre
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != '.' && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir unicamente números y guiones
+
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
             {
                 e.Handled = true;
             }
         }
 
-        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void ConfigurarEstilosVisuales()
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+            this.BackColor = Tema.ColorSuperficie;
+            this.lblTituloForm.Text = this.Modo == ModoFormulario.Editar ?
+                "Editar proveedor" : "Agregar proveedor";
 
-                e.Handled = true;
-            }
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblNombre.ForeColor = Tema.ColorFondo;
+            this.lblApellido.ForeColor = Tema.ColorFondo;
+            this.lblEmail.ForeColor = Tema.ColorFondo;
+            this.lblTipoDocumento.ForeColor = Tema.ColorFondo;
+            this.lblDni.ForeColor = Tema.ColorFondo;
+            this.lblCalle.ForeColor = Tema.ColorFondo;
+            this.lblCondicionIVA.ForeColor = Tema.ColorFondo;
+            this.lblTelefono.ForeColor = Tema.ColorFondo;
+            this.lblCiudad.ForeColor = Tema.ColorFondo;
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
         }
     }
 }
