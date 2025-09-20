@@ -2,12 +2,17 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.usuario;
+using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.temas;
+using GestionVentasCel.models.usuario;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
+using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,19 +34,18 @@ namespace GestionVentasCel
 
         }
 
-        //Creamos un metodo para que la X del formulario funcione con un MessageBox
         private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var result = MessageBox.Show(
-            "�Seguro que desea salir?",
-            "Confirmaci�n",
+            "¿Seguro que desea salir?",
+            "Confirmación",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question
             );
 
             if (result == DialogResult.No)
             {
-                e.Cancel = true; // Cancela el cierre
+                e.Cancel = true;
             }
         }
 
@@ -62,15 +66,24 @@ namespace GestionVentasCel
             this.panelContenedor.Tag = formularioHijo;
 
             formularioHijo.Show();
+            // Hay un bug molesto que hace que tengas que hacer click en el formulario que se abre para
+            // que se puedan usar los atajos que define. Eso es porque el abrir el formulario no garantiza que tenga el foco.
+            // HAcerle foco manual arregla eso
+            formularioHijo.Focus(); 
         }
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Empleados - SGVC";
             AbrirFormularioHijo(new UsuarioMainMenuForm(_serviceProvider.GetRequiredService<UsuarioController>()));
         }
 
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
+            // Establecer estilos
+            this.menuStrip1.BackColor = Tema.ColorSuperficie;
+            this.panelContenedor.BackColor = Tema.ColorSuperficieOscuro;
+
             switch (RolAccedido)
             {
                 case RolEnum.Admin:
@@ -90,26 +103,31 @@ namespace GestionVentasCel
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Categorías - SGVC";
             AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void ArticulosMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Artículos - SGVC";
             AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>()));
         }
 
         private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Clientes - SGVC";
             AbrirFormularioHijo(new ClienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
 
         private void gestionarCuentasCorrientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Cuentas corrientes - SGVC";
             AbrirFormularioHijo(new CuentaCorrienteMainMenuForm(_serviceProvider.GetRequiredService<ClienteController>(), serviceProvider: _serviceProvider));
         }
 
         private void proveedoresMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Proveedores - SGVC";
             AbrirFormularioHijo(new ProveedorMainMenuForm(
                 _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<CompraController>(),
@@ -119,10 +137,29 @@ namespace GestionVentasCel
 
         private void comprasMenuItem_Click(object sender, EventArgs e)
         {
+            this.Text = "Compras - SGVC";
             AbrirFormularioHijo(new CompraMainMenuForm(
                             _serviceProvider.GetRequiredService<CompraController>(),
                 _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<ArticuloController>()));
+        }
+
+        private void aumentarMargenMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var aumentarMargen = new ConfiguracionPreciosForm(_serviceProvider.GetRequiredService<ConfiguracionPreciosController>()))
+            {
+            
+                //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                if (aumentarMargen.ShowDialog() == DialogResult.OK)
+                {
+
+                    MessageBox.Show("El porcentaje de margen se actualizó correctamente",
+                    "Margen Guardado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                }
+            }
         }
     }
 }

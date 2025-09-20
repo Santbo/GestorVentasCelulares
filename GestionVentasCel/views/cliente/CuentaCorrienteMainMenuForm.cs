@@ -5,6 +5,7 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -71,6 +72,8 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarCuentas.Columns["Saldo"].DisplayIndex = 1;
             dgvListarCuentas.Columns["FechaUltimo"].DisplayIndex = 2;
             dgvListarCuentas.Columns["Activo"].DisplayIndex = 3;
+            dgvListarCuentas.Columns["Activo"].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
+
 
 
             dgvListarCuentas.DataBindingComplete += (s, e) =>
@@ -250,6 +253,84 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 MessageBox.Show("Debe seleccionar una cuenta corriente para ver sus movimientos", "No seleccionó cuenta", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListarCuentas.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListarCuentas.GridColor = dgvListarCuentas.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListarCuentas.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListarCuentas.EnableHeadersVisualStyles = false;
+            dgvListarCuentas.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListarCuentas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListarCuentas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListarCuentas.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListarCuentas.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListarCuentas.RowHeadersVisible = false;
+            dgvListarCuentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListarCuentas.MultiSelect = false;
+            dgvListarCuentas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control N para nueva cuenta
+                    btnAgregar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.D)
+                {
+                    // Control D para ver movimientos
+                    btnVerMovimientos.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+
+                // Supr para habilitar/deshabilitar el usuario
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnToggleActivo.PerformClick();
+                }
+            };
+        }
+
+        private void CuentaCorrienteMainMenu_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
         }
     }
 }

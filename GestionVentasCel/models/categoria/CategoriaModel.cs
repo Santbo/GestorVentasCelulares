@@ -16,9 +16,6 @@ namespace GestionVentasCel.models.categoria
 
         public bool Activo { get; set; } = true;
 
-        [Required]
-        public ICollection<Articulo> Articulos { get; set; }
-
         public override string ToString()
         {
             return Nombre;

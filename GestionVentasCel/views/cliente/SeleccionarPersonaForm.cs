@@ -2,6 +2,7 @@
 using System.Data;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.models.persona;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -121,6 +122,71 @@ namespace GestionVentasCel.views.usuario_empleado
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListarPersonas.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListarPersonas.GridColor = dgvListarPersonas.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListarPersonas.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListarPersonas.EnableHeadersVisualStyles = false;
+            dgvListarPersonas.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListarPersonas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListarPersonas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListarPersonas.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListarPersonas.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListarPersonas.RowHeadersVisible = false;
+            dgvListarPersonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListarPersonas.MultiSelect = false;
+            dgvListarPersonas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.btnSeleccionar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    this.txtBuscar.Focus();
+                }
+            };
+        }
+        private void SeleccionarPersonaForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
+
         }
     }
 }

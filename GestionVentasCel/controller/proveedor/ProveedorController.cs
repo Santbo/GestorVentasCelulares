@@ -22,11 +22,6 @@ namespace GestionVentasCel.controller.proveedor
             _service.ActualizarProveedor(proveedor);
         }
 
-        public void EliminarProveedor(int id)
-        {
-            _service.EliminarProveedor(id);
-        }
-
         public void CambiarEstadoProveedor(int id, bool activo)
         {
             _service.CambiarEstadoProveedor(id, activo);
@@ -37,24 +32,10 @@ namespace GestionVentasCel.controller.proveedor
             return _service.ListarProveedores();
         }
 
-        public IEnumerable<Proveedor> ObtenerProveedoresActivos()
-        {
-            return _service.ListarProveedoresActivos();
-        }
-
         public Proveedor? GetById(int id)
         {
             return _service.GetById(id);
         }
 
-        public bool ExisteProveedor(int id)
-        {
-            return _service.ExisteProveedor(id);
-        }
-
-        public bool ExisteDocumento(string documento, string tipoDocumento)
-        {
-            return _service.ExisteDocumento(documento, tipoDocumento);
-        }
     }
 }

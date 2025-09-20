@@ -4,6 +4,7 @@ using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -21,7 +22,7 @@ namespace GestionVentasCel.views.usuario_empleado
             _clienteController = clienteController;
             _cuentaCorriente = CuentaCorriente;
 
-            this.Text = $"Movimientos de CC de: {_cuentaCorriente.Cliente}";
+            this.lblTituloForm.Text = $"Movimientos de {_cuentaCorriente.Cliente}";
             CargarMovimientos();
 
         }
@@ -179,6 +180,83 @@ namespace GestionVentasCel.views.usuario_empleado
                 MessageBox.Show("Debe seleccionar un movimiento para borrar", "Seleccione un movimiento", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListarMovimientos.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListarMovimientos.GridColor = dgvListarMovimientos.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListarMovimientos.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListarMovimientos.EnableHeadersVisualStyles = false;
+            dgvListarMovimientos.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListarMovimientos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListarMovimientos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListarMovimientos.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListarMovimientos.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListarMovimientos.RowHeadersVisible = false;
+            dgvListarMovimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListarMovimientos.MultiSelect = false;
+            dgvListarMovimientos.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnEliminar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control N para nuevo usuario
+                    btnAgregar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.U)
+                {
+                    // Control U para actualizar el usuario
+                    btnEditar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+            };
+        }
+
+        private void MovimientoCCMainMenuForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
         }
     }
 }

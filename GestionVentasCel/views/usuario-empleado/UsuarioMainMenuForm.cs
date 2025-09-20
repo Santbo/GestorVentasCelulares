@@ -4,6 +4,7 @@ using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -17,8 +18,15 @@ namespace GestionVentasCel.views.usuario_empleado
         public UsuarioMainMenuForm(UsuarioController usuarioController)
         {
             InitializeComponent();
+            // Hay que setear KeyPreview como true para que el formulario pueda capturar
+            // el evento KeyDown antes que sus controles. Si no se hace eso, no se puede
+            // Ejecutar el evento de Ctrl F
+            this.KeyPreview = true;
+
             _usuarioController = usuarioController;
             CargarUsuarios();
+
+
 
         }
 
@@ -40,6 +48,8 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarUsuarios.Columns["Id"].Visible = false;
             dgvListarUsuarios.Columns["Calle"].Visible = false;
             dgvListarUsuarios.Columns["Ciudad"].Visible = false;
+            dgvListarUsuarios.Columns["Activo"].DisplayIndex = 10;
+
         }
 
         private void chkMostrarInactivos_CheckedChanged(object sender, EventArgs e)
@@ -167,6 +177,94 @@ namespace GestionVentasCel.views.usuario_empleado
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltro();
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListarUsuarios.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListarUsuarios.GridColor = dgvListarUsuarios.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListarUsuarios.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListarUsuarios.EnableHeadersVisualStyles = false;
+            dgvListarUsuarios.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListarUsuarios.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListarUsuarios.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListarUsuarios.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListarUsuarios.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListarUsuarios.RowHeadersVisible = false;
+            dgvListarUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListarUsuarios.MultiSelect = false;
+            dgvListarUsuarios.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control N para nuevo usuario
+                    btnAgregar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.U)
+                {
+                    // Control U para actualizar el usuario
+                    btnUpdate.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+
+                // Supr para habilitar/deshabilitar el usuario
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnToggleActivo.PerformClick();
+                }
+            };
+        }
+        /// <summary>
+        /// Configurar los estilos visuales y la interacción del formulario.
+        /// 
+        /// Para extender la misma funcionalidad a otros formularios, es cuestión de 
+        /// copiar las funciones ConfigurarEstilosVisuales() y ConfigurarAtajos(), implementar
+        /// la lógica en cada una, y agregarlas al evento Load del formulario.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UsuarioMainMenuForm_Load(object sender, EventArgs e)
+        {
+
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
+
         }
     }
 }

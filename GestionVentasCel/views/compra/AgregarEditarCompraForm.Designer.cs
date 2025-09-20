@@ -20,7 +20,7 @@ namespace GestionVentasCel.views.compra
             base.Dispose(disposing);
         }
 
-         
+
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -55,9 +55,9 @@ namespace GestionVentasCel.views.compra
             // lblProveedor
             // 
             lblProveedor.AutoSize = true;
-            lblProveedor.Location = new Point(12, 15);
+            lblProveedor.Location = new Point(14, 20);
             lblProveedor.Name = "lblProveedor";
-            lblProveedor.Size = new Size(59, 15);
+            lblProveedor.Size = new Size(80, 20);
             lblProveedor.TabIndex = 0;
             lblProveedor.Text = "Proveedor:";
             // 
@@ -65,51 +65,54 @@ namespace GestionVentasCel.views.compra
             // 
             cmbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProveedor.FormattingEnabled = true;
-            cmbProveedor.Location = new Point(12, 33);
+            cmbProveedor.Location = new Point(14, 44);
+            cmbProveedor.Margin = new Padding(3, 4, 3, 4);
             cmbProveedor.Name = "cmbProveedor";
-            cmbProveedor.Size = new Size(250, 23);
+            cmbProveedor.Size = new Size(285, 28);
             cmbProveedor.TabIndex = 1;
             // 
             // lblFecha
             // 
             lblFecha.AutoSize = true;
-            lblFecha.Location = new Point(268, 15);
+            lblFecha.Location = new Point(306, 20);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(38, 15);
+            lblFecha.Size = new Size(50, 20);
             lblFecha.TabIndex = 2;
             lblFecha.Text = "Fecha:";
             // 
             // dtpFecha
             // 
-            dtpFecha.Location = new Point(268, 33);
+            dtpFecha.Location = new Point(306, 44);
+            dtpFecha.Margin = new Padding(3, 4, 3, 4);
             dtpFecha.Name = "dtpFecha";
-            dtpFecha.Size = new Size(200, 23);
+            dtpFecha.Size = new Size(228, 27);
             dtpFecha.TabIndex = 3;
             // 
             // lblObservaciones
             // 
             lblObservaciones.AutoSize = true;
-            lblObservaciones.Location = new Point(12, 70);
+            lblObservaciones.Location = new Point(14, 93);
             lblObservaciones.Name = "lblObservaciones";
-            lblObservaciones.Size = new Size(87, 15);
+            lblObservaciones.Size = new Size(108, 20);
             lblObservaciones.TabIndex = 4;
             lblObservaciones.Text = "Observaciones:";
             // 
             // txtObservaciones
             // 
-            txtObservaciones.Location = new Point(12, 88);
+            txtObservaciones.Location = new Point(14, 117);
+            txtObservaciones.Margin = new Padding(3, 4, 3, 4);
             txtObservaciones.Multiline = true;
             txtObservaciones.Name = "txtObservaciones";
             txtObservaciones.ScrollBars = ScrollBars.Vertical;
-            txtObservaciones.Size = new Size(456, 80);
+            txtObservaciones.Size = new Size(521, 105);
             txtObservaciones.TabIndex = 5;
             // 
             // lblArticulo
             // 
             lblArticulo.AutoSize = true;
-            lblArticulo.Location = new Point(12, 180);
+            lblArticulo.Location = new Point(14, 240);
             lblArticulo.Name = "lblArticulo";
-            lblArticulo.Size = new Size(51, 15);
+            lblArticulo.Size = new Size(64, 20);
             lblArticulo.TabIndex = 6;
             lblArticulo.Text = "Artículo:";
             // 
@@ -117,52 +120,57 @@ namespace GestionVentasCel.views.compra
             // 
             cmbArticulo.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbArticulo.FormattingEnabled = true;
-            cmbArticulo.Location = new Point(12, 198);
+            cmbArticulo.Location = new Point(14, 264);
+            cmbArticulo.Margin = new Padding(3, 4, 3, 4);
             cmbArticulo.Name = "cmbArticulo";
-            cmbArticulo.Size = new Size(250, 23);
+            cmbArticulo.Size = new Size(285, 28);
             cmbArticulo.TabIndex = 7;
             // 
             // lblCantidad
             // 
             lblCantidad.AutoSize = true;
-            lblCantidad.Location = new Point(268, 180);
+            lblCantidad.Location = new Point(306, 240);
             lblCantidad.Name = "lblCantidad";
-            lblCantidad.Size = new Size(55, 15);
+            lblCantidad.Size = new Size(72, 20);
             lblCantidad.TabIndex = 8;
             lblCantidad.Text = "Cantidad:";
             // 
             // numCantidad
             // 
-            numCantidad.Location = new Point(268, 198);
+            numCantidad.Location = new Point(306, 264);
+            numCantidad.Margin = new Padding(3, 4, 3, 4);
             numCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
-            numCantidad.Size = new Size(100, 23);
+            numCantidad.Size = new Size(114, 27);
             numCantidad.TabIndex = 9;
             numCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // lblPrecioUnitario
             // 
             lblPrecioUnitario.AutoSize = true;
-            lblPrecioUnitario.Location = new Point(374, 180);
+            lblPrecioUnitario.Location = new Point(427, 240);
             lblPrecioUnitario.Name = "lblPrecioUnitario";
-            lblPrecioUnitario.Size = new Size(88, 15);
+            lblPrecioUnitario.Size = new Size(110, 20);
             lblPrecioUnitario.TabIndex = 10;
             lblPrecioUnitario.Text = "Precio Unitario:";
             // 
             // numPrecioUnitario
             // 
             numPrecioUnitario.DecimalPlaces = 2;
-            numPrecioUnitario.Location = new Point(374, 198);
-            numPrecioUnitario.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            numPrecioUnitario.Location = new Point(427, 264);
+            numPrecioUnitario.Margin = new Padding(3, 4, 3, 4);
+            numPrecioUnitario.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             numPrecioUnitario.Name = "numPrecioUnitario";
-            numPrecioUnitario.Size = new Size(100, 23);
+            numPrecioUnitario.Size = new Size(114, 27);
             numPrecioUnitario.TabIndex = 11;
+            numPrecioUnitario.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // btnAgregarDetalle
             // 
-            btnAgregarDetalle.Location = new Point(480, 198);
+            btnAgregarDetalle.Location = new Point(549, 264);
+            btnAgregarDetalle.Margin = new Padding(3, 4, 3, 4);
             btnAgregarDetalle.Name = "btnAgregarDetalle";
-            btnAgregarDetalle.Size = new Size(100, 23);
+            btnAgregarDetalle.Size = new Size(114, 31);
             btnAgregarDetalle.TabIndex = 12;
             btnAgregarDetalle.Text = "Agregar Detalle";
             btnAgregarDetalle.UseVisualStyleBackColor = true;
@@ -170,9 +178,10 @@ namespace GestionVentasCel.views.compra
             // 
             // btnEliminarDetalle
             // 
-            btnEliminarDetalle.Location = new Point(586, 198);
+            btnEliminarDetalle.Location = new Point(670, 264);
+            btnEliminarDetalle.Margin = new Padding(3, 4, 3, 4);
             btnEliminarDetalle.Name = "btnEliminarDetalle";
-            btnEliminarDetalle.Size = new Size(100, 23);
+            btnEliminarDetalle.Size = new Size(114, 31);
             btnEliminarDetalle.TabIndex = 13;
             btnEliminarDetalle.Text = "Eliminar Detalle";
             btnEliminarDetalle.UseVisualStyleBackColor = true;
@@ -182,41 +191,47 @@ namespace GestionVentasCel.views.compra
             // 
             dgvDetalles.AllowUserToAddRows = false;
             dgvDetalles.AllowUserToDeleteRows = false;
+            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDetalles.BorderStyle = BorderStyle.None;
             dgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDetalles.Location = new Point(12, 227);
+            dgvDetalles.Location = new Point(14, 303);
+            dgvDetalles.Margin = new Padding(3, 4, 3, 4);
             dgvDetalles.Name = "dgvDetalles";
             dgvDetalles.ReadOnly = true;
+            dgvDetalles.RowHeadersWidth = 51;
             dgvDetalles.RowTemplate.Height = 25;
             dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDetalles.Size = new Size(674, 200);
+            dgvDetalles.Size = new Size(770, 267);
             dgvDetalles.TabIndex = 14;
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotal.Location = new Point(500, 435);
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTotal.Location = new Point(571, 580);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(42, 21);
+            lblTotal.Size = new Size(64, 28);
             lblTotal.TabIndex = 15;
             lblTotal.Text = "Total:";
             // 
             // txtTotal
             // 
-            txtTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtTotal.Location = new Point(548, 433);
+            txtTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            txtTotal.Location = new Point(626, 577);
+            txtTotal.Margin = new Padding(3, 4, 3, 4);
             txtTotal.Name = "txtTotal";
             txtTotal.ReadOnly = true;
-            txtTotal.Size = new Size(138, 29);
+            txtTotal.Size = new Size(157, 34);
             txtTotal.TabIndex = 16;
             txtTotal.Text = "$0.00";
             txtTotal.TextAlign = HorizontalAlignment.Right;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(500, 480);
+            btnGuardar.Location = new Point(571, 640);
+            btnGuardar.Margin = new Padding(3, 4, 3, 4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(90, 30);
+            btnGuardar.Size = new Size(103, 40);
             btnGuardar.TabIndex = 17;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -224,9 +239,10 @@ namespace GestionVentasCel.views.compra
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(596, 480);
+            btnDescartar.Location = new Point(681, 640);
+            btnDescartar.Margin = new Padding(3, 4, 3, 4);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(90, 30);
+            btnDescartar.Size = new Size(103, 40);
             btnDescartar.TabIndex = 18;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
@@ -234,9 +250,9 @@ namespace GestionVentasCel.views.compra
             // 
             // AgregarEditarCompraForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(698, 522);
+            ClientSize = new Size(798, 696);
             Controls.Add(btnDescartar);
             Controls.Add(btnGuardar);
             Controls.Add(txtTotal);
@@ -257,13 +273,14 @@ namespace GestionVentasCel.views.compra
             Controls.Add(cmbProveedor);
             Controls.Add(lblProveedor);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AgregarEditarCompraForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Agregar Compra";
-            Load += AgregarEditarCompraForm_Load;
             FormClosing += AgregarEditarCompraForm_FormClosing;
+            Load += AgregarEditarCompraForm_Load;
             ((System.ComponentModel.ISupportInitialize)numCantidad).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPrecioUnitario).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvDetalles).EndInit();
@@ -271,7 +288,7 @@ namespace GestionVentasCel.views.compra
             PerformLayout();
         }
 
-          
+
 
         private Label lblProveedor;
         private ComboBox cmbProveedor;

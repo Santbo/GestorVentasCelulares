@@ -2,6 +2,7 @@
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.categoria;
 using GestionVentasCel.models.categoria;
+using GestionVentasCel.temas;
 
 
 
@@ -107,12 +108,11 @@ namespace GestionVentasCel.views.categoria
 
         private void AgregarEditarCategoriaForm_Load(object sender, EventArgs e)
         {
+            this.ConfigurarEstilosVisuales();
             if (Modo == ModoFormulario.Editar && CategoriaActual != null)
             {
-                lblTitulo.Text = "Editar Categoria";
                 txtNombre.Text = CategoriaActual.Nombre;
                 txtDescripcion.Text = CategoriaActual.Descripcion;
-
             }
         }
 
@@ -122,6 +122,30 @@ namespace GestionVentasCel.views.categoria
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+
+            this.lblTituloForm.Text = Modo == ModoFormulario.Editar ?
+                "Editar categoría" : "Agregar categoría";
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            this.lblDescripcion.ForeColor = Tema.ColorFondo;
+            this.lblNombre.ForeColor = Tema.ColorFondo;
+
+
         }
     }
 }

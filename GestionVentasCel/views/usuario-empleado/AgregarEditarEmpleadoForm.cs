@@ -4,6 +4,8 @@ using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.temas;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -135,6 +137,30 @@ namespace GestionVentasCel.views.usuario_empleado
 
         }
 
+        private void ConfigurarEstilosVisuales()
+        {
+
+            this.lblTitulo.Text = Modo == ModoFormulario.Editar ?
+                "Editar usuario" : "Agregar usuario";
+            this.lblTitulo.ForeColor = Tema.ColorTextoPrimario;
+
+            this.panelHeader.BackColor = Tema.ColorFondo;
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblUsuario.ForeColor = Tema.ColorFondo;
+            this.lblContra.ForeColor = Tema.ColorFondo;
+            this.lblRol.ForeColor = Tema.ColorFondo;
+            this.lblNombre.ForeColor = Tema.ColorFondo;
+            this.lblApellido.ForeColor = Tema.ColorFondo;
+            this.lblDni.ForeColor = Tema.ColorFondo;
+            this.lblTelefono.ForeColor = Tema.ColorFondo;
+            this.lblEmail.ForeColor = Tema.ColorFondo;
+
+
+        }
+
         private void AgregarEditarEmpleadoForm_Load(object sender, EventArgs e)
         {
             if (Modo == ModoFormulario.Editar && UsuarioActual != null)
@@ -149,6 +175,8 @@ namespace GestionVentasCel.views.usuario_empleado
                 txtDni.Text = UsuarioActual.Dni;
                 txtEmail.Text = UsuarioActual.Email;
             }
+
+            this.ConfigurarEstilosVisuales();
         }
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
@@ -174,6 +202,11 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
         }
     }
 }

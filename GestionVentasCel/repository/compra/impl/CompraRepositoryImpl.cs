@@ -1,6 +1,8 @@
 using GestionVentasCel.data;
 using GestionVentasCel.models.compra;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionVentasCel.repository.compra.impl
 {
@@ -15,18 +17,39 @@ namespace GestionVentasCel.repository.compra.impl
 
         public void Add(Compra compra)
         {
-            _context.Compras.Add(compra);
-            _context.SaveChanges();
+
+            try
+            {
+
+                 _context.Compras.Add(compra);
+                 _context.SaveChanges();
+            }
+
+            catch (DbUpdateException ex)
+{
+                string error = "DbUpdateException: " + ex.Message;
+
+                var inner = ex.InnerException;
+                while (inner != null)
+                {
+                    error += "\n" + inner.Message;
+                    inner = inner.InnerException;
+                }
+
+                MessageBox.Show(error, "Error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
+
         }
 
         public void Delete(int id)
         {
             var compra = _context.Compras.Find(id);
-            if (compra != null)
-            {
-                compra.Activo = false;
-                _context.SaveChanges();
-            }
+           
+            _context.Compras.Remove(compra);
+            _context.SaveChanges();
+            
         }
 
         public bool Exist(int id)
@@ -38,7 +61,6 @@ namespace GestionVentasCel.repository.compra.impl
         {
             return _context.Compras
                 .Include(c => c.Proveedor)
-                .Where(c => c.Activo)
                 .AsNoTracking()
                 .ToList();
         }
@@ -49,16 +71,6 @@ namespace GestionVentasCel.repository.compra.impl
                 .Include(c => c.Proveedor)
                 .Include(c => c.Detalles)
                     .ThenInclude(d => d.Articulo)
-                .Where(c => c.Activo)
-                .AsNoTracking()
-                .ToList();
-        }
-
-        public IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            return _context.Compras
-                .Include(c => c.Proveedor)
-                .Where(c => c.Activo && c.Fecha >= fechaDesde && c.Fecha <= fechaHasta)
                 .AsNoTracking()
                 .ToList();
         }
@@ -67,17 +79,11 @@ namespace GestionVentasCel.repository.compra.impl
         {
             return _context.Compras
                 .Include(c => c.Proveedor)
-                .Where(c => c.Activo && c.ProveedorId == proveedorId)
+                .Where(c => c.ProveedorId == proveedorId)
                 .AsNoTracking()
                 .ToList();
         }
 
-        public Compra? GetById(int id)
-        {
-            return _context.Compras
-                .Include(c => c.Proveedor)
-                .FirstOrDefault(c => c.Id == id && c.Activo);
-        }
 
         public Compra? GetByIdWithDetails(int id)
         {
@@ -85,13 +91,34 @@ namespace GestionVentasCel.repository.compra.impl
                 .Include(c => c.Proveedor)
                 .Include(c => c.Detalles)
                     .ThenInclude(d => d.Articulo)
-                .FirstOrDefault(c => c.Id == id && c.Activo);
+                .FirstOrDefault(c => c.Id == id);
         }
 
         public void Update(Compra compra)
         {
-            _context.Compras.Update(compra);
-            _context.SaveChanges();
+
+            try
+            {
+
+                _context.Compras.Update(compra);
+                _context.SaveChanges();
+            }
+
+            catch (DbUpdateException ex)
+{
+                string error = "DbUpdateException: " + ex.Message;
+
+                var inner = ex.InnerException;
+                while (inner != null)
+                {
+                    error += "\n" + inner.Message;
+                    inner = inner.InnerException;
+                }
+
+                MessageBox.Show(error, "Error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
         }
     }
 }

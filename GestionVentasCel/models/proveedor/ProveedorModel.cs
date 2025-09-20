@@ -14,13 +14,15 @@ namespace GestionVentasCel.models.proveedor
         [Required]
         public TipoProveedor TipoProveedor { get; set; }
 
-        [MaxLength(200)]
-        public string? Observaciones { get; set; }
-
         [Required]
         public bool Activo { get; set; } = true;
 
         [DisplayName("Condición ante IVA")]
         public CondicionIVAEnum? CondicionIVA { get; set; }
+
+        public override string ToString()
+        {
+            return Nombre.ToString();
+        }
     }
 }

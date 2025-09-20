@@ -3,6 +3,7 @@ using GestionVentasCel.controller.categoria;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.articulo;
 using GestionVentasCel.models.articulo;
+using GestionVentasCel.temas;
 using GestionVentasCel.views.categoria;
 
 namespace GestionVentasCel.views.articulo
@@ -133,9 +134,10 @@ namespace GestionVentasCel.views.articulo
 
         private void AgregarEditarArticuloForm_Load(object sender, EventArgs e)
         {
+            this.ConfigurarEstilosVisuales();
             if (Modo == ModoFormulario.Editar && ArticuloActual != null)
             {
-                lblTitulo.Text = "Editar Articulo";
+                lblTituloForm.Text = "Editar Articulo";
 
                 txtNombre.Text = ArticuloActual.Nombre;
                 txtAvisoStock.Text = ArticuloActual.Aviso_stock.ToString();
@@ -212,5 +214,35 @@ namespace GestionVentasCel.views.articulo
             e.Handled = true;
 
         }
+        private void ConfigurarEstilosVisuales()
+        {
+
+            this.lblTituloForm.Text = Modo == ModoFormulario.Editar ?
+                "Editar artículo" : "Agregar artículo";
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblAvisoStock.ForeColor = Tema.ColorFondo;
+            this.lblCategoria.ForeColor = Tema.ColorFondo;
+            this.lblDescripcion.ForeColor = Tema.ColorFondo;
+            this.lblMarca.ForeColor = Tema.ColorFondo;
+            this.lblNombre.ForeColor = Tema.ColorFondo;
+            this.lblPrecio.ForeColor = Tema.ColorFondo;
+            this.lblStock.ForeColor = Tema.ColorFondo;
+
+
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
+        }
     }
+
 }

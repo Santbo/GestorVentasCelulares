@@ -32,11 +32,17 @@
             txtBuscar = new TextBox();
             btnCancelar = new Button();
             btnSeleccionar = new Button();
-            panelContenedor = new Panel();
             dgvListarClientes = new DataGridView();
+            splitContainer1 = new SplitContainer();
+            panelHeader = new Panel();
+            lblTituloForm = new Label();
             panelBtn.SuspendLayout();
-            panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvListarClientes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            panelHeader.SuspendLayout();
             SuspendLayout();
             // 
             // panelBtn
@@ -46,10 +52,10 @@
             panelBtn.Controls.Add(btnCancelar);
             panelBtn.Controls.Add(btnSeleccionar);
             panelBtn.Dock = DockStyle.Bottom;
-            panelBtn.Location = new Point(0, 476);
+            panelBtn.Location = new Point(0, 587);
             panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(1000, 86);
+            panelBtn.Size = new Size(1452, 86);
             panelBtn.TabIndex = 0;
             // 
             // txtBuscar
@@ -65,7 +71,7 @@
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Right;
-            btnCancelar.Location = new Point(658, 8);
+            btnCancelar.Location = new Point(1110, 8);
             btnCancelar.Margin = new Padding(4);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(160, 75);
@@ -77,7 +83,7 @@
             // btnSeleccionar
             // 
             btnSeleccionar.Anchor = AnchorStyles.Right;
-            btnSeleccionar.Location = new Point(825, 8);
+            btnSeleccionar.Location = new Point(1277, 8);
             btnSeleccionar.Margin = new Padding(4);
             btnSeleccionar.Name = "btnSeleccionar";
             btnSeleccionar.Size = new Size(160, 75);
@@ -86,61 +92,98 @@
             btnSeleccionar.UseVisualStyleBackColor = true;
             btnSeleccionar.Click += btnSeleccionar_Click;
             // 
-            // panelContenedor
-            // 
-            panelContenedor.Controls.Add(dgvListarClientes);
-            panelContenedor.Dock = DockStyle.Fill;
-            panelContenedor.Location = new Point(0, 0);
-            panelContenedor.Margin = new Padding(4);
-            panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(1000, 476);
-            panelContenedor.TabIndex = 1;
-            // 
-            // dgvListarPersonas
+            // dgvListarClientes
             // 
             dgvListarClientes.AllowUserToAddRows = false;
             dgvListarClientes.AllowUserToDeleteRows = false;
             dgvListarClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListarClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarClientes.Dock = DockStyle.Fill;
-            dgvListarClientes.Location = new Point(0, 0);
+            dgvListarClientes.Location = new Point(11, 4);
             dgvListarClientes.Margin = new Padding(4);
-            dgvListarClientes.Name = "dgvListarPersonas";
+            dgvListarClientes.Name = "dgvListarClientes";
             dgvListarClientes.ReadOnly = true;
             dgvListarClientes.RowHeadersWidth = 51;
-            dgvListarClientes.Size = new Size(1000, 476);
+            dgvListarClientes.Size = new Size(1430, 526);
             dgvListarClientes.TabIndex = 0;
             // 
-            // SeleccionarPersonaForm
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(panelHeader);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dgvListarClientes);
+            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
+            splitContainer1.Size = new Size(1452, 587);
+            splitContainer1.SplitterDistance = 49;
+            splitContainer1.TabIndex = 1;
+            // 
+            // panelHeader
+            // 
+            panelHeader.Controls.Add(lblTituloForm);
+            panelHeader.Dock = DockStyle.Fill;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1452, 49);
+            panelHeader.TabIndex = 1;
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Fill;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
+            lblTituloForm.Size = new Size(1452, 49);
+            lblTituloForm.TabIndex = 999;
+            lblTituloForm.Text = "Clientes registrados";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // SeleccionarClienteForm
             // 
             AcceptButton = btnSeleccionar;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(1000, 562);
-            Controls.Add(panelContenedor);
+            ClientSize = new Size(1452, 673);
+            Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "SeleccionarPersonaForm";
-            Text = "UsuarioMainMenu";
+            Name = "SeleccionarClienteForm";
             FormClosing += SeleccionarPersonaForm_FormClosing;
+            Load += SeleccionarClienteForm_Load;
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
-            panelContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvListarClientes).EndInit();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            panelHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panelBtn;
-        private Panel panelContenedor;
-        private DataGridView dgvListarClientes;
         private Button btnCancelar;
         private Button btnSeleccionar;
         private TextBox txtBuscar;
+        private DataGridView dgvListarClientes;
+        private SplitContainer splitContainer1;
+        private Panel panelHeader;
+        private Label lblTituloForm;
     }
 }

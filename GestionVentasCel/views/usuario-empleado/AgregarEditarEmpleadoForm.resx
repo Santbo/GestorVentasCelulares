@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAANgQAAAJNU0Z0AUkBTAMBAQAB
+        oAEAAaABAAEQAQABEAEABP8BIQEACP8BQgFNATYHAAE2AwABKAMAAUADAAEQAwABAQEAASAGAAEQEgAD
+        UgGhAe4B+gHxAf8B7gH6AfEB/ygAAxMBGgHuAfoB8QH/Ae4B+gHxAf/AAANHAYAB7gH6AfEB/wHuAfoB
+        8QH/Ae4B+gHxAf8gAAMUARsB7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf/EAANjAd8B7gH6AfEB/wHuAfoB
+        8QH/Ae4B+gHxAf8YAAMSARgB7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DJgE4yAADYwHfAe4B+gHxAf8B
+        7gH6AfEB/wHuAfoB8QH/EAADFQEcAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/AyUBN9AAA2MB3wHuAfoB
+        8QH/Ae4B+gHxAf8B7gH6AfEB/wgAAxYBHQHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wMlATbYAANhAd4B
+        7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DFgEeAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/AyQBNeAAA2EB
+        3gHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DJAE16AADYQHeAe4B+gHxAf8B
+        7gH6AfEB/wHuAfoB8QH/AyQBNOgAAxcBHwHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/Ae4B
+        +gHxAf/kAAMaASMB7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DYwHfAe4B+gHxAf8B7gH6AfEB/wHuAfoB
+        8QH/3AADGAEgAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/AyABLQQAA2UB3QHuAfoB8QH/Ae4B+gHxAf8B
+        7gH6AfEB/9QAAxsBJQHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wMgAS0MAANiAdwB7gH6AfEB/wHuAfoB
+        8QH/Ae4B+gHxAf/MAAMbASYB7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DHwEsFAADYgHcAe4B+gHxAf8B
+        7gH6AfEB/wHuAfoB8QH/xAADDQERAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/Ax0BKBwAA2UB3QHuAfoB
+        8QH/Ae4B+gHxAf8B7gH6AfEB/8AAA2kB6AHuAfoB8QH/Ae4B+gHxAf8DHAEnJAADYgHcAe4B+gHxAf8B
+        7gH6AfEB/8QAA2YB5QMMAQ8sAANFAXwDVQGtwAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEF
+        AAGAFwAD/wEAAR8B+AYAAQ8B8AYAAYcB4AYAAcMBwQYAAeEBgwYAAfABBwYAAfgBDwYAAfwBHwYAAfgB
+        HwYAAfABDwYAAeABhwYAAcEBwwYAAYMB4QYAAQcB8AYAAQ8B+AYAAZ8B/AYACw==
+</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@
 using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -55,7 +56,7 @@ namespace GestionVentasCel.views.usuario_empleado
             _movimientoBinding.DataSource = _movimientoEditable;
 
             // Monto
-            nMonto.DataBindings.Add("Value", _movimientoBinding, "Monto", true);
+            nMonto.DataBindings.Add("Value", _movimientoBinding, "Monto", true, DataSourceUpdateMode.OnPropertyChanged);
 
             // Fecha
             dtpFecha.DataBindings.Add("Value", _movimientoBinding, "Fecha", true);
@@ -182,6 +183,38 @@ namespace GestionVentasCel.views.usuario_empleado
 
             return true;
 
+
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.BackColor = Tema.ColorSuperficie;
+            this.lblTituloForm.Text = this._editando ?
+                "Editar movimiento" : "Agregar movimiento";
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblMonto.ForeColor = Tema.ColorFondo;
+            this.lblTipoMovimiento.ForeColor = Tema.ColorFondo;
+            this.lblFecha.ForeColor = Tema.ColorFondo;
+            this.lblDescripcion.ForeColor = Tema.ColorFondo;
+
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
+        }
+
+        private void AgregarEditarMovimientoCCForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
 
         }
     }

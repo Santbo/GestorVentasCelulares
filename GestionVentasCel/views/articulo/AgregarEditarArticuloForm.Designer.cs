@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-         
+
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -28,170 +28,219 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarArticuloForm));
-            lblTitulo = new Label();
-            label2 = new Label();
+            lblNombre = new Label();
             txtNombre = new TextBox();
-            label1 = new Label();
+            lblAvisoStock = new Label();
             txtAvisoStock = new TextBox();
-            label3 = new Label();
+            lblPrecio = new Label();
             txtPrecio = new TextBox();
-            label4 = new Label();
+            lblStock = new Label();
             txtStock = new TextBox();
-            label5 = new Label();
+            lblMarca = new Label();
             txtMarca = new TextBox();
-            label6 = new Label();
+            lblCategoria = new Label();
             cbxCategoria = new ComboBox();
-            label7 = new Label();
+            lblDescripcion = new Label();
             txtDescripcion = new TextBox();
             btnDescartar = new Button();
             btnGuardar = new Button();
             addCategoria = new PictureBox();
+            btnSalir = new Button();
+            imageList1 = new ImageList(components);
+            lblTituloForm = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            panel7 = new Panel();
             ((System.ComponentModel.ISupportInitialize)addCategoria).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
-            // lblTitulo
+            // lblNombre
             // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Verdana", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(253, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(292, 36);
-            lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "Agregar Articulo";
-            lblTitulo.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(68, 81);
-            label2.Name = "label2";
-            label2.Size = new Size(64, 20);
-            label2.TabIndex = 13;
-            label2.Text = "Nombre";
+            lblNombre.AutoSize = true;
+            lblNombre.Dock = DockStyle.Top;
+            lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNombre.Location = new Point(0, 0);
+            lblNombre.Margin = new Padding(4, 0, 4, 0);
+            lblNombre.Name = "lblNombre";
+            lblNombre.Size = new Size(81, 25);
+            lblNombre.TabIndex = 13;
+            lblNombre.Text = "Nombre";
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(68, 104);
+            txtNombre.Dock = DockStyle.Bottom;
+            txtNombre.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNombre.Location = new Point(0, 29);
+            txtNombre.Margin = new Padding(4);
             txtNombre.MaxLength = 45;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(203, 27);
+            txtNombre.Size = new Size(300, 39);
             txtNombre.TabIndex = 14;
             // 
-            // label1
+            // lblAvisoStock
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(68, 152);
-            label1.Name = "label1";
-            label1.Size = new Size(106, 20);
-            label1.TabIndex = 15;
-            label1.Text = "Aviso de Stock";
+            lblAvisoStock.AutoSize = true;
+            lblAvisoStock.Dock = DockStyle.Top;
+            lblAvisoStock.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAvisoStock.Location = new Point(0, 0);
+            lblAvisoStock.Margin = new Padding(4, 0, 4, 0);
+            lblAvisoStock.Name = "lblAvisoStock";
+            lblAvisoStock.Size = new Size(137, 25);
+            lblAvisoStock.TabIndex = 15;
+            lblAvisoStock.Text = "Aviso de Stock";
             // 
             // txtAvisoStock
             // 
-            txtAvisoStock.Location = new Point(68, 175);
+            txtAvisoStock.Dock = DockStyle.Bottom;
+            txtAvisoStock.Font = new Font("Segoe UI", 12F);
+            txtAvisoStock.Location = new Point(0, 30);
+            txtAvisoStock.Margin = new Padding(4);
             txtAvisoStock.MaxLength = 25;
             txtAvisoStock.Name = "txtAvisoStock";
-            txtAvisoStock.Size = new Size(203, 27);
+            txtAvisoStock.Size = new Size(300, 39);
             txtAvisoStock.TabIndex = 16;
             txtAvisoStock.KeyPress += txtAvisoStock_KeyPress;
             // 
-            // label3
+            // lblPrecio
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(68, 229);
-            label3.Name = "label3";
-            label3.Size = new Size(118, 20);
-            label3.TabIndex = 17;
-            label3.Text = "Precio (Ej: 10.00)";
+            lblPrecio.AutoSize = true;
+            lblPrecio.Dock = DockStyle.Top;
+            lblPrecio.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPrecio.Location = new Point(0, 0);
+            lblPrecio.Margin = new Padding(4, 0, 4, 0);
+            lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(154, 25);
+            lblPrecio.TabIndex = 17;
+            lblPrecio.Text = "Precio (Ej: 10.00)";
             // 
             // txtPrecio
             // 
-            txtPrecio.Location = new Point(68, 252);
+            txtPrecio.Dock = DockStyle.Bottom;
+            txtPrecio.Font = new Font("Segoe UI", 12F);
+            txtPrecio.Location = new Point(0, 29);
+            txtPrecio.Margin = new Padding(4);
             txtPrecio.MaxLength = 50;
             txtPrecio.Name = "txtPrecio";
-            txtPrecio.Size = new Size(203, 27);
+            txtPrecio.Size = new Size(300, 39);
             txtPrecio.TabIndex = 18;
             txtPrecio.KeyPress += txtPrecio_KeyPress;
             // 
-            // label4
+            // lblStock
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(68, 303);
-            label4.Name = "label4";
-            label4.Size = new Size(45, 20);
-            label4.TabIndex = 19;
-            label4.Text = "Stock";
+            lblStock.AutoSize = true;
+            lblStock.Dock = DockStyle.Top;
+            lblStock.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStock.Location = new Point(0, 0);
+            lblStock.Margin = new Padding(4, 0, 4, 0);
+            lblStock.Name = "lblStock";
+            lblStock.Size = new Size(59, 25);
+            lblStock.TabIndex = 19;
+            lblStock.Text = "Stock";
             // 
             // txtStock
             // 
-            txtStock.Location = new Point(68, 326);
+            txtStock.Dock = DockStyle.Bottom;
+            txtStock.Font = new Font("Segoe UI", 12F);
+            txtStock.Location = new Point(0, 29);
+            txtStock.Margin = new Padding(4);
             txtStock.MaxLength = 50;
             txtStock.Name = "txtStock";
-            txtStock.Size = new Size(203, 27);
+            txtStock.Size = new Size(300, 39);
             txtStock.TabIndex = 20;
             txtStock.KeyPress += txtAvisoStock_KeyPress;
             // 
-            // label5
+            // lblMarca
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(389, 81);
-            label5.Name = "label5";
-            label5.Size = new Size(50, 20);
-            label5.TabIndex = 21;
-            label5.Text = "Marca";
+            lblMarca.AutoSize = true;
+            lblMarca.Dock = DockStyle.Top;
+            lblMarca.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMarca.Location = new Point(0, 0);
+            lblMarca.Margin = new Padding(4, 0, 4, 0);
+            lblMarca.Name = "lblMarca";
+            lblMarca.Size = new Size(65, 25);
+            lblMarca.TabIndex = 21;
+            lblMarca.Text = "Marca";
             // 
             // txtMarca
             // 
-            txtMarca.Location = new Point(389, 104);
+            txtMarca.Dock = DockStyle.Bottom;
+            txtMarca.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMarca.Location = new Point(0, 29);
+            txtMarca.Margin = new Padding(4);
             txtMarca.MaxLength = 45;
             txtMarca.Name = "txtMarca";
-            txtMarca.Size = new Size(203, 27);
+            txtMarca.Size = new Size(300, 39);
             txtMarca.TabIndex = 22;
             // 
-            // label6
+            // lblCategoria
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(389, 152);
-            label6.Name = "label6";
-            label6.Size = new Size(74, 20);
-            label6.TabIndex = 23;
-            label6.Text = "Categoria";
+            lblCategoria.AutoSize = true;
+            lblCategoria.Dock = DockStyle.Top;
+            lblCategoria.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCategoria.Location = new Point(0, 0);
+            lblCategoria.Margin = new Padding(4, 0, 4, 0);
+            lblCategoria.Name = "lblCategoria";
+            lblCategoria.Size = new Size(94, 25);
+            lblCategoria.TabIndex = 23;
+            lblCategoria.Text = "Categoría";
             // 
             // cbxCategoria
             // 
+            cbxCategoria.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbxCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxCategoria.Font = new Font("Segoe UI", 12F);
             cbxCategoria.FormattingEnabled = true;
-            cbxCategoria.Location = new Point(389, 174);
+            cbxCategoria.Location = new Point(0, 30);
+            cbxCategoria.Margin = new Padding(4);
             cbxCategoria.Name = "cbxCategoria";
-            cbxCategoria.Size = new Size(203, 28);
+            cbxCategoria.Size = new Size(253, 40);
             cbxCategoria.TabIndex = 24;
             // 
-            // label7
+            // lblDescripcion
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(389, 229);
-            label7.Name = "label7";
-            label7.Size = new Size(87, 20);
-            label7.TabIndex = 25;
-            label7.Text = "Descripcion";
+            lblDescripcion.AutoSize = true;
+            lblDescripcion.Dock = DockStyle.Top;
+            lblDescripcion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDescripcion.Location = new Point(0, 0);
+            lblDescripcion.Margin = new Padding(4, 0, 4, 0);
+            lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Size = new Size(111, 25);
+            lblDescripcion.TabIndex = 25;
+            lblDescripcion.Text = "Descripción";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(389, 252);
+            txtDescripcion.Dock = DockStyle.Bottom;
+            txtDescripcion.Location = new Point(0, 32);
+            txtDescripcion.Margin = new Padding(4);
             txtDescripcion.MaxLength = 256;
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.PlaceholderText = "(Opcional) Escribe una descripcion...";
             txtDescripcion.ScrollBars = ScrollBars.Vertical;
-            txtDescripcion.Size = new Size(246, 104);
+            txtDescripcion.Size = new Size(300, 129);
             txtDescripcion.TabIndex = 26;
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(397, 400);
+            btnDescartar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnDescartar.Location = new Point(182, 500);
+            btnDescartar.Margin = new Padding(4);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(195, 38);
+            btnDescartar.Size = new Size(244, 48);
             btnDescartar.TabIndex = 27;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
@@ -199,9 +248,11 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(598, 400);
+            btnGuardar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGuardar.Location = new Point(434, 500);
+            btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(195, 38);
+            btnGuardar.Size = new Size(244, 48);
             btnGuardar.TabIndex = 28;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -209,67 +260,185 @@
             // 
             // addCategoria
             // 
+            addCategoria.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             addCategoria.Image = (Image)resources.GetObject("addCategoria.Image");
-            addCategoria.Location = new Point(598, 174);
+            addCategoria.Location = new Point(254, 34);
+            addCategoria.Margin = new Padding(4);
             addCategoria.Name = "addCategoria";
-            addCategoria.Size = new Size(37, 28);
+            addCategoria.Size = new Size(46, 35);
             addCategoria.SizeMode = PictureBoxSizeMode.Zoom;
             addCategoria.TabIndex = 29;
             addCategoria.TabStop = false;
             addCategoria.Click += addCategoria_Click;
             // 
+            // btnSalir
+            // 
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Cursor = Cursors.Hand;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ImageKey = "xmark-solid-full.png";
+            btnSalir.ImageList = imageList1;
+            btnSalir.Location = new Point(628, 23);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(32, 32);
+            btnSalir.TabIndex = 32;
+            btnSalir.TabStop = false;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(686, 77);
+            lblTituloForm.TabIndex = 31;
+            lblTituloForm.Text = "Agregar artículo";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(lblNombre);
+            panel1.Controls.Add(txtNombre);
+            panel1.Location = new Point(25, 101);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(300, 68);
+            panel1.TabIndex = 33;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(txtMarca);
+            panel2.Controls.Add(lblMarca);
+            panel2.Location = new Point(342, 101);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(300, 68);
+            panel2.TabIndex = 34;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(lblAvisoStock);
+            panel3.Controls.Add(txtAvisoStock);
+            panel3.Location = new Point(25, 176);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(300, 69);
+            panel3.TabIndex = 35;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(lblPrecio);
+            panel4.Controls.Add(txtPrecio);
+            panel4.Location = new Point(25, 251);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(300, 68);
+            panel4.TabIndex = 36;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(lblStock);
+            panel5.Controls.Add(txtStock);
+            panel5.Location = new Point(25, 344);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(300, 68);
+            panel5.TabIndex = 37;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(lblCategoria);
+            panel6.Controls.Add(cbxCategoria);
+            panel6.Controls.Add(addCategoria);
+            panel6.Location = new Point(342, 175);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(300, 70);
+            panel6.TabIndex = 38;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(lblDescripcion);
+            panel7.Controls.Add(txtDescripcion);
+            panel7.Location = new Point(342, 251);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(300, 161);
+            panel7.TabIndex = 39;
+            // 
             // AgregarEditarArticuloForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AcceptButton = btnGuardar;
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(addCategoria);
+            CancelButton = btnDescartar;
+            ClientSize = new Size(686, 562);
+            Controls.Add(panel7);
+            Controls.Add(panel6);
+            Controls.Add(panel5);
+            Controls.Add(panel4);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(btnSalir);
             Controls.Add(btnGuardar);
             Controls.Add(btnDescartar);
-            Controls.Add(txtDescripcion);
-            Controls.Add(label7);
-            Controls.Add(cbxCategoria);
-            Controls.Add(label6);
-            Controls.Add(txtMarca);
-            Controls.Add(label5);
-            Controls.Add(txtStock);
-            Controls.Add(label4);
-            Controls.Add(txtPrecio);
-            Controls.Add(label3);
-            Controls.Add(txtAvisoStock);
-            Controls.Add(label1);
-            Controls.Add(txtNombre);
-            Controls.Add(label2);
-            Controls.Add(lblTitulo);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Controls.Add(lblTituloForm);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "AgregarEditarArticuloForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarArticuloForm_FormClosing;
             Load += AgregarEditarArticuloForm_Load;
             ((System.ComponentModel.ISupportInitialize)addCategoria).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
-
-          
-
-        private Label lblTitulo;
-        private Label label2;
+        private Label lblNombre;
         private TextBox txtNombre;
-        private Label label1;
+        private Label lblAvisoStock;
         private TextBox txtAvisoStock;
-        private Label label3;
+        private Label lblPrecio;
         private TextBox txtPrecio;
-        private Label label4;
+        private Label lblStock;
         private TextBox txtStock;
-        private Label label5;
+        private Label lblMarca;
         private TextBox txtMarca;
-        private Label label6;
+        private Label lblCategoria;
         private ComboBox cbxCategoria;
-        private Label label7;
+        private Label lblDescripcion;
         private TextBox txtDescripcion;
         private Button btnDescartar;
         private Button btnGuardar;
         private PictureBox addCategoria;
+        private Button btnSalir;
+        private Label lblTituloForm;
+        private ImageList imageList1;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Panel panel4;
+        private Panel panel5;
+        private Panel panel6;
+        private Panel panel7;
     }
 }

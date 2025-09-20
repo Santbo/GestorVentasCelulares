@@ -4,6 +4,7 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -240,6 +241,84 @@ namespace GestionVentasCel.views.usuario_empleado
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             AplicarFiltro();
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListarClientes.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListarClientes.GridColor = dgvListarClientes.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListarClientes.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListarClientes.EnableHeadersVisualStyles = false;
+            dgvListarClientes.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListarClientes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListarClientes.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListarClientes.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListarClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListarClientes.RowHeadersVisible = false;
+            dgvListarClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListarClientes.MultiSelect = false;
+            dgvListarClientes.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control N para nuevo usuario
+                    btnAgregar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.U)
+                {
+                    // Control U para actualizar el usuario
+                    btnActualizar.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+
+                // Supr para habilitar/deshabilitar el usuario
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnToggleActivo.PerformClick();
+                }
+            };
+        }
+
+        private void ClienteMainMenuForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
         }
     }
 }

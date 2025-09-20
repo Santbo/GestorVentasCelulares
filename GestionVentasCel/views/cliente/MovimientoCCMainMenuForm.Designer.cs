@@ -35,9 +35,17 @@
             btnEditar = new Button();
             btnAgregar = new Button();
             panelContenedor = new Panel();
+            splitContainer1 = new SplitContainer();
+            panelHeader = new Panel();
+            lblTituloForm = new Label();
             dgvListarMovimientos = new DataGridView();
             panelBtn.SuspendLayout();
             panelContenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvListarMovimientos).BeginInit();
             SuspendLayout();
             // 
@@ -78,7 +86,7 @@
             // btnEliminar
             // 
             btnEliminar.Anchor = AnchorStyles.Right;
-            btnEliminar.Location = new Point(449, 8);
+            btnEliminar.Location = new Point(453, 8);
             btnEliminar.Margin = new Padding(4);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(201, 75);
@@ -90,7 +98,7 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(658, 8);
+            btnEditar.Location = new Point(662, 8);
             btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
@@ -102,7 +110,7 @@
             // btnAgregar
             // 
             btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(825, 8);
+            btnAgregar.Location = new Point(829, 8);
             btnAgregar.Margin = new Padding(4);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(160, 75);
@@ -113,13 +121,54 @@
             // 
             // panelContenedor
             // 
-            panelContenedor.Controls.Add(dgvListarMovimientos);
+            panelContenedor.Controls.Add(splitContainer1);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 0);
             panelContenedor.Margin = new Padding(4);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1000, 476);
             panelContenedor.TabIndex = 1;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(panelHeader);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dgvListarMovimientos);
+            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
+            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.SplitterDistance = 55;
+            splitContainer1.TabIndex = 5;
+            // 
+            // panelHeader
+            // 
+            panelHeader.Controls.Add(lblTituloForm);
+            panelHeader.Dock = DockStyle.Fill;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(1000, 55);
+            panelHeader.TabIndex = 1;
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Fill;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
+            lblTituloForm.Size = new Size(1000, 55);
+            lblTituloForm.TabIndex = 0;
+            lblTituloForm.Text = "Movimientos de";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dgvListarMovimientos
             // 
@@ -128,13 +177,13 @@
             dgvListarMovimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListarMovimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarMovimientos.Dock = DockStyle.Fill;
-            dgvListarMovimientos.Location = new Point(0, 0);
+            dgvListarMovimientos.Location = new Point(11, 4);
             dgvListarMovimientos.Margin = new Padding(4);
             dgvListarMovimientos.MultiSelect = false;
             dgvListarMovimientos.Name = "dgvListarMovimientos";
             dgvListarMovimientos.ReadOnly = true;
             dgvListarMovimientos.RowHeadersWidth = 51;
-            dgvListarMovimientos.Size = new Size(1000, 476);
+            dgvListarMovimientos.Size = new Size(978, 409);
             dgvListarMovimientos.TabIndex = 0;
             // 
             // MovimientosCCMainMenuForm
@@ -148,10 +197,15 @@
             Margin = new Padding(4);
             MinimizeBox = false;
             Name = "MovimientosCCMainMenuForm";
-            Text = "Movimientos de la cuenta corriente";
+            Load += MovimientoCCMainMenuForm_Load;
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
             panelContenedor.ResumeLayout(false);
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvListarMovimientos).EndInit();
             ResumeLayout(false);
         }
@@ -166,5 +220,8 @@
         private Button btnAgregar;
         private TextBox txtBuscar;
         private Label lblSaldoActual;
+        private SplitContainer splitContainer1;
+        private Panel panelHeader;
+        private Label lblTituloForm;
     }
 }
