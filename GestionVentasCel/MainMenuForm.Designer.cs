@@ -36,6 +36,8 @@
             gestionarProveedoresToolStripMenuItem = new ToolStripMenuItem();
             proveedoresMenuItem = new ToolStripMenuItem();
             comprasMenuItem = new ToolStripMenuItem();
+
+            aumentarMargenMenuItem = new ToolStripMenuItem();
             clientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarClientesToolStripMenuItem = new ToolStripMenuItem();
             gestionarCuentasCorrientesToolStripMenuItem = new ToolStripMenuItem();
@@ -48,7 +50,7 @@
             menuStrip1.BackColor = SystemColors.ActiveCaption;
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, gestionarProveedoresToolStripMenuItem, clientesToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem, gestionarProveedoresToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(8, 4, 0, 4);
@@ -56,6 +58,7 @@
             menuStrip1.Size = new Size(1000, 42);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+
             // 
             // UsuarioMenuItem
             // 
@@ -64,6 +67,7 @@
             UsuarioMenuItem.Size = new Size(135, 34);
             UsuarioMenuItem.Text = "&Empleados";
             UsuarioMenuItem.Click += UsuarioMenuItem_Click;
+
             // 
             // gestionarArticulosToolStripMenuItem
             // 
@@ -71,6 +75,7 @@
             gestionarArticulosToolStripMenuItem.Name = "gestionarArticulosToolStripMenuItem";
             gestionarArticulosToolStripMenuItem.Size = new Size(126, 34);
             gestionarArticulosToolStripMenuItem.Text = "&Inventario";
+
             // 
             // categoriasMenuItem
             // 
@@ -78,6 +83,7 @@
             categoriasMenuItem.Size = new Size(219, 38);
             categoriasMenuItem.Text = "&Categorias";
             categoriasMenuItem.Click += categoriasMenuItem_Click;
+
             // 
             // ArticulosMenuItem
             // 
@@ -88,10 +94,11 @@
             // 
             // gestionarProveedoresToolStripMenuItem
             // 
-            gestionarProveedoresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { proveedoresMenuItem, comprasMenuItem });
+            gestionarProveedoresToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { proveedoresMenuItem, comprasMenuItem, aumentarMargenMenuItem });
             gestionarProveedoresToolStripMenuItem.Name = "gestionarProveedoresToolStripMenuItem";
             gestionarProveedoresToolStripMenuItem.Size = new Size(116, 34);
             gestionarProveedoresToolStripMenuItem.Text = "C&ompras";
+
             // 
             // proveedoresMenuItem
             // 
@@ -103,16 +110,27 @@
             // comprasMenuItem
             // 
             comprasMenuItem.Name = "comprasMenuItem";
+
             comprasMenuItem.Size = new Size(270, 38);
             comprasMenuItem.Text = "&Compras";
             comprasMenuItem.Click += comprasMenuItem_Click;
+
             // 
+            // aumentarMargenMenuItem
+            // 
+            aumentarMargenMenuItem.Name = "aumentarMargenMenuItem";
+            aumentarMargenMenuItem.Size = new Size(229, 26);
+            aumentarMargenMenuItem.Text = "Margen de Ganancia";
+            aumentarMargenMenuItem.Click += aumentarMargenMenuItem_Click;
+            // 
+
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarClientesToolStripMenuItem, gestionarCuentasCorrientesToolStripMenuItem });
             clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
             clientesToolStripMenuItem.Size = new Size(105, 34);
             clientesToolStripMenuItem.Text = "&Clientes";
+
             // 
             // gestionarClientesToolStripMenuItem
             // 
@@ -135,19 +153,22 @@
             panelContenedor.Margin = new Padding(4);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1000, 520);
+
             panelContenedor.TabIndex = 1;
             // 
             // MainMenuForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(800, 450);
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
+
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
+
             Name = "MainMenuForm";
             Text = "Menú principal - SGVC";
             WindowState = FormWindowState.Maximized;
@@ -173,5 +194,6 @@
         private ToolStripMenuItem clientesToolStripMenuItem;
         private ToolStripMenuItem gestionarClientesToolStripMenuItem;
         private ToolStripMenuItem gestionarCuentasCorrientesToolStripMenuItem;
+        private ToolStripMenuItem aumentarMargenMenuItem;
     }
 }

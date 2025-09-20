@@ -77,12 +77,23 @@
             panel11.SuspendLayout();
             SuspendLayout();
             // 
+
+            // lblTitulo
+            // 
+            lblTitulo.Dock = DockStyle.Top;
+            lblTitulo.Font = new Font("Verdana", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.Location = new Point(0, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(780, 35);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Agregar Cliente";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(0, 4);
-            btnDescartar.Margin = new Padding(4);
+            btnDescartar.Location = new Point(0, 3);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(244, 48);
+            btnDescartar.Size = new Size(195, 38);
             btnDescartar.TabIndex = 9;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
@@ -90,10 +101,9 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(252, 4);
-            btnGuardar.Margin = new Padding(4);
+            btnGuardar.Location = new Point(202, 3);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(244, 48);
+            btnGuardar.Size = new Size(195, 38);
             btnGuardar.TabIndex = 10;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -102,57 +112,53 @@
             // txtNombre
             // 
             txtNombre.Dock = DockStyle.Bottom;
-            txtNombre.Location = new Point(0, 31);
-            txtNombre.Margin = new Padding(4);
+            txtNombre.Location = new Point(0, 23);
             txtNombre.MaxLength = 45;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(300, 31);
+            txtNombre.Size = new Size(240, 27);
             txtNombre.TabIndex = 0;
             txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // txtApellido
             // 
             txtApellido.Dock = DockStyle.Bottom;
-            txtApellido.Location = new Point(0, 31);
-            txtApellido.Margin = new Padding(4);
+            txtApellido.Location = new Point(0, 23);
             txtApellido.MaxLength = 45;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(300, 31);
+            txtApellido.Size = new Size(240, 27);
             txtApellido.TabIndex = 1;
             txtApellido.KeyPress += txtNombre_KeyPress;
             // 
             // txtTelefono
             // 
             txtTelefono.Dock = DockStyle.Bottom;
-            txtTelefono.Location = new Point(0, 31);
-            txtTelefono.Margin = new Padding(4);
+            txtTelefono.Location = new Point(0, 23);
             txtTelefono.MaxLength = 14;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(300, 31);
+            txtTelefono.Size = new Size(240, 27);
             txtTelefono.TabIndex = 5;
             txtTelefono.KeyPress += txtTelefono_KeyPress;
             // 
             // txtDni
             // 
             txtDni.Dock = DockStyle.Bottom;
-            txtDni.Location = new Point(0, 31);
-            txtDni.Margin = new Padding(4);
+            txtDni.Location = new Point(0, 23);
             txtDni.MaxLength = 13;
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(300, 31);
+            txtDni.Size = new Size(240, 27);
             txtDni.TabIndex = 3;
             txtDni.KeyPress += txtDni_KeyPress;
             // 
             // txtEmail
             // 
             txtEmail.Dock = DockStyle.Bottom;
-            txtEmail.Location = new Point(0, 31);
-            txtEmail.Margin = new Padding(4);
+            txtEmail.Location = new Point(0, 23);
             txtEmail.MaxLength = 50;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(300, 31);
+            txtEmail.Size = new Size(240, 27);
             txtEmail.TabIndex = 6;
             // 
+
             // lblNombre
             // 
             lblNombre.AutoSize = true;
@@ -224,29 +230,28 @@
             lblTipoDni.Size = new Size(180, 25);
             lblTipoDni.TabIndex = 19;
             lblTipoDni.Text = "Tipo de Documento";
+
             // 
             // comboTipoDoc
             // 
             comboTipoDoc.Dock = DockStyle.Bottom;
             comboTipoDoc.FormattingEnabled = true;
-            comboTipoDoc.Location = new Point(0, 29);
-            comboTipoDoc.Margin = new Padding(4);
+            comboTipoDoc.Location = new Point(0, 22);
             comboTipoDoc.Name = "comboTipoDoc";
-            comboTipoDoc.Size = new Size(300, 33);
+            comboTipoDoc.Size = new Size(240, 28);
             comboTipoDoc.TabIndex = 2;
             // 
             // comboIVA
             // 
             comboIVA.Dock = DockStyle.Bottom;
             comboIVA.FormattingEnabled = true;
-            comboIVA.Location = new Point(0, 29);
-            comboIVA.Margin = new Padding(4);
+            comboIVA.Location = new Point(0, 22);
             comboIVA.Name = "comboIVA";
-            comboIVA.Size = new Size(300, 33);
+            comboIVA.Size = new Size(240, 28);
             comboIVA.TabIndex = 4;
             // 
             // lblCondicionIva
-            // 
+
             lblCondicionIva.AutoSize = true;
             lblCondicionIva.Dock = DockStyle.Top;
             lblCondicionIva.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -256,68 +261,76 @@
             lblCondicionIva.Size = new Size(204, 25);
             lblCondicionIva.TabIndex = 21;
             lblCondicionIva.Text = "Condición frente a IVA";
+
             // 
             // panel1
             // 
             panel1.Controls.Add(lblNombre);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(10, 30);
+            panel1.Location = new Point(8, 24);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(300, 62);
+            panel1.Size = new Size(240, 50);
             panel1.TabIndex = 0;
             // 
             // panel2
             // 
             panel2.Controls.Add(lblCondicionIva);
             panel2.Controls.Add(comboIVA);
-            panel2.Location = new Point(660, 30);
+            panel2.Location = new Point(528, 24);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(300, 62);
+            panel2.Size = new Size(240, 50);
             panel2.TabIndex = 4;
             // 
             // panel3
             // 
             panel3.Controls.Add(lblTipoDni);
             panel3.Controls.Add(comboTipoDoc);
-            panel3.Location = new Point(332, 30);
+            panel3.Location = new Point(266, 24);
+            panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(300, 62);
+            panel3.Size = new Size(240, 50);
             panel3.TabIndex = 2;
             // 
             // panel4
             // 
             panel4.Controls.Add(lblEmail);
             panel4.Controls.Add(txtEmail);
-            panel4.Location = new Point(10, 237);
+            panel4.Location = new Point(8, 190);
+            panel4.Margin = new Padding(2);
             panel4.Name = "panel4";
-            panel4.Size = new Size(300, 62);
+            panel4.Size = new Size(240, 50);
             panel4.TabIndex = 6;
             // 
             // panel5
             // 
             panel5.Controls.Add(lblApellido);
             panel5.Controls.Add(txtApellido);
-            panel5.Location = new Point(10, 132);
+            panel5.Location = new Point(8, 106);
+            panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(300, 62);
+            panel5.Size = new Size(240, 50);
             panel5.TabIndex = 1;
             // 
             // panel6
             // 
             panel6.Controls.Add(lblTelefono);
             panel6.Controls.Add(txtTelefono);
-            panel6.Location = new Point(660, 132);
+            panel6.Location = new Point(528, 106);
+            panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(300, 62);
+            panel6.Size = new Size(240, 50);
             panel6.TabIndex = 5;
             // 
             // panel7
             // 
             panel7.Controls.Add(lblDni);
             panel7.Controls.Add(txtDni);
-            panel7.Location = new Point(332, 132);
+            panel7.Location = new Point(266, 106);
+            panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
-            panel7.Size = new Size(300, 62);
+            panel7.Size = new Size(240, 50);
             panel7.TabIndex = 3;
             // 
             // panel8
@@ -325,22 +338,25 @@
             panel8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             panel8.Controls.Add(btnDescartar);
             panel8.Controls.Add(btnGuardar);
-            panel8.Location = new Point(461, 493);
+            panel8.Location = new Point(369, 394);
+            panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
-            panel8.Size = new Size(500, 57);
+            panel8.Size = new Size(400, 46);
             panel8.TabIndex = 30;
             // 
             // panel9
             // 
             panel9.Controls.Add(lblCalle);
             panel9.Controls.Add(txtCalle);
-            panel9.Location = new Point(332, 237);
+            panel9.Location = new Point(266, 190);
+            panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(300, 62);
+            panel9.Size = new Size(240, 50);
             panel9.TabIndex = 7;
             // 
             // lblCalle
             // 
+
             lblCalle.AutoSize = true;
             lblCalle.Dock = DockStyle.Top;
             lblCalle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -350,28 +366,30 @@
             lblCalle.Size = new Size(53, 25);
             lblCalle.TabIndex = 18;
             lblCalle.Text = "Calle";
+
             // 
             // txtCalle
             // 
             txtCalle.Dock = DockStyle.Bottom;
-            txtCalle.Location = new Point(0, 31);
-            txtCalle.Margin = new Padding(4);
+            txtCalle.Location = new Point(0, 23);
             txtCalle.MaxLength = 50;
             txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(300, 31);
+            txtCalle.Size = new Size(240, 27);
             txtCalle.TabIndex = 7;
             // 
             // panel10
             // 
             panel10.Controls.Add(lblCiudad);
             panel10.Controls.Add(txtCiudad);
-            panel10.Location = new Point(660, 237);
+            panel10.Location = new Point(528, 190);
+            panel10.Margin = new Padding(2);
             panel10.Name = "panel10";
-            panel10.Size = new Size(300, 62);
+            panel10.Size = new Size(240, 50);
             panel10.TabIndex = 8;
             // 
             // lblCiudad
             // 
+
             lblCiudad.AutoSize = true;
             lblCiudad.Dock = DockStyle.Top;
             lblCiudad.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -381,15 +399,15 @@
             lblCiudad.Size = new Size(71, 25);
             lblCiudad.TabIndex = 18;
             lblCiudad.Text = "Ciudad";
+
             // 
             // txtCiudad
             // 
             txtCiudad.Dock = DockStyle.Bottom;
-            txtCiudad.Location = new Point(0, 31);
-            txtCiudad.Margin = new Padding(4);
+            txtCiudad.Location = new Point(0, 23);
             txtCiudad.MaxLength = 50;
             txtCiudad.Name = "txtCiudad";
-            txtCiudad.Size = new Size(300, 31);
+            txtCiudad.Size = new Size(240, 27);
             txtCiudad.TabIndex = 8;
             // 
             // panel11
@@ -403,9 +421,11 @@
             panel11.Controls.Add(panel1);
             panel11.Controls.Add(panel6);
             panel11.Controls.Add(panel5);
+
             panel11.Location = new Point(0, 80);
             panel11.Name = "panel11";
             panel11.Size = new Size(975, 376);
+
             panel11.TabIndex = 33;
             // 
             // btnSalir
@@ -447,6 +467,7 @@
             // 
             // AgregarEditarClienteForm
             // 
+
             AcceptButton = btnGuardar;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -454,10 +475,13 @@
             ClientSize = new Size(975, 562);
             Controls.Add(btnSalir);
             Controls.Add(lblTituloForm);
+
             Controls.Add(panel11);
             Controls.Add(panel8);
+
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
+
             Name = "AgregarEditarClienteForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += AgregarEditarEmpleadoForm_FormClosing;

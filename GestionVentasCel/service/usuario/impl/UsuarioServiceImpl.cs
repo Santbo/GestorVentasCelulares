@@ -42,7 +42,6 @@ namespace GestionVentasCel.service.usuario.impl
                 Apellido = apellido,
                 Telefono = telefono,
                 Dni = dni,
-                TipoDocumento = enumerations.persona.TipoDocumentoEnum.DNI,
                 Email = email
 
 

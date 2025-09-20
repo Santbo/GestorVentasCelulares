@@ -1,7 +1,10 @@
 using GestionVentasCel.exceptions.compra;
+using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.repository.compra;
+using GestionVentasCel.repository.configPrecios;
 using GestionVentasCel.service.articulo;
+using GestionVentasCel.service.configPrecios;
 
 namespace GestionVentasCel.service.compra.impl
 {
@@ -11,22 +14,31 @@ namespace GestionVentasCel.service.compra.impl
         private readonly IDetalleCompraRepository _detalleRepo;
         private readonly IArticuloService _articuloService;
         private readonly IHistorialPrecioService _historialPrecioService;
+        private readonly IConfiguracionPreciosService _configuracionPreciosService;
 
-        public CompraServiceImpl(ICompraRepository repo, IDetalleCompraRepository detalleRepo, IArticuloService articuloService, IHistorialPrecioService historialPrecioService)
+        public CompraServiceImpl(ICompraRepository repo,
+                                    IDetalleCompraRepository detalleRepo,
+                                    IArticuloService articuloService,
+                                    IHistorialPrecioService historialPrecioService,
+                                    IConfiguracionPreciosService configuracionPreciosService)
         {
             _repo = repo;
             _detalleRepo = detalleRepo;
             _articuloService = articuloService;
             _historialPrecioService = historialPrecioService;
+            _configuracionPreciosService = configuracionPreciosService;
         }
 
-        public void AgregarCompra(Compra compra)
-        {
-            _repo.Add(compra);
-        }
 
         public void AgregarCompraConDetalles(Compra compra, List<DetalleCompra> detalles)
         {
+
+
+            if (!_configuracionPreciosService.MargenExist(1))
+            {
+                throw new MargenNoAgregadoException("Margen no agregado. Por favor agrega un margen de actualizacion de precios");
+
+            }
             // Calcular el total
             compra.Total = CalcularTotal(detalles);
 
@@ -40,41 +52,18 @@ namespace GestionVentasCel.service.compra.impl
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
 
                 // Actualizar stock del artículo
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "nueva");
             }
 
             _detalleRepo.AddRange(detalles);
         }
 
-        public IEnumerable<Compra> ListarCompras()
-        {
-            return _repo.GetAll();
-        }
+        public IEnumerable<Compra> ListarCompras() => _repo.GetAll();
+        
 
-        public IEnumerable<Compra> ListarComprasConDetalles()
-        {
-            return _repo.GetAllWithDetails();
-        }
-
-        public IEnumerable<Compra> GetByProveedor(int proveedorId)
-        {
-            return _repo.GetByProveedor(proveedorId);
-        }
-
-        public IEnumerable<Compra> GetByFecha(DateTime fechaDesde, DateTime fechaHasta)
-        {
-            return _repo.GetByFecha(fechaDesde, fechaHasta);
-        }
-
-        public void ActualizarCompra(Compra compra)
-        {
-            if (!_repo.Exist(compra.Id))
-            {
-                throw new CompraNoEncontradaException("Compra no encontrada.");
-            }
-
-            _repo.Update(compra);
-        }
+        public IEnumerable<Compra> ListarComprasConDetalles() => _repo.GetAllWithDetails();
+        public IEnumerable<Compra> GetByProveedor(int proveedorId) => _repo.GetByProveedor(proveedorId);
+        public Compra? GetByIdWithDetails(int id) => _repo.GetByIdWithDetails(id);
 
         public void ActualizarCompraConDetalles(Compra compra, List<DetalleCompra> detalles)
         {
@@ -89,7 +78,7 @@ namespace GestionVentasCel.service.compra.impl
             // Revertir stock de detalles existentes
             foreach (var detalleExistente in detallesExistentes)
             {
-                ActualizarStockArticulo(detalleExistente.ArticuloId, detalleExistente.Cantidad, detalleExistente.PrecioUnitario, false);
+                ActualizarStockArticulo(detalleExistente.ArticuloId, detalleExistente.Cantidad, detalleExistente.PrecioUnitario, "revertir");
             }
 
             // Actualizar la compra
@@ -106,7 +95,7 @@ namespace GestionVentasCel.service.compra.impl
                 detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
 
                 // Actualizar stock del artículo
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, true);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "nueva");
             }
 
             _detalleRepo.AddRange(detalles);
@@ -125,25 +114,10 @@ namespace GestionVentasCel.service.compra.impl
             // Revertir stock de cada detalle
             foreach (var detalle in detalles)
             {
-                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, false);
+                ActualizarStockArticulo(detalle.ArticuloId, detalle.Cantidad, detalle.PrecioUnitario, "revertir");
             }
 
             _repo.Delete(id);
-        }
-
-        public Compra? GetById(int id)
-        {
-            return _repo.GetById(id);
-        }
-
-        public Compra? GetByIdWithDetails(int id)
-        {
-            return _repo.GetByIdWithDetails(id);
-        }
-
-        public bool ExisteCompra(int id)
-        {
-            return _repo.Exist(id);
         }
 
         public decimal CalcularTotal(List<DetalleCompra> detalles)
@@ -151,52 +125,37 @@ namespace GestionVentasCel.service.compra.impl
             return detalles.Sum(d => d.Cantidad * d.PrecioUnitario);
         }
 
-        private void ActualizarStockArticulo(int articuloId, int cantidad, decimal precioUnitario, bool esCompra)
+        private void ActualizarStockArticulo(int articuloId, int cantidad, decimal precioUnitario, string tipoOperacion)
         {
             var articulo = _articuloService.GetById(articuloId);
-            if (articulo != null)
-            {
-                if (esCompra)
-                {
-                    // Agregar stock al comprar
-                    articulo.Stock += cantidad;
+            if (articulo == null) return;
 
-                    // Actualizar precio si no se tenía stock (articulo.Stock == cuantidad) o si no tenía precio (articulo.Precio == 0)
-                    if (articulo.Stock == cantidad || articulo.Precio == 0)
+            var margenAumento = _configuracionPreciosService.GetById(1);
+
+            switch (tipoOperacion)
+            {
+                case "nueva":
+                    articulo.Stock += cantidad;
+                    if (articulo.Stock == cantidad || articulo.Precio == 0 || precioUnitario > articulo.Precio)
                     {
-                        // Registrar cambio de precio
-                        _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, precioUnitario, "Compra");
-                        articulo.Precio = precioUnitario;
-                    } //TODO: Si no es la primera compra, entonces se tiene que actualizar el precio solamente si el nuevo precio es mayor al viejo
-                      // sería un if precio * 1.51 > precio_actual then actualizar básicamente, aunque el 1.51 debería poder fijarse manualmente
-                }
-                else
-                {
-                    // Restar stock al eliminar compra
-                    // Esto es todo un tema, porque si se editó el stock manualmente, o se vendió un poco de stock 
-                    // y luego se eliminó una compra, se rompe la consistencia, porque el código elimina artículos que ya no existen
-                    // Por ejemplo, si se compran 5 teléfonos, y se venden 4, entonces quedaría un solo teléfno
-                    // Si luego de esa venta, se elimina la compra de los 5 teléfonos, el código restaría esa cantidad y quedaríamos con -4 teléfonos
-                    // A dónde se fueron? Nadie lo sabe, pero ahora debemos 4 teléfonos a alguien que no conocemos.
-                    // PD: El revertir el precio tampoco funciona, por lo menos en mis pruebas. 
+                        var nuevoPrecio = precioUnitario * margenAumento.MargenAumento;
+                        _historialPrecioService.RegistrarCambioPrecio(articuloId, nuevoPrecio, articulo.Precio, "Compra nueva");
+                        articulo.Precio = nuevoPrecio;
+                    }
+                    break;
+
+                case "revertir":
                     articulo.Stock -= cantidad;
 
-                    // Si el stock llega a 0, mantener el precio actual
-                    if (articulo.Stock > 0)
+                    var ultimoPrecio = _historialPrecioService.GetUltimoPrecio(articuloId);
+                    if (ultimoPrecio != null)
                     {
-                        // Recuperar el precio anterior del historial
-                        var ultimoPrecio = _historialPrecioService.GetUltimoPrecio(articuloId);
-                        if (ultimoPrecio != null && ultimoPrecio.PrecioAnterior > 0)
-                        {
-                            // Registrar cambio de precio
-                            _historialPrecioService.RegistrarCambioPrecio(articuloId, articulo.Precio, ultimoPrecio.PrecioAnterior, "EliminacionCompra");
-                            articulo.Precio = ultimoPrecio.PrecioAnterior;
-                        }
+                        articulo.Precio = ultimoPrecio.PrecioAnterior;
                     }
-                }
-
-                _articuloService.UpdateArticulo(articulo);
+                    break;
             }
+
+            _articuloService.UpdateArticulo(articulo);
         }
     }
 }

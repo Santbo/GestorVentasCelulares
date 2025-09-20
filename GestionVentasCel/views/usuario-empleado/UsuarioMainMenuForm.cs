@@ -49,6 +49,7 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarUsuarios.Columns["Calle"].Visible = false;
             dgvListarUsuarios.Columns["Ciudad"].Visible = false;
             dgvListarUsuarios.Columns["Activo"].DisplayIndex = 10;
+
         }
 
         private void chkMostrarInactivos_CheckedChanged(object sender, EventArgs e)

@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
 
 namespace GestionVentasCel.views.compra
@@ -30,17 +32,50 @@ namespace GestionVentasCel.views.compra
         {
             try
             {
+
                 var listaCompras = _compraController.ObtenerCompras().ToList();
                 _compras = new BindingList<Compra>(listaCompras);
 
                 _bindingSource = new BindingSource();
                 _bindingSource.DataSource = _compras;
 
-                // Configurar DataGridView con generación automática deshabilitada
-                dgvListarCompras.AutoGenerateColumns = false;
-                ConfigurarColumnas();
+
                 dgvListarCompras.DataSource = _bindingSource;
+
+                dgvListarCompras.Columns["Id"].Visible = false;
+                dgvListarCompras.Columns["ProveedorId"].Visible = false;
+                dgvListarCompras.Columns["Detalles"].Visible = false;
+                dgvListarCompras.Columns["Total"].Visible = false;
+
+                if (dgvListarCompras.Columns["TotalFormateado"] == null)
+                {
+                    dgvListarCompras.Columns.Add("TotalFormateado", "Total");
+                }
+
+                dgvListarCompras.DataBindingComplete += (s, e) =>
+                {
+                    dgvListarCompras.Columns["Proveedor"].DisplayIndex = 1;
+                    dgvListarCompras.Columns["Fecha"].DisplayIndex = 2;
+                    dgvListarCompras.Columns["TotalFormateado"].DisplayIndex = 3;
+                    dgvListarCompras.Columns["Observaciones"].DisplayIndex = 4;
+
+                    foreach (DataGridViewRow row in dgvListarCompras.Rows)
+                    {
+                        if (row.DataBoundItem is Compra compra)
+                        {
+                            // formatear el precio como moneda
+                            row.Cells["TotalFormateado"].Value = compra.Total.ToString("C2", new CultureInfo("es-AR"));
+                        };
+                        
+
+                    };
+                    
+
+                };
+
             }
+
+
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar compras: {ex.Message}", "Error",
@@ -48,72 +83,6 @@ namespace GestionVentasCel.views.compra
             }
         }
 
-        private void ConfigurarColumnas()
-        {
-            try
-            {
-                // Limpiar columnas existentes
-                dgvListarCompras.Columns.Clear();
-
-                // Crear columna de ID (oculta)
-                var columnaId = new DataGridViewTextBoxColumn
-                {
-                    Name = "Id",
-                    HeaderText = "ID",
-                    DataPropertyName = "Id",
-                    Width = 50,
-                    Visible = false
-                };
-                dgvListarCompras.Columns.Add(columnaId);
-
-                // Crear columna de Fecha
-                var columnaFecha = new DataGridViewTextBoxColumn
-                {
-                    Name = "Fecha",
-                    HeaderText = "Fecha",
-                    DataPropertyName = "Fecha",
-                    Width = 120,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }
-                };
-                dgvListarCompras.Columns.Add(columnaFecha);
-
-                // Crear columna de Proveedor
-                var columnaProveedor = new DataGridViewTextBoxColumn
-                {
-                    Name = "Proveedor",
-                    HeaderText = "Proveedor",
-                    DataPropertyName = "NombreProveedor",
-                    Width = 200
-                };
-                dgvListarCompras.Columns.Add(columnaProveedor);
-
-                // Crear columna de Total
-                var columnaTotal = new DataGridViewTextBoxColumn
-                {
-                    Name = "Total",
-                    HeaderText = "Total",
-                    DataPropertyName = "Total",
-                    Width = 100,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
-                };
-                dgvListarCompras.Columns.Add(columnaTotal);
-
-                // Crear columna de Observaciones
-                var columnaObservaciones = new DataGridViewTextBoxColumn
-                {
-                    Name = "Observaciones",
-                    HeaderText = "Observaciones",
-                    DataPropertyName = "Observaciones",
-                    Width = 200
-                };
-                dgvListarCompras.Columns.Add(columnaObservaciones);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al configurar columnas: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -217,6 +186,7 @@ namespace GestionVentasCel.views.compra
                     {
                         var formDetalle = new VerDetallesCompraForm(compra, _compraController, _proveedorController, _articuloController);
                         formDetalle.ShowDialog();
+                        CargarCompras();
                     }
                 }
                 else
@@ -260,36 +230,5 @@ namespace GestionVentasCel.views.compra
             }
         }
 
-        private void btnFiltrarPorFecha_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var formFiltro = new FiltroFechaForm();
-                if (formFiltro.ShowDialog() == DialogResult.OK)
-                {
-                    var comprasFiltradas = _compraController.GetByFecha(formFiltro.FechaDesde, formFiltro.FechaHasta).ToList();
-                    _bindingSource.DataSource = new BindingList<Compra>(comprasFiltradas);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al filtrar por fecha: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                txtBuscar.Clear();
-                _bindingSource.DataSource = _compras;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al limpiar filtros: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }

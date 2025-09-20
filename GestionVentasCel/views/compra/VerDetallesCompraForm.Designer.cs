@@ -20,7 +20,7 @@ namespace GestionVentasCel.views.compra
             base.Dispose(disposing);
         }
 
-         
+
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -41,40 +41,40 @@ namespace GestionVentasCel.views.compra
             // lblProveedor
             // 
             lblProveedor.AutoSize = true;
-            lblProveedor.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblProveedor.Location = new Point(12, 15);
+            lblProveedor.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblProveedor.Location = new Point(14, 20);
             lblProveedor.Name = "lblProveedor";
-            lblProveedor.Size = new Size(75, 19);
+            lblProveedor.Size = new Size(98, 23);
             lblProveedor.TabIndex = 0;
             lblProveedor.Text = "Proveedor:";
             // 
             // lblFecha
             // 
             lblFecha.AutoSize = true;
-            lblFecha.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFecha.Location = new Point(12, 44);
+            lblFecha.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblFecha.Location = new Point(14, 59);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(46, 19);
+            lblFecha.Size = new Size(60, 23);
             lblFecha.TabIndex = 1;
             lblFecha.Text = "Fecha:";
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotal.Location = new Point(400, 15);
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTotal.Location = new Point(457, 20);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(42, 21);
+            lblTotal.Size = new Size(64, 28);
             lblTotal.TabIndex = 2;
             lblTotal.Text = "Total:";
             // 
             // lblObservaciones
             // 
             lblObservaciones.AutoSize = true;
-            lblObservaciones.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblObservaciones.Location = new Point(12, 73);
+            lblObservaciones.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblObservaciones.Location = new Point(14, 97);
             lblObservaciones.Name = "lblObservaciones";
-            lblObservaciones.Size = new Size(101, 19);
+            lblObservaciones.Size = new Size(130, 23);
             lblObservaciones.TabIndex = 3;
             lblObservaciones.Text = "Observaciones:";
             // 
@@ -82,20 +82,24 @@ namespace GestionVentasCel.views.compra
             // 
             dgvDetalles.AllowUserToAddRows = false;
             dgvDetalles.AllowUserToDeleteRows = false;
+            dgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDetalles.Location = new Point(12, 105);
+            dgvDetalles.Location = new Point(14, 140);
+            dgvDetalles.Margin = new Padding(3, 4, 3, 4);
             dgvDetalles.Name = "dgvDetalles";
             dgvDetalles.ReadOnly = true;
+            dgvDetalles.RowHeadersWidth = 51;
             dgvDetalles.RowTemplate.Height = 25;
             dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDetalles.Size = new Size(600, 300);
+            dgvDetalles.Size = new Size(686, 400);
             dgvDetalles.TabIndex = 4;
             // 
             // btnCerrar
             // 
-            btnCerrar.Location = new Point(537, 420);
+            btnCerrar.Location = new Point(614, 560);
+            btnCerrar.Margin = new Padding(3, 4, 3, 4);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(75, 30);
+            btnCerrar.Size = new Size(86, 40);
             btnCerrar.TabIndex = 5;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
@@ -103,9 +107,10 @@ namespace GestionVentasCel.views.compra
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(456, 420);
+            btnEditar.Location = new Point(521, 560);
+            btnEditar.Margin = new Padding(3, 4, 3, 4);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(75, 30);
+            btnEditar.Size = new Size(86, 40);
             btnEditar.TabIndex = 6;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
@@ -113,9 +118,9 @@ namespace GestionVentasCel.views.compra
             // 
             // VerDetallesCompraForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(624, 462);
+            ClientSize = new Size(713, 616);
             Controls.Add(btnCerrar);
             Controls.Add(btnEditar);
             Controls.Add(dgvDetalles);
@@ -124,6 +129,7 @@ namespace GestionVentasCel.views.compra
             Controls.Add(lblFecha);
             Controls.Add(lblProveedor);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "VerDetallesCompraForm";
@@ -134,7 +140,7 @@ namespace GestionVentasCel.views.compra
             PerformLayout();
         }
 
-          
+
 
         private Label lblProveedor;
         private Label lblFecha;

@@ -19,16 +19,6 @@ namespace GestionVentasCel.repository.proveedor.impl
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
-        {
-            var proveedor = _context.Proveedores.Find(id);
-            if (proveedor != null)
-            {
-                proveedor.Activo = false;
-                _context.SaveChanges();
-            }
-        }
-
         public void CambiarEstado(int id, bool activo)
         {
             var proveedor = _context.Proveedores.Find(id);
@@ -39,10 +29,12 @@ namespace GestionVentasCel.repository.proveedor.impl
             }
         }
 
-        public bool DocumentoExist(string documento, string tipoDocumento)
+        public bool DocumentoExist(string documento, string tipoDocumento, int? idExcluir = null)
         {
-            return _context.Proveedores.Any(p => p.Dni == documento &&
-                                               p.TipoDocumento.ToString() == tipoDocumento);
+            return _context.Proveedores.Any(p =>
+                p.Dni == documento &&
+                p.TipoDocumento.ToString() == tipoDocumento &&
+                (idExcluir == null || p.Id != idExcluir));
         }
 
         public bool Exist(int id)
@@ -57,24 +49,12 @@ namespace GestionVentasCel.repository.proveedor.impl
                 .ToList();
         }
 
-        public IEnumerable<Proveedor> GetAllActivos()
-        {
-            return _context.Proveedores
-                .Where(p => p.Activo)
-                .AsNoTracking()
-                .ToList();
-        }
-
         public Proveedor? GetById(int id)
         {
             return _context.Proveedores
                 .FirstOrDefault(p => p.Id == id);
         }
 
-        public bool NombreExist(string nombre)
-        {
-            return _context.Proveedores.Any(p => p.Nombre == nombre);
-        }
 
         public void Update(Proveedor proveedor)
         {

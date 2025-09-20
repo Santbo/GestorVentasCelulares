@@ -2,6 +2,7 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
@@ -13,6 +14,8 @@ using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ClienteCuentaCorriente.impl;
 using GestionVentasCel.repository.compra;
 using GestionVentasCel.repository.compra.impl;
+using GestionVentasCel.repository.configPrecios;
+using GestionVentasCel.repository.configPrecios.impl;
 using GestionVentasCel.repository.persona;
 using GestionVentasCel.repository.persona.impl;
 using GestionVentasCel.repository.proveedor;
@@ -27,8 +30,8 @@ using GestionVentasCel.service.cliente;
 using GestionVentasCel.service.cliente.impl;
 using GestionVentasCel.service.compra;
 using GestionVentasCel.service.compra.impl;
-using GestionVentasCel.service.persona;
-using GestionVentasCel.service.persona.impl;
+using GestionVentasCel.service.configPrecios;
+using GestionVentasCel.service.configPrecios.impl;
 using GestionVentasCel.service.proveedor;
 using GestionVentasCel.service.proveedor.impl;
 using GestionVentasCel.service.usuario;
@@ -38,6 +41,7 @@ using GestionVentasCel.views.usuario_empleado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel
 {
@@ -80,6 +84,9 @@ namespace GestionVentasCel
                         maxRetryDelay: TimeSpan.FromSeconds(60),
                         errorNumbersToAdd: null)
                     .CommandTimeout(120))
+                    .LogTo(Console.WriteLine, LogLevel.Information)   // 👈 log a consola
+                    .EnableSensitiveDataLogging()                     // 👈 incluye valores de parámetros
+                    .EnableDetailedErrors()
             );
 
             // Registrar repositorios
@@ -94,6 +101,7 @@ namespace GestionVentasCel
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepositoryImpl>();
             services.AddTransient<IMovimientoCuentaCorrienteRepository, MovimientoCuentaCorrienteRepositoryImpl>();
             services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
+            services.AddTransient<IConfiguracionPreciosRepository, ConfiguracionPreciosRepositoryImpl>();
             
 
 
@@ -104,8 +112,8 @@ namespace GestionVentasCel
             services.AddTransient<IProveedorService, ProveedorServiceImpl>();
             services.AddTransient<ICompraService, CompraServiceImpl>();
             services.AddTransient<IClienteService, ClienteServiceImpl>();
-            services.AddTransient<ICuitValidationService, CuitValidationServiceImpl>();
             services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
+            services.AddTransient<IConfiguracionPreciosService, ConfiguracionPreciosServiceImpl>();
 
 
 
@@ -116,6 +124,7 @@ namespace GestionVentasCel
             services.AddTransient<ProveedorController>();
             services.AddTransient<CompraController>();
             services.AddTransient<ClienteController>();
+            services.AddTransient<ConfiguracionPreciosController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();

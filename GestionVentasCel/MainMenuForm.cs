@@ -2,13 +2,17 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
+using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.usuario;
+using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.temas;
+using GestionVentasCel.models.usuario;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
+using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
@@ -138,6 +142,24 @@ namespace GestionVentasCel
                             _serviceProvider.GetRequiredService<CompraController>(),
                 _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<ArticuloController>()));
+        }
+
+        private void aumentarMargenMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var aumentarMargen = new ConfiguracionPreciosForm(_serviceProvider.GetRequiredService<ConfiguracionPreciosController>()))
+            {
+            
+                //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                if (aumentarMargen.ShowDialog() == DialogResult.OK)
+                {
+
+                    MessageBox.Show("El porcentaje de margen se actualizó correctamente",
+                    "Margen Guardado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                }
+            }
         }
     }
 }

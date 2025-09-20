@@ -12,7 +12,7 @@ namespace GestionVentasCel.models.compra
         [Required]
         public DateTime Fecha { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Total { get; set; }
 
         [MaxLength(500)]
@@ -23,12 +23,6 @@ namespace GestionVentasCel.models.compra
 
         [Required]
         public int ProveedorId { get; set; }
-
-        public bool Activo { get; set; } = true;
-
-        // Propiedad calculada para mostrar el nombre del proveedor
-        [NotMapped]
-        public string NombreProveedor => Proveedor?.Nombre ?? "Sin proveedor";
 
         // Navegación hacia detalles
         public virtual ICollection<DetalleCompra> Detalles { get; set; } = new List<DetalleCompra>();

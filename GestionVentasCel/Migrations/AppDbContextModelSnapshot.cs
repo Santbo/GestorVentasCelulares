@@ -186,9 +186,6 @@ namespace GestionVentasCel.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Activo")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime(6)");
 
@@ -200,7 +197,7 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -230,7 +227,7 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("Subtotal")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -239,6 +236,25 @@ namespace GestionVentasCel.Migrations
                     b.HasIndex("CompraId");
 
                     b.ToTable("DetallesCompra");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.configPrecios.ConfiguracionPrecios", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("MargenAumento")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("UltimaActualizacion")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfiguracionPrecios");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.persona.Persona", b =>
@@ -311,10 +327,6 @@ namespace GestionVentasCel.Migrations
                     b.Property<int?>("CondicionIVA")
                         .HasColumnType("int");
 
-                    b.Property<string>("Observaciones")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
                     b.Property<string>("TipoProveedor")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -369,7 +381,7 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
                 {
                     b.HasOne("GestionVentasCel.models.categoria.Categoria", "Categoria")
-                        .WithMany("Articulos")
+                        .WithMany()
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -448,11 +460,6 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
                 {
                     b.Navigation("Movimientos");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
-                {
-                    b.Navigation("Articulos");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>

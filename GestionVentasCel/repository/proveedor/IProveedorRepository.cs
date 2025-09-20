@@ -6,13 +6,10 @@ namespace GestionVentasCel.repository.proveedor
     {
         Proveedor? GetById(int id);
         IEnumerable<Proveedor> GetAll();
-        IEnumerable<Proveedor> GetAllActivos();
         void Add(Proveedor proveedor);
         void Update(Proveedor proveedor);
-        void Delete(int id);
         void CambiarEstado(int id, bool activo);
         bool Exist(int id);
-        bool NombreExist(string nombre);
-        bool DocumentoExist(string documento, string tipoDocumento);
+        bool DocumentoExist(string documento, string tipoDocumento, int? idExcluir = null);
     }
 }
