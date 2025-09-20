@@ -8,6 +8,7 @@ using GestionVentasCel.exceptions.compra;
 using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.temas;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.views.compra
@@ -70,15 +71,15 @@ namespace GestionVentasCel.views.compra
 
         private void AgregarEditarCompraForm_Load(object sender, EventArgs e)
         {
+            this.ConfigurarEstilosVisuales();
+
             if (Modo == ModoFormulario.Editar && CompraActual != null)
             {
                 CargarDatosCompra();
-                this.Text = "Editar Compra";
                 btnGuardar.Text = "Actualizar";
             }
             else
             {
-                this.Text = "Agregar Compra";
                 btnGuardar.Text = "Guardar";
                 dtpFecha.Value = DateTime.Now;
 
@@ -118,7 +119,7 @@ namespace GestionVentasCel.views.compra
 
             if (dgvDetalles.Columns["PrecioUnitarioFormateado"] == null)
             {
-                dgvDetalles.Columns.Add("PrecioUnitarioFormateado", "PrecioUnitario");
+                dgvDetalles.Columns.Add("PrecioUnitarioFormateado", "Precio unitario");
             }
 
             if (dgvDetalles.Columns["SubtotalFormateado"] == null)
@@ -336,6 +337,64 @@ namespace GestionVentasCel.views.compra
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.BackColor = Tema.ColorSuperficie;
+            this.lblTituloForm.Text = this.Modo == ModoFormulario.Editar ?
+                "Editar compra" : "Agregar compra";
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+
+
+            this.BackColor = Tema.ColorSuperficie;
+
+            // Cambiar los colores de los labels y el fondo de los inputs
+            this.lblProveedor.ForeColor = Tema.ColorFondo;
+            this.lblFecha.ForeColor = Tema.ColorFondo;
+            this.lblObservaciones.ForeColor = Tema.ColorFondo;
+            this.lblArticulo.ForeColor = Tema.ColorFondo;
+            this.lblCantidad.ForeColor = Tema.ColorFondo;
+            this.lblPrecioUnitario.ForeColor = Tema.ColorFondo;
+            this.lblTotal.ForeColor = Tema.ColorFondo;
+            this.txtTotal.BackColor = Tema.ColorSuperficie;
+            this.txtTotal.ForeColor = Tema.ColorFondo;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvDetalles.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvDetalles.GridColor = dgvDetalles.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvDetalles.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvDetalles.EnableHeadersVisualStyles = false;
+            dgvDetalles.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvDetalles.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDetalles.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvDetalles.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvDetalles.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvDetalles.RowHeadersVisible = false;
+            dgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDetalles.MultiSelect = false;
+            dgvDetalles.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+
+
+
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnDescartar.PerformClick();
         }
 
     }
