@@ -80,14 +80,14 @@
 
             // lblTitulo
             // 
-            lblTitulo.Dock = DockStyle.Top;
-            lblTitulo.Font = new Font("Verdana", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(0, 0);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(780, 35);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Agregar Cliente";
-            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Verdana", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Name = "lblTitulo";
+            lblTituloForm.Size = new Size(780, 35);
+            lblTituloForm.TabIndex = 0;
+            lblTituloForm.Text = "Agregar Cliente";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnDescartar
             // 

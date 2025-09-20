@@ -2,4 +2,4 @@
 .vs/
 bin/
 obj/
-/GestionVentasCel/appsettings.json
+**/appsettings.json
