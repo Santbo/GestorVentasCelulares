@@ -51,13 +51,6 @@ namespace GestionVentasCel.data
                .HasConversion<string>();
 
 
-            modelBuilder.Entity<Proveedor>()
-                .Property(p => p.TipoProveedor)
-                .HasConversion<string>();
-
-
-
-
             // Hacher que cuenta corriente y cliente sean 1:1 opcional
             modelBuilder.Entity<Cliente>()
                 .HasOne(c => c.CuentaCorriente) // Cliente tiene una cuenta corriente

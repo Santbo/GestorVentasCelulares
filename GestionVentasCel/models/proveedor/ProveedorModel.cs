@@ -12,9 +12,6 @@ namespace GestionVentasCel.models.proveedor
         // - Telefono, Email, Calle, Ciudad, Activo
 
         [Required]
-        public TipoProveedor TipoProveedor { get; set; }
-
-        [Required]
         public bool Activo { get; set; } = true;
 
         [DisplayName("Condición ante IVA")]
