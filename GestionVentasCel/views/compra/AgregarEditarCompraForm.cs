@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
@@ -20,8 +21,8 @@ namespace GestionVentasCel.views.compra
 
         public ModoFormulario Modo { get; set; }
         public Compra CompraActual { get; set; } = null!;
-
-        private List<DetalleCompra> _detalles = new List<DetalleCompra>();
+        private BindingList<DetalleCompra> _listaDetalle = new BindingList<DetalleCompra>();
+        
 
         public AgregarEditarCompraForm(CompraController compraController,
                                       ProveedorController proveedorController,
@@ -39,20 +40,6 @@ namespace GestionVentasCel.views.compra
         {
             try
             {
-                // Validar que los controladores no sean null
-                if (_proveedorController == null)
-                {
-                    MessageBox.Show("Error: Controlador de proveedores no inicializado.", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (_articuloController == null)
-                {
-                    MessageBox.Show("Error: Controlador de artículos no inicializado.", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 // Cargar proveedores activos
                 var proveedores = _proveedorController.ObtenerProveedores()
@@ -94,26 +81,72 @@ namespace GestionVentasCel.views.compra
                 this.Text = "Agregar Compra";
                 btnGuardar.Text = "Guardar";
                 dtpFecha.Value = DateTime.Now;
+
+                AgregarDetalles();
             }
+
         }
 
         private void CargarDatosCompra()
         {
-            if (CompraActual == null)
-            {
-                MessageBox.Show("Error: No hay datos de compra para cargar.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
+            //Si se edita, se carga los datos
             dtpFecha.Value = CompraActual.Fecha;
             cmbProveedor.SelectedValue = CompraActual.ProveedorId;
             txtObservaciones.Text = CompraActual.Observaciones ?? "";
             txtTotal.Text = CompraActual.Total.ToString("C2", new CultureInfo("es-AR"));
 
             // Cargar detalles
-            _detalles = CompraActual.Detalles?.ToList() ?? new List<DetalleCompra>();
-            ActualizarGridDetalles();
+            var _detalles = CompraActual.Detalles?.ToList();
+            _listaDetalle = new BindingList<DetalleCompra>(_detalles);
+
+            AgregarDetalles();
+            
+        }
+
+        private void AgregarDetalles()
+        {
+            dgvDetalles.DataSource = _listaDetalle;
+
+
+            dgvDetalles.Columns["Id"].Visible = false;
+            dgvDetalles.Columns["CompraId"].Visible = false;
+            dgvDetalles.Columns["ArticuloId"].Visible = false;
+            dgvDetalles.Columns["Compra"].Visible = false;
+            dgvDetalles.Columns["PrecioUnitario"].Visible = false;
+            dgvDetalles.Columns["Subtotal"].Visible = false;
+
+            if (dgvDetalles.Columns["PrecioUnitarioFormateado"] == null)
+            {
+                dgvDetalles.Columns.Add("PrecioUnitarioFormateado", "PrecioUnitario");
+            }
+
+            if (dgvDetalles.Columns["SubtotalFormateado"] == null)
+            {
+                dgvDetalles.Columns.Add("SubtotalFormateado", "Subtotal");
+            }
+
+            dgvDetalles.CellFormatting += (s, e) =>
+            {
+                dgvDetalles.Columns["Articulo"].DisplayIndex = 1;
+                dgvDetalles.Columns["Cantidad"].DisplayIndex = 2;
+                dgvDetalles.Columns["PrecioUnitarioFormateado"].DisplayIndex = 3;
+                dgvDetalles.Columns["SubtotalFormateado"].DisplayIndex = 4;
+
+                foreach (DataGridViewRow row in dgvDetalles.Rows)
+                {
+                    if (row.DataBoundItem is DetalleCompra _detalleBinding)
+                    {
+                        // formatear el precio como moneda
+                        row.Cells["PrecioUnitarioFormateado"].Value = _detalleBinding.PrecioUnitario.ToString("C2", new CultureInfo("es-AR"));
+                        row.Cells["SubtotalFormateado"].Value = _detalleBinding.Subtotal.ToString("C2", new CultureInfo("es-AR"));
+                    }
+                    ;
+
+
+                }
+                ;
+            };
         }
 
         private void btnAgregarDetalle_Click(object sender, EventArgs e)
@@ -122,7 +155,7 @@ namespace GestionVentasCel.views.compra
             {
                 // TODO: Si se agrego anteriormente el articulo se actualiza, si no se lo agrega
 
-                var detalleArticulo = _detalles.FirstOrDefault(d => d.ArticuloId == (int)cmbArticulo.SelectedValue);
+                var detalleArticulo = _listaDetalle.FirstOrDefault(d => d.ArticuloId == (int)cmbArticulo.SelectedValue);
 
                 if (detalleArticulo != null)
                 {
@@ -140,10 +173,9 @@ namespace GestionVentasCel.views.compra
                         Subtotal = (int)numCantidad.Value * numPrecioUnitario.Value
                     };
 
-                    _detalles.Add(detalle);
+                    _listaDetalle.Add(detalle);
                 }
-                    
-                ActualizarGridDetalles();
+                   
                 LimpiarCamposDetalle();
                 ActualizarTotal();
             }
@@ -154,8 +186,7 @@ namespace GestionVentasCel.views.compra
             if (dgvDetalles.CurrentRow != null)
             {
                 int index = dgvDetalles.CurrentRow.Index;
-                _detalles.RemoveAt(index);
-                ActualizarGridDetalles();
+                _listaDetalle.RemoveAt(index);
                 ActualizarTotal();
             }
             else
@@ -164,26 +195,11 @@ namespace GestionVentasCel.views.compra
             }
         }
 
-        private void ActualizarGridDetalles()
-        {
-            dgvDetalles.DataSource = null;
-            dgvDetalles.DataSource = _detalles ?? new List<DetalleCompra>();
-
-            if (dgvDetalles.Columns.Count > 0)
-            {
-                dgvDetalles.Columns["Id"].Visible = false;
-                dgvDetalles.Columns["CompraId"].Visible = false;
-                dgvDetalles.Columns["ArticuloId"].Visible = false;
-                dgvDetalles.Columns["Compra"].Visible = false;
-                dgvDetalles.Columns["Articulo"].Visible = true;
-             
-            }
-        }
 
         private void ActualizarTotal()
         {
-            decimal total = _detalles?.Sum(d => d.Subtotal) ?? 0;
-            txtTotal.Text = total.ToString("C");
+            decimal total = _listaDetalle?.Sum(d => d.Subtotal) ?? 0;
+            txtTotal.Text = total.ToString("C", new CultureInfo("es-AR"));
         }
 
         private void LimpiarCamposDetalle()
@@ -221,7 +237,7 @@ namespace GestionVentasCel.views.compra
             if (ValidarCompra())
             {
 
-                foreach(DetalleCompra detalle in _detalles)
+                foreach(DetalleCompra detalle in _listaDetalle)
                 {
                     detalle.Articulo = null;
                 }
@@ -257,14 +273,13 @@ namespace GestionVentasCel.views.compra
                 Fecha = dtpFecha.Value,
                 ProveedorId = (int)cmbProveedor.SelectedValue,
                 Observaciones = txtObservaciones.Text.Trim() != "" ? txtObservaciones.Text.Trim() : null,
-                Total = _detalles.Sum(d => d.Subtotal),
-                Activo = true
+                Total = _listaDetalle.Sum(d => d.Subtotal),
             };
 
             try
             {
 
-                _compraController.CrearCompraConDetalles(compra, _detalles);
+                _compraController.CrearCompraConDetalles(compra, _listaDetalle.ToList());
                 MessageBox.Show("Compra creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } catch (MargenNoAgregadoException ex)
             {
@@ -277,9 +292,9 @@ namespace GestionVentasCel.views.compra
             CompraActual.Fecha = dtpFecha.Value;
             CompraActual.ProveedorId = (int)cmbProveedor.SelectedValue;
             CompraActual.Observaciones = txtObservaciones.Text.Trim() != "" ? txtObservaciones.Text.Trim() : null;
-            CompraActual.Total = _detalles.Sum(d => d.Subtotal);
+            CompraActual.Total = _listaDetalle.Sum(d => d.Subtotal);
 
-            _compraController.ActualizarCompraConDetalles(CompraActual, _detalles);
+            _compraController.ActualizarCompraConDetalles(CompraActual, _listaDetalle.ToList());
             MessageBox.Show("Compra actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -291,7 +306,7 @@ namespace GestionVentasCel.views.compra
                 return false;
             }
 
-            if (_detalles.Count == 0)
+            if (_listaDetalle.Count == 0)
             {
                 MessageBox.Show("Debe agregar al menos un detalle a la compra.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;

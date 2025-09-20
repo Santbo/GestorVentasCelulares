@@ -1,7 +1,9 @@
+using System.ComponentModel;
 using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.compra;
 
 namespace GestionVentasCel.views.compra
@@ -12,6 +14,7 @@ namespace GestionVentasCel.views.compra
         private readonly CompraController _compraController;
         private readonly ProveedorController _proveedorController;
         private readonly ArticuloController _articuloController;
+        private BindingList<DetalleCompra> _detalleCompra;
 
         public VerDetallesCompraForm(Compra compra)
         {
@@ -42,109 +45,54 @@ namespace GestionVentasCel.views.compra
             lblTotal.Text = _compra.Total.ToString("C2", new CultureInfo("es-AR"));
             lblObservaciones.Text = _compra.Observaciones ?? "Sin observaciones";
 
-            dgvDetalles.AutoGenerateColumns = false;
-            // Cargar detalles en el grid
-            dgvDetalles.DataSource = _compra.Detalles.ToList();
-
             
-            // Configurar columnas para mostrar información relevante
-            ConfigurarColumnasDetalle();
+            var _listaDetalle = _compra.Detalles.ToList();
 
-            // Mostrar botón de editar solo si se pasaron los controladores
-            btnEditar.Visible = _compraController != null && _proveedorController != null && _articuloController != null;
-        }
+            _detalleCompra = new BindingList<DetalleCompra>(_listaDetalle);
 
-        private void ConfigurarColumnasDetalle()
-        {
-            try
+            dgvDetalles.DataSource = _detalleCompra;
+            dgvDetalles.Columns["Id"].Visible = false;
+            dgvDetalles.Columns["Compra"].Visible = false;
+            dgvDetalles.Columns["CompraId"].Visible = false;
+            dgvDetalles.Columns["ArticuloId"].Visible = false;
+            dgvDetalles.Columns["PrecioUnitario"].Visible = false;
+            dgvDetalles.Columns["Subtotal"].Visible = false;
+
+            if (dgvDetalles.Columns["PrecioUnitarioFormateado"] == null)
             {
-                // Limpiar columnas existentes
-                dgvDetalles.Columns.Clear();
-
-                // Crear columna de ID (oculta)
-                var columnaId = new DataGridViewTextBoxColumn
-                {
-                    Name = "Id",
-                    HeaderText = "ID",
-                    DataPropertyName = "Id",
-                    Width = 50,
-                    Visible = false
-                };
-                dgvDetalles.Columns.Add(columnaId);
-
-                // Crear columna de Producto (nombre del artículo)
-                var columnaProducto = new DataGridViewTextBoxColumn
-                {
-                    Name = "NombreProducto",
-                    HeaderText = "Producto",
-                    Width = 200
-                };
-                dgvDetalles.Columns.Add(columnaProducto);
-
-                // Crear columna de Cantidad
-                var columnaCantidad = new DataGridViewTextBoxColumn
-                {
-                    Name = "Cantidad",
-                    HeaderText = "Cantidad",
-                    DataPropertyName = "Cantidad",
-                    Width = 80
-                };
-                dgvDetalles.Columns.Add(columnaCantidad);
-
-                // Crear columna de Precio Unitario
-                var columnaPrecioUnitario = new DataGridViewTextBoxColumn
-                {
-                    Name = "PrecioUnitario",
-                    HeaderText = "Precio Unitario",
-                    DataPropertyName = "PrecioUnitario",
-                    Width = 120,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", FormatProvider = new CultureInfo("es-AR") }
-                };
-                dgvDetalles.Columns.Add(columnaPrecioUnitario);
-
-                // Crear columna de Subtotal
-                var columnaSubtotal = new DataGridViewTextBoxColumn
-                {
-                    Name = "Subtotal",
-                    HeaderText = "Subtotal",
-                    DataPropertyName = "Subtotal",
-                    Width = 120,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", FormatProvider = new CultureInfo("es-AR") }
-                };
-                dgvDetalles.Columns.Add(columnaSubtotal);
-
-                // Configurar evento para llenar el nombre del producto
-                dgvDetalles.CellFormatting += DgvDetalles_CellFormatting;
-
-                
+                dgvDetalles.Columns.Add("PrecioUnitarioFormateado", "PrecioUnitario");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al configurar columnas del detalle: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
-        private void DgvDetalles_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            try
+            if (dgvDetalles.Columns["SubtotalFormateado"] == null)
             {
-                if (e.ColumnIndex == dgvDetalles.Columns["NombreProducto"].Index && e.RowIndex >= 0)
+                dgvDetalles.Columns.Add("SubtotalFormateado", "Subtotal");
+            }
+
+            dgvDetalles.DataBindingComplete += (s, e) =>
+            {
+                dgvDetalles.Columns["Articulo"].DisplayIndex = 1;
+                dgvDetalles.Columns["Cantidad"].DisplayIndex = 2;
+                dgvDetalles.Columns["PrecioUnitarioFormateado"].DisplayIndex = 3;
+                dgvDetalles.Columns["SubtotalFormateado"].DisplayIndex = 4;
+
+                foreach (DataGridViewRow row in dgvDetalles.Rows)
                 {
-                    var detalle = dgvDetalles.Rows[e.RowIndex].DataBoundItem as DetalleCompra;
-                    if (detalle != null && detalle.Articulo != null)
+                    if (row.DataBoundItem is DetalleCompra detalle)
                     {
-                        e.Value = detalle.Articulo.Nombre;
-                        e.FormattingApplied = true;
+                        // formatear el precio como moneda
+                        row.Cells["PrecioUnitarioFormateado"].Value = detalle.PrecioUnitario.ToString("C2", new CultureInfo("es-AR"));
+                        row.Cells["SubtotalFormateado"].Value = detalle.Subtotal.ToString("C2", new CultureInfo("es-AR"));
                     }
+                    ;
+
+
                 }
-            }
-            catch (Exception ex)
-            {
-                // Si hay error, mostrar mensaje genérico
-                e.Value = "Error al cargar";
-                e.FormattingApplied = true;
-            }
+                ;
+
+
+            };
+
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -154,31 +102,20 @@ namespace GestionVentasCel.views.compra
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (_compraController != null && _proveedorController != null && _articuloController != null)
+            
+            var compraCompleta = _compraController.GetByIdWithDetails(_compra.Id);
+            if (compraCompleta != null)
             {
-                var compraCompleta = _compraController.GetByIdWithDetails(_compra.Id);
-                if (compraCompleta != null)
-                {
-                    var formEditar = new AgregarEditarCompraForm(_compraController, _proveedorController, _articuloController);
-                    formEditar.Modo = GestionVentasCel.enumerations.modoForms.ModoFormulario.Editar;
-                    formEditar.CompraActual = compraCompleta;
+                var formEditar = new AgregarEditarCompraForm(_compraController, _proveedorController, _articuloController);
+                formEditar.Modo = GestionVentasCel.enumerations.modoForms.ModoFormulario.Editar;
+                formEditar.CompraActual = compraCompleta;
 
-                    if (formEditar.ShowDialog() == DialogResult.OK)
-                    {
-                        // Recargar los datos de la compra
-                        var compraActualizada = _compraController.GetByIdWithDetails(_compra.Id);
-                        if (compraActualizada != null)
-                        {
-                            _compra.Fecha = compraActualizada.Fecha;
-                            _compra.Total = compraActualizada.Total;
-                            _compra.Observaciones = compraActualizada.Observaciones;
-                            _compra.Proveedor = compraActualizada.Proveedor;
-                            _compra.Detalles = compraActualizada.Detalles;
-                            CargarDatos();
-                        }
-                    }
+                if (formEditar.ShowDialog() == DialogResult.OK)
+                {
+                    CargarDatos();
                 }
             }
+            
         }
     }
 }

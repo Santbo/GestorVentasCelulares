@@ -15,7 +15,7 @@ namespace GestionVentasCel.models.compra
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal PrecioUnitario { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Subtotal { get; set; }
 
         // Relación con Compra

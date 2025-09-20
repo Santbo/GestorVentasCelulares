@@ -4,7 +4,6 @@ namespace GestionVentasCel.repository.compra
 {
     public interface ICompraRepository
     {
-        Compra? GetById(int id);
         Compra? GetByIdWithDetails(int id);
         IEnumerable<Compra> GetAll();
         IEnumerable<Compra> GetAllWithDetails();

@@ -41,6 +41,7 @@ using GestionVentasCel.views.usuario_empleado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel
 {
@@ -83,6 +84,9 @@ namespace GestionVentasCel
                         maxRetryDelay: TimeSpan.FromSeconds(60),
                         errorNumbersToAdd: null)
                     .CommandTimeout(120))
+                    .LogTo(Console.WriteLine, LogLevel.Information)   // 👈 log a consola
+                    .EnableSensitiveDataLogging()                     // 👈 incluye valores de parámetros
+                    .EnableDetailedErrors()
             );
 
             // Registrar repositorios
