@@ -4,6 +4,7 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
@@ -20,6 +21,8 @@ using GestionVentasCel.repository.persona;
 using GestionVentasCel.repository.persona.impl;
 using GestionVentasCel.repository.proveedor;
 using GestionVentasCel.repository.proveedor.impl;
+using GestionVentasCel.repository.servicio;
+using GestionVentasCel.repository.servicio.impl;
 using GestionVentasCel.repository.usuario;
 using GestionVentasCel.repository.usuario.impl;
 using GestionVentasCel.service.articulo;
@@ -34,6 +37,8 @@ using GestionVentasCel.service.configPrecios;
 using GestionVentasCel.service.configPrecios.impl;
 using GestionVentasCel.service.proveedor;
 using GestionVentasCel.service.proveedor.impl;
+using GestionVentasCel.service.servicio;
+using GestionVentasCel.service.servicio.impl;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.usuario.impl;
 using GestionVentasCel.views;
@@ -102,6 +107,7 @@ namespace GestionVentasCel
             services.AddTransient<IMovimientoCuentaCorrienteRepository, MovimientoCuentaCorrienteRepositoryImpl>();
             services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
             services.AddTransient<IConfiguracionPreciosRepository, ConfiguracionPreciosRepositoryImpl>();
+            services.AddTransient<IServicioRepository, ServicioRepositoryImpl>();
             
 
 
@@ -114,6 +120,7 @@ namespace GestionVentasCel
             services.AddTransient<IClienteService, ClienteServiceImpl>();
             services.AddTransient<IHistorialPrecioService, HistorialPrecioServiceImpl>();
             services.AddTransient<IConfiguracionPreciosService, ConfiguracionPreciosServiceImpl>();
+            services.AddTransient<IServicioService, ServicioServiceImpl>();
 
 
 
@@ -125,6 +132,7 @@ namespace GestionVentasCel
             services.AddTransient<CompraController>();
             services.AddTransient<ClienteController>();
             services.AddTransient<ConfiguracionPreciosController>();
+            services.AddTransient<ServicioController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();

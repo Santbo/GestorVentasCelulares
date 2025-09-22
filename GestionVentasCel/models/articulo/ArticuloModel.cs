@@ -37,6 +37,9 @@ namespace GestionVentasCel.models.articulo
         [Required]
         public int CategoriaId { get; set; }
 
+        [NotMapped]
+        public string Detalle => $"{Nombre} - {Marca}";
+
         public override string ToString()
         {
             return Nombre;

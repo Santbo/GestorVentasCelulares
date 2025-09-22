@@ -16,6 +16,8 @@ using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
+using GestionVentasCel.views.servicio;
+using GestionVentasCel.controller.servicio;
 
 
 namespace GestionVentasCel
@@ -69,7 +71,7 @@ namespace GestionVentasCel
             // Hay un bug molesto que hace que tengas que hacer click en el formulario que se abre para
             // que se puedan usar los atajos que define. Eso es porque el abrir el formulario no garantiza que tenga el foco.
             // HAcerle foco manual arregla eso
-            formularioHijo.Focus(); 
+            formularioHijo.Focus();
         }
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
@@ -148,7 +150,7 @@ namespace GestionVentasCel
         {
             using (var aumentarMargen = new ConfiguracionPreciosForm(_serviceProvider.GetRequiredService<ConfiguracionPreciosController>()))
             {
-            
+
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (aumentarMargen.ShowDialog() == DialogResult.OK)
                 {
@@ -160,6 +162,13 @@ namespace GestionVentasCel
 
                 }
             }
+        }
+
+        private void administrarServiciosMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Administrar Servicios - SGVC";
+            AbrirFormularioHijo(new ServicioMainMenuForm(_serviceProvider.GetRequiredService<ServicioController>(), 
+                                                         _serviceProvider.GetRequiredService<ArticuloController>()));
         }
     }
 }

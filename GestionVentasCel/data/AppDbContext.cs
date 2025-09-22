@@ -6,6 +6,7 @@ using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.models.servicio;
 using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,9 @@ namespace GestionVentasCel.data
         public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
 
         public DbSet<ConfiguracionPrecios> ConfiguracionPrecios { get; set; }
+
+        public DbSet<Servicio> Servicios { get; set; }
+        public DbSet<ServicioArticulo> ServicioArticulos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -63,6 +67,20 @@ namespace GestionVentasCel.data
                 .Property(m => m.Tipo)
                 .HasConversion<string>();
 
+            //se define clave 
+            modelBuilder.Entity<ServicioArticulo>()
+                        .HasKey(sa => sa.Id);
+
+            //Relacion Servicio a ServicioArticulo
+            modelBuilder.Entity<ServicioArticulo>()
+                            .HasOne(sa => sa.Servicio)
+                            .WithMany(s => s.ArticulosUsados)
+                            .HasForeignKey(sa => sa.ServicioId);
+
+            // Relación Articulo a ServicioArticulo
+            modelBuilder.Entity<ServicioArticulo>()
+                .HasOne(sa => sa.Articulo)
+                .WithMany(); //Lo dejo aca para que no haya una tabla en Articulo.
         }
 
 
