@@ -1,5 +1,5 @@
-using GestionVentasCel.exceptions.proveedor;
 using GestionVentasCel.exceptions.persona;
+using GestionVentasCel.exceptions.proveedor;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.repository.proveedor;
 
@@ -16,7 +16,7 @@ namespace GestionVentasCel.service.proveedor.impl
 
         public void AgregarProveedor(Proveedor proveedor)
         {
-            
+
             if (_repo.DocumentoExist(proveedor.Dni, proveedor.TipoDocumento.Value.ToString(), null))
             {
                 throw new DocumentoDuplicadoException($"El {proveedor.TipoDocumento.Value.ToString()} ya existe.");

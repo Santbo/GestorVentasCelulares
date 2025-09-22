@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.articulo;
 
 namespace GestionVentasCel.models.servicio
 {
@@ -23,7 +17,7 @@ namespace GestionVentasCel.models.servicio
         [MaxLength(256)]
         public string Descripcion { get; set; }
 
-        public bool Activo  { get; set; } = true;
+        public bool Activo { get; set; } = true;
         public ICollection<ServicioArticulo> ArticulosUsados { get; set; }
     }
 }

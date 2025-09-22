@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.servicio;
+﻿using GestionVentasCel.models.servicio;
 
 namespace GestionVentasCel.repository.servicio
 {
@@ -14,8 +9,6 @@ namespace GestionVentasCel.repository.servicio
         IEnumerable<Servicio> GetAll();
         Servicio? GetById(int id);
         bool Exist(int id);
-
-        IEnumerable<ServicioArticulo> GetAllArticulosUsados(int id);
         Servicio? GetServicioConArticulo(int id);
 
     }

@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.models.reparacion;
+using GestionVentasCel.service.reparacion;
+
+namespace GestionVentasCel.controller.reparaciones
+{
+    public class ReparacionController
+    {
+        private readonly IReparacionService _service;
+
+        public ReparacionController(IReparacionService service)
+        {
+            _service = service;
+        }
+
+        public void CrearReparacion(Reparacion reparacion)
+        {
+            _service.CrearReparacion(reparacion);
+        }
+
+        public void ActualizarReparacion(Reparacion reparacion)
+        {
+            _service.ActualizarReparacion(reparacion);
+        }
+
+        public IEnumerable<Reparacion> ListarReparaciones()
+        {
+            return _service.ListarReparaciones();
+        }
+
+        public Reparacion? ObtenerPorId(int id)
+        {
+            return _service.ObtenerPorId(id);
+        }
+
+        public bool Existe(int id)
+        {
+            return _service.Existe(id);
+        }
+
+        public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
+        {
+            _service.CambiarEstado(id, nuevoEstado);
+        }
+
+        public IEnumerable<Reparacion>? ObtenerPorDispositivo(Dispositivo dispositivo)
+        {
+            return _service.ObtenerPorDispositivo(dispositivo);
+        }
+
+        public void ToggleActivo(int id)
+        {
+            _service.ToggleActivo(id);
+        }
+    }
+}

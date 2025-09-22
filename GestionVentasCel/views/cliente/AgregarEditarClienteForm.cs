@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using GestionVentasCel.controller.cliente;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;

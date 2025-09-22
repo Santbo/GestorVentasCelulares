@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.compra;
 using GestionVentasCel.models.servicio;
-using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionVentasCel.views.servicio
 {
@@ -123,7 +111,7 @@ namespace GestionVentasCel.views.servicio
             dgvListarArticulos.Columns["Detalle"].DisplayIndex = 1;
             dgvListarArticulos.Columns["Cantidad"].DisplayIndex = 2;
 
-            
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -142,7 +130,7 @@ namespace GestionVentasCel.views.servicio
 
                 foreach (var sa in _listaArticulosAgregados)
                 {
-                    sa.Articulo = null; 
+                    sa.Articulo = null;
                 }
 
                 if (ServicioActual != null)
@@ -221,7 +209,7 @@ namespace GestionVentasCel.views.servicio
             }
         }
 
-        
+
     }
 
 

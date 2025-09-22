@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.servicio;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.servicio;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.categoria;
-using GestionVentasCel.models.compra;
 using GestionVentasCel.models.servicio;
-using GestionVentasCel.views.categoria;
+using GestionVentasCel.temas;
+using GestionVentasCel.views.compra;
 
 
 namespace GestionVentasCel.views.servicio
@@ -211,7 +201,6 @@ namespace GestionVentasCel.views.servicio
 
         private void btnArticulosAsociados_Click(object sender, EventArgs e)
         {
-
             List<Articulo> listaArticulo = _articuloController.ObtenerArticulos().ToList();
             if (dgvListar.CurrentRow != null)
             {
@@ -221,18 +210,12 @@ namespace GestionVentasCel.views.servicio
 
                     var servicio = _servicioController.GetServicioConArticulos(id);
 
-                    using (var editarServicio = new AgregarEditarServicioForm(_servicioController, listaArticulo))
+                    using (var verArticulosAsociados = new VerArticulosAsociadosForm(_servicioController, servicio, listaArticulo))
                     {
 
-                        editarServicio.ServicioActual = servicio;
                         //si el usuario apreta guardar, muestra el msj y actualiza el binding
-                        if (editarServicio.ShowDialog() == DialogResult.OK)
+                        if (verArticulosAsociados.ShowDialog() == DialogResult.OK)
                         {
-
-                            MessageBox.Show("El Servicio se actualizó correctamente",
-                            "Servicio Guardado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
 
                             CargarServicios();
                         }
@@ -253,6 +236,91 @@ namespace GestionVentasCel.views.servicio
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
             }
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListar.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListar.GridColor = dgvListar.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListar.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListar.EnableHeadersVisualStyles = false;
+            dgvListar.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListar.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListar.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListar.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListar.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListar.RowHeadersVisible = false;
+            dgvListar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListar.MultiSelect = false;
+            dgvListar.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+
+        private void ConfigurarAtajos()
+        {
+            // Hayq ue setear en true esto para que el formulario atrape los atajos antes que los controles
+            // Si no, los atajos se tienen que bindear a cada control específico y solo funcionarían si 
+            // tienen focus.
+            this.KeyPreview = true;
+
+            this.KeyDown += (s, e) =>
+            {
+
+                if (e.Control && e.KeyCode == Keys.U)
+                {
+                    // Control U para actualizar el usuario
+                    btnEditar.PerformClick();
+                }
+                if (e.Control && e.KeyCode == Keys.N)
+                {
+                    // Control U para actualizar el usuario
+                    btnAdd.PerformClick();
+                }
+
+                if (e.Control && e.KeyCode == Keys.D)
+                {
+                    // Ver detalle
+                    btnArticulosAsociados.PerformClick();
+                }
+
+                if (e.KeyCode == Keys.Delete)
+                {
+                    btnCambiarEstado.PerformClick();
+                }
+
+
+                if (e.Control && e.KeyCode == Keys.F)
+                {
+                    // Control F para buscar usuarios
+                    txtBuscar.Focus();
+                }
+
+            };
+        }
+
+        private void ServicioMainMenuForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ConfigurarAtajos();
         }
     }
 }

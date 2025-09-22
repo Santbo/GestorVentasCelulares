@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.exceptions.servicio;
+﻿using GestionVentasCel.exceptions.servicio;
 using GestionVentasCel.models.servicio;
 using GestionVentasCel.repository.servicio;
 
@@ -17,9 +12,9 @@ namespace GestionVentasCel.service.servicio.impl
         {
             _repo = repo;
         }
-        public void Add(string nombre, 
-                        decimal precio, 
-                        List<ServicioArticulo> articulosUsados, 
+        public void Add(string nombre,
+                        decimal precio,
+                        List<ServicioArticulo> articulosUsados,
                         string descripcion = null)
         {
             var servicio = new Servicio
@@ -28,19 +23,12 @@ namespace GestionVentasCel.service.servicio.impl
                 Precio = precio,
                 ArticulosUsados = articulosUsados,
                 Descripcion = descripcion
-            
+
             };
             _repo.Add(servicio);
         }
 
         public IEnumerable<Servicio> GetAll() => _repo.GetAll();
-
-        public IEnumerable<ServicioArticulo> GetAllArticulosUsados(int id)
-        {
-            if (!_repo.Exist(id)) throw new ServicioNoEncontradoException($"El Servicio con el id: {id} no existe.");
-
-            return _repo.GetAllArticulosUsados(id);
-        }
 
         public Servicio? GetById(int id)
         {
@@ -61,7 +49,8 @@ namespace GestionVentasCel.service.servicio.impl
             {
                 servicio.Activo = !servicio.Activo;
                 _repo.Update(servicio);
-            } else
+            }
+            else
             {
                 throw new ServicioNoEncontradoException($"El Servicio con el id: {id} no existe.");
             }
@@ -72,7 +61,8 @@ namespace GestionVentasCel.service.servicio.impl
             if (_repo.Exist(servicio.Id))
             {
                 _repo.Update(servicio);
-            } else
+            }
+            else
             {
                 throw new ServicioNoEncontradoException($"El Servicio con el id: {servicio.Id} no existe.");
             }

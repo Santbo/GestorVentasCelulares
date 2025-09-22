@@ -108,7 +108,7 @@ namespace GestionVentasCel
             services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
             services.AddTransient<IConfiguracionPreciosRepository, ConfiguracionPreciosRepositoryImpl>();
             services.AddTransient<IServicioRepository, ServicioRepositoryImpl>();
-            
+
 
 
             // Registrar servicios

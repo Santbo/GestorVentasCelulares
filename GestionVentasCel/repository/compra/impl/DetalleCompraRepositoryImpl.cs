@@ -1,7 +1,6 @@
 using GestionVentasCel.data;
 using GestionVentasCel.models.compra;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
 
 namespace GestionVentasCel.repository.compra.impl
 {

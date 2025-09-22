@@ -1,5 +1,4 @@
 ﻿using GestionVentasCel.data;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
 using Microsoft.EntityFrameworkCore;
 

@@ -6,6 +6,7 @@ using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
 using GestionVentasCel.models.usuario;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,8 @@ namespace GestionVentasCel.data
 
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<ServicioArticulo> ServicioArticulos { get; set; }
+
+        public DbSet<Reparacion> Reparaciones { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,6 +84,10 @@ namespace GestionVentasCel.data
             modelBuilder.Entity<ServicioArticulo>()
                 .HasOne(sa => sa.Articulo)
                 .WithMany(); //Lo dejo aca para que no haya una tabla en Articulo.
+
+            modelBuilder.Entity<Reparacion>()
+                .Property(r => r.Estado)
+                .HasConversion<string>();
         }
 
 

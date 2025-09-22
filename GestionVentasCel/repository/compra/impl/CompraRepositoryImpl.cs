@@ -1,8 +1,6 @@
 using GestionVentasCel.data;
 using GestionVentasCel.models.compra;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionVentasCel.repository.compra.impl
 {
@@ -21,12 +19,12 @@ namespace GestionVentasCel.repository.compra.impl
             try
             {
 
-                 _context.Compras.Add(compra);
-                 _context.SaveChanges();
+                _context.Compras.Add(compra);
+                _context.SaveChanges();
             }
 
             catch (DbUpdateException ex)
-{
+            {
                 string error = "DbUpdateException: " + ex.Message;
 
                 var inner = ex.InnerException;
@@ -46,10 +44,10 @@ namespace GestionVentasCel.repository.compra.impl
         public void Delete(int id)
         {
             var compra = _context.Compras.Find(id);
-           
+
             _context.Compras.Remove(compra);
             _context.SaveChanges();
-            
+
         }
 
         public bool Exist(int id)
@@ -105,7 +103,7 @@ namespace GestionVentasCel.repository.compra.impl
             }
 
             catch (DbUpdateException ex)
-{
+            {
                 string error = "DbUpdateException: " + ex.Message;
 
                 var inner = ex.InnerException;

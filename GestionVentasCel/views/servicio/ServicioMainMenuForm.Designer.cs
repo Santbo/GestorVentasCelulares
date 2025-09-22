@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnAgregar = new Button();
             dgvListar = new DataGridView();
             btnArticulosAsociados = new Button();
             txtBuscar = new TextBox();
@@ -37,19 +36,17 @@
             chkInactivos = new CheckBox();
             btnAdd = new Button();
             panelBtn = new Panel();
+            splitContainer1 = new SplitContainer();
+            panelHeader = new Panel();
+            lblTituloForm = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvListar).BeginInit();
             panelBtn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            panelHeader.SuspendLayout();
             SuspendLayout();
-            // 
-            // btnAgregar
-            // 
-            btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(669, 3);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(128, 60);
-            btnAgregar.TabIndex = 10;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = true;
             // 
             // dgvListar
             // 
@@ -58,11 +55,11 @@
             dgvListar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
-            dgvListar.Location = new Point(0, 0);
+            dgvListar.Location = new Point(9, 3);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(800, 381);
+            dgvListar.Size = new Size(782, 333);
             dgvListar.TabIndex = 4;
             // 
             // btnArticulosAsociados
@@ -80,7 +77,7 @@
             // 
             txtBuscar.Location = new Point(12, 6);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "(Ctrl  + F) Buscar compras";
+            txtBuscar.PlaceholderText = "(Ctrl  + F) Buscar servicios";
             txtBuscar.Size = new Size(266, 27);
             txtBuscar.TabIndex = 6;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
@@ -145,25 +142,75 @@
             panelBtn.Size = new Size(800, 69);
             panelBtn.TabIndex = 2;
             // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Margin = new Padding(2);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(panelHeader);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(dgvListar);
+            splitContainer1.Panel2.Padding = new Padding(9, 3, 9, 3);
+            splitContainer1.Size = new Size(800, 381);
+            splitContainer1.SplitterDistance = 39;
+            splitContainer1.SplitterWidth = 3;
+            splitContainer1.TabIndex = 9;
+            // 
+            // panelHeader
+            // 
+            panelHeader.Controls.Add(lblTituloForm);
+            panelHeader.Dock = DockStyle.Fill;
+            panelHeader.Location = new Point(0, 0);
+            panelHeader.Margin = new Padding(2);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new Size(800, 39);
+            panelHeader.TabIndex = 1;
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Fill;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(2, 0, 2, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(6, 0, 6, 0);
+            lblTituloForm.Size = new Size(800, 39);
+            lblTituloForm.TabIndex = 0;
+            lblTituloForm.Text = "Servicios";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // ServicioMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgvListar);
+            Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ServicioMainMenuForm";
             Text = "ServicioMainMenuForm";
+            Load += ServicioMainMenuForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListar).EndInit();
             panelBtn.ResumeLayout(false);
             panelBtn.PerformLayout();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            panelHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
         private Button btnVerDetalle;
-        private Button btnAgregar;
         private Button button2;
         private Button button3;
         private DataGridView dgvListar;
@@ -174,5 +221,8 @@
         private CheckBox chkInactivos;
         private Button btnAdd;
         private Panel panelBtn;
+        private SplitContainer splitContainer1;
+        private Panel panelHeader;
+        private Label lblTituloForm;
     }
 }

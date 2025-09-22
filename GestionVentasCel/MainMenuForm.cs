@@ -4,20 +4,18 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.temas;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
 using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
+using GestionVentasCel.views.servicio;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
-using GestionVentasCel.views.servicio;
-using GestionVentasCel.controller.servicio;
 
 
 namespace GestionVentasCel
@@ -167,7 +165,7 @@ namespace GestionVentasCel
         private void administrarServiciosMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Administrar Servicios - SGVC";
-            AbrirFormularioHijo(new ServicioMainMenuForm(_serviceProvider.GetRequiredService<ServicioController>(), 
+            AbrirFormularioHijo(new ServicioMainMenuForm(_serviceProvider.GetRequiredService<ServicioController>(),
                                                          _serviceProvider.GetRequiredService<ArticuloController>()));
         }
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.usuarios;
+﻿using GestionVentasCel.enumerations.usuarios;
 
 namespace GestionVentasCel.service.usuario
 {

@@ -4,9 +4,7 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
-using GestionVentasCel.models.proveedor;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.compra
@@ -291,7 +289,7 @@ namespace GestionVentasCel.views.compra
                     // Control U para actualizar el usuario
                     btnAgregar.PerformClick();
                 }
-                
+
                 if (e.Control && e.KeyCode == Keys.D)
                 {
                     // Ver detalle

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.servicio;
+﻿using GestionVentasCel.models.servicio;
 using GestionVentasCel.service.servicio;
 
 namespace GestionVentasCel.controller.servicio
@@ -24,22 +19,21 @@ namespace GestionVentasCel.controller.servicio
             _service.Add(nombre, precio, articulosUsados, descripcion);
         }
 
-        public void ActualizarServicio (Servicio servicio)
+        public void ActualizarServicio(Servicio servicio)
         {
             _service.Update(servicio);
         }
 
         public IEnumerable<Servicio> GetAll() => _service.GetAll();
 
-        public IEnumerable<ServicioArticulo> GetServicioArticulos(int id) => _service.GetAllArticulosUsados(id);
 
         public Servicio GetById(int id) => _service.GetById(id);
 
-        public void CambiarEstado (int id)
+        public void CambiarEstado(int id)
         {
-           _service.ToggleEstado(id);
+            _service.ToggleEstado(id);
         }
-        
+
         public Servicio? GetServicioConArticulos(int id)
         {
             return _service.GetServicioConArticulos(id);
