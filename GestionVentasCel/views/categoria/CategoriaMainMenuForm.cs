@@ -40,10 +40,10 @@ namespace GestionVentasCel.views.categoria
                 // Ordenarlas 
                 dgvListarCategorias.Columns["Nombre"].DisplayIndex = 1;
                 dgvListarCategorias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dgvListarCategorias.Columns["Precio"].DisplayIndex = 2;
+                
 
-                dgvListarCategorias.Columns["Descripcion"].DisplayIndex = 3;
-                dgvListarCategorias.Columns["Activo"].DisplayIndex = 4;
+                dgvListarCategorias.Columns["Descripcion"].DisplayIndex = 2;
+                dgvListarCategorias.Columns["Activo"].DisplayIndex = 3;
                 dgvListarCategorias.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             };

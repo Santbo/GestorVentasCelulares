@@ -49,6 +49,9 @@
     <Compile Update="views\servicio\ServicioMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\servicio\VerArticulosAsociadosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\usuario-empleado\AgregarEditarEmpleadoForm.cs">
       <SubType>Form</SubType>
     </Compile>

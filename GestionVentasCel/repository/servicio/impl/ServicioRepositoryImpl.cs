@@ -57,10 +57,14 @@ namespace GestionVentasCel.repository.servicio.impl
         {
             _context.Servicios.Update(servicio);
 
-            foreach(var articulo in servicio.ArticulosUsados)
+            if (servicio.ArticulosUsados != null)
             {
-                articulo.Articulo = null;
-                _context.ServicioArticulos.Update(articulo);
+
+                foreach(var articulo in servicio.ArticulosUsados)
+                {
+                    articulo.Articulo = null;
+                    _context.ServicioArticulos.Update(articulo);
+                }
             }
 
             _context.SaveChanges();

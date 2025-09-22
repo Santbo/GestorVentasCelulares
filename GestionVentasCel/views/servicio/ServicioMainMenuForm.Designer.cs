@@ -74,6 +74,7 @@
             btnArticulosAsociados.TabIndex = 7;
             btnArticulosAsociados.Text = "Ver Articulos Asociados";
             btnArticulosAsociados.UseVisualStyleBackColor = true;
+            btnArticulosAsociados.Click += btnArticulosAsociados_Click;
             // 
             // txtBuscar
             // 

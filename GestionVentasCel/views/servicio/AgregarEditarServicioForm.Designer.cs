@@ -120,6 +120,7 @@
             // numCantidad
             // 
             numCantidad.Location = new Point(638, 132);
+            numCantidad.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(150, 27);
             numCantidad.TabIndex = 8;

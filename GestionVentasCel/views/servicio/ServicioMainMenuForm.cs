@@ -78,8 +78,6 @@ namespace GestionVentasCel.views.servicio
                         row.Cells["PrecioFormateado"].Value = servicio.Precio.ToString("C2", new CultureInfo("es-AR"));
                     }
                     ;
-
-
                 }
                 ;
 
@@ -193,14 +191,62 @@ namespace GestionVentasCel.views.servicio
                             CargarServicios();
                         }
                     }
-                } catch(ServicioNoEncontradoException ex)
+                }
+                catch (ServicioNoEncontradoException ex)
                 {
                     MessageBox.Show($"Error: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
 
-            } else
+            }
+            else
+            {
+                MessageBox.Show("Primero debe Seleccionar un Servicio",
+                        "Seleccione un Servicio",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnArticulosAsociados_Click(object sender, EventArgs e)
+        {
+
+            List<Articulo> listaArticulo = _articuloController.ObtenerArticulos().ToList();
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+                try
+                {
+
+                    var servicio = _servicioController.GetServicioConArticulos(id);
+
+                    using (var editarServicio = new AgregarEditarServicioForm(_servicioController, listaArticulo))
+                    {
+
+                        editarServicio.ServicioActual = servicio;
+                        //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                        if (editarServicio.ShowDialog() == DialogResult.OK)
+                        {
+
+                            MessageBox.Show("El Servicio se actualizó correctamente",
+                            "Servicio Guardado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                            CargarServicios();
+                        }
+                    }
+                }
+                catch (ServicioNoEncontradoException ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+            }
+            else
             {
                 MessageBox.Show("Primero debe Seleccionar un Servicio",
                         "Seleccione un Servicio",
