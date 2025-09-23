@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using GestionVentasCel.models.articulo;
 
 namespace GestionVentasCel.models.categoria
 {

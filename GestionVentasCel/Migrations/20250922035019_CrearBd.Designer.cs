@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250919224235_AumentoTamanoSubTotal")]
-    partial class AumentoTamanoSubTotal
+    [Migration("20250922035019_CrearBd")]
+    partial class CrearBd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,6 +307,61 @@ namespace GestionVentasCel.Migrations
                     b.UseTptMappingStrategy();
                 });
 
+            modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicios");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.ServicioArticulo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("ServicioId");
+
+                    b.ToTable("ServicioArticulos");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
                 {
                     b.HasBaseType("GestionVentasCel.models.persona.Persona");
@@ -329,10 +384,6 @@ namespace GestionVentasCel.Migrations
 
                     b.Property<int?>("CondicionIVA")
                         .HasColumnType("int");
-
-                    b.Property<string>("TipoProveedor")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.ToTable("Proveedores", (string)null);
                 });
@@ -433,6 +484,25 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Compra");
                 });
 
+            modelBuilder.Entity("GestionVentasCel.models.servicio.ServicioArticulo", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.servicio.Servicio", "Servicio")
+                        .WithMany("ArticulosUsados")
+                        .HasForeignKey("ServicioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Servicio");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
                 {
                     b.HasOne("GestionVentasCel.models.persona.Persona", null)
@@ -468,6 +538,11 @@ namespace GestionVentasCel.Migrations
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.Navigation("Detalles");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
+                {
+                    b.Navigation("ArticulosUsados");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>

@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.configPrecios;
+﻿using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.exceptions.configPrecios;
-using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.configuracionPrecios
@@ -29,7 +18,8 @@ namespace GestionVentasCel.views.configuracionPrecios
                 var porcentaje = Math.Round(100 * (margenActual.MargenAumento - 1));
                 this.txtAumento.Text = $"{porcentaje}";
 
-            } catch (MargenNoAgregadoException)
+            }
+            catch (MargenNoAgregadoException)
             {
                 this.txtAumento.Text = String.Empty;
             }

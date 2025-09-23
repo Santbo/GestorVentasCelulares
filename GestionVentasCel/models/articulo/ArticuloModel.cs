@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.models.categoria;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestionVentasCel.models.articulo
 {
@@ -37,11 +36,14 @@ namespace GestionVentasCel.models.articulo
         [Required]
         public int CategoriaId { get; set; }
 
+        [NotMapped]
+        public string Detalle => $"{Nombre} - {Marca}";
+
         public override string ToString()
         {
             return Nombre;
         }
     }
 
-    
+
 }

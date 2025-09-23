@@ -45,8 +45,9 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarClientes.Columns["Id"].Visible = false;
             dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
 
-            dgvListarClientes.DataBindingComplete += (s, e) => {
-            
+            dgvListarClientes.DataBindingComplete += (s, e) =>
+            {
+
                 // Organizar el orden de las columnas
                 dgvListarClientes.Columns["Nombre"].DisplayIndex = 0;
                 dgvListarClientes.Columns["Apellido"].DisplayIndex = 1;
@@ -60,8 +61,8 @@ namespace GestionVentasCel.views.usuario_empleado
                 dgvListarClientes.Columns["CondicionIVA"].DisplayIndex = 8;
                 dgvListarClientes.Columns["Activo"].DisplayIndex = 10;
                 dgvListarClientes.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            
-            
+
+
             };
         }
 

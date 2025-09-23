@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GestionVentasCel.Migrations
 {
     /// <inheritdoc />
-    public partial class nuevaMigracion : Migration
+    public partial class CrearBd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +76,25 @@ namespace GestionVentasCel.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Servicios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Precio = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Descripcion = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Activo = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servicios", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Articulos",
                 columns: table => new
                 {
@@ -132,10 +150,6 @@ namespace GestionVentasCel.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    TipoProveedor = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observaciones = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Activo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CondicionIVA = table.Column<int>(type: "int", nullable: true)
                 },
@@ -202,6 +216,34 @@ namespace GestionVentasCel.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ServicioArticulos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ServicioId = table.Column<int>(type: "int", nullable: false),
+                    ArticuloId = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServicioArticulos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServicioArticulos_Articulos_ArticuloId",
+                        column: x => x.ArticuloId,
+                        principalTable: "Articulos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ServicioArticulos_Servicios_ServicioId",
+                        column: x => x.ServicioId,
+                        principalTable: "Servicios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "CuentasCorrientes",
                 columns: table => new
                 {
@@ -228,11 +270,10 @@ namespace GestionVentasCel.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Fecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Observaciones = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProveedorId = table.Column<int>(type: "int", nullable: false),
-                    Activo = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    ProveedorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,7 +321,7 @@ namespace GestionVentasCel.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
                     PrecioUnitario = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Subtotal = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CompraId = table.Column<int>(type: "int", nullable: false),
                     ArticuloId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -337,6 +378,16 @@ namespace GestionVentasCel.Migrations
                 name: "IX_MovimientosCuentasCorrientes_CuentaCorrienteId",
                 table: "MovimientosCuentasCorrientes",
                 column: "CuentaCorrienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServicioArticulos_ArticuloId",
+                table: "ServicioArticulos",
+                column: "ArticuloId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServicioArticulos_ServicioId",
+                table: "ServicioArticulos",
+                column: "ServicioId");
         }
 
         /// <inheritdoc />
@@ -355,25 +406,31 @@ namespace GestionVentasCel.Migrations
                 name: "MovimientosCuentasCorrientes");
 
             migrationBuilder.DropTable(
+                name: "ServicioArticulos");
+
+            migrationBuilder.DropTable(
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Compras");
 
             migrationBuilder.DropTable(
+                name: "CuentasCorrientes");
+
+            migrationBuilder.DropTable(
                 name: "Articulos");
 
             migrationBuilder.DropTable(
-                name: "CuentasCorrientes");
+                name: "Servicios");
 
             migrationBuilder.DropTable(
                 name: "Proveedores");
 
             migrationBuilder.DropTable(
-                name: "Categorias");
+                name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Clientes");
+                name: "Categorias");
 
             migrationBuilder.DropTable(
                 name: "Personas");

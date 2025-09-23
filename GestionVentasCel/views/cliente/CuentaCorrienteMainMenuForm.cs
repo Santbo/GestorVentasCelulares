@@ -72,7 +72,7 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarCuentas.Columns["Saldo"].DisplayIndex = 1;
             dgvListarCuentas.Columns["FechaUltimo"].DisplayIndex = 2;
             dgvListarCuentas.Columns["Activo"].DisplayIndex = 3;
-            dgvListarCuentas.Columns["Activo"].AutoSizeMode= DataGridViewAutoSizeColumnMode.AllCells;
+            dgvListarCuentas.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
 
 

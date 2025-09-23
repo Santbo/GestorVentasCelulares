@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.models.configPrecios;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.configPrecios.impl
 {

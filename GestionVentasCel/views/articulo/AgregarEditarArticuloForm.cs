@@ -72,11 +72,11 @@ namespace GestionVentasCel.views.articulo
 
                     _articuloController.CrearArticulo(
 
-                        nombre:      txtNombre.Text.ToUpper(),
+                        nombre: txtNombre.Text.ToUpper(),
                         aviso_stock: string.IsNullOrEmpty(txtAvisoStock.Text) ? 0 : int.Parse(txtAvisoStock.Text),
-                        precio:      string.IsNullOrEmpty(txtPrecio.Text) ? 0 : Math.Round(decimal.Parse(txtPrecio.Text), 2),
-                        stock:       string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text),
-                        marca:       txtMarca.Text.ToUpper(),
+                        precio: string.IsNullOrEmpty(txtPrecio.Text) ? 0 : Math.Round(decimal.Parse(txtPrecio.Text), 2),
+                        stock: string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text),
+                        marca: txtMarca.Text.ToUpper(),
                         categoriaId: (int)cbxCategoria.SelectedValue,
                         descripcion: txtDescripcion.Text.ToUpper()
 
@@ -91,11 +91,11 @@ namespace GestionVentasCel.views.articulo
                     try
                     {
 
-                        ArticuloActual.Nombre      = txtNombre.Text.ToUpper();
+                        ArticuloActual.Nombre = txtNombre.Text.ToUpper();
                         ArticuloActual.Aviso_stock = string.IsNullOrEmpty(txtAvisoStock.Text) ? 0 : int.Parse(txtAvisoStock.Text);
-                        ArticuloActual.Precio      = string.IsNullOrEmpty(txtPrecio.Text) ? 0 : Math.Round(decimal.Parse(txtPrecio.Text), 2);
-                        ArticuloActual.Stock       = string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text);
-                        ArticuloActual.Marca       = txtMarca.Text.ToUpper();
+                        ArticuloActual.Precio = string.IsNullOrEmpty(txtPrecio.Text) ? 0 : Math.Round(decimal.Parse(txtPrecio.Text), 2);
+                        ArticuloActual.Stock = string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text);
+                        ArticuloActual.Marca = txtMarca.Text.ToUpper();
                         ArticuloActual.CategoriaId = (int)cbxCategoria.SelectedValue;
                         ArticuloActual.Descripcion = txtDescripcion.Text.ToUpper();
 
