@@ -258,6 +258,22 @@ namespace GestionVentasCel.views.servicio
                 // Actualizo en la BD
                 _reparacionController.CambiarEstado(id, reparacion.Estado + 1);
 
+
+                if(reparacion.Estado == EstadoReparacionEnum.Reparando)
+                {
+                    foreach(var reparacionServicio in reparacion.ReparacionServicios)
+                    {
+                        var servicio = _servicioController.GetServicioConArticulos(reparacionServicio.ServicioId);
+
+                        foreach(var servicioArticulo in servicio.ArticulosUsados)
+                        {
+                            var cantidad = servicioArticulo.Cantidad;
+                            var articulo = _articuloController.GetById(servicioArticulo.ArticuloId);
+                            articulo.Stock -= cantidad;
+                            _articuloController.UpdateArticulo(articulo);
+                        }
+                    }
+                }
                 CargarReparaciones();
                 AplicarFiltro();
 
