@@ -9,6 +9,7 @@ namespace GestionVentasCel.repository.reparacion
         void Update(Reparacion reparacion);
         IEnumerable<Reparacion> GetAll();
         Reparacion? GetById(int id);
+        Reparacion? GetWithClienteById(int id);
         bool Exist(int id);
         void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado);
         IEnumerable<Reparacion>? GetReparacionesDispositivo(Dispositivo dispositivo);

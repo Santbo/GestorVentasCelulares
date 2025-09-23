@@ -48,6 +48,16 @@ namespace GestionVentasCel.repository.reparacion.impl
                            ;
         }
 
+        public Reparacion? GetWithClienteById(int id)
+        {
+            return _context.Reparaciones
+                           .Include(r => r.Dispositivo)
+                                .ThenInclude(d => d.Cliente)
+                           .Include(r => r.ReparacionServicios)
+                           .FirstOrDefault(r => r.Id == id)
+                           ;
+        }
+
         public bool Exist(int id)
         {
             return _context.Reparaciones.Any(r => r.Id == id);

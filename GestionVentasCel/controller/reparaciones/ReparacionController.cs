@@ -38,6 +38,11 @@ namespace GestionVentasCel.controller.reparaciones
             return _service.ObtenerPorId(id);
         }
 
+        public Reparacion? ObtenerPorIdConCliente(int id)
+        {
+            return _service.ObtenerPorIdConCliente(id);
+        }
+
         public bool Existe(int id)
         {
             return _service.Existe(id);

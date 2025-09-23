@@ -30,6 +30,8 @@ namespace GestionVentasCel.service.reparacion.impl
 
         public IEnumerable<Reparacion> ListarReparaciones() => _repo.GetAll();
         public Reparacion? ObtenerPorId(int id) => _repo.GetById(id);
+
+        public Reparacion? ObtenerPorIdConCliente(int id) => _repo.GetWithClienteById(id);
         public bool Existe(int id) => _repo.Exist(id);
         
 

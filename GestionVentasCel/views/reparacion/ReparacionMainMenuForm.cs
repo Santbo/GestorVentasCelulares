@@ -166,7 +166,7 @@ namespace GestionVentasCel.views.servicio
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            using (var agregarReparacion = new AgregarEditarReparacionForm(_reparacionController,_clienteController, _servicioController, _articuloController))
+            using (var agregarReparacion = new AgregarEditarReparacionForm(_reparacionController, _clienteController, _servicioController, _articuloController))
             {
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (agregarReparacion.ShowDialog() == DialogResult.OK)
@@ -260,8 +260,8 @@ namespace GestionVentasCel.views.servicio
 
                 CargarReparaciones();
                 AplicarFiltro();
-                
-            
+
+
             }
         }
 
@@ -348,6 +348,18 @@ namespace GestionVentasCel.views.servicio
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+        }
+
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+                var reparacion = _reparacionController.ObtenerPorIdConCliente(id);
+                var detalleReparacion = new VerDetallesReparacionForm(_servicioController, reparacion);
+                detalleReparacion.ShowDialog();
+            }
         }
     }
 }

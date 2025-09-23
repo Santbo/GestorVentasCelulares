@@ -53,6 +53,9 @@
 	  <Compile Update="views\reparacion\ReparacionMainMenuForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="views\reparacion\VerDetallesReparacionForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="views\servicio\VerArticulosAsociadosForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

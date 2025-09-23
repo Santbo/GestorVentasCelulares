@@ -52,7 +52,7 @@ namespace GestionVentasCel.views.reparacion
 
         private void CargarCombobox()
         {
-            var listaCliente = _clienteController.ObtenerClientes().ToList();
+            var listaCliente = _clienteController.ObtenerClientes().ToList().Where(c => c.Activo == true);
             var listaServicio = _servicioController.GetAll().ToList();
 
             cmbCliente.DataSource = listaCliente;

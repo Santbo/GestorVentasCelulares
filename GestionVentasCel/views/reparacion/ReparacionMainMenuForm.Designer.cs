@@ -39,6 +39,7 @@
             splitContainer1 = new SplitContainer();
             panelHeader = new Panel();
             lblTituloForm = new Label();
+            btnDetalle = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListar).BeginInit();
             panelBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -136,6 +137,7 @@
             panelBtn.Controls.Add(btnCambiarEstado);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Controls.Add(btnEstadoReparacion);
+            panelBtn.Controls.Add(btnDetalle);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 381);
             panelBtn.Name = "panelBtn";
@@ -187,6 +189,17 @@
             lblTituloForm.Text = "Reparaciones";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // btnDetalle
+            // 
+            btnDetalle.Anchor = AnchorStyles.Right;
+            btnDetalle.Location = new Point(133, 3);
+            btnDetalle.Name = "btnDetalle";
+            btnDetalle.Size = new Size(128, 60);
+            btnDetalle.TabIndex = 12;
+            btnDetalle.Text = "Ver Detalle";
+            btnDetalle.UseVisualStyleBackColor = true;
+            btnDetalle.Click += btnDetalle_Click;
+            // 
             // ReparacionMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -224,5 +237,6 @@
         private SplitContainer splitContainer1;
         private Panel panelHeader;
         private Label lblTituloForm;
+        private Button btnDetalle;
     }
 }
