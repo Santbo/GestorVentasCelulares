@@ -15,12 +15,18 @@ namespace GestionVentasCel.models.ventas
         // Fecha de creación de la venta/presupuesto
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
+        [Required, ]
+        public EstadoVentaEnum EstadoVenta {  get; set; }
+
         [Display(Name ="Fecha de venta")]
         // Fecha de venta real. Si este valor es null, entonces
         // se trata de un presupuesto y no de una venta.
         // Al realizar la venta, se pobla la fecha y hora con la fecha y hora actual,
         // convirtiendo el registro en una venta
-        public DateTime? FechaRealizacion { get; set; }
+        public DateTime? FechaVenta { get; set; }
+
+        // De tratarse de un presupuesto, se tiene que establecer la fecha de vencimiento de la misma
+        public DateTime? FechaVencimiento { get; set; }
 
         // El usuario que autorizó la venta
         public int UsuarioId {  get; set; }
@@ -31,6 +37,10 @@ namespace GestionVentasCel.models.ventas
         public Cliente? Cliente { get; set; }
 
         public TipoPagoEnum TipoPago { get; set; }
+
+        public ICollection<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
+        public decimal TotalSinIva => Detalles.Sum(d => d.SubtotalSinIva);
+        public decimal TotalConIva => Detalles.Sum(d => d.SubtotalConIva);
 
 
     }
