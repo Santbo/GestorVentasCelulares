@@ -39,6 +39,7 @@ namespace GestionVentasCel.data
         public DbSet<ServicioArticulo> ServicioArticulos { get; set; }
 
         public DbSet<Reparacion> Reparaciones { get; set; }
+        public DbSet<Dispositivo> Dispositivos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -88,6 +89,21 @@ namespace GestionVentasCel.data
             modelBuilder.Entity<Reparacion>()
                 .Property(r => r.Estado)
                 .HasConversion<string>();
+
+            //se define clave 
+            modelBuilder.Entity<ReparacionServicio>()
+                        .HasKey(rs => rs.Id);
+
+            //Relacion Reparacion a ReparacionServicio
+            modelBuilder.Entity<ReparacionServicio>()
+                            .HasOne(rs => rs.Reparacion)
+                            .WithMany(r => r.ReparacionServicios)
+                            .HasForeignKey(rs => rs.ReparacionId);
+
+            // Relación Servicio a ReparacionServicio
+            modelBuilder.Entity<ReparacionServicio>()
+                .HasOne(rs => rs.Servicio)
+                .WithMany(); //Lo dejo aca para que no haya una tabla en Servicio.
         }
 
 

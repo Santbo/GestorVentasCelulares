@@ -59,5 +59,32 @@ namespace GestionVentasCel.service.reparacion.impl
 
             _repo.Update(reparacion);
         }
+
+        public IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId)
+        {
+            return _repo.BuscarDispositivoPorCliente(ClienteId);
+        }
+
+        public void AddDispositivo(string nombre, int clienteId)
+        {
+            var dispositivo = new Dispositivo
+            {
+                Nombre = nombre,
+                ClienteId = clienteId
+            };
+
+            _repo.AddDispositivo(dispositivo);
+        }
+
+        public void UpdateDispositivo(Dispositivo dispositivo)
+        {
+            if (!_repo.ExistDispositivo(dispositivo.Id)) throw new DispositivoNoEncontradoException("El dispositivo no fue encontrado.");
+            _repo.UpdateDispositivo(dispositivo);
+        }
+
+        public Dispositivo? GetDispositivoById(int dispositivoId)
+        {
+           return _repo.GetDispositivoById(dispositivoId);
+        }
     }
 }

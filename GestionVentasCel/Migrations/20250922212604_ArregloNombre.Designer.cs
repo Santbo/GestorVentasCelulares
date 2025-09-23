@@ -4,6 +4,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250922212604_ArregloNombre")]
+    partial class ArregloNombre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,7 +326,7 @@ namespace GestionVentasCel.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("Dispositivos");
+                    b.ToTable("Dispositivo");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.reparacion.Reparacion", b =>
@@ -359,36 +362,13 @@ namespace GestionVentasCel.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DispositivoId");
 
                     b.ToTable("Reparaciones");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.reparacion.ReparacionServicio", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ReparacionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServicioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReparacionId");
-
-                    b.HasIndex("ServicioId");
-
-                    b.ToTable("ReparacionServicio");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
@@ -415,7 +395,12 @@ namespace GestionVentasCel.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<int?>("ReparacionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ReparacionId");
 
                     b.ToTable("Servicios");
                 });
@@ -590,23 +575,11 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Dispositivo");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.reparacion.ReparacionServicio", b =>
+            modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
                 {
-                    b.HasOne("GestionVentasCel.models.reparacion.Reparacion", "Reparacion")
-                        .WithMany("ReparacionServicios")
-                        .HasForeignKey("ReparacionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GestionVentasCel.models.servicio.Servicio", "Servicio")
-                        .WithMany()
-                        .HasForeignKey("ServicioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Reparacion");
-
-                    b.Navigation("Servicio");
+                    b.HasOne("GestionVentasCel.models.reparacion.Reparacion", null)
+                        .WithMany("Servicios")
+                        .HasForeignKey("ReparacionId");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.servicio.ServicioArticulo", b =>
@@ -667,7 +640,7 @@ namespace GestionVentasCel.Migrations
 
             modelBuilder.Entity("GestionVentasCel.models.reparacion.Reparacion", b =>
                 {
-                    b.Navigation("ReparacionServicios");
+                    b.Navigation("Servicios");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>

@@ -4,6 +4,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250923171930_CreacionReparacionServicios")]
+    partial class CreacionReparacionServicios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,11 +385,14 @@ namespace GestionVentasCel.Migrations
                     b.Property<int>("ServicioId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ServicioId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ReparacionId");
-
                     b.HasIndex("ServicioId");
+
+                    b.HasIndex("ServicioId1");
 
                     b.ToTable("ReparacionServicio");
                 });
@@ -594,13 +600,13 @@ namespace GestionVentasCel.Migrations
                 {
                     b.HasOne("GestionVentasCel.models.reparacion.Reparacion", "Reparacion")
                         .WithMany("ReparacionServicios")
-                        .HasForeignKey("ReparacionId")
+                        .HasForeignKey("ServicioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GestionVentasCel.models.servicio.Servicio", "Servicio")
                         .WithMany()
-                        .HasForeignKey("ServicioId")
+                        .HasForeignKey("ServicioId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -4,6 +4,7 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
@@ -167,6 +168,15 @@ namespace GestionVentasCel
             this.Text = "Administrar Servicios - SGVC";
             AbrirFormularioHijo(new ServicioMainMenuForm(_serviceProvider.GetRequiredService<ServicioController>(),
                                                          _serviceProvider.GetRequiredService<ArticuloController>()));
+        }
+
+        private void administrarReparacionesMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Administrar Reparaciones - SGVC";
+            AbrirFormularioHijo(new ReparacionMainMenuForm(_serviceProvider.GetRequiredService<ReparacionController>(),
+                                                            _serviceProvider.GetRequiredService<ClienteController>(),
+                                                            _serviceProvider.GetRequiredService<ServicioController>(),
+                                                            _serviceProvider.GetRequiredService<ArticuloController>())); 
         }
     }
 }

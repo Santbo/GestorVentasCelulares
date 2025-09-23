@@ -43,6 +43,12 @@
     <Compile Update="views\proveedor\ProveedorMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\reparacion\AgregarEditarDispositivoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\reparacion\AgregarEditarReparacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\servicio\AgregarEditarServicioForm.cs">
       <SubType>Form</SubType>
     </Compile>

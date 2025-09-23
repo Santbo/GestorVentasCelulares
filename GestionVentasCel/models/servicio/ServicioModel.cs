@@ -19,5 +19,8 @@ namespace GestionVentasCel.models.servicio
 
         public bool Activo { get; set; } = true;
         public ICollection<ServicioArticulo> ArticulosUsados { get; set; }
+
+        [NotMapped]
+        public string detalleServicio => $"{Nombre} - ${Precio}";
     }
 }

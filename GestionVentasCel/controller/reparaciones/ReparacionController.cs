@@ -46,6 +46,13 @@ namespace GestionVentasCel.controller.reparaciones
         public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
         {
             _service.CambiarEstado(id, nuevoEstado);
+
+            if (nuevoEstado == EstadoReparacionEnum.Entregado)
+            {
+                var reparacion = _service.ObtenerPorId(id);
+                reparacion.FechaEgreso = DateTime.Now;
+                _service.ActualizarReparacion(reparacion);
+            }
         }
 
         public IEnumerable<Reparacion>? ObtenerPorDispositivo(Dispositivo dispositivo)
@@ -56,6 +63,26 @@ namespace GestionVentasCel.controller.reparaciones
         public void ToggleActivo(int id)
         {
             _service.ToggleActivo(id);
+        }
+
+        public IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId)
+        {
+            return _service.ObtenerDispositivoPorCliente(ClienteId);
+        }
+
+        public void AgregarDispositivo(string nombre, int clienteId)
+        {
+            _service.AddDispositivo(nombre, clienteId);
+        }
+
+        public void ActualizarDispositivo(Dispositivo dispositivo)
+        {
+            _service.UpdateDispositivo(dispositivo);
+        }
+
+        public Dispositivo? GetDispositivoById(int dispositivoId)
+        {
+           return _service.GetDispositivoById(dispositivoId);
         }
     }
 }

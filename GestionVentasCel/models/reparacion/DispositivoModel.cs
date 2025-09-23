@@ -13,5 +13,10 @@ namespace GestionVentasCel.models.reparacion
 
         public Cliente? Cliente { get; set; }
         public int ClienteId { get; set; }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

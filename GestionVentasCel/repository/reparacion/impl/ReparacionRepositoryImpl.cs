@@ -1,6 +1,7 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -16,8 +17,10 @@ namespace GestionVentasCel.repository.reparacion.impl
 
         public void Add(Reparacion reparacion)
         {
+
             _context.Reparaciones.Add(reparacion);
-            _context.SaveChanges();
+            _context.SaveChanges(); 
+
         }
 
         public void Update(Reparacion reparacion)
@@ -32,14 +35,17 @@ namespace GestionVentasCel.repository.reparacion.impl
                            .AsNoTracking()
                            .Include(r => r.Dispositivo)
                                .ThenInclude(d => d.Cliente)
-                           .Include(r => r.Servicios)
+                           .Include(r => r.ReparacionServicios)
                            .ToList();
         }
 
         public Reparacion? GetById(int id)
         {
             return _context.Reparaciones
-                           .FirstOrDefault(r => r.Id == id);
+                           .Include(r => r.Dispositivo)
+                           .Include(r => r.ReparacionServicios)
+                           .FirstOrDefault(r => r.Id == id)
+                           ;
         }
 
         public bool Exist(int id)
@@ -64,5 +70,36 @@ namespace GestionVentasCel.repository.reparacion.impl
                                 .Where(r => r.DispositivoId == dispositivo.Id)
                                 .ToList();
         }
+
+        public IEnumerable<Dispositivo>? BuscarDispositivoPorCliente(int ClienteId)
+        {
+            return _context.Dispositivos
+                             .AsNoTracking()
+                             .Where(d => d.ClienteId == ClienteId)
+                             .ToList();
+        }
+
+        public void AddDispositivo(Dispositivo dispositivo)
+        {
+            _context.Dispositivos.Add(dispositivo);
+            _context.SaveChanges();
+        }
+
+        public void UpdateDispositivo(Dispositivo dispositivo)
+        {
+            _context.Dispositivos.Update(dispositivo);
+            _context.SaveChanges();
+        }
+
+        public bool ExistDispositivo(int id)
+        {
+            return _context.Dispositivos.Any(d => d.Id == id);
+        }
+
+        public Dispositivo? GetDispositivoById(int dispositivoId)
+        {
+            return _context.Dispositivos.FirstOrDefault(d => d.Id == dispositivoId);
+        }
+
     }
 }

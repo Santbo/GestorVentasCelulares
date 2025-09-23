@@ -40,10 +40,10 @@
             proveedoresMenuItem = new ToolStripMenuItem();
             comprasMenuItem = new ToolStripMenuItem();
             aumentarMargenMenuItem = new ToolStripMenuItem();
-            panelContenedor = new Panel();
             reparacionesToolStripMenuItem = new ToolStripMenuItem();
             administrarServiciosMenuItem = new ToolStripMenuItem();
-            administrarReparacionesToolStripMenuItem = new ToolStripMenuItem();
+            administrarReparacionesMenuItem = new ToolStripMenuItem();
+            panelContenedor = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -139,18 +139,9 @@
             aumentarMargenMenuItem.Text = "Margen de &Ganancia";
             aumentarMargenMenuItem.Click += aumentarMargenMenuItem_Click;
             // 
-            // panelContenedor
-            // 
-            panelContenedor.Dock = DockStyle.Fill;
-            panelContenedor.Location = new Point(0, 37);
-            panelContenedor.Margin = new Padding(4, 4, 4, 4);
-            panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(800, 413);
-            panelContenedor.TabIndex = 1;
-            // 
             // reparacionesToolStripMenuItem
             // 
-            reparacionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { administrarServiciosMenuItem, administrarReparacionesToolStripMenuItem });
+            reparacionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { administrarServiciosMenuItem, administrarReparacionesMenuItem });
             reparacionesToolStripMenuItem.Name = "reparacionesToolStripMenuItem";
             reparacionesToolStripMenuItem.Size = new Size(138, 29);
             reparacionesToolStripMenuItem.Text = "Reparaciones";
@@ -162,11 +153,21 @@
             administrarServiciosMenuItem.Text = "Administrar Servicios";
             administrarServiciosMenuItem.Click += administrarServiciosMenuItem_Click;
             // 
-            // administrarReparacionesToolStripMenuItem
+            // administrarReparacionesMenuItem
             // 
-            administrarReparacionesToolStripMenuItem.Name = "administrarReparacionesToolStripMenuItem";
-            administrarReparacionesToolStripMenuItem.Size = new Size(313, 30);
-            administrarReparacionesToolStripMenuItem.Text = "Administrar Reparaciones";
+            administrarReparacionesMenuItem.Name = "administrarReparacionesMenuItem";
+            administrarReparacionesMenuItem.Size = new Size(313, 30);
+            administrarReparacionesMenuItem.Text = "Administrar Reparaciones";
+            administrarReparacionesMenuItem.Click += administrarReparacionesMenuItem_Click;
+            // 
+            // panelContenedor
+            // 
+            panelContenedor.Dock = DockStyle.Fill;
+            panelContenedor.Location = new Point(0, 37);
+            panelContenedor.Margin = new Padding(4);
+            panelContenedor.Name = "panelContenedor";
+            panelContenedor.Size = new Size(800, 413);
+            panelContenedor.TabIndex = 1;
             // 
             // MainMenuForm
             // 
@@ -176,7 +177,7 @@
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainMenuForm";
@@ -207,6 +208,6 @@
         private ToolStripMenuItem aumentarMargenMenuItem;
         private ToolStripMenuItem reparacionesToolStripMenuItem;
         private ToolStripMenuItem administrarServiciosMenuItem;
-        private ToolStripMenuItem administrarReparacionesToolStripMenuItem;
+        private ToolStripMenuItem administrarReparacionesMenuItem;
     }
 }

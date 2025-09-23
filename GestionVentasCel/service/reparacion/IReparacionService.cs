@@ -13,5 +13,12 @@ namespace GestionVentasCel.service.reparacion
         void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado);
         IEnumerable<Reparacion>? ObtenerPorDispositivo(Dispositivo dispositivo);
         void ToggleActivo (int id);
+
+        IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId);
+
+        void AddDispositivo(string nombre, int clienteId);
+        void UpdateDispositivo(Dispositivo dispositivo);
+
+        Dispositivo? GetDispositivoById(int dispositivoId);
     }
 }
