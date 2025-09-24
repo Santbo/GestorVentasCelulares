@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,17 @@ namespace GestionVentasCel.repository.reparacion.impl
                                .ThenInclude(d => d.Cliente)
                            .Include(r => r.ReparacionServicios)
                            .ToList();
+        }
+
+        public IEnumerable<Reparacion> ListarReparacionesTerminadasCliente( int idCliente)
+        {
+            return _context.Reparaciones
+                .AsNoTracking()
+                .Include(r => r.Dispositivo)
+                    .ThenInclude(d => d.Cliente)
+                .Where(r => r.Dispositivo.Cliente.Id == idCliente
+                            && r.Estado == EstadoReparacionEnum.Terminado)
+                .ToList();
         }
 
         public Reparacion? GetById(int id)

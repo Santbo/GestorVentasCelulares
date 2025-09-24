@@ -60,12 +60,13 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListar.Columns["EstadoVenta"].Visible = true;
             dgvListar.Columns["Cliente"].Visible = true;
             dgvListar.Columns["TipoPago"].Visible = true;
-            dgvListar.Columns["TotalConIva"].Visible = true;
 
-            if (dgvListar.Columns["TotalConIvaFormateado"] != null)
+            if (dgvListar.Columns["TotalConIvaFormateado"] == null)
             {
                 dgvListar.Columns.Add("TotalConIvaFormateado", "Total con IVA");
             }
+            dgvListar.Columns["TotalConIvaFormateado"].Visible = true;
+
 
 
             dgvListar.DataBindingComplete += (s, e) =>
@@ -77,14 +78,14 @@ namespace GestionVentasCel.views.usuario_empleado
                 dgvListar.Columns["EstadoVenta"].DisplayIndex = 2;
                 dgvListar.Columns["Cliente"].DisplayIndex = 3;
                 dgvListar.Columns["TipoPago"].DisplayIndex = 4;
-                dgvListar.Columns["TotalConIva"].DisplayIndex = 5;
+                dgvListar.Columns["TotalConIvaFormateado"].DisplayIndex = 5;
                 //TODO: Agregar código que cambie Anular/Desanular cuando se haga haga click en una fila del DGV
 
                 foreach (DataGridViewRow row in dgvListar.Rows)
                 {
                     if (row.DataBoundItem is Venta venta)
                     {
-                        row.Cells["TotalConIVaFormateado"].Value = venta.TotalConIva.ToString("C2", new CultureInfo("es-AR"));
+                        row.Cells["TotalConIvaFormateado"].Value = venta.TotalConIva.ToString("C2", new CultureInfo("es-AR"));
                     }
                 }
             };
@@ -99,40 +100,34 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnToggleActivo_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException("Hay que implementar el toggle de estado");
-            //if (dgvListar.CurrentRow != null)
-            //{
-            //    int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
-            //    var result = MessageBox.Show(
-            //        "¿Seguro que desea Habilitar/Deshabilitar este cliente?",
-            //        "Confirmación",
-            //        MessageBoxButtons.YesNo,
-            //        MessageBoxIcon.Question
-            //    );
+                var result = MessageBox.Show(
+                    "¿Seguro que desea eliminar esta venta?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
 
-            //    if (result == DialogResult.No) return;
+                if (result == DialogResult.No) return;
 
-            //    try
-            //    {
+                try
+                {
+                    _ventaService.EliminarVenta(id);
 
-            //        // Actualizo en la BD
-            //        _ventaService.ToggleActivo(id);
+                    var venta = _ventas.FirstOrDefault(v => v.Id == id);
+                    if (venta != null)
+                        _ventas.Remove(venta);
 
-            //        // Actualizo en memoria
-            //        var usuario = _ventas.FirstOrDefault(u => u.Id == id);
-            //        if (usuario != null)
-            //            usuario.Activo = !usuario.Activo;
-
-            //        // Reaplico el filtro inmediatamente
-            //        AplicarFiltro();
-            //    }
-            //    catch (ClienteInexistenteException ex)
-            //    {
-
-            //        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
+                    AplicarFiltro();
+                }
+                catch (VentaInexistenteException ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void AplicarFiltro()
@@ -142,19 +137,24 @@ namespace GestionVentasCel.views.usuario_empleado
             IEnumerable<Venta> filtrados = _ventas;
 
             // filtro por Activo
-            if (!chkMostrarInactivos.Checked)
+            if (chkMostrarInactivos.Checked){
+                filtrados = filtrados.Where(u => u.EstadoVenta == enumerations.ventas.EstadoVentaEnum.Anulada);
+            }
+            else
+            {
                 filtrados = filtrados.Where(u => u.EstadoVenta != enumerations.ventas.EstadoVentaEnum.Anulada);
+            }
 
             // filtro por búsqueda
-            string filtro = txtBuscar.Text.Trim().ToLower();
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                //TODO: Implementar filtros de ventas
-                //filtrados = filtrados.Where(u =>
-                //    u.Nombre.ToLower().Contains(filtro)
-                //    || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
-                //);
-            }
+            //string filtro = txtBuscar.Text.Trim().ToLower();
+            //if (!string.IsNullOrEmpty(filtro))
+            //{
+            //    //TODO: Implementar filtros de ventas
+            //    //filtrados = filtrados.Where(u =>
+            //    //    u.Nombre.ToLower().Contains(filtro)
+            //    //    || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
+            //    //);
+            //}
 
             // asignar al BindingSource
             _bindingSource.DataSource = new BindingList<Venta>(filtrados.ToList());
@@ -181,9 +181,9 @@ namespace GestionVentasCel.views.usuario_empleado
                     {
                         throw new NotImplementedException("Hay que implementar la lógica para facturar");
                     }
-                    CargarVentas();
-                    ConfigurarDGV();
                 }
+                CargarVentas();
+                ConfigurarDGV();
             }
 
 
@@ -191,37 +191,43 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException("Hay que implementar el actualizar una venta");
-            //if (dgvListar.CurrentRow != null)
-            //{
-            //    int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
-            //    var cliente = _ventaService.GetById(id);
-            //    if (cliente == null)
-            //    {
-            //        MessageBox.Show("El Cliente no fue encontrado",
-            //            "Cliente no encontrado",
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Warning);
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
-            //        return;
-            //    }
+                var venta = _ventaService.ObtenerVentaPorIdConDetalles(id);
+                if (venta == null)
+                {
+                    MessageBox.Show("La venta no fue encontrada",
+                        "Venta no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
-            //    using (var editarCliente = new AgregarEditarClienteForm(_ventaService, cliente: cliente))
-            //    {
-            //        //si el usuario apreta guardar, muestra el msj y actualiza el binding
-            //        if (editarCliente.ShowDialog() == DialogResult.OK)
-            //        {
+                    return;
+                }
 
-            //            MessageBox.Show("El cliente se actualizó correctamente",
-            //            "cliente Guardado",
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Information);
-            //            CargarVentas();
-            //            ConfigurarDGV();
-            //        }
-            //    }
-            //}
+                using (var editarVenta = new AgregarEditarVentaForm(
+                    serviceProvider: _serviceProvider,
+                    ventaService: _serviceProvider.GetRequiredService<IVentaService>(),
+                    clienteController: _serviceProvider.GetRequiredService<ClienteController>(),
+                    sesionUsuario: _serviceProvider.GetRequiredService<SesionUsuario>(),
+                    venta: venta
+                ))
+                {
+                    //si el usuario apreta guardar, muestra el msj y actualiza el binding
+                    if (editarVenta.ShowDialog() == DialogResult.OK)
+                    {
+
+                        MessageBox.Show("La venta se actualizó correctamente",
+                        "Venta guardada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    }
+                        CargarVentas();
+                        ConfigurarDGV();
+                }
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)

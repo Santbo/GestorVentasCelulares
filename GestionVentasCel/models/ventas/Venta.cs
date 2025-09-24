@@ -17,7 +17,7 @@ namespace GestionVentasCel.models.ventas
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
         [Required, DisplayName("Estado")]
-        public EstadoVentaEnum EstadoVenta { get; set; }
+        public EstadoVentaEnum EstadoVenta { get; set; } = EstadoVentaEnum.Borrador;
 
         // Fecha de venta real. Si este valor es null, entonces
         // se trata de un presupuesto y no de una venta.

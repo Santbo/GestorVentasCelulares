@@ -8,6 +8,8 @@ namespace GestionVentasCel.service.reparacion
         void CrearReparacion(Reparacion reparacion);
         void ActualizarReparacion(Reparacion reparacion);
         IEnumerable<Reparacion> ListarReparaciones();
+        IEnumerable<Reparacion> ListarReparacionesTerminadasCliente(int idCliente);
+
         Reparacion? ObtenerPorId(int id);
 
         Reparacion? ObtenerPorIdConCliente(int id);

@@ -67,6 +67,9 @@
             lblTotal = new Label();
             lblTotalIVA = new Label();
             lblSubtotalSinIVA = new Label();
+            panelEstado = new Panel();
+            comboEstado = new ComboBox();
+            lblEstado = new Label();
             panel1 = new Panel();
             panel4 = new Panel();
             panel1.SuspendLayout();
@@ -83,6 +86,7 @@
             panel6.SuspendLayout();
             panel5.SuspendLayout();
             panel11.SuspendLayout();
+            panelEstado.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -482,12 +486,43 @@
             lblSubtotalSinIVA.TabIndex = 0;
             lblSubtotalSinIVA.Text = "Subtotal sin IVA: ";
             // 
+            // panelEstado
+            // 
+            panelEstado.Controls.Add(comboEstado);
+            panelEstado.Controls.Add(lblEstado);
+            panelEstado.Location = new Point(12, 663);
+            panelEstado.Name = "panelEstado";
+            panelEstado.Size = new Size(300, 68);
+            panelEstado.TabIndex = 100005;
+            // 
+            // comboEstado
+            // 
+            comboEstado.Dock = DockStyle.Bottom;
+            comboEstado.Font = new Font("Segoe UI", 12F);
+            comboEstado.FormattingEnabled = true;
+            comboEstado.Location = new Point(0, 28);
+            comboEstado.Name = "comboEstado";
+            comboEstado.Size = new Size(300, 40);
+            comboEstado.TabIndex = 0;
+            // 
+            // lblEstado
+            // 
+            lblEstado.AutoSize = true;
+            lblEstado.Dock = DockStyle.Top;
+            lblEstado.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEstado.Location = new Point(0, 0);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(148, 25);
+            lblEstado.TabIndex = 0;
+            lblEstado.Text = "Estado de venta";
+            // 
             // AgregarEditarVentaForm
             // 
             AcceptButton = btnGuardar;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1448, 785);
+            Controls.Add(panelEstado);
             Controls.Add(panel11);
             Controls.Add(panel5);
             Controls.Add(panel4);
@@ -524,6 +559,8 @@
             panel5.PerformLayout();
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            panelEstado.ResumeLayout(false);
+            panelEstado.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -565,5 +602,8 @@
         private Label lblSubtotalSinIVA;
         private Label lblTotalIVA;
         private Label lblTotal;
+        private Panel panelEstado;
+        private ComboBox comboEstado;
+        private Label lblEstado;
     }
 }

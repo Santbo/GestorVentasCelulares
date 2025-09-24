@@ -106,6 +106,7 @@ namespace GestionVentasCel.repository.ventas.impl
         {
             return _context.Ventas
                 .Include(v => v.Cliente)
+                .Include(v => v.Detalles)
                 .Where(v => v.EstadoVenta != EstadoVentaEnum.Presupuesto)
                 .AsNoTracking()
                 .ToList();

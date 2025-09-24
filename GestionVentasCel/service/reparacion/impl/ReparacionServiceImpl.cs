@@ -29,6 +29,7 @@ namespace GestionVentasCel.service.reparacion.impl
         }
 
         public IEnumerable<Reparacion> ListarReparaciones() => _repo.GetAll();
+        public IEnumerable<Reparacion> ListarReparacionesTerminadasCliente(int idCliente) => _repo.ListarReparacionesTerminadasCliente(idCliente);
         public Reparacion? ObtenerPorId(int id) => _repo.GetById(id);
 
         public Reparacion? ObtenerPorIdConCliente(int id) => _repo.GetWithClienteById(id);

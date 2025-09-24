@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 using GestionVentasCel.enumerations.reparacion;
 
 namespace GestionVentasCel.models.reparacion
@@ -21,6 +22,8 @@ namespace GestionVentasCel.models.reparacion
 
         [MaxLength(255), Display(Name = "Fallas Reportadas")]
         public string? FallasReportadas { get; set; }
+
+        //TODO: Agregar FechaVencimiento, y cambiar el repo para que getporid actualice si es necesario
 
         [Required]
         public EstadoReparacionEnum Estado { get; set; } = EstadoReparacionEnum.Ingresado;

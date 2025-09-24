@@ -117,43 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="panel1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAQAUAAAJNU0Z0AUkBTAIBAQIB
-        AAHgAQIB4AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAS
-        AANSAaEB7gH6AfEB/wHuAfoB8QH/KAADEwEaAe4B+gHxAf8B7gH6AfEB/8AAA0cBgAHuAfoB8QH/Ae4B
-        +gHxAf8B7gH6AfEB/yAAAxQBGwHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/8QAA2MB3wHuAfoB8QH/Ae4B
-        +gHxAf8B7gH6AfEB/xgAAxIBGAHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wMmATgcAAM2AVgDNgFYpAAD
-        YwHfAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/EAADFQEcAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/AyUB
-        NyAAA10BzANdAcyoAANjAd8B7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8IAAMWAR0B7gH6AfEB/wHuAfoB
-        8QH/Ae4B+gHxAf8DJQE2JAADXQHMA10BzKwAA2EB3gHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wMWAR4B
-        7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DJAE1KAADXQHMA10BzLAAA2EB3gHuAfoB8QH/Ae4B+gHxAf8B
-        7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DJAE1LAADXQHMA10BzLQAA2EB3gHuAfoB8QH/Ae4B+gHxAf8B
-        7gH6AfEB/wMkATQcAAM2AVgDXQHMA10BzANdAcwDXQHMAW0CWgH1AW0CWgH1A10BzANdAcwDXQHMA10B
-        zAM2AVicAAMXAR8B7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/HAADNgFYA10B
-        zANdAcwDXQHMA10BzAFtAloB9QFtAloB9QNdAcwDXQHMA10BzANdAcwDNgFYmAADGgEjAe4B+gHxAf8B
-        7gH6AfEB/wHuAfoB8QH/A2MB3wHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/ywAA10BzANdAcyoAAMYASAB
-        7gH6AfEB/wHuAfoB8QH/Ae4B+gHxAf8DIAEtBAADZQHdAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/KAAD
-        XQHMA10BzKQAAxsBJQHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/wMgAS0MAANiAdwB7gH6AfEB/wHuAfoB
-        8QH/Ae4B+gHxAf8kAANdAcwDXQHMoAADGwEmAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/Ax8BLBQAA2IB
-        3AHuAfoB8QH/Ae4B+gHxAf8B7gH6AfEB/yAAA10BzANdAcycAAMNAREB7gH6AfEB/wHuAfoB8QH/Ae4B
-        +gHxAf8DHQEoHAADZQHdAe4B+gHxAf8B7gH6AfEB/wHuAfoB8QH/HAADNgFYAzYBWJwAA2kB6AHuAfoB
-        8QH/Ae4B+gHxAf8DHAEnJAADYgHcAe4B+gHxAf8B7gH6AfEB/8QAA2YB5QMMAQ8sAANFAXwDVQGtwAAB
-        QgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAR8B+AL/BAABDwHwAv8EAAGHAeAB
-        /gF/BAABwwHBAf4BfwQAAeEBgwH+AX8EAAHwAQcB/gF/BAAB+AEPAf4BfwQAAfwBHwHAAQMEAAH4AR8B
-        wAEDBAAB8AEPAf4BfwQAAeABhwH+AX8EAAHBAcMB/gF/BAABgwHhAf4BfwQAAQcB8AH+AX8EAAEPAfgC
-        /wQAAZ8B/AL/BAAL
-</value>
-  </data>
-  <metadata name="panel4.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
 </root>

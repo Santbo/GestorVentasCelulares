@@ -2,9 +2,12 @@
 using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.cliente;
+using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.enumerations.persona;
+using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
+using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
@@ -49,6 +52,9 @@ namespace GestionVentasCel.views.ventas
             this.InicializarCombos();
             this.ConfigurarDGVDetalles();
             this.ConfigurarEstilosVisuales();
+
+            // Hay que mostrar el selector de estado unicamente cuando se lo edita a la venta
+            panelEstado.Visible = _editando;
 
         }
 
@@ -136,10 +142,13 @@ namespace GestionVentasCel.views.ventas
             comboCliente.DisplayMember = "DniNombre";
             comboCliente.ValueMember = "Id";
             comboCliente.DataSource = clientesActivos;
-
             comboCliente.SelectedIndex = 0;
 
+            comboEstado.DataSource = Enum.GetValues(typeof(EstadoVentaEnum));
+            comboEstado.SelectedItem = _venta.EstadoVenta;
+
             // Binding al modelo
+            comboEstado.DataBindings.Add("SelectedValue", _venta, "EstadoVenta", true, DataSourceUpdateMode.OnPropertyChanged);
             comboCliente.DataBindings.Add("SelectedValue", _venta, "ClienteId", true, DataSourceUpdateMode.OnPropertyChanged);
             comboTipoPago.DataBindings.Add("SelectedItem", _venta, "TipoPago", true, DataSourceUpdateMode.OnPropertyChanged);
 
@@ -239,10 +248,33 @@ namespace GestionVentasCel.views.ventas
             this.btnDescartar.PerformClick();
         }
 
+        private bool ValidarVenta()
+        {
+            //TODO: Validar venta
+            return true;
+        }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // TODO: Hay que implementar la lógica de guardar la venta
-            throw new NotImplementedException("Hay que implementar la lógica de guardar");
+            if (ValidarVenta())
+            {
+                if (_editando)
+                {
+                    //TODO: Actualizar venta tiene que revertir los cambios al stock
+                    //TODO: Hacer que cuando se cambia el cliente en una venta, se eliminen todas las reparaciones asociadas
+                    //TODO: Ver el estado de la venta, y cambiar el stock y esas cosas como sea necesario
+                    _service.ActualizarVenta(_venta);
+                    MessageBox.Show("La venta se actualizó correctamente", "Venta actualizada");
+                }
+                else
+                {
+                    _service.AgregarVenta(_venta);
+                    _service.ConfirmarVenta(_venta.Id);
+                    MessageBox.Show("La venta se guardó correctamente", "Venta guardada");
+                }
+
+                this.Close();
+            }
+
         }
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
@@ -259,6 +291,7 @@ namespace GestionVentasCel.views.ventas
 
             // Setear el IVA por defecto
             this.nupIVA.Value = _detalleActual.PorcentajeIva * 100;
+            this.nupCantidad.Enabled = true;
 
             using (var form = new SeleccionarArticuloForm(_serviceProvider.GetRequiredService<ArticuloController>()))
             {
@@ -280,6 +313,41 @@ namespace GestionVentasCel.views.ventas
         private void AgregarReparacion()
         {
 
+            // Esta función no puede ejecutarse si no se ha seleccionado un cliente.
+
+            if (comboCliente.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un cliente antes de buscar sus reparaciones", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.comboBoxTipoItem.SelectedIndex = -1;
+                return;
+            }
+
+            _detalleActual = new DetalleVenta();
+            Reparacion? reparacionSeleccionada = new Reparacion();
+
+            // Setear el IVA por defecto
+            this.nupIVA.Value = _detalleActual.PorcentajeIva * 100;
+            // Deshabilitar la cantidad
+            this.nupCantidad.Value = 1;
+            this.nupCantidad.Enabled = false;
+
+            using (var form = new SeleccionarReparacionForm(
+                _serviceProvider.GetRequiredService<ReparacionController>(),
+                idCliente: ((Cliente)this.comboCliente.SelectedItem).Id!))
+            {
+                var resultado = form.ShowDialog();
+
+                if (resultado == DialogResult.OK)
+                {
+                    reparacionSeleccionada = form._reparacionSeleccionada!;
+
+                    _detalleActual.Reparacion = reparacionSeleccionada;
+                    _detalleActual.PrecioUnitario = reparacionSeleccionada.Total;
+
+                    // Se tiene que mostrar también en el txtbox de detalle
+                    this.txtDescripcionDetalle.Text = $"{reparacionSeleccionada.Detalle}";
+                }
+            }
         }
 
         private void comboBoxTipoItem_SelectionChangeCommitted(object sender, EventArgs e)
@@ -298,6 +366,7 @@ namespace GestionVentasCel.views.ventas
 
         private bool ValidarDetalle()
         {
+            //TODO: Validar detalle de venta
             return true;
         }
         private void btnAgregarDetalle_Click(object sender, EventArgs e)
@@ -309,13 +378,23 @@ namespace GestionVentasCel.views.ventas
 
                 _detalleActual.Cantidad = (int)nupCantidad.Value;
                 _detalleActual.PorcentajeIva = nupIVA.Value / 100;
+                //TODO: Que no pueda guardarse la venta vacía
+                DetalleVenta? detalleExistente = this._venta.Detalles
+                    .FirstOrDefault(d =>
+                        (d.Articulo != null && _detalleActual.Articulo != null && d.Articulo.Id == _detalleActual.Articulo.Id) ||
+                        (d.Reparacion != null && _detalleActual.Reparacion != null && d.Reparacion.Id == _detalleActual.Reparacion.Id)
+                    );
 
-                // TODO: Ver si ya existe lo que sea que se agregó, y aumentar la cantidad nomás y cambiar el precio
-                DetalleVenta? detalleExistente = this._venta.Detalles.FirstOrDefault(d => d.Articulo.Id == _detalleActual.Articulo.Id);
+
                 if (detalleExistente != null)
                 {
-                    // Existe ya uno, hay que cambiarlo nomás 
-                    detalleExistente.Cantidad += _detalleActual.Cantidad;
+                    if (_detalleActual.EsArticulo)
+                    {
+                        // Ya existe el artículo, por lo que hayq ue sumarle nomás la cantidad
+                        detalleExistente.Cantidad += _detalleActual.Cantidad;
+                    }
+                        
+                    
                     detalleExistente.PorcentajeIva = _detalleActual.PorcentajeIva;
                 }
                 else
@@ -329,6 +408,7 @@ namespace GestionVentasCel.views.ventas
             this.comboBoxTipoItem.SelectedIndex = -1;
             this.txtDescripcionDetalle.Text = String.Empty;
             this.nupCantidad.Value = 0;
+            this.nupCantidad.Enabled = true;
 
             this.CalcularTotales();
         }

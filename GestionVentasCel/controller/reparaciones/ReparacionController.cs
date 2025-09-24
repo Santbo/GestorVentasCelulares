@@ -28,6 +28,11 @@ namespace GestionVentasCel.controller.reparaciones
             return _service.ListarReparaciones();
         }
 
+        public IEnumerable<Reparacion> ListarReparacionesTerminadasCliente(int idCliente)
+        {
+            return _service.ListarReparacionesTerminadasCliente(idCliente);
+        }
+
         public Reparacion? ObtenerPorId(int id)
         {
             return _service.ObtenerPorId(id);
