@@ -3,6 +3,7 @@ using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.models.ventas;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.ventas;
@@ -163,7 +164,9 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             using (var form = new AgregarEditarVentaForm(
                 clienteController: _serviceProvider.GetRequiredService<ClienteController>(),
-                ventaService: _serviceProvider.GetRequiredService<IVentaService>()
+                ventaService: _serviceProvider.GetRequiredService<IVentaService>(),
+                sesionUsuario: _serviceProvider.GetRequiredService<SesionUsuario>(),
+                serviceProvider: _serviceProvider
             ))
             {
                 if (form.ShowDialog() == DialogResult.OK)

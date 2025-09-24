@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
@@ -14,21 +15,21 @@ namespace GestionVentasCel.models.ventas
         public int VentaId { get; set; }
         public Venta Venta { get; set; } = null!;
 
-        [Display(Name = "Precio unitario sin IVA"), Precision(18, 2)]
+        [DisplayName("Precio unitario sin IVA"), Precision(18, 2)]
         public decimal PrecioUnitario { get; set; }
         public int Cantidad { get; set; }
 
         /// <summary>
         /// Porcentaje de IVA entre 0,000 y 1,000
         /// </summary>
-        [Precision(4, 3), Display(Name = "Porcentaje de IVA")]
+        [Precision(4, 3), DisplayName("Porcentaje de IVA")]
         public decimal PorcentajeIva { get; set; } = 0.21m;
 
-        [NotMapped, Display(Name = "Subtotal sin IVA")]
+        [NotMapped, DisplayName("Subtotal sin IVA")]
         public decimal SubtotalSinIva => Math.Round(PrecioUnitario * Cantidad, 2);
 
 
-        [NotMapped, Display(Name = "Subtotal con IVA")]
+        [NotMapped, DisplayName("Subtotal con IVA")]
         public decimal SubtotalConIva => Math.Round(SubtotalSinIva * (1 + PorcentajeIva));
 
         // artículo o servicio
@@ -38,8 +39,8 @@ namespace GestionVentasCel.models.ventas
         public int? ReparacionId { get; set; }
         public Reparacion? Reparacion { get; set; }
 
-        public bool EsArticulo => ArticuloId.HasValue;
-        public bool EsReparacion => ReparacionId.HasValue;
+        public bool EsArticulo => ArticuloId.HasValue || Articulo != null;
+        public bool EsReparacion => ReparacionId.HasValue || Reparacion != null;
 
     }
 }

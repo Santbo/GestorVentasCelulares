@@ -33,5 +33,8 @@ namespace GestionVentasCel.models.reparacion
 
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal Total { get; set; }
+
+        [NotMapped]
+        public String Detalle => $"Reparación N° {this.Id} del {this.FechaIngreso.ToString()} - {this.Dispositivo?.Nombre}";
     }
 }

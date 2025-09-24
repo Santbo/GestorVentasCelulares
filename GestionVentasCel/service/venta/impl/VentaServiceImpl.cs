@@ -1,6 +1,8 @@
 ﻿using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.venta;
+using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.ventas;
+using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ventas;
 using GestionVentasCel.service.articulo;
 
@@ -10,11 +12,13 @@ namespace GestionVentasCel.service.venta.impl
     {
         private readonly IVentaRepository _ventaRepo;
         private readonly IArticuloService _articuloService;
+        private readonly ICuentaCorrienteRepository _cuentaCorrienteRepo;
 
-        public VentaServiceImpl(IVentaRepository ventaRepo, IArticuloService articuloService)
+        public VentaServiceImpl(IVentaRepository ventaRepo, IArticuloService articuloService, ICuentaCorrienteRepository cuentaCorrienteRepo)
         {
             _ventaRepo = ventaRepo;
             _articuloService = articuloService;
+            _cuentaCorrienteRepo = cuentaCorrienteRepo;
         }
 
         public void AgregarVenta(Venta venta)
@@ -139,6 +143,26 @@ namespace GestionVentasCel.service.venta.impl
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Venta> ObtenerVentas() => _ventaRepo.ObtenerVentas();
+
+        /// <summary>
+        /// Obtener los medios de pago con los que el cliente puede pagar. ünicamente se 
+        /// muestra Efectivo si el cliente tiene una cuenta corriente deshabilitada. Si no, se muestra todo el enum
+        /// </summary>
+        /// <param name="idCliente"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<string> ObtenerMediosDePagoDisponibles(int idCliente)
+        {
+            CuentaCorriente? cc = _cuentaCorrienteRepo.GetByClienteId(idCliente);
+
+            var listaFiltrada = Enum.GetNames(typeof(TipoPagoEnum)).ToList();
+
+            if (cc != null && !cc.Activo)
+            {
+                listaFiltrada.Remove(TipoPagoEnum.CuentaCorriente.ToString());
+            }
+            return listaFiltrada;
+        }
     }
 
 }

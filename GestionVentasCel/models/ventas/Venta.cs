@@ -47,6 +47,10 @@ namespace GestionVentasCel.models.ventas
         [DisplayName("Total con IVA")]
         public decimal TotalConIva => Detalles.Sum(d => d.SubtotalConIva);
 
+        [DisplayName("IVA total")]
+        public decimal IVATotal => Detalles.Sum(d => d.SubtotalSinIva * d.PorcentajeIva);
+
+
 
     }
 }

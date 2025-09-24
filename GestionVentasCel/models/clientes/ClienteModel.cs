@@ -21,5 +21,8 @@ namespace GestionVentasCel.models.clientes
 
         [NotMapped]
         public string NombreCompleto => $"{Nombre} {Apellido}";
+
+        [NotMapped]
+        public string DniNombre => $"{this.NombreCompleto} - {this.Dni}";
     }
 }

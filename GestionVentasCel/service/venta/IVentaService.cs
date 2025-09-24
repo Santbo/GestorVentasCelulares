@@ -27,6 +27,8 @@ namespace GestionVentasCel.service.venta
         // Lógica de negocios
         public void ActualizarPrecios(int idVenta);
         void ConfirmarVenta(int ventaId);
+
+        List<string> ObtenerMediosDePagoDisponibles(int idCliente);
     }
 
 }
