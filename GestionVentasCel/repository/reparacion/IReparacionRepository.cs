@@ -19,7 +19,7 @@ namespace GestionVentasCel.repository.reparacion
         void UpdateDispositivo(Dispositivo dispositivo);
         Dispositivo? GetDispositivoById(int dispositivoId);
         bool ExistDispositivo(int id);
-        
+
 
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GestionVentasCel.enumerations.ventas
+﻿namespace GestionVentasCel.enumerations.ventas
 {
     public enum EstadoVentaEnum
     {
+        /// <summary>
+        /// Usado para seguir editando una venta en curso. Por si se quiere cancelar
+        /// el agregar, pero resumir más tarde
+        /// </summary>
+        Borrador,
         /// <summary>
         /// La venta es un presupuesto todavía. No tiene fecha de venta pero si de vencimiento
         /// </summary>

@@ -9,6 +9,7 @@ using GestionVentasCel.models.proveedor;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -40,6 +41,9 @@ namespace GestionVentasCel.data
 
         public DbSet<Reparacion> Reparaciones { get; set; }
         public DbSet<Dispositivo> Dispositivos { get; set; }
+
+        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<DetalleVenta> DetallesVenta { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -104,6 +108,25 @@ namespace GestionVentasCel.data
             modelBuilder.Entity<ReparacionServicio>()
                 .HasOne(rs => rs.Servicio)
                 .WithMany(); //Lo dejo aca para que no haya una tabla en Servicio.
+
+
+            modelBuilder
+                .Entity<Venta>()
+                .Property(v => v.EstadoVenta)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<Venta>()
+                .Property(v => v.TipoPago)
+                .HasConversion<string>();
+
+            // Relación Venta - DetalleVenta
+            modelBuilder.Entity<DetalleVenta>()
+                .HasOne(d => d.Venta)
+                .WithMany(v => v.Detalles)
+                .HasForeignKey(d => d.VentaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
 
 

@@ -28,6 +28,8 @@ using GestionVentasCel.repository.servicio;
 using GestionVentasCel.repository.servicio.impl;
 using GestionVentasCel.repository.usuario;
 using GestionVentasCel.repository.usuario.impl;
+using GestionVentasCel.repository.ventas;
+using GestionVentasCel.repository.ventas.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
 using GestionVentasCel.service.categoria;
@@ -46,6 +48,8 @@ using GestionVentasCel.service.servicio;
 using GestionVentasCel.service.servicio.impl;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.usuario.impl;
+using GestionVentasCel.service.venta;
+using GestionVentasCel.service.venta.impl;
 using GestionVentasCel.views;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.EntityFrameworkCore;
@@ -114,6 +118,8 @@ namespace GestionVentasCel
             services.AddTransient<IConfiguracionPreciosRepository, ConfiguracionPreciosRepositoryImpl>();
             services.AddTransient<IServicioRepository, ServicioRepositoryImpl>();
             services.AddTransient<IReparacionRepository, ReparacionRepositoryImpl>();
+            services.AddTransient<IVentaRepository, VentaRepositoryImpl>();
+
 
 
 
@@ -128,6 +134,8 @@ namespace GestionVentasCel
             services.AddTransient<IConfiguracionPreciosService, ConfiguracionPreciosServiceImpl>();
             services.AddTransient<IServicioService, ServicioServiceImpl>();
             services.AddTransient<IReparacionService, ReparacionServiceImpl>();
+            services.AddTransient<IVentaService, VentaServiceImpl>();
+
 
 
 

@@ -33,7 +33,7 @@ namespace GestionVentasCel.service.reparacion.impl
 
         public Reparacion? ObtenerPorIdConCliente(int id) => _repo.GetWithClienteById(id);
         public bool Existe(int id) => _repo.Exist(id);
-        
+
 
         public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
         {
@@ -86,7 +86,7 @@ namespace GestionVentasCel.service.reparacion.impl
 
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
-           return _repo.GetDispositivoById(dispositivoId);
+            return _repo.GetDispositivoById(dispositivoId);
         }
     }
 }

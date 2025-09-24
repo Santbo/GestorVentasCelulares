@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.reparaciones;
+﻿using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
 
@@ -24,7 +15,7 @@ namespace GestionVentasCel.views.reparacion
             InitializeComponent();
             _reparacionController = reparacionController;
 
-            
+
         }
 
         private void CargarCliente()
@@ -74,12 +65,12 @@ namespace GestionVentasCel.views.reparacion
             {
                 _dispositivo.Nombre = txtNombre.Text;
                 _reparacionController.ActualizarDispositivo(_dispositivo);
-                
+
             }
             else
             {
                 _reparacionController.AgregarDispositivo(txtNombre.Text, ClienteUtilizado.Id);
-                
+
             }
 
             this.DialogResult = DialogResult.OK;

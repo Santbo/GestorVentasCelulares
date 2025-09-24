@@ -1,7 +1,6 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.models.reparacion;
-using GestionVentasCel.models.servicio;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -19,7 +18,7 @@ namespace GestionVentasCel.repository.reparacion.impl
         {
 
             _context.Reparaciones.Add(reparacion);
-            _context.SaveChanges(); 
+            _context.SaveChanges();
 
         }
 

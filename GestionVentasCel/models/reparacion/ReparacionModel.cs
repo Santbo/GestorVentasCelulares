@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.enumerations.reparacion;
-using GestionVentasCel.models.servicio;
 
 namespace GestionVentasCel.models.reparacion
 {

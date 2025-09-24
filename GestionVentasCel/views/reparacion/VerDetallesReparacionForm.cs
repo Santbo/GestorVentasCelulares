@@ -1,10 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
-using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.compra;
-using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.servicio;
-using GestionVentasCel.models.compra;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
 using GestionVentasCel.temas;
@@ -41,7 +37,7 @@ namespace GestionVentasCel.views.compra
 
             var _listaReparacion = _reparacion.ReparacionServicios.ToList();
 
-            foreach(var reparacion in _listaReparacion)
+            foreach (var reparacion in _listaReparacion)
             {
                 _listaServicio.Add(_servicioController.GetById(reparacion.ServicioId));
             }
@@ -56,10 +52,10 @@ namespace GestionVentasCel.views.compra
             dgvDetalles.Columns["Activo"].Visible = false;
             dgvDetalles.Columns["ArticulosUsados"].Visible = false;
             dgvDetalles.Columns["DetalleServicio"].Visible = false;
-     
+
             dgvDetalles.Columns["Nombre"].DisplayIndex = 1;
             dgvDetalles.Columns["Descripcion"].DisplayIndex = 2;
-                
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

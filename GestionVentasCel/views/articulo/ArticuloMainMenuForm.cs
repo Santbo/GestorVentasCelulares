@@ -44,7 +44,6 @@ namespace GestionVentasCel.views.articulo
             dgvListarArticulos.Columns["CategoriaId"].Visible = false;
             dgvListarArticulos.Columns["Precio"].Visible = false;
             dgvListarArticulos.Columns["Stock"].Visible = false;
-            dgvListarArticulos.Columns["Detalle"].Visible = false;
 
             if (dgvListarArticulos.Columns["PrecioFormateado"] == null)
             {

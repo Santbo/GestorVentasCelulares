@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
-using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.exceptions.reparacion;
-using GestionVentasCel.exceptions.servicio;
-using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
-using GestionVentasCel.views.servicio;
 
 namespace GestionVentasCel.views.reparacion
 {
@@ -52,7 +41,7 @@ namespace GestionVentasCel.views.reparacion
 
         private void CargarCombobox()
         {
-            var listaCliente = _clienteController.ObtenerClientes().ToList().Where(c => c.Activo == true);
+            var listaCliente = _clienteController.ObtenerClientes().Where(c => c.Activo == true).ToList();
             var listaServicio = _servicioController.GetAll().ToList();
 
             cmbCliente.DataSource = listaCliente;
@@ -148,8 +137,8 @@ namespace GestionVentasCel.views.reparacion
             lblTotal.Text = $"TOTAL: {_total.ToString("C2", new CultureInfo("es-AR"))}";
             btnGuardar.Enabled = true;
 
-            
-            
+
+
         }
 
         private bool ValidarCampos()
@@ -197,10 +186,10 @@ namespace GestionVentasCel.views.reparacion
             }
             using (var agregarDispositivo = new AgregarEditarDispositivoForm(_reparacionController))
             {
-                
+
 
                 agregarDispositivo.ClienteUtilizado = clienteSeleccionado;
-                
+
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (agregarDispositivo.ShowDialog() == DialogResult.OK)
                 {
@@ -308,8 +297,8 @@ namespace GestionVentasCel.views.reparacion
                 txtFallasReportadas.Text = reparacionActual.FallasReportadas;
                 txtDiagnostico.Text = reparacionActual.Diagnostico;
                 btnAgregar.Visible = false;
-                
-                
+
+
             }
 
             btnGuardar.Enabled = false;
@@ -317,7 +306,7 @@ namespace GestionVentasCel.views.reparacion
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-           
+
             if (dgvListarDispositivos.CurrentRow != null)
             {
                 int id = (int)dgvListarDispositivos.CurrentRow.Cells["Id"].Value;
@@ -344,16 +333,16 @@ namespace GestionVentasCel.views.reparacion
                 }
                 else // Nueva reparación
                 {
-                    
+
                     var nuevaReparacion = new Reparacion
                     {
-               
+
                         DispositivoId = id,
                         ReparacionServicios = _listaServicioAgregado,
                         Total = _total,
                         FallasReportadas = txtFallasReportadas.Text,
                         Diagnostico = txtDiagnostico.Text,
-                        
+
                     };
 
 
@@ -419,7 +408,7 @@ namespace GestionVentasCel.views.reparacion
             if (dgvListarServicios.CurrentRow?.DataBoundItem is ReparacionServicio seleccionado)
             {
                 _listaServicioAgregado.Remove(seleccionado);
-                var elemento = serviciosAgregados.FirstOrDefault(s=> s.Id == seleccionado.ServicioId);
+                var elemento = serviciosAgregados.FirstOrDefault(s => s.Id == seleccionado.ServicioId);
                 serviciosAgregados.Remove(elemento);
             }
         }

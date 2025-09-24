@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.reparacion;
+﻿using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.service.reparacion;
 
@@ -87,7 +82,7 @@ namespace GestionVentasCel.controller.reparaciones
 
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
-           return _service.GetDispositivoById(dispositivoId);
+            return _service.GetDispositivoById(dispositivoId);
         }
     }
 }
