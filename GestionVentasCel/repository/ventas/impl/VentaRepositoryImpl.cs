@@ -26,7 +26,18 @@ namespace GestionVentasCel.repository.ventas.impl
 
         public void Actualizar(Venta ventaActualizada)
         {
-
+            // Se tiene que:
+            //  1. Traer la venta original de la DB
+            //  2. Si la venta original estaba >= Confirmada:
+            //      2.1 Revertir el stock de los articulos
+            //      2.2 Revertir los estados de las reparaciones
+            //      2.3 Poner FechaVenta en null
+            //  3. Eliminar todos los detalles originales
+            //  4. Agregar todos los detalles de la venta nueva
+            //  5. Si la venta nueva está == Confirmada:
+            //      5.1 Disminuir el stock de los artículos
+            //      5.2 Poner estado entregado en las reparaciones
+            //      
             var strategy = _context.Database.CreateExecutionStrategy();
 
             strategy.Execute(() =>
@@ -85,6 +96,18 @@ namespace GestionVentasCel.repository.ventas.impl
                             ventaOriginal.Detalles.Add(detalle);
                         }
 
+                        // Guardar los cambios, una vez que se guardaron todos los detalles
+                        _context.SaveChanges();
+                        
+
+                        // Después de no se cuánto tiempo de problemas de tracking, la forma más fácil
+                        // de hacer que esto funcione es guardando los cambios de la venta después de que se 
+                        // guardaron los nuevos detalles, y volver a traer la venta de la base de datos para
+                        // que EF core se arregle con instanciar los artículos y las reparaciones para que no de 
+                        // errror de tracking. Es feo pero está en una transacción asi que no debería pasar nada
+                        
+                        ventaOriginal = this.ObtenerPorIdConDetalles(ventaActualizada.Id);
+
 
                         // 5. Si la venta nueva está confirmada
                         if (ventaActualizada.EstadoVenta >= EstadoVentaEnum.Confirmada)
@@ -92,20 +115,14 @@ namespace GestionVentasCel.repository.ventas.impl
                             foreach (var detalle in ventaOriginal.Detalles)
                             {
 
-                                if (detalle.EsArticulo && detalle.ArticuloId.HasValue)
+                                if (detalle.EsArticulo && detalle.Articulo != null)
                                 {
-                                    var articulo = new Articulo { Id = detalle.ArticuloId.Value };
-                                    _context.Articulos.Attach(articulo);
-
-                                    articulo.Stock -= detalle.Cantidad; // EF lo marcará como modificado
+                                    detalle.Articulo.Stock -= detalle.Cantidad; // EF lo marcará como modificado
                                 }
 
-                                if (detalle.EsReparacion && detalle.ReparacionId.HasValue)
+                                if (detalle.EsReparacion && detalle.Reparacion != null)
                                 {
-                                    var reparacion = new Reparacion { Id = detalle.ReparacionId.Value };
-                                    _context.Reparaciones.Attach(reparacion);
-
-                                    reparacion.Estado = EstadoReparacionEnum.Entregado; // EF lo marcará como modificado
+                                    detalle.Reparacion.Estado = EstadoReparacionEnum.Entregado; // EF lo marcará como modificado
                                 }
                             }
 
@@ -116,20 +133,6 @@ namespace GestionVentasCel.repository.ventas.impl
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
                         transaccion.Commit();
-
-                        // Una vez guardadas las cosas, hay que recorrer los detalles y volver a agregar los artículos y reparaciones
-                        // porque las uis los necesitan
-
-                        foreach (var d in ventaActualizada.Detalles)
-                        {
-
-                            int? articuloId = d.Articulo?.Id;
-                            int? reparacionId = d.Reparacion?.Id;
-
-                            d.Articulo = _context.Articulos.AsNoTracking().FirstOrDefault(a => a.Id == articuloId);
-                            d.Reparacion = _context.Reparaciones.AsNoTracking().FirstOrDefault(a => a.Id == reparacionId);
-                        }
-
                     }
                     catch
                     {

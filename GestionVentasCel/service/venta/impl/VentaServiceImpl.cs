@@ -40,16 +40,7 @@ namespace GestionVentasCel.service.venta.impl
         {
             // Como la venta, en teoría, siempre tiene no tracking, la ventaActualizada se usa para leer nomás
             // Todos los cambios se hacen sobre la original
-            // Se tiene que:
-            //  1. Traer la venta original de la DB
-            //  2. Si la venta original estaba >= Confirmada:
-            //      2.1 Revertir el stock de los articulos
-            //      2.2 Revertir los estados de las reparaciones
-            //      2.3 Poner FechaVenta en null
-            //  3. Eliminar todos los detalles originales
-            //  4. Agregar todos los detalles de la venta nueva
-            //  5. Si la venta nueva está == Confirmada:
-            //      5.1 Llamar a ConfirmarVenta()
+
 
             // 1. Traer la venta original de la db
             // TODO: Se rompe esto con tracking?
