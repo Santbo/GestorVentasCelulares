@@ -38,6 +38,10 @@ namespace GestionVentasCel.repository.ventas.impl
             //      5.1 Disminuir el stock de los artículos
             //      5.2 Poner estado entregado en las reparaciones
             //      
+
+            // TODO: Ver si cambia el tipo de pago, y ejecutar todo el flujo de crear cuenta corriente
+            // TODO: Ver por qué se muestran reparaciones entregadas al selecccionar una reparacion en la venta
+            // TODO: Sacar EstaVencida del listado de reparaciones
             var strategy = _context.Database.CreateExecutionStrategy();
 
             strategy.Execute(() =>
@@ -73,23 +77,38 @@ namespace GestionVentasCel.repository.ventas.impl
                             ventaOriginal.FechaVenta = null;
                         }
 
-                        // 3. Eliminar todos los detalles originales
-                        ventaOriginal.Detalles.Clear();
+                        // 3. Eliminar todos los detalles originales, pero primero copiarlos a una lista nueva
 
-                        // 4. Agregar todos los detalles de la venta nueva
+                        var copia = new List<DetalleVenta>();
                         foreach (var nuevoDetalle in ventaActualizada.Detalles)
                         {
-
                             int? articuloId = nuevoDetalle.Articulo?.Id;
                             int? reparacionId = nuevoDetalle.Reparacion?.Id;
+                            copia.Add(
+                                new DetalleVenta
+                                {
+                                    Cantidad = nuevoDetalle.Cantidad,
+                                    PrecioUnitario = nuevoDetalle.PrecioUnitario,
+                                    PorcentajeIva = nuevoDetalle.PorcentajeIva,
+                                    ArticuloId = articuloId,
+                                    ReparacionId = reparacionId,
+                                }
+                            );
+                        }
+                        ventaOriginal.Detalles.Clear();
+
+
+                        // 4. Agregar todos los detalles de la venta nueva
+                        foreach (var nuevoDetalle in copia)
+                        {
 
                             var detalle = new DetalleVenta
                             {
                                 Cantidad = nuevoDetalle.Cantidad,
                                 PrecioUnitario = nuevoDetalle.PrecioUnitario,
                                 PorcentajeIva = nuevoDetalle.PorcentajeIva,
-                                ArticuloId = articuloId,
-                                ReparacionId = reparacionId,
+                                ArticuloId = nuevoDetalle.ArticuloId,
+                                ReparacionId = nuevoDetalle.ReparacionId,
                             };
 
                             ventaOriginal.Detalles.Add(detalle);

@@ -53,8 +53,15 @@ namespace GestionVentasCel.views.ventas
             this.ConfigurarDGVDetalles();
             this.ConfigurarEstilosVisuales();
 
-            // Hay que mostrar el selector de estado unicamente cuando se lo edita a la venta
-            panelEstado.Visible = _editando;
+            if (_editando)
+            {
+                // Hay que mostrar el selector de estado unicamente cuando se lo edita a la venta
+                panelEstado.Visible = true;
+                this.CalcularTotales();
+            } else
+            {
+                panelEstado.Visible = false;
+            }
 
         }
 
@@ -499,6 +506,7 @@ namespace GestionVentasCel.views.ventas
             _venta.Detalles.Remove(detalle!);
 
             this._bindingSource.ResetBindings(false);
+            this.CalcularTotales();
         }
     }
 }

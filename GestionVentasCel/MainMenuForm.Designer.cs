@@ -45,7 +45,6 @@
             administrarReparacionesMenuItem = new ToolStripMenuItem();
             ventasToolStripMenuItem = new ToolStripMenuItem();
             gestionarVentasToolStripMenuItem = new ToolStripMenuItem();
-            gestionarPresupuestosToolStripMenuItem = new ToolStripMenuItem();
             gestionarFacturasToolStripMenuItem = new ToolStripMenuItem();
             panelContenedor = new Panel();
             menuStrip1.SuspendLayout();
@@ -166,7 +165,7 @@
             // 
             // ventasToolStripMenuItem
             // 
-            ventasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarVentasToolStripMenuItem, gestionarPresupuestosToolStripMenuItem, gestionarFacturasToolStripMenuItem });
+            ventasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarVentasToolStripMenuItem, gestionarFacturasToolStripMenuItem });
             ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
             ventasToolStripMenuItem.Size = new Size(93, 34);
             ventasToolStripMenuItem.Text = "&Ventas";
@@ -174,20 +173,14 @@
             // gestionarVentasToolStripMenuItem
             // 
             gestionarVentasToolStripMenuItem.Name = "gestionarVentasToolStripMenuItem";
-            gestionarVentasToolStripMenuItem.Size = new Size(343, 38);
+            gestionarVentasToolStripMenuItem.Size = new Size(289, 38);
             gestionarVentasToolStripMenuItem.Text = "Gestionar &ventas";
             gestionarVentasToolStripMenuItem.Click += gestionarVentasToolStripMenuItem_Click;
-            // 
-            // gestionarPresupuestosToolStripMenuItem
-            // 
-            gestionarPresupuestosToolStripMenuItem.Name = "gestionarPresupuestosToolStripMenuItem";
-            gestionarPresupuestosToolStripMenuItem.Size = new Size(343, 38);
-            gestionarPresupuestosToolStripMenuItem.Text = "Gestionar &presupuestos";
             // 
             // gestionarFacturasToolStripMenuItem
             // 
             gestionarFacturasToolStripMenuItem.Name = "gestionarFacturasToolStripMenuItem";
-            gestionarFacturasToolStripMenuItem.Size = new Size(343, 38);
+            gestionarFacturasToolStripMenuItem.Size = new Size(289, 38);
             gestionarFacturasToolStripMenuItem.Text = "Gestionar &facturas";
             // 
             // panelContenedor
@@ -241,7 +234,6 @@
         private ToolStripMenuItem administrarReparacionesMenuItem;
         private ToolStripMenuItem ventasToolStripMenuItem;
         private ToolStripMenuItem gestionarVentasToolStripMenuItem;
-        private ToolStripMenuItem gestionarPresupuestosToolStripMenuItem;
         private ToolStripMenuItem gestionarFacturasToolStripMenuItem;
     }
 }

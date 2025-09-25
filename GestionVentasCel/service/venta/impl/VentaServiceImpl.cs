@@ -1,4 +1,5 @@
-﻿using GestionVentasCel.enumerations.reparacion;
+﻿using GestionVentasCel.enumerations.cuentaCorriente;
+using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.CuentaCorreinte;
@@ -36,8 +37,49 @@ namespace GestionVentasCel.service.venta.impl
             _ventaRepo.Agregar(venta);
         }
 
+        private void GestionarVentaACuenta(Venta venta)
+        {
+            // 1. Si el cliente no tiene cuenta corriente:
+            //      1.1 Crear una cuenta corriente
+            // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
+
+            CuentaCorriente? cuentaCorriente = _cuentaCorrienteRepo.GetByClienteId( venta.ClienteId );
+            bool tieneCuenta = cuentaCorriente != null;
+
+            // 1. Si el cliente no tiene cuenta corriente
+            if (cuentaCorriente == null )
+            {
+                // 1.1 Crear una cuenta corriente
+
+                cuentaCorriente = new CuentaCorriente
+                {
+                    ClienteId = venta.ClienteId,
+                    Activo = true
+                };
+            }
+
+            // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
+            cuentaCorriente.Movimientos.Add(new MovimientoCuentaCorriente
+            {
+                Fecha = (DateTime) venta.FechaVenta!,
+                Monto = venta.TotalConIva,
+                Tipo = TipoMovimiento.Aumento,
+                Descripcion = $"Venta número {venta.Id} del {venta.FechaVenta}"
+
+            });
+
+            if (tieneCuenta)
+            {
+                _cuentaCorrienteRepo.Update(cuentaCorriente);
+            } else
+            {
+                _cuentaCorrienteRepo.Add(cuentaCorriente);
+            }
+        }
+
         public void ActualizarVenta(Venta ventaActualizada)
         {
+            
             _ventaRepo.Actualizar(ventaActualizada);
         }
 
@@ -92,13 +134,13 @@ namespace GestionVentasCel.service.venta.impl
 
             //TODO: Si es a cuenta corriente, se tiene que crear un movimiento, A MENOS QUE ESTÉ DESACTIVADA
             //TODO: Si no tiene cuenta corriente, se tiene que crear una
-            //TODO: Modificar el singleton de inicio de sesión para que tenga también la ID del usuario registrado, para poder sacar de ahí la ID del usuario que creó la venta.
             foreach (var detalle in venta.Detalles)
             {
                 if (detalle.EsArticulo && detalle.Articulo != null)
                 {
                     detalle.Articulo.Stock -= detalle.Cantidad;
                 }
+                //TODO: Editar la venta y cambiar el tipo de pago no cambia nada
 
                 if (detalle.EsReparacion && detalle.Reparacion != null)
                 {
@@ -112,6 +154,12 @@ namespace GestionVentasCel.service.venta.impl
             venta.FechaVenta = DateTime.Now;
 
             _ventaRepo.Actualizar(venta);
+
+
+            if (venta.TipoPago == TipoPagoEnum.CuentaCorriente)
+            {
+                this.GestionarVentaACuenta(venta);
+            }
         }
 
         /// <summary>

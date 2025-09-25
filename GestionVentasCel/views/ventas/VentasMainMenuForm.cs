@@ -193,9 +193,9 @@ namespace GestionVentasCel.views.usuario_empleado
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-                    CargarVentas();
-                ConfigurarDGV();
             }
+            CargarVentas();
+            ConfigurarDGV();
 
 
         }

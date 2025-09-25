@@ -29,6 +29,10 @@ namespace GestionVentasCel.controller.reparaciones
 
         public void ActualizarReparacion(Reparacion reparacion)
         {
+            if (reparacion.Estado > EstadoReparacionEnum.Ingresado)
+            {
+                reparacion.FechaVencimiento = null;
+            }
             _service.ActualizarReparacion(reparacion);
         }
 

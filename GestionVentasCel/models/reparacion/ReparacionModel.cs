@@ -24,7 +24,6 @@ namespace GestionVentasCel.models.reparacion
         [MaxLength(255), Display(Name = "Fallas Reportadas")]
         public string? FallasReportadas { get; set; }
 
-        //TODO: Agregar FechaVencimiento, y cambiar el repo para que getporid actualice si es necesario
 
         [Required]
         public EstadoReparacionEnum Estado { get; set; } = EstadoReparacionEnum.Ingresado;
@@ -40,7 +39,6 @@ namespace GestionVentasCel.models.reparacion
 
         [DisplayName("Fecha de vencimiento")]
         public DateTime? FechaVencimiento { get; set; } = DateTime.Now.AddDays(7);
-        //TODO: Monto total de la venta en EditarVenta no se calcula 
         [NotMapped]
         public bool EstaVencida => this.FechaVencimiento == null ? false : this.FechaVencimiento < DateTime.Now;
 
