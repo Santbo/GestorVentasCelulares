@@ -1,5 +1,9 @@
 ﻿using GestionVentasCel.data;
+using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.venta;
+using GestionVentasCel.models.articulo;
+using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,12 +24,122 @@ namespace GestionVentasCel.repository.ventas.impl
             _context.SaveChanges();
         }
 
-        public void Actualizar(Venta venta)
+        public void Actualizar(Venta ventaActualizada)
         {
 
-            _context.Ventas.Update(venta);
-            _context.SaveChanges();
+            var strategy = _context.Database.CreateExecutionStrategy();
 
+            strategy.Execute(() =>
+            {
+                using (var transaccion = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        Venta? ventaOriginal = this.ObtenerPorIdConDetalles(ventaActualizada.Id);
+                        if (ventaOriginal == null)
+                        {
+                            throw new VentaNoEncontradaException("Se intentó actualizar una venta que no existe ne la DB");
+                        }
+
+                        // 2. si la venta está más que confirmada:
+                        if (ventaOriginal!.EstadoVenta >= EstadoVentaEnum.Confirmada)
+                        {
+                            foreach (DetalleVenta det in ventaOriginal.Detalles)
+                            {
+                                // 2.1 Revertir el stock de los articulos
+                                if (det.EsArticulo && det.Articulo != null)
+                                {
+                                    det.Articulo.Stock += det.Cantidad;
+                                }
+                                // 2.2 Revertir los estados de las reparaciones
+                                if (det.EsReparacion && det.Reparacion != null)
+                                {
+                                    det.Reparacion.Estado = EstadoReparacionEnum.Terminado;
+                                }
+                            }
+
+                            // 2.3 Poner fechaVenta en nulo
+                            ventaOriginal.FechaVenta = null;
+                        }
+
+                        // 3. Eliminar todos los detalles originales
+                        ventaOriginal.Detalles.Clear();
+                        //this.Actualizar(ventaOriginal);
+
+                        // 4. Agregar todos los detalles de la venta nueva
+                        foreach (var nuevoDetalle in ventaActualizada.Detalles)
+                        {
+
+                            int? articuloId = nuevoDetalle.Articulo?.Id;
+                            int? reparacionId = nuevoDetalle.Reparacion?.Id;
+
+                            var detalle = new DetalleVenta
+                            {
+                                Cantidad = nuevoDetalle.Cantidad,
+                                PrecioUnitario = nuevoDetalle.PrecioUnitario,
+                                PorcentajeIva = nuevoDetalle.PorcentajeIva,
+                                ArticuloId = articuloId,
+                                ReparacionId = reparacionId,
+                            };
+
+                            ventaOriginal.Detalles.Add(detalle);
+                        }
+
+
+                        // 5. Si la venta nueva está confirmada
+                        if (ventaActualizada.EstadoVenta >= EstadoVentaEnum.Confirmada)
+                        {
+                            foreach (var detalle in ventaOriginal.Detalles)
+                            {
+
+                                if (detalle.EsArticulo && detalle.ArticuloId.HasValue)
+                                {
+                                    var articulo = new Articulo { Id = detalle.ArticuloId.Value };
+                                    _context.Articulos.Attach(articulo);
+
+                                    articulo.Stock -= detalle.Cantidad; // EF lo marcará como modificado
+                                }
+
+                                if (detalle.EsReparacion && detalle.ReparacionId.HasValue)
+                                {
+                                    var reparacion = new Reparacion { Id = detalle.ReparacionId.Value };
+                                    _context.Reparaciones.Attach(reparacion);
+
+                                    reparacion.Estado = EstadoReparacionEnum.Entregado; // EF lo marcará como modificado
+                                }
+                            }
+
+                            ventaOriginal.FechaVenta = DateTime.Now;
+                            ventaOriginal.EstadoVenta = ventaActualizada.EstadoVenta;
+                        }
+
+                        _context.Ventas.Update(ventaOriginal);
+                        _context.SaveChanges();
+                        transaccion.Commit();
+
+                        // Una vez guardadas las cosas, hay que recorrer los detalles y volver a agregar los artículos y reparaciones
+                        // porque las uis los necesitan
+
+                        foreach (var d in ventaActualizada.Detalles)
+                        {
+
+                            int? articuloId = d.Articulo?.Id;
+                            int? reparacionId = d.Reparacion?.Id;
+
+                            d.Articulo = _context.Articulos.AsNoTracking().FirstOrDefault(a => a.Id == articuloId);
+                            d.Reparacion = _context.Reparaciones.AsNoTracking().FirstOrDefault(a => a.Id == reparacionId);
+                        }
+
+                    }
+                    catch
+                    {
+                        transaccion.Rollback();
+                        throw;
+                    }
+                }
+            });
+            
+            
         }
 
         public void Eliminar(int id)

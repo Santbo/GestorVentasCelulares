@@ -249,9 +249,9 @@ namespace GestionVentasCel.views.usuario_empleado
                             throw new NotImplementedException("Hay que implementar la lógica para facturar");
                         }
                     }
-                        CargarVentas();
-                        ConfigurarDGV();
                 }
+                CargarVentas();
+                ConfigurarDGV();
             }
         }
 

@@ -123,7 +123,7 @@ namespace GestionVentasCel.views.ventas
                     if (row.DataBoundItem is DetalleVenta detalle)
                     {
                         row.Cells["Detalle"].Value = detalle.EsArticulo ?
-                            detalle.Articulo!.Nombre.ToString() : detalle.Reparacion.Detalle;
+                            detalle.Articulo!.Nombre.ToString() : detalle.Reparacion!.Detalle;
 
                         row.Cells["PrecioUnitarioFormateado"].Value = detalle.PrecioUnitario.ToString("C2", new CultureInfo("es-AR"));
                         row.Cells["SubtotalSinIVAFormateado"].Value = detalle.SubtotalSinIva.ToString("C2", new CultureInfo("es-AR"));
