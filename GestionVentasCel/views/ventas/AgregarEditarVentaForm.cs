@@ -157,6 +157,7 @@ namespace GestionVentasCel.views.ventas
                 if (comboCliente.SelectedValue is int clienteId)
                 {
                     comboTipoPago.DataSource = _service.ObtenerMediosDePagoDisponibles(clienteId);
+                    //TODO: Recorrer los detalles y eliminar todas las reparaciones.
                 }
             };
 
@@ -175,8 +176,6 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnDescartar_Click(object sender, EventArgs e)
         {
-            //TODO: Agregar confirmación de descartar, que pregunte si quiere descartar o guardar como borrador
-
             var accion = MessageBox.Show(
                 "Está por descartar la venta, ¿Desea guardar un borrador para seguir más tarde?",
                 "Descartando cambios",
@@ -185,8 +184,8 @@ namespace GestionVentasCel.views.ventas
 
             if (accion == DialogResult.Yes)
             {
-                //TODO: Implementar lógica de guardar como borrador la venta
-                throw new NotImplementedException("Hay que implementar la lógica para guardar como borrador la venta");
+                this.GuardarBorrador();
+                this.DialogResult = DialogResult.Yes;
             }
             else if (accion == DialogResult.No)
             {
@@ -198,6 +197,14 @@ namespace GestionVentasCel.views.ventas
             }
         }
 
+        public void GuardarBorrador()
+        {
+            if (ValidarVenta())
+            {
+                _venta.EstadoVenta = EstadoVentaEnum.Borrador;
+                _service.AgregarVenta(_venta);
+            }
+        }
         private void ConfigurarEstilosVisuales()
         {
             this.BackColor = Tema.ColorSuperficie;
@@ -250,7 +257,27 @@ namespace GestionVentasCel.views.ventas
 
         private bool ValidarVenta()
         {
-            //TODO: Validar venta
+            if (comboCliente.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                comboCliente.Focus();
+                return false;
+            }
+
+            if (comboTipoPago.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un tipo de pago.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                comboTipoPago.Focus();
+                return false;
+            }
+
+
+            if (_venta.Detalles == null || !_venta.Detalles.Any())
+            {
+                MessageBox.Show("Debe agregar al menos un detalle de venta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             return true;
         }
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -260,19 +287,27 @@ namespace GestionVentasCel.views.ventas
                 if (_editando)
                 {
                     //TODO: Actualizar venta tiene que revertir los cambios al stock
-                    //TODO: Hacer que cuando se cambia el cliente en una venta, se eliminen todas las reparaciones asociadas
-                    //TODO: Ver el estado de la venta, y cambiar el stock y esas cosas como sea necesario
+                    //TODO: Ver el estado de la venta, y cambiar el stock y esas cosas como sea necesario (revertir si es Anulada, descontar si es Confirmada)
+                    //TODO: Si la venta se confirmó, entonces hay que setear la fecha de venta.
                     _service.ActualizarVenta(_venta);
                     MessageBox.Show("La venta se actualizó correctamente", "Venta actualizada");
+
+                    // Si se confirmó la venta, entonces hay que preguntar si facturarla, lo cual se encarga
+                    // el form principal si el resultado de esta es YES
+                    if (_venta.EstadoVenta == EstadoVentaEnum.Confirmada)
+                    {
+                        this.DialogResult = DialogResult.Yes;
+                    }
                 }
                 else
                 {
                     _service.AgregarVenta(_venta);
                     _service.ConfirmarVenta(_venta.Id);
                     MessageBox.Show("La venta se guardó correctamente", "Venta guardada");
-                }
 
-                this.Close();
+                    this.DialogResult = DialogResult.OK;
+
+                }
             }
 
         }
@@ -366,7 +401,35 @@ namespace GestionVentasCel.views.ventas
 
         private bool ValidarDetalle()
         {
-            //TODO: Validar detalle de venta
+            if (nupCantidad.Value < 1)
+            {
+                MessageBox.Show("La cantidad debe ser mayor o igual a 1.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nupCantidad.Focus();
+                return false;
+            }
+
+            if (nupIVA.Value < 0)
+            {
+                MessageBox.Show("El IVA no puede ser negativo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nupIVA.Focus();
+                return false;
+            }
+
+            if (_detalleActual == null)
+            {
+                MessageBox.Show("No ha seleccionado un item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            bool articuloAsignado = _detalleActual.Articulo != null;
+            bool reparacionAsignada = _detalleActual.Reparacion != null;
+
+            if ((!articuloAsignado && !reparacionAsignada) || (articuloAsignado && reparacionAsignada))
+            {
+                MessageBox.Show("Debe seleccionar un Artículo o una Reparación (solo uno).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             return true;
         }
         private void btnAgregarDetalle_Click(object sender, EventArgs e)
@@ -378,7 +441,6 @@ namespace GestionVentasCel.views.ventas
 
                 _detalleActual.Cantidad = (int)nupCantidad.Value;
                 _detalleActual.PorcentajeIva = nupIVA.Value / 100;
-                //TODO: Que no pueda guardarse la venta vacía
                 DetalleVenta? detalleExistente = this._venta.Detalles
                     .FirstOrDefault(d =>
                         (d.Articulo != null && _detalleActual.Articulo != null && d.Articulo.Id == _detalleActual.Articulo.Id) ||

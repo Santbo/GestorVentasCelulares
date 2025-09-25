@@ -149,7 +149,7 @@ namespace GestionVentasCel.views.usuario_empleado
             //string filtro = txtBuscar.Text.Trim().ToLower();
             //if (!string.IsNullOrEmpty(filtro))
             //{
-            //    //TODO: Implementar filtros de ventas
+            //TODO: Implementar filtros de ventas
             //    //filtrados = filtrados.Where(u =>
             //    //    u.Nombre.ToLower().Contains(filtro)
             //    //    || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
@@ -169,20 +169,31 @@ namespace GestionVentasCel.views.usuario_empleado
                 serviceProvider: _serviceProvider
             ))
             {
-                if (form.ShowDialog() == DialogResult.OK)
+                var resultado = form.ShowDialog();
+                // OK significa que se guardó la venta correctamente
+                if (resultado == DialogResult.OK)
                 {
                     bool facturar = MessageBox.Show(
                         "La venta se agregó correctamente. ¿Desea emitir una factura?",
                         "Venta agregada",
                         MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.OK;
+                        MessageBoxIcon.Question) == DialogResult.Yes;
 
                     if (facturar)
                     {
                         throw new NotImplementedException("Hay que implementar la lógica para facturar");
                     }
                 }
-                CargarVentas();
+                // Yes significa que se guardó como borrador, entonces no hay que pedir facturar
+                else if (resultado == DialogResult.Yes)
+                {
+                    MessageBox.Show(
+                        "El borrador se guardó correctamente.",
+                        "Borrador agregado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                    CargarVentas();
                 ConfigurarDGV();
             }
 
@@ -215,14 +226,27 @@ namespace GestionVentasCel.views.usuario_empleado
                     venta: venta
                 ))
                 {
+                    var resultado = editarVenta.ShowDialog();
                     //si el usuario apreta guardar, muestra el msj y actualiza el binding
-                    if (editarVenta.ShowDialog() == DialogResult.OK)
+                    if (resultado == DialogResult.OK)
                     {
 
                         MessageBox.Show("La venta se actualizó correctamente",
                         "Venta guardada",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    } else if (resultado == DialogResult.Yes)
+                    {
+                        bool facturar = MessageBox.Show(
+                        "La venta se confirmó correctamente. ¿Desea emitir una factura?",
+                        "Venta agregada",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes;
+
+                        if (facturar)
+                        {
+                            throw new NotImplementedException("Hay que implementar la lógica para facturar");
+                        }
                     }
                         CargarVentas();
                         ConfigurarDGV();
