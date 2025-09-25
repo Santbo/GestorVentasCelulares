@@ -36,6 +36,7 @@ namespace GestionVentasCel.views.reparacion
 
             CargarCombobox();
             CargarGridServicios();
+
         }
 
 
@@ -254,6 +255,15 @@ namespace GestionVentasCel.views.reparacion
 
         private void AgregarEditarReparacionForm_Load(object sender, EventArgs e)
         {
+            if (reparacionActual == null || !reparacionActual.FechaVencimiento.HasValue)
+            {
+                this.dtpFechaVencimiento.Value = DateTime.Now.AddDays(7);
+            }
+            else
+            {
+                this.dtpFechaVencimiento.Value = reparacionActual.FechaVencimiento.Value;
+            }
+
             if (reparacionActual != null)
             {
                 // Seleccionar cliente en combo
@@ -323,6 +333,7 @@ namespace GestionVentasCel.views.reparacion
                     reparacionActual.Total = _total;
                     reparacionActual.FallasReportadas = txtFallasReportadas.Text;
                     reparacionActual.Diagnostico = txtDiagnostico.Text;
+                    reparacionActual.FechaVencimiento = dtpFechaVencimiento.Value;
 
 
                     _reparacionController.ActualizarReparacion(reparacionActual);
@@ -342,6 +353,7 @@ namespace GestionVentasCel.views.reparacion
                         Total = _total,
                         FallasReportadas = txtFallasReportadas.Text,
                         Diagnostico = txtDiagnostico.Text,
+                        FechaVencimiento = dtpFechaVencimiento.Value,
 
                     };
 

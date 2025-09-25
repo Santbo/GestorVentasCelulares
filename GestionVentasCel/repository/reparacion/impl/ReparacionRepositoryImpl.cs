@@ -1,7 +1,9 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -121,6 +123,5 @@ namespace GestionVentasCel.repository.reparacion.impl
         {
             return _context.Dispositivos.FirstOrDefault(d => d.Id == dispositivoId);
         }
-
     }
 }

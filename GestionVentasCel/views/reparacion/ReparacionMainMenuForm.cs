@@ -60,11 +60,18 @@ namespace GestionVentasCel.views.servicio
                 {
                     dgvListar.Columns.Add("Cliente", "Cliente");
                 }
+                if (dgvListar.Columns["FechaVencimientoFormateado"] == null)
+                {
+                    dgvListar.Columns.Add("FechaVencimientoFormateado", "Fecha de vencimiento");
+                }
                 // Ocultar Id y Articulos
                 dgvListar.Columns["Id"].Visible = false;
                 dgvListar.Columns["DispositivoId"].Visible = false;
                 dgvListar.Columns["ReparacionServicios"].Visible = false;
                 dgvListar.Columns["Total"].Visible = false;
+                dgvListar.Columns["FechaVencimiento"].Visible = false;
+                dgvListar.Columns["EstaVencida"].Visible = false;
+                dgvListar.Columns["Detalle"].Visible = false;
 
 
                 // Ordenarlas 
@@ -76,9 +83,10 @@ namespace GestionVentasCel.views.servicio
                 dgvListar.Columns["Diagnostico"].DisplayIndex = 4;
                 dgvListar.Columns["FechaIngreso"].DisplayIndex = 5;
                 dgvListar.Columns["FechaEgreso"].DisplayIndex = 6;
-                dgvListar.Columns["TotalFormateado"].DisplayIndex = 7;
-                dgvListar.Columns["Estado"].DisplayIndex = 8;
-                dgvListar.Columns["Activo"].DisplayIndex = 9;
+                dgvListar.Columns["FechaVencimientoFormateado"].DisplayIndex = 7;
+                dgvListar.Columns["TotalFormateado"].DisplayIndex = 8;
+                dgvListar.Columns["Estado"].DisplayIndex = 9;
+                dgvListar.Columns["Activo"].DisplayIndex = 10;
                 dgvListar.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                 foreach (DataGridViewRow row in dgvListar.Rows)
@@ -88,6 +96,15 @@ namespace GestionVentasCel.views.servicio
                         // formatear el precio como moneda
                         row.Cells["TotalFormateado"].Value = reparacion.Total.ToString("C2", new CultureInfo("es-AR"));
                         row.Cells["Cliente"].Value = reparacion.Dispositivo.Cliente.ToString();
+                        row.Cells["FechaVencimientoFormateado"].Value = reparacion.FechaVencimiento?.ToString("dd/MM/yyyy");
+
+                        if (reparacion.EstaVencida)
+                        {
+
+                            row.Cells["FechaVencimientoFormateado"].Value += "   ❗";
+                            row.Cells["FechaVencimientoFormateado"].Style.ForeColor = Color.Red;
+
+                        }
                     }
 
                     ;
@@ -253,8 +270,34 @@ namespace GestionVentasCel.views.servicio
 
                     return;
                 }
-                // Actualizo en la BD
-                _reparacionController.CambiarEstado(id, reparacion.Estado + 1);
+
+                if (reparacion.EstaVencida)
+                {
+                    // Si está vencida, hay que avisarle al usuario que no se puede cambiar hasta que se actualicen los precios
+                    var accion = MessageBox.Show(
+                        "Esta reparación está vencida. Para cambiar de estado, deben recalcularse los precios. ¿Quiere recalcularlos?",
+                        "Reparación vencida",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (accion == DialogResult.Yes)
+                    {
+                        // Esto no debería ser así, realmente debería haber un método en el service para hacer esto, 
+                        // pero como la lógica de calcular está en la UI, es mas facil llamar a la ui
+                        _reparacionController.RecalcularReparacion(reparacion.Id);
+                    }
+                } 
+                else
+                {
+                    // Actualizo en la BD
+                    //TODO: Hacer que esto le saque la fecha de vencimiento si se la repara
+
+                    var estadoActual = reparacion.Estado;
+                    if (estadoActual !=  EstadoReparacionEnum.Entregado)
+                    {
+                        _reparacionController.CambiarEstado(id, reparacion.Estado + 1);
+                    }
+                }
 
                 CargarReparaciones();
                 AplicarFiltro();

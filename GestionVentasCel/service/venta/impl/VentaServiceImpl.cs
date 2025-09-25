@@ -38,86 +38,7 @@ namespace GestionVentasCel.service.venta.impl
 
         public void ActualizarVenta(Venta ventaActualizada)
         {
-            // Como la venta, en teoría, siempre tiene no tracking, la ventaActualizada se usa para leer nomás
-            // Todos los cambios se hacen sobre la original
-
-
-            // 1. Traer la venta original de la db
-            // TODO: Se rompe esto con tracking?
-
-
             _ventaRepo.Actualizar(ventaActualizada);
-            //Venta? ventaOriginal = _ventaRepo.ObtenerPorIdConDetalles(ventaActualizada.Id);
-            //if ( ventaOriginal == null )
-            //{
-            //    throw new VentaNoEncontradaException("Se intentó actualizar una venta que no existe ne la DB");
-            //}
-
-            //// 2. si la venta está más que confirmada:
-            //if (ventaOriginal!.EstadoVenta >= EstadoVentaEnum.Confirmada)
-            //{
-            //    foreach (DetalleVenta det in ventaOriginal.Detalles)
-            //    {
-            //        // 2.1 Revertir el stock de los articulos
-            //        if (det.EsArticulo && det.Articulo != null)
-            //        {
-            //            det.Articulo.Stock += det.Cantidad;
-            //            //_articuloService.UpdateArticulo(det.Articulo); Esto capaz no es necsaio
-            //        }
-            //        // 2.2 Revertir los estados de las reparaciones
-            //        if (det.EsReparacion && det.Reparacion!= null)
-            //        {
-            //            det.Reparacion.Estado = EstadoReparacionEnum.Terminado;
-            //            //_reparacionService.ActualizarReparacion(det.Reparacion); Esto capaz no es necesario
-            //        }
-            //    }
-
-            //    // 2.3 Poner fechaVenta en nulo
-            //    ventaOriginal.FechaVenta = null;
-            //}
-
-            //// 3. Eliminar todos los detalles originales
-            //ventaOriginal.Detalles.Clear();
-            //_ventaRepo.Actualizar(ventaOriginal);
-
-            //// 4. Agregar todos los detalles de la venta nueva
-            //foreach (var nuevoDetalle in ventaActualizada.Detalles)
-            //{
-            //    var detalle = new DetalleVenta
-            //    {
-            //        Cantidad = nuevoDetalle.Cantidad,
-            //        PrecioUnitario = nuevoDetalle.PrecioUnitario,
-            //        PorcentajeIva = nuevoDetalle.PorcentajeIva,
-            //        ArticuloId = nuevoDetalle.Articulo?.Id,        // referenciar solo por Id
-            //        ReparacionId = nuevoDetalle.Reparacion?.Id   // referenciar solo por Id
-            //    };
-
-            //    ventaOriginal.Detalles.Add(detalle);
-            //}
-
-
-            //// 5. Si la venta nueva está confirmada
-            //if (ventaActualizada.EstadoVenta >= EstadoVentaEnum.Confirmada)
-            //{
-            //    foreach (var detalle in ventaOriginal.Detalles)
-            //    {
-            //        if (detalle.EsArticulo && detalle.Articulo != null)
-            //        {
-            //            detalle.Articulo.Stock -= detalle.Cantidad;
-            //        }
-
-            //        if (detalle.EsReparacion && detalle.Reparacion != null)
-            //        {
-            //            detalle.Reparacion.Estado = EstadoReparacionEnum.Entregado;
-            //        }
-            //    }
-
-            //    ventaOriginal.FechaVenta = DateTime.Now;
-            //    ventaOriginal.EstadoVenta = ventaActualizada.EstadoVenta;
-            //}
-
-            //_ventaRepo.Actualizar(ventaOriginal);
-
         }
 
         public void EliminarVenta(int id)
@@ -156,40 +77,6 @@ namespace GestionVentasCel.service.venta.impl
 
         public Venta? ObtenerVentaPorIdConDetalles(int id) => _ventaRepo.ObtenerPorIdConDetalles(id);
         public Venta? ObtenerVentaPorIdConDetallesNoTracking(int id) => _ventaRepo.ObtenerPorIdConDetallesNoTracking(id);
-
-
-        public void AgregarDetalle(int ventaId, DetalleVenta detalle)
-        {
-            _ventaRepo.AgregarDetalle(ventaId, detalle);
-        }
-
-        public void EliminarDetalle(int detalleId)
-        {
-            _ventaRepo.EliminarDetalle(detalleId);
-        }
-
-        /// <summary>
-        /// Actualiza precios de un presupuesto
-        /// </summary>
-        public void ActualizarPrecios(int idVenta)
-        {
-            var venta = _ventaRepo.ObtenerPresupuestoPorId(idVenta);
-
-            if (venta == null) { return; }
-
-            if (venta.FechaVencimiento.HasValue && DateTime.Now > venta.FechaVencimiento.Value)
-            {
-                foreach (var detalle in venta.Detalles)
-                {
-                    if (detalle.EsArticulo && detalle.Articulo != null) //TODO: Actualizar si es una reparacion
-                    {
-                        detalle.PrecioUnitario = detalle.Articulo.Precio; // toma precio actualizado del artículo
-                    }
-                }
-                _ventaRepo.Actualizar(venta);
-            }
-        }
-
 
         /// <summary>
         /// Realiza la venta: cambia estado a Confirmada y descuenta stock

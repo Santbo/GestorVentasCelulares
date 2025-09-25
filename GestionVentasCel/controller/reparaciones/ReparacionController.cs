@@ -1,5 +1,10 @@
-﻿using GestionVentasCel.enumerations.reparacion;
+﻿using System.Numerics;
+using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.servicio;
+using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
 using GestionVentasCel.service.reparacion;
 
 namespace GestionVentasCel.controller.reparaciones
@@ -7,10 +12,14 @@ namespace GestionVentasCel.controller.reparaciones
     public class ReparacionController
     {
         private readonly IReparacionService _service;
+        private readonly ArticuloController _articuloController;
+        private readonly ServicioController _servicioController;
 
-        public ReparacionController(IReparacionService service)
+        public ReparacionController(IReparacionService service, ArticuloController articuloController, ServicioController servicioController)
         {
             _service = service;
+            _articuloController = articuloController;
+            _servicioController = servicioController;
         }
 
         public void CrearReparacion(Reparacion reparacion)
@@ -58,6 +67,51 @@ namespace GestionVentasCel.controller.reparaciones
                 reparacion.FechaEgreso = DateTime.Now;
                 _service.ActualizarReparacion(reparacion);
             }
+
+            if (nuevoEstado >= EstadoReparacionEnum.Reparando)
+            {
+                var reparacion = _service.ObtenerPorId(id);
+                reparacion.FechaVencimiento = null;
+                _service.ActualizarReparacion(reparacion);
+            }
+        }
+
+        public void RecalcularReparacion(int reparacionId)
+        {
+            Reparacion? reparacion = _service.ObtenerPorId(reparacionId);
+
+            if (reparacion == null)
+            {
+                throw new ReparacionNoEncontradaException("Se intentó recalcular el precio de una reparación que no existe");
+            }
+            decimal total = 0;
+            var servicios = reparacion.ReparacionServicios
+                   .Select(rs  => rs.Servicio!)
+                   .ToList();
+
+            foreach (var servicio in servicios)
+            {
+                if (servicio is Servicio servicioSeleccionado)
+                {
+                    // Sumo artículos usados por el servicio
+                    var articulosUsados = _servicioController.GetServicioConArticulos(servicioSeleccionado.Id);
+
+                    foreach (var articulo in articulosUsados.ArticulosUsados)
+                    {
+                        var articuloSeleccionado = _articuloController.GetById(articulo.ArticuloId);
+                        total += articuloSeleccionado.Precio * articulo.Cantidad;
+                    }
+
+                    // Sumo el precio base del servicio
+                    total += servicioSeleccionado.Precio;
+                }
+            }
+
+            reparacion.Total = total;
+            reparacion.FechaVencimiento = DateTime.Now.AddDays(7);
+
+            _service.ActualizarReparacion(reparacion);
+
         }
 
         public IEnumerable<Reparacion>? ObtenerPorDispositivo(Dispositivo dispositivo)

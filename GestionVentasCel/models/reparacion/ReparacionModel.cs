@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Policy;
 using GestionVentasCel.enumerations.reparacion;
@@ -36,6 +37,12 @@ namespace GestionVentasCel.models.reparacion
 
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal Total { get; set; }
+
+        [DisplayName("Fecha de vencimiento")]
+        public DateTime? FechaVencimiento { get; set; } = DateTime.Now.AddDays(7);
+        //TODO: Monto total de la venta en EditarVenta no se calcula 
+        [NotMapped]
+        public bool EstaVencida => this.FechaVencimiento == null ? false : this.FechaVencimiento < DateTime.Now;
 
         [NotMapped]
         public String Detalle => $"Reparación N° {this.Id} del {this.FechaIngreso.ToString()} - {this.Dispositivo?.Nombre}";

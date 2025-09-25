@@ -75,7 +75,6 @@ namespace GestionVentasCel.repository.ventas.impl
 
                         // 3. Eliminar todos los detalles originales
                         ventaOriginal.Detalles.Clear();
-                        //this.Actualizar(ventaOriginal);
 
                         // 4. Agregar todos los detalles de la venta nueva
                         foreach (var nuevoDetalle in ventaActualizada.Detalles)

@@ -20,13 +20,6 @@ namespace GestionVentasCel.service.venta
         IEnumerable<Venta> ObtenerPresupuestos();
         IEnumerable<Venta> ObtenerVentas();
 
-
-        // Detalles
-        void AgregarDetalle(int ventaId, DetalleVenta detalle);
-        void EliminarDetalle(int detalleId);
-
-        // Lógica de negocios
-        public void ActualizarPrecios(int idVenta);
         void ConfirmarVenta(int ventaId, bool editando = true);
 
         List<string> ObtenerMediosDePagoDisponibles(int idCliente);

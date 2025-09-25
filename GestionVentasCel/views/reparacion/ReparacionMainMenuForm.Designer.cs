@@ -36,10 +36,10 @@
             chkInactivos = new CheckBox();
             btnAdd = new Button();
             panelBtn = new Panel();
+            btnDetalle = new Button();
             splitContainer1 = new SplitContainer();
             panelHeader = new Panel();
             lblTituloForm = new Label();
-            btnDetalle = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListar).BeginInit();
             panelBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -56,19 +56,21 @@
             dgvListar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
-            dgvListar.Location = new Point(9, 3);
+            dgvListar.Location = new Point(11, 4);
+            dgvListar.Margin = new Padding(4, 4, 4, 4);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(782, 333);
+            dgvListar.Size = new Size(978, 416);
             dgvListar.TabIndex = 4;
             // 
             // btnEstadoReparacion
             // 
             btnEstadoReparacion.Anchor = AnchorStyles.Right;
-            btnEstadoReparacion.Location = new Point(267, 4);
+            btnEstadoReparacion.Location = new Point(334, 5);
+            btnEstadoReparacion.Margin = new Padding(4, 4, 4, 4);
             btnEstadoReparacion.Name = "btnEstadoReparacion";
-            btnEstadoReparacion.Size = new Size(128, 60);
+            btnEstadoReparacion.Size = new Size(160, 75);
             btnEstadoReparacion.TabIndex = 7;
             btnEstadoReparacion.Text = "Cambiar Estado";
             btnEstadoReparacion.UseVisualStyleBackColor = true;
@@ -76,19 +78,21 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(12, 6);
+            txtBuscar.Location = new Point(15, 8);
+            txtBuscar.Margin = new Padding(4, 4, 4, 4);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "(Ctrl  + F) Buscar reparaciones";
-            txtBuscar.Size = new Size(266, 27);
+            txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 6;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // btnCambiarEstado
             // 
             btnCambiarEstado.Anchor = AnchorStyles.Right;
-            btnCambiarEstado.Location = new Point(401, 4);
+            btnCambiarEstado.Location = new Point(501, 5);
+            btnCambiarEstado.Margin = new Padding(4, 4, 4, 4);
             btnCambiarEstado.Name = "btnCambiarEstado";
-            btnCambiarEstado.Size = new Size(128, 60);
+            btnCambiarEstado.Size = new Size(160, 75);
             btnCambiarEstado.TabIndex = 8;
             btnCambiarEstado.Text = "Habilitar/Deshabilitar";
             btnCambiarEstado.UseVisualStyleBackColor = true;
@@ -97,9 +101,10 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(535, 4);
+            btnEditar.Location = new Point(669, 5);
+            btnEditar.Margin = new Padding(4, 4, 4, 4);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(128, 60);
+            btnEditar.Size = new Size(160, 75);
             btnEditar.TabIndex = 9;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
@@ -109,9 +114,10 @@
             // 
             chkInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkInactivos.AutoSize = true;
-            chkInactivos.Location = new Point(12, 39);
+            chkInactivos.Location = new Point(15, 49);
+            chkInactivos.Margin = new Padding(4, 4, 4, 4);
             chkInactivos.Name = "chkInactivos";
-            chkInactivos.Size = new Size(225, 24);
+            chkInactivos.Size = new Size(266, 29);
             chkInactivos.TabIndex = 10;
             chkInactivos.Text = "Incluir Reparaciones inactivas";
             chkInactivos.UseVisualStyleBackColor = true;
@@ -120,9 +126,10 @@
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Right;
-            btnAdd.Location = new Point(669, 3);
+            btnAdd.Location = new Point(836, 4);
+            btnAdd.Margin = new Padding(4, 4, 4, 4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(128, 60);
+            btnAdd.Size = new Size(160, 75);
             btnAdd.TabIndex = 11;
             btnAdd.Text = "Agregar";
             btnAdd.UseVisualStyleBackColor = true;
@@ -139,10 +146,23 @@
             panelBtn.Controls.Add(btnEstadoReparacion);
             panelBtn.Controls.Add(btnDetalle);
             panelBtn.Dock = DockStyle.Bottom;
-            panelBtn.Location = new Point(0, 381);
+            panelBtn.Location = new Point(0, 476);
+            panelBtn.Margin = new Padding(4, 4, 4, 4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(800, 69);
+            panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 2;
+            // 
+            // btnDetalle
+            // 
+            btnDetalle.Anchor = AnchorStyles.Right;
+            btnDetalle.Location = new Point(166, 4);
+            btnDetalle.Margin = new Padding(4, 4, 4, 4);
+            btnDetalle.Name = "btnDetalle";
+            btnDetalle.Size = new Size(160, 75);
+            btnDetalle.TabIndex = 12;
+            btnDetalle.Text = "Ver Detalle";
+            btnDetalle.UseVisualStyleBackColor = true;
+            btnDetalle.Click += btnDetalle_Click;
             // 
             // splitContainer1
             // 
@@ -160,10 +180,9 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvListar);
-            splitContainer1.Panel2.Padding = new Padding(9, 3, 9, 3);
-            splitContainer1.Size = new Size(800, 381);
-            splitContainer1.SplitterDistance = 39;
-            splitContainer1.SplitterWidth = 3;
+            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
+            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.SplitterDistance = 48;
             splitContainer1.TabIndex = 9;
             // 
             // panelHeader
@@ -173,7 +192,7 @@
             panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(2);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(800, 39);
+            panelHeader.Size = new Size(1000, 48);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -183,31 +202,21 @@
             lblTituloForm.Location = new Point(0, 0);
             lblTituloForm.Margin = new Padding(2, 0, 2, 0);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Padding = new Padding(6, 0, 6, 0);
-            lblTituloForm.Size = new Size(800, 39);
+            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
+            lblTituloForm.Size = new Size(1000, 48);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Reparaciones";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btnDetalle
-            // 
-            btnDetalle.Anchor = AnchorStyles.Right;
-            btnDetalle.Location = new Point(133, 3);
-            btnDetalle.Name = "btnDetalle";
-            btnDetalle.Size = new Size(128, 60);
-            btnDetalle.TabIndex = 12;
-            btnDetalle.Text = "Ver Detalle";
-            btnDetalle.UseVisualStyleBackColor = true;
-            btnDetalle.Click += btnDetalle_Click;
-            // 
             // ReparacionMainMenuForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1000, 562);
             Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "ReparacionMainMenuForm";
             Text = "ServicioMainMenuForm";
             Load += ServicioMainMenuForm_Load;
