@@ -3,6 +3,10 @@
     public enum EstadoVentaEnum
     {
         /// <summary>
+        /// La venta se eliminó.
+        /// </summary>
+        Anulada,
+        /// <summary>
         /// Usado para seguir editando una venta en curso. Por si se quiere cancelar
         /// el agregar, pero resumir más tarde
         /// </summary>
@@ -19,10 +23,6 @@
         /// <summary>
         /// Ya se emitió la factura de la venta
         /// </summary>
-        Facturada,
-        /// <summary>
-        /// La venta se eliminó.
-        /// </summary>
-        Anulada
+        Facturada
     }
 }

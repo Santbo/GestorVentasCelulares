@@ -14,6 +14,7 @@ namespace GestionVentasCel.service.venta
         IEnumerable<Venta> ListarVentasConDetalles();
         Venta? ObtenerVentaPorId(int id);
         Venta? ObtenerVentaPorIdConDetalles(int id);
+        Venta? ObtenerVentaPorIdConDetallesNoTracking(int id);
 
         // Presupuestos
         IEnumerable<Venta> ObtenerPresupuestos();
@@ -26,7 +27,7 @@ namespace GestionVentasCel.service.venta
 
         // Lógica de negocios
         public void ActualizarPrecios(int idVenta);
-        void ConfirmarVenta(int ventaId);
+        void ConfirmarVenta(int ventaId, bool editando = true);
 
         List<string> ObtenerMediosDePagoDisponibles(int idCliente);
     }

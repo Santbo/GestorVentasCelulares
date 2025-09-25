@@ -15,6 +15,7 @@ namespace GestionVentasCel.repository.ventas
         IEnumerable<Venta> ObtenerTodasConDetalles();
         Venta? ObtenerPorId(int id);
         Venta? ObtenerPorIdConDetalles(int id);
+        Venta? ObtenerPorIdConDetallesNoTracking(int id);
 
 
         IEnumerable<Venta> ObtenerPresupuestos();

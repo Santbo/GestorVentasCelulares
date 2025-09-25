@@ -84,6 +84,19 @@ namespace GestionVentasCel.repository.ventas.impl
                     .ThenInclude(d => d.Reparacion)
                 .FirstOrDefault(v => v.Id == id);
         }
+        
+        public Venta? ObtenerPorIdConDetallesNoTracking(int id)
+        {
+            return _context.Ventas
+                .AsNoTracking()
+                .Include(v => v.Cliente)
+                .Include(v => v.Usuario)
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Articulo)
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Reparacion)
+                .FirstOrDefault(v => v.Id == id);
+        }
 
         /// <summary>
         /// Obtener las ventas que SÍ son presupuestos.

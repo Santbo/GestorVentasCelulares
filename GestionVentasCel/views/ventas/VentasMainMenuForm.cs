@@ -207,7 +207,8 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
-                var venta = _ventaService.ObtenerVentaPorIdConDetalles(id);
+                // Asegurarse de que no haya tracking, porque el actualizar se va a romper si no
+                var venta = _ventaService.ObtenerVentaPorIdConDetallesNoTracking(id);
                 if (venta == null)
                 {
                     MessageBox.Show("La venta no fue encontrada",
