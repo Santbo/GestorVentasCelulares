@@ -293,9 +293,6 @@ namespace GestionVentasCel.views.ventas
             {
                 if (_editando)
                 {
-                    //TODO: Actualizar venta tiene que revertir los cambios al stock
-                    //TODO: Ver el estado de la venta, y cambiar el stock y esas cosas como sea necesario (revertir si es Anulada, descontar si es Confirmada)
-                    //TODO: Si la venta se confirmó, entonces hay que setear la fecha de venta.
                     _service.ActualizarVenta(_venta);
                     MessageBox.Show("La venta se actualizó correctamente", "Venta actualizada");
 

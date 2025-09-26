@@ -150,7 +150,6 @@ namespace GestionVentasCel.service.venta.impl
             }
 
             venta.EstadoVenta = EstadoVentaEnum.Confirmada;
-            //TODO: Tiene sentido actualizar esto? 
             venta.FechaVenta = DateTime.Now;
 
             _ventaRepo.Actualizar(venta);

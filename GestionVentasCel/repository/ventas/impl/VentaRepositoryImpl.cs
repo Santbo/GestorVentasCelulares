@@ -37,10 +37,20 @@ namespace GestionVentasCel.repository.ventas.impl
             //  5. Si la venta nueva está == Confirmada:
             //      5.1 Disminuir el stock de los artículos
             //      5.2 Poner estado entregado en las reparaciones
-            //      
+
+            //  6. Si la venta original se había pagado con cuenta corriente:
+            //      6.1 Si la venta actualizada se pagó con cuenta corriente:
+            //          6.1.1 Actualizar el monto del movimiento
+            //      6.2 Si la venta actualizada se pagó con efectivo:
+            //          6.2.1 Eliminar el movimiento
+            //  7. Si la venta original se pagó con efectivo:
+            //      7.1 Si la venta actualizada se pagó con cuenta corriente:
+            //          7.1.2 Crear el movimiento, creando la cuenta corriente si es necesario
 
             // TODO: Ver si cambia el tipo de pago, y ejecutar todo el flujo de crear cuenta corriente
-            // TODO: Ver por qué se muestran reparaciones entregadas al selecccionar una reparacion en la venta
+            // TODO: Implementar VentaId en MovimientoCuentaCorriente
+            // TODO: Implementar la capacidad de ver la venta del movimiento
+            // TODO: Implementar el ver detalle de venta, que sea un editar nomas pero con todo desactivado
             // TODO: Sacar EstaVencida del listado de reparaciones
             var strategy = _context.Database.CreateExecutionStrategy();
 

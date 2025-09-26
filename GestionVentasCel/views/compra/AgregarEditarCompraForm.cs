@@ -153,7 +153,6 @@ namespace GestionVentasCel.views.compra
         {
             if (ValidarDetalle())
             {
-                // TODO: Si se agrego anteriormente el articulo se actualiza, si no se lo agrega
 
                 var detalleArticulo = _listaDetalle.FirstOrDefault(d => d.ArticuloId == (int)cmbArticulo.SelectedValue);
 
