@@ -1,4 +1,5 @@
-﻿using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.compra;
@@ -44,6 +45,11 @@ namespace GestionVentasCel.data
 
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<DetalleVenta> DetallesVenta { get; set; }
+
+        public DbSet<Empresa> Empresas { get; set; }
+
+        public DbSet<Factura> Facturas { get; set; }
+        public DbSet<DetalleFactura> DetallesFacturas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -126,6 +132,16 @@ namespace GestionVentasCel.data
                 .WithMany(v => v.Detalles)
                 .HasForeignKey(d => d.VentaId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<Factura>()
+                .Property(f => f.TipoComprobante)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<Empresa>()
+                .Property(e => e.CondicionIVA)
+                .HasConversion<string>();
 
         }
 
