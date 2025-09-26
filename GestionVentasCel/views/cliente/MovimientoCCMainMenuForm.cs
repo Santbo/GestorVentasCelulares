@@ -258,5 +258,20 @@ namespace GestionVentasCel.views.usuario_empleado
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
         }
+
+        private void dgvListarMovimientos_SelectionChanged(object sender, EventArgs e)
+        {
+            // No hay que permitir eliminar/editar movimientos que hayan sido generados por una venta
+            if (dgvListarMovimientos.CurrentRow == null)
+                return;
+
+            if (dgvListarMovimientos.CurrentRow.DataBoundItem is MovimientoCuentaCorriente movimiento)
+            {
+                bool generadoPorVenta = movimiento.VentaId != null;
+
+                btnEliminar.Enabled = !generadoPorVenta;
+                btnEditar.Enabled = !generadoPorVenta;
+            }
+        }
     }
 }

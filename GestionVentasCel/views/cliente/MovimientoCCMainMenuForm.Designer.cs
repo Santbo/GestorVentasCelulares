@@ -185,6 +185,7 @@
             dgvListarMovimientos.RowHeadersWidth = 51;
             dgvListarMovimientos.Size = new Size(978, 409);
             dgvListarMovimientos.TabIndex = 0;
+            dgvListarMovimientos.SelectionChanged += dgvListarMovimientos_SelectionChanged;
             // 
             // MovimientosCCMainMenuForm
             // 

@@ -81,7 +81,6 @@ namespace GestionVentasCel.views.usuario_empleado
                 dgvListar.Columns["Cliente"].DisplayIndex = 3;
                 dgvListar.Columns["TipoPago"].DisplayIndex = 4;
                 dgvListar.Columns["TotalConIvaFormateado"].DisplayIndex = 5;
-                //TODO: Agregar código que cambie Anular/Desanular cuando se haga haga click en una fila del DGV
 
                 foreach (DataGridViewRow row in dgvListar.Rows)
                 {
@@ -227,7 +226,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 CargarVentas();
                 ConfigurarDGV();
                 // TODO: Eliminar estados de venta que no se soportan
-                // TODO: Cambiar el estado de una venta no lo guarda
+                // TODO: Hay que ver bien que únicamente se muestre la pregunta de facturacion si la venta está confirmada
             }
         }
 

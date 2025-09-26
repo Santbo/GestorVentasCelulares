@@ -51,7 +51,6 @@ namespace GestionVentasCel.repository.ventas.impl
 
             // TODO: Implementar la capacidad de ver la venta del movimiento
             // TODO: Implementar el ver detalle de venta, que sea un editar nomas pero con todo desactivado
-            // TODO: Sacar EstaVencida del listado de reparaciones
             var strategy = _context.Database.CreateExecutionStrategy();
 
             strategy.Execute(() =>
@@ -174,7 +173,6 @@ namespace GestionVentasCel.repository.ventas.impl
                             {
                                 throw new MovimientoInexistenteException("Se intentó actualizar un movimiento de cuenta corriente que noe xiste.");
                             }
-                            //TODO: Que no deje eliminar, editar o agregar movimientos de tipo Venta
                             // 6.1 Si la venta actualizada se pagó con cuenta corriente:
                             if (ventaActualizada.TipoPago == TipoPagoEnum.CuentaCorriente)
                             {
