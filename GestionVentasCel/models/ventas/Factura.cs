@@ -11,6 +11,11 @@ namespace GestionVentasCel.models.ventas
         public string NumeroFactura { get; set; }
         public DateTime FechaEmision { get; set; }
 
+        // Relación con la venta original
+        public int VentaId { get; set; }
+        public Venta Venta { get; set; }
+
+
         // Cliente
         public string NombreCliente { get; set; }
         public string CUITCliente { get; set; }

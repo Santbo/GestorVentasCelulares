@@ -18,6 +18,8 @@ using GestionVentasCel.repository.compra;
 using GestionVentasCel.repository.compra.impl;
 using GestionVentasCel.repository.configPrecios;
 using GestionVentasCel.repository.configPrecios.impl;
+using GestionVentasCel.repository.facturas;
+using GestionVentasCel.repository.facturas.impl;
 using GestionVentasCel.repository.persona;
 using GestionVentasCel.repository.persona.impl;
 using GestionVentasCel.repository.proveedor;
@@ -119,6 +121,7 @@ namespace GestionVentasCel
             services.AddTransient<IServicioRepository, ServicioRepositoryImpl>();
             services.AddTransient<IReparacionRepository, ReparacionRepositoryImpl>();
             services.AddTransient<IVentaRepository, VentaRepositoryImpl>();
+            services.AddTransient<IFacturaRepository, FacturaRepositoryImpl>();
 
 
 
