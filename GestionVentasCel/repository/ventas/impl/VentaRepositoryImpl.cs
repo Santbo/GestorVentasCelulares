@@ -153,6 +153,7 @@ namespace GestionVentasCel.repository.ventas.impl
 
                                 if (detalle.EsReparacion && detalle.Reparacion != null)
                                 {
+                                    detalle.Reparacion.FechaEgreso = DateTime.Now;
                                     detalle.Reparacion.Estado = EstadoReparacionEnum.Entregado; // EF lo marcará como modificado
                                 }
                             }

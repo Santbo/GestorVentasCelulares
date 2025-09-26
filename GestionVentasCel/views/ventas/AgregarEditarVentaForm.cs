@@ -218,34 +218,21 @@ namespace GestionVentasCel.views.ventas
         private void btnDescartar_Click(object sender, EventArgs e)
         {
             var accion = MessageBox.Show(
-                "Está por descartar la venta, ¿Desea guardar un borrador para seguir más tarde?",
+                "Está por descartar la venta, ¿Desea hacerlo?",
                 "Descartando cambios",
-                MessageBoxButtons.YesNoCancel,
+                MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation);
 
             if (accion == DialogResult.Yes)
             {
-                this.GuardarBorrador();
                 this.DialogResult = DialogResult.Yes;
             }
             else if (accion == DialogResult.No)
-            {
-                this.DialogResult = DialogResult.Cancel;
-            }
-            else
             {
                 return;
             }
         }
 
-        public void GuardarBorrador()
-        {
-            if (ValidarVenta())
-            {
-                _venta.EstadoVenta = EstadoVentaEnum.Borrador;
-                _service.AgregarVenta(_venta);
-            }
-        }
         private void ConfigurarEstilosVisuales()
         {
             this.BackColor = Tema.ColorSuperficie;

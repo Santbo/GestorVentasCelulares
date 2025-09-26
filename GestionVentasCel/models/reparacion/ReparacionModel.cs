@@ -12,16 +12,16 @@ namespace GestionVentasCel.models.reparacion
         [Key]
         public int Id { get; set; }
 
-        [Required, Display(Name = "Fecha de Ingreso")]
+        [Required, DisplayName("Fecha de Ingreso")]
         public DateTime FechaIngreso { get; set; } = DateTime.Now;
 
-        [Display(Name = "Fecha de Egreso")]
+        [DisplayName("Fecha de Egreso")]
         public DateTime? FechaEgreso { get; set; }
 
         [MaxLength(255)]
         public string? Diagnostico { get; set; }
 
-        [MaxLength(255), Display(Name = "Fallas Reportadas")]
+        [MaxLength(255), DisplayName("Fallas Reportadas")]
         public string? FallasReportadas { get; set; }
 
 

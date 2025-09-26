@@ -67,6 +67,9 @@ namespace GestionVentasCel.views.usuario_empleado
                 dgvListarReparaciones.Columns["ReparacionServicios"].Visible = false;
                 dgvListarReparaciones.Columns["Total"].Visible = false;
                 dgvListarReparaciones.Columns["Detalle"].Visible = false;
+                dgvListarReparaciones.Columns["EstaVencida"].Visible = false;
+                dgvListarReparaciones.Columns["FechaVencimiento"].Visible = false;
+                dgvListarReparaciones.Columns["FechaEgreso"].Visible = false;
 
 
                 // Ordenarlas 
@@ -76,8 +79,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
                 dgvListarReparaciones.Columns["Diagnostico"].DisplayIndex = 4;
                 dgvListarReparaciones.Columns["FechaIngreso"].DisplayIndex = 5;
-                dgvListarReparaciones.Columns["FechaEgreso"].DisplayIndex = 6;
-                dgvListarReparaciones.Columns["TotalFormateado"].DisplayIndex = 7;
+                dgvListarReparaciones.Columns["TotalFormateado"].DisplayIndex = 6;
 
                 foreach (DataGridViewRow row in dgvListarReparaciones.Rows)
                 {

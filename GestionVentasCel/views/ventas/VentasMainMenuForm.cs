@@ -184,15 +184,6 @@ namespace GestionVentasCel.views.usuario_empleado
                         throw new NotImplementedException("Hay que implementar la lógica para facturar");
                     }
                 }
-                // Yes significa que se guardó como borrador, entonces no hay que pedir facturar
-                else if (resultado == DialogResult.Yes)
-                {
-                    MessageBox.Show(
-                        "El borrador se guardó correctamente.",
-                        "Borrador agregado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
             }
             CargarVentas();
             ConfigurarDGV();

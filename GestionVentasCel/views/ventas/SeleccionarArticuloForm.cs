@@ -48,6 +48,9 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarArticulos.Columns["CategoriaId"].Visible = false;
             dgvListarArticulos.Columns["Precio"].Visible = false;
             dgvListarArticulos.Columns["Stock"].Visible = false;
+            dgvListarArticulos.Columns["Detalle"].Visible = false;
+            dgvListarArticulos.Columns["Activo"].Visible = false;
+            dgvListarArticulos.Columns["Aviso_Stock"].Visible = false;
 
             if (dgvListarArticulos.Columns["PrecioFormateado"] == null)
             {
@@ -70,8 +73,6 @@ namespace GestionVentasCel.views.usuario_empleado
                 dgvListarArticulos.Columns["StockFormateado"].DisplayIndex = 4;
                 dgvListarArticulos.Columns["Descripcion"].DisplayIndex = 5;
                 dgvListarArticulos.Columns["Categoria"].DisplayIndex = 6;
-                dgvListarArticulos.Columns["Aviso_stock"].DisplayIndex = 7;
-                dgvListarArticulos.Columns["Activo"].DisplayIndex = 8;
 
                 foreach (DataGridViewRow row in dgvListarArticulos.Rows)
                 {
