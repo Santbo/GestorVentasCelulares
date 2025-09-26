@@ -133,23 +133,6 @@ namespace GestionVentasCel.service.venta.impl
             if (venta.EstadoVenta == EstadoVentaEnum.Confirmada && !editando)
                 throw new ConfirmacionVentaDupicadaException("Se intentó confirmar una venta que ya estaba confirmada");
 
-            //TODO: Si es a cuenta corriente, se tiene que crear un movimiento, A MENOS QUE ESTÉ DESACTIVADA
-            //TODO: Si no tiene cuenta corriente, se tiene que crear una
-            foreach (var detalle in venta.Detalles)
-            {
-                if (detalle.EsArticulo && detalle.Articulo != null)
-                {
-                    detalle.Articulo.Stock -= detalle.Cantidad;
-                }
-                //TODO: Editar la venta y cambiar el tipo de pago no cambia nada
-
-                if (detalle.EsReparacion && detalle.Reparacion != null)
-                {
-                    detalle.Reparacion.Estado = EstadoReparacionEnum.Terminado;
-
-                }
-            }
-
             venta.EstadoVenta = EstadoVentaEnum.Confirmada;
             venta.FechaVenta = DateTime.Now;
 

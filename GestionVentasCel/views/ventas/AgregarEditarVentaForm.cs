@@ -57,6 +57,7 @@ namespace GestionVentasCel.views.ventas
             {
                 // Hay que mostrar el selector de estado unicamente cuando se lo edita a la venta
                 panelEstado.Visible = true;
+                this.comboTipoPago.SelectedItem = _venta.TipoPago.ToString();
                 this.CalcularTotales();
             } else
             {
