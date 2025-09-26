@@ -55,6 +55,8 @@ namespace GestionVentasCel.views.ventas
                 // Hay que mostrar el selector de estado unicamente cuando se lo edita a la venta
                 panelEstado.Visible = true;
                 this.comboTipoPago.SelectedItem = _venta.TipoPago.ToString();
+                // No se debería poder cambiar el cliente al que se le hizo una venta.
+                this.comboCliente.Enabled = false;
                 this.CalcularTotales();
             }
             else
@@ -325,6 +327,8 @@ namespace GestionVentasCel.views.ventas
                     if (_venta.EstadoVenta == EstadoVentaEnum.Confirmada)
                     {
                         this.DialogResult = DialogResult.Yes;
+                        this.Close();
+                        return;
                     }
                 }
                 else
@@ -333,9 +337,10 @@ namespace GestionVentasCel.views.ventas
                     _service.ConfirmarVenta(_venta.Id);
                     MessageBox.Show("La venta se guardó correctamente", "Venta guardada");
 
-                    this.DialogResult = DialogResult.OK;
 
                 }
+                    this.DialogResult = DialogResult.OK;
+                this.Close();
             }
 
         }

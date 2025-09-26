@@ -219,14 +219,20 @@ namespace GestionVentasCel.views.usuario_empleado
 
                         if (facturar)
                         {
-                            _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
+                            Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
+                            MessageBox.Show(
+                                "Se emitió la factura de la venta.",
+                                "Factura emitida",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Question
+                            );
+
+                            // TODO: Mostrar directo el detalle de la factura
                         }
                     }
                 }
                 CargarVentas();
                 ConfigurarDGV();
-                // TODO: Eliminar estados de venta que no se soportan
-                // TODO: Hay que ver bien que únicamente se muestre la pregunta de facturacion si la venta está confirmada
             }
         }
 

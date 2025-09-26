@@ -160,7 +160,6 @@ namespace GestionVentasCel.repository.ventas.impl
 
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
-                        //TODO: Guardar la edición de una venta no cierra el coso
                         //TODO: Ver detalle de factura
 
 
@@ -205,7 +204,6 @@ namespace GestionVentasCel.repository.ventas.impl
                                         ClienteId = ventaOriginal.ClienteId,
                                     };
                                 }
-                                //TODO: Hay que actualizar el usario que vendió, pero bloquear en el form que se pueda cmabiar el cliente
                                 cuenta.Movimientos.Add(new MovimientoCuentaCorriente
                                 {
                                     Tipo = TipoMovimiento.Aumento,
@@ -274,7 +272,6 @@ namespace GestionVentasCel.repository.ventas.impl
                         ClienteId = venta.ClienteId,
                     };
                 }
-                //TODO: Hay que actualizar el usario que vendió, pero bloquear en el form que se pueda cmabiar el cliente
                 cuenta.Movimientos.Add(new MovimientoCuentaCorriente
                 {
                     Tipo = TipoMovimiento.Aumento,
