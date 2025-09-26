@@ -330,13 +330,6 @@ namespace GestionVentasCel.views.ventas
 
         }
 
-        private void btnAgregarCliente_Click(object sender, EventArgs e)
-        {
-            //TODO: Abrir el formulario de creación de cliente.
-            throw new NotImplementedException("Hay que implementar la lógica para abrir el formulario de agregar cliente");
-        }
-
-
         private void AgregarArticulo()
         {
             _detalleActual = new DetalleVenta();

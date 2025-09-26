@@ -290,8 +290,7 @@ namespace GestionVentasCel.views.servicio
                 else
                 {
                     // Actualizo en la BD
-                    //TODO: Hacer que esto le saque la fecha de vencimiento si se la repara
-
+                    // Si se la está reparando, tambien se saca la fecha de vencimiento
                     var estadoActual = reparacion.Estado;
                     if (estadoActual !=  EstadoReparacionEnum.Entregado)
                     {

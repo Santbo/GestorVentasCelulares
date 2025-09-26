@@ -32,7 +32,6 @@
             Panel panel1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarVentaForm));
             Panel panel4;
-            btnAgregarCliente = new Button();
             imageList1 = new ImageList(components);
             comboCliente = new ComboBox();
             lblCliente = new Label();
@@ -91,26 +90,12 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnAgregarCliente);
             panel1.Controls.Add(comboCliente);
             panel1.Controls.Add(lblCliente);
             panel1.Location = new Point(12, 80);
             panel1.Name = "panel1";
             panel1.Size = new Size(718, 68);
             panel1.TabIndex = 0;
-            // 
-            // btnAgregarCliente
-            // 
-            btnAgregarCliente.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnAgregarCliente.ImageKey = "plus-solid.png";
-            btnAgregarCliente.ImageList = imageList1;
-            btnAgregarCliente.Location = new Point(668, 25);
-            btnAgregarCliente.Name = "btnAgregarCliente";
-            btnAgregarCliente.Size = new Size(47, 43);
-            btnAgregarCliente.TabIndex = 2;
-            btnAgregarCliente.TabStop = false;
-            btnAgregarCliente.UseVisualStyleBackColor = true;
-            btnAgregarCliente.Click += btnAgregarCliente_Click;
             // 
             // imageList1
             // 
@@ -122,15 +107,15 @@
             // 
             // comboCliente
             // 
-            comboCliente.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             comboCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboCliente.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboCliente.Dock = DockStyle.Bottom;
             comboCliente.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboCliente.FormattingEnabled = true;
-            comboCliente.Location = new Point(0, 26);
+            comboCliente.Location = new Point(0, 28);
             comboCliente.Margin = new Padding(3, 3, 3, 0);
             comboCliente.Name = "comboCliente";
-            comboCliente.Size = new Size(665, 40);
+            comboCliente.Size = new Size(718, 40);
             comboCliente.TabIndex = 1;
             // 
             // lblCliente
@@ -574,7 +559,6 @@
         private ImageList imageList1;
         private Label lblCliente;
         private ComboBox comboCliente;
-        private Button btnAgregarCliente;
         private Panel panel2;
         private ComboBox comboTipoPago;
         private Label lblTipoPago;

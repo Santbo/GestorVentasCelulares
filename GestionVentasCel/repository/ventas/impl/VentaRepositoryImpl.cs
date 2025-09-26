@@ -51,7 +51,6 @@ namespace GestionVentasCel.repository.ventas.impl
             //          7.1.2 Crear el movimiento, creando la cuenta corriente si es necesario
             //  8. Actualizar el tipo de pago.
 
-            // TODO: Ver si cambia el tipo de pago, y ejecutar todo el flujo de crear cuenta corriente
             // TODO: Implementar la capacidad de ver la venta del movimiento
             // TODO: Implementar el ver detalle de venta, que sea un editar nomas pero con todo desactivado
             // TODO: Sacar EstaVencida del listado de reparaciones
