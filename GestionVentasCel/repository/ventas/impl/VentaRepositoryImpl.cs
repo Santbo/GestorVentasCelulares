@@ -9,6 +9,7 @@ using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel.repository.ventas.impl
 {
@@ -235,6 +236,60 @@ namespace GestionVentasCel.repository.ventas.impl
             
         }
 
+
+        public void ConfirmarVenta(int VentaId)
+        {
+            var venta = this.ObtenerPorIdConDetalles(VentaId);
+            if (venta == null)
+                throw new VentaNoEncontradaException("Se intentó confirmar una venta que no existe");
+
+            if (venta.EstadoVenta == EstadoVentaEnum.Confirmada)
+                throw new ConfirmacionVentaDupicadaException("Se intentó confirmar una venta que ya estaba confirmada");
+
+            venta.EstadoVenta = EstadoVentaEnum.Confirmada;
+            venta.FechaVenta = DateTime.Now;
+
+            // Descontar stocks y marcar reparaciones como entregadas
+
+            foreach (var detalle in venta.Detalles)
+            {
+
+                if (detalle.EsArticulo && detalle.Articulo != null)
+                {
+                    detalle.Articulo.Stock -= detalle.Cantidad;
+                }
+
+                if (detalle.EsReparacion && detalle.Reparacion != null)
+                {
+                    detalle.Reparacion.Estado = EstadoReparacionEnum.Entregado;
+                }
+            }
+
+            if (venta.TipoPago == TipoPagoEnum.CuentaCorriente)
+            {
+                CuentaCorriente? cuenta = _context.CuentasCorrientes
+                                    .FirstOrDefault(cc => cc.ClienteId == venta.ClienteId);
+                if (cuenta == null)
+                {
+                    cuenta = new CuentaCorriente
+                    {
+                        ClienteId = venta.ClienteId,
+                    };
+                }
+                //TODO: Hay que actualizar el usario que vendió, pero bloquear en el form que se pueda cmabiar el cliente
+                cuenta.Movimientos.Add(new MovimientoCuentaCorriente
+                {
+                    Tipo = TipoMovimiento.Aumento,
+                    Monto = venta.TotalConIva,
+                    VentaId = venta.Id,
+                    Fecha = (DateTime)venta.FechaVenta!,
+                    Descripcion = $"Venta número {venta.Id} del {venta.FechaVenta}"
+                });
+            }
+
+            _context.SaveChanges();
+        }
+
         public void Eliminar(int id)
         {
             var venta = _context.Ventas.Find(id);
@@ -332,33 +387,6 @@ namespace GestionVentasCel.repository.ventas.impl
                 .ToList();
         }
 
-        public void AgregarDetalle(int ventaId, DetalleVenta detalle)
-        {
-            var venta = _context.Ventas
-                .Include(v => v.Detalles)
-                .FirstOrDefault(v => v.Id == ventaId);
-
-            if (venta != null)
-            {
-                venta.Detalles.Add(detalle);
-                _context.SaveChanges();
-            }
-        }
-
-        public void EliminarDetalle(int detalleId)
-        {
-            var detalle = _context.DetallesVenta.Find(detalleId);
-            if (detalle != null)
-            {
-                _context.DetallesVenta.Remove(detalle);
-                _context.SaveChanges();
-            }
-        }
-
-        public Venta? ObtenerPresupuestoPorId(int idVenta)
-        {
-            return _context.Ventas.FirstOrDefault(v => v.Id == idVenta && v.EstadoVenta == EstadoVentaEnum.Presupuesto);
-        }
     }
 
 }

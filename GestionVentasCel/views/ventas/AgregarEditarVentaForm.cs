@@ -66,11 +66,16 @@ namespace GestionVentasCel.views.ventas
 
         }
 
-        private void ConfigurarDGVDetalles()
+        private void CargarDataSourceDGV ()
         {
-            _bindingSource.DataSource = _venta.Detalles;
+            _bindingSource.DataSource = new BindingList<DetalleVenta>(_venta.Detalles.ToList()); ;
 
             dgvListarDetalles.DataSource = _bindingSource;
+        }
+
+        private void ConfigurarDGVDetalles()
+        {
+            CargarDataSourceDGV();
 
             // Agregar todas las columnas formateadas
             if (dgvListarDetalles.Columns["Detalle"] == null)
@@ -171,7 +176,27 @@ namespace GestionVentasCel.views.ventas
                     comboTipoPago.DataSource = _service.ObtenerMediosDePagoDisponibles(clienteId);
                     comboTipoPago.SelectedItem = _venta.TipoPago;
 
-                    //TODO: Recorrer los detalles y eliminar todas las reparaciones.
+                    // Hay que recorrer los detalles y eliminar todas las reparaciones, porque al cambiar el cliente, 
+                    // no se pueden vender reparaciones a clientes que no son
+
+                    List<int> ids = new ();
+                    foreach (DetalleVenta det in _venta.Detalles)
+                    {
+                        if (det.EsReparacion && det.Reparacion != null)
+                        {
+                            ids.Add((int)det.Reparacion.Id!);
+                        }
+                    }
+
+                    foreach (int id in ids)
+                    {
+                        _venta.Detalles.Remove(_venta.Detalles.First(d => d.Reparacion.Id == id));
+                    }
+
+                    this.CargarDataSourceDGV();
+                    this.CalcularTotales();
+
+                    
                 }
             };
 
@@ -483,6 +508,9 @@ namespace GestionVentasCel.views.ventas
             this.nupCantidad.Value = 0;
             this.nupCantidad.Enabled = true;
 
+
+            this.CargarDataSourceDGV();
+
             this.CalcularTotales();
         }
 
@@ -510,6 +538,7 @@ namespace GestionVentasCel.views.ventas
             _venta.Detalles.Remove(detalle!);
 
             this._bindingSource.ResetBindings(false);
+            this.CargarDataSourceDGV();
             this.CalcularTotales();
         }
     }

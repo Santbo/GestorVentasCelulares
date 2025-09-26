@@ -16,14 +16,12 @@ namespace GestionVentasCel.repository.ventas
         Venta? ObtenerPorId(int id);
         Venta? ObtenerPorIdConDetalles(int id);
         Venta? ObtenerPorIdConDetallesNoTracking(int id);
+        void ConfirmarVenta(int VentaId);
+
 
 
         IEnumerable<Venta> ObtenerPresupuestos();
         IEnumerable<Venta> ObtenerVentas();
-        Venta? ObtenerPresupuestoPorId(int idVenta);
 
-        // Manejo de detalles
-        void AgregarDetalle(int ventaId, DetalleVenta detalle);
-        void EliminarDetalle(int detalleId);
     }
 }

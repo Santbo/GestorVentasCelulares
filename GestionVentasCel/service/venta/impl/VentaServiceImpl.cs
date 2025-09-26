@@ -126,22 +126,7 @@ namespace GestionVentasCel.service.venta.impl
         /// </summary>
         public void ConfirmarVenta(int ventaId, bool editando = false)
         {
-            var venta = _ventaRepo.ObtenerPorIdConDetalles(ventaId);
-            if (venta == null)
-                throw new VentaNoEncontradaException("Se intentó confirmar una venta que no existe");
-
-            if (venta.EstadoVenta == EstadoVentaEnum.Confirmada && !editando)
-                throw new ConfirmacionVentaDupicadaException("Se intentó confirmar una venta que ya estaba confirmada");
-
-            venta.EstadoVenta = EstadoVentaEnum.Confirmada;
-            venta.FechaVenta = DateTime.Now;
-
-            if (venta.TipoPago == TipoPagoEnum.CuentaCorriente)
-            {
-                this.GestionarVentaACuenta(venta);
-            }
-
-            _ventaRepo.Actualizar(venta);
+            _ventaRepo.ConfirmarVenta(ventaId);
 
 
         }
