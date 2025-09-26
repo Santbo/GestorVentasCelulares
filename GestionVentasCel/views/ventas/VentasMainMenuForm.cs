@@ -116,16 +116,17 @@ namespace GestionVentasCel.views.usuario_empleado
                 filtrados = filtrados.Where(u => u.EstadoVenta != enumerations.ventas.EstadoVentaEnum.Anulada);
             }
 
-            // filtro por búsqueda
-            //string filtro = txtBuscar.Text.Trim().ToLower();
-            //if (!string.IsNullOrEmpty(filtro))
-            //{
-            //TODO: Implementar filtros de ventas
-            //    //filtrados = filtrados.Where(u =>
-            //    //    u.Nombre.ToLower().Contains(filtro)
-            //    //    || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
-            //    //);
-            //}
+            
+            string filtro = txtBuscar.Text.Trim().ToLower();
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                filtrados = filtrados.Where(u =>
+                    u.Cliente.Nombre.ToLower().Contains(filtro)
+                    || u.FechaCreacion.ToString().ToLower().Contains(filtro)
+                    || (u.FechaVenta.HasValue && u.FechaVenta.Value.ToString().ToLower().Contains(filtro))
+
+                );
+            }
 
             // asignar al BindingSource
             _bindingSource.DataSource = new BindingList<Venta>(filtrados.ToList());

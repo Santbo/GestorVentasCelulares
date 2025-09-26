@@ -86,18 +86,16 @@ namespace GestionVentasCel.views.usuario_empleado
             // punto de partida: todos los usuarios
             IEnumerable<Factura> filtrados = _facturas;
 
-            //TODO: Filtro por búsqueda de factura
 
             // filtro por búsqueda
-            //string filtro = txtBuscar.Text.Trim().ToLower();
-            //if (!string.IsNullOrEmpty(filtro))
-            //{
-            //TODO: Implementar filtros de ventas
-            //    //filtrados = filtrados.Where(u =>
-            //    //    u.Nombre.ToLower().Contains(filtro)
-            //    //    || u.Dni.ToLower().Contains(filtro)   // Filtra por apellido y Dni, se puede agregar mas
-            //    //);
-            //}
+            string filtro = txtBuscar.Text.Trim().ToLower();
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                filtrados = filtrados.Where(u =>
+                    u.NombreCliente.ToLower().Contains(filtro)
+                    || u.FechaEmision.ToString().ToLower().Contains(filtro) 
+                );
+            }
 
             // asignar al BindingSource
             _bindingSource.DataSource = new BindingList<Factura>(filtrados.ToList());

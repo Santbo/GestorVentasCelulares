@@ -50,7 +50,6 @@ namespace GestionVentasCel.repository.ventas.impl
             //  8. Actualizar el tipo de pago.
 
             // TODO: Implementar la capacidad de ver la venta del movimiento
-            // TODO: Implementar el ver detalle de venta, que sea un editar nomas pero con todo desactivado
             var strategy = _context.Database.CreateExecutionStrategy();
 
             strategy.Execute(() =>
