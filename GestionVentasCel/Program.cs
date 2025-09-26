@@ -42,6 +42,7 @@ using GestionVentasCel.service.compra;
 using GestionVentasCel.service.compra.impl;
 using GestionVentasCel.service.configPrecios;
 using GestionVentasCel.service.configPrecios.impl;
+using GestionVentasCel.service.factura;
 using GestionVentasCel.service.proveedor;
 using GestionVentasCel.service.proveedor.impl;
 using GestionVentasCel.service.reparacion;
@@ -138,6 +139,8 @@ namespace GestionVentasCel
             services.AddTransient<IServicioService, ServicioServiceImpl>();
             services.AddTransient<IReparacionService, ReparacionServiceImpl>();
             services.AddTransient<IVentaService, VentaServiceImpl>();
+            services.AddTransient<IFacturaService, FacturaServiceImpl>();
+
 
 
 

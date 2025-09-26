@@ -1,6 +1,6 @@
 ﻿namespace GestionVentasCel.views.usuario_empleado
 {
-    partial class VentaMainMenuForm
+    partial class FacturaMainMenuForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,9 +30,6 @@
         {
             panelBtn = new Panel();
             txtBuscar = new TextBox();
-            chkMostrarInactivos = new CheckBox();
-            btnEditar = new Button();
-            btnAgregar = new Button();
             panelContenedor = new Panel();
             splitContainer1 = new SplitContainer();
             panelHeader = new Panel();
@@ -52,9 +49,6 @@
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
             panelBtn.Controls.Add(txtBuscar);
-            panelBtn.Controls.Add(chkMostrarInactivos);
-            panelBtn.Controls.Add(btnEditar);
-            panelBtn.Controls.Add(btnAgregar);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
             panelBtn.Margin = new Padding(4);
@@ -67,47 +61,10 @@
             txtBuscar.Location = new Point(15, 11);
             txtBuscar.Margin = new Padding(4);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "(Ctrl + F) Buscar ventas";
+            txtBuscar.PlaceholderText = "(Ctrl + F) Buscar facturas";
             txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
-            // 
-            // chkMostrarInactivos
-            // 
-            chkMostrarInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            chkMostrarInactivos.AutoSize = true;
-            chkMostrarInactivos.Location = new Point(15, 53);
-            chkMostrarInactivos.Margin = new Padding(4);
-            chkMostrarInactivos.Name = "chkMostrarInactivos";
-            chkMostrarInactivos.Size = new Size(216, 29);
-            chkMostrarInactivos.TabIndex = 3;
-            chkMostrarInactivos.Text = "Incluir ventas anuladas";
-            chkMostrarInactivos.UseVisualStyleBackColor = true;
-            chkMostrarInactivos.CheckedChanged += chkMostrarInactivos_CheckedChanged;
-            // 
-            // btnEditar
-            // 
-            btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(660, 6);
-            btnEditar.Margin = new Padding(4);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(160, 75);
-            btnEditar.TabIndex = 1;
-            btnEditar.Text = "Editar";
-            btnEditar.UseVisualStyleBackColor = true;
-            btnEditar.Click += btnUpdate_Click;
-            // 
-            // btnAgregar
-            // 
-            btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(827, 6);
-            btnAgregar.Margin = new Padding(4);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(160, 75);
-            btnAgregar.TabIndex = 0;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = true;
-            btnAgregar.Click += btnAgregar_Click;
             // 
             // panelContenedor
             // 
@@ -157,7 +114,7 @@
             lblTituloForm.Padding = new Padding(8, 0, 8, 0);
             lblTituloForm.Size = new Size(1000, 34);
             lblTituloForm.TabIndex = 0;
-            lblTituloForm.Text = "Gestión de ventas";
+            lblTituloForm.Text = "Facturas emitidas";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dgvListar
@@ -175,7 +132,7 @@
             dgvListar.Size = new Size(978, 430);
             dgvListar.TabIndex = 0;
             // 
-            // VentaMainMenuForm
+            // FacturaMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -184,7 +141,7 @@
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
-            Name = "VentaMainMenuForm";
+            Name = "FacturaMainMenuForm";
             Text = "UsuarioMainMenu";
             Load += VentaMianMenu_Load;
             panelBtn.ResumeLayout(false);
@@ -204,10 +161,7 @@
         private Panel panelBtn;
         private Panel panelContenedor;
         private DataGridView dgvListar;
-        private Button btnEditar;
-        private Button btnAgregar;
         private TextBox txtBuscar;
-        private CheckBox chkMostrarInactivos;
         private SplitContainer splitContainer1;
         private Panel panelHeader;
         private Label lblTituloForm;

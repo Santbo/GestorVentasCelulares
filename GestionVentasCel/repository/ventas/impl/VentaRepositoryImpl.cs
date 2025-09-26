@@ -156,11 +156,13 @@ namespace GestionVentasCel.repository.ventas.impl
                             }
 
                             ventaOriginal.FechaVenta = DateTime.Now;
-                            ventaOriginal.EstadoVenta = ventaActualizada.EstadoVenta;
                         }
+                        ventaOriginal.EstadoVenta = ventaActualizada.EstadoVenta;
 
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
+                        //TODO: Guardar la edición de una venta no cierra el coso
+                        //TODO: Ver detalle de factura
 
 
                         // 6. Si la venta original se pagó con cuenta corriente:

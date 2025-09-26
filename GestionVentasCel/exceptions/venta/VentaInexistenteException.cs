@@ -1,5 +1,4 @@
-﻿
-namespace GestionVentasCel.views.usuario_empleado
+﻿namespace GestionVentasCel.exceptions.venta
 {
     [Serializable]
     internal class VentaInexistenteException : Exception

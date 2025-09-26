@@ -2,7 +2,9 @@
 using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
+using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.ventas;
+using GestionVentasCel.service.factura;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
@@ -98,37 +100,6 @@ namespace GestionVentasCel.views.usuario_empleado
             AplicarFiltro();
         }
 
-        private void btnToggleActivo_Click(object sender, EventArgs e)
-        {
-            if (dgvListar.CurrentRow != null)
-            {
-                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
-
-                var result = MessageBox.Show(
-                    "¿Seguro que desea eliminar esta venta?",
-                    "Confirmación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (result == DialogResult.No) return;
-
-                try
-                {
-                    _ventaService.EliminarVenta(id);
-
-                    var venta = _ventas.FirstOrDefault(v => v.Id == id);
-                    if (venta != null)
-                        _ventas.Remove(venta);
-
-                    AplicarFiltro();
-                }
-                catch (VentaInexistenteException ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
 
         private void AplicarFiltro()
         {
@@ -211,6 +182,16 @@ namespace GestionVentasCel.views.usuario_empleado
                     return;
                 }
 
+                if (venta.EstadoVenta == enumerations.ventas.EstadoVentaEnum.Facturada)
+                {
+                    MessageBox.Show("No puede editarse una venta que esté facturada.",
+                        "Venta ya facturada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
                 using (var editarVenta = new AgregarEditarVentaForm(
                     serviceProvider: _serviceProvider,
                     ventaService: _serviceProvider.GetRequiredService<IVentaService>(),
@@ -239,12 +220,14 @@ namespace GestionVentasCel.views.usuario_empleado
 
                         if (facturar)
                         {
-                            throw new NotImplementedException("Hay que implementar la lógica para facturar");
+                            _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
                         }
                     }
                 }
                 CargarVentas();
                 ConfigurarDGV();
+                // TODO: Eliminar estados de venta que no se soportan
+                // TODO: Cambiar el estado de una venta no lo guarda
             }
         }
 
@@ -315,12 +298,6 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
                     // Control F para buscar usuarios
                     txtBuscar.Focus();
-                }
-
-                // Supr para habilitar/deshabilitar el usuario
-                if (e.KeyCode == Keys.Delete)
-                {
-                    btnAnular.PerformClick();
                 }
             };
         }

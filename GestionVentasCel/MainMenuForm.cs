@@ -8,6 +8,7 @@ using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.service.factura;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.articulo;
@@ -186,6 +187,15 @@ namespace GestionVentasCel
             AbrirFormularioHijo(new VentaMainMenuForm(
                 _serviceProvider.GetRequiredService<IVentaService>(),
                 _serviceProvider
+                )
+            );
+        }
+
+        private void gestionarFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Facturas emitidas - SGVC";
+            AbrirFormularioHijo(new FacturaMainMenuForm(
+                _serviceProvider.GetRequiredService<IFacturaService>()
                 )
             );
         }

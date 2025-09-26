@@ -65,6 +65,9 @@
 	  <Compile Update="views\ventas\SeleccionarArticuloForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="views\ventas\FacturaMainMenuForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="views\ventas\VentasMainMenuForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

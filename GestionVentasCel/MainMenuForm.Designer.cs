@@ -182,6 +182,7 @@
             gestionarFacturasToolStripMenuItem.Name = "gestionarFacturasToolStripMenuItem";
             gestionarFacturasToolStripMenuItem.Size = new Size(289, 38);
             gestionarFacturasToolStripMenuItem.Text = "Gestionar &facturas";
+            gestionarFacturasToolStripMenuItem.Click += gestionarFacturasToolStripMenuItem_Click;
             // 
             // panelContenedor
             // 
