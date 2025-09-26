@@ -286,13 +286,13 @@ namespace GestionVentasCel.views.servicio
                         // pero como la lógica de calcular está en la UI, es mas facil llamar a la ui
                         _reparacionController.RecalcularReparacion(reparacion.Id);
                     }
-                } 
+                }
                 else
                 {
                     // Actualizo en la BD
                     // Si se la está reparando, tambien se saca la fecha de vencimiento
                     var estadoActual = reparacion.Estado;
-                    if (estadoActual !=  EstadoReparacionEnum.Entregado)
+                    if (estadoActual != EstadoReparacionEnum.Entregado)
                     {
                         _reparacionController.CambiarEstado(id, reparacion.Estado + 1);
                     }

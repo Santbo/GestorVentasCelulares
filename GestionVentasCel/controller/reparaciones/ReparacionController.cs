@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using GestionVentasCel.controller.articulo;
+﻿using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.exceptions.reparacion;
@@ -90,7 +89,7 @@ namespace GestionVentasCel.controller.reparaciones
             }
             decimal total = 0;
             var servicios = reparacion.ReparacionServicios
-                   .Select(rs  => rs.Servicio!)
+                   .Select(rs => rs.Servicio!)
                    .ToList();
 
             foreach (var servicio in servicios)

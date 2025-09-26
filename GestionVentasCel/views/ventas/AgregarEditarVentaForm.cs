@@ -3,7 +3,6 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
-using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
@@ -13,9 +12,7 @@ using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.usuario_empleado;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace GestionVentasCel.views.ventas
 {
@@ -59,14 +56,15 @@ namespace GestionVentasCel.views.ventas
                 panelEstado.Visible = true;
                 this.comboTipoPago.SelectedItem = _venta.TipoPago.ToString();
                 this.CalcularTotales();
-            } else
+            }
+            else
             {
                 panelEstado.Visible = false;
             }
 
         }
 
-        private void CargarDataSourceDGV ()
+        private void CargarDataSourceDGV()
         {
             _bindingSource.DataSource = new BindingList<DetalleVenta>(_venta.Detalles.ToList()); ;
 
@@ -179,7 +177,7 @@ namespace GestionVentasCel.views.ventas
                     // Hay que recorrer los detalles y eliminar todas las reparaciones, porque al cambiar el cliente, 
                     // no se pueden vender reparaciones a clientes que no son
 
-                    List<int> ids = new ();
+                    List<int> ids = new();
                     foreach (DetalleVenta det in _venta.Detalles)
                     {
                         if (det.EsReparacion && det.Reparacion != null)
@@ -196,7 +194,7 @@ namespace GestionVentasCel.views.ventas
                     this.CargarDataSourceDGV();
                     this.CalcularTotales();
 
-                    
+
                 }
             };
 
@@ -478,8 +476,8 @@ namespace GestionVentasCel.views.ventas
                         // Ya existe el artículo, por lo que hayq ue sumarle nomás la cantidad
                         detalleExistente.Cantidad += _detalleActual.Cantidad;
                     }
-                        
-                    
+
+
                     detalleExistente.PorcentajeIva = _detalleActual.PorcentajeIva;
                 }
                 else
@@ -518,7 +516,8 @@ namespace GestionVentasCel.views.ventas
             if (MessageBox.Show("Está seguro que quiere eliminar este detalle?",
                                 "Confirmar eliminación",
                                 MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) != DialogResult.Yes){
+                                MessageBoxIcon.Question) != DialogResult.Yes)
+            {
                 return;
             }
 

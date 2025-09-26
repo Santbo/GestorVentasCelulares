@@ -1,5 +1,4 @@
 ﻿using GestionVentasCel.enumerations.cuentaCorriente;
-using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.CuentaCorreinte;
@@ -8,7 +7,6 @@ using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ventas;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.reparacion;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace GestionVentasCel.service.venta.impl
 {
@@ -43,11 +41,11 @@ namespace GestionVentasCel.service.venta.impl
             //      1.1 Crear una cuenta corriente
             // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
 
-            CuentaCorriente? cuentaCorriente = _cuentaCorrienteRepo.GetByClienteId( venta.ClienteId );
+            CuentaCorriente? cuentaCorriente = _cuentaCorrienteRepo.GetByClienteId(venta.ClienteId);
             bool tieneCuenta = cuentaCorriente != null;
 
             // 1. Si el cliente no tiene cuenta corriente
-            if (cuentaCorriente == null )
+            if (cuentaCorriente == null)
             {
                 // 1.1 Crear una cuenta corriente
 
@@ -61,7 +59,7 @@ namespace GestionVentasCel.service.venta.impl
             // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
             cuentaCorriente.Movimientos.Add(new MovimientoCuentaCorriente
             {
-                Fecha = (DateTime) venta.FechaVenta!,
+                Fecha = (DateTime)venta.FechaVenta!,
                 Monto = venta.TotalConIva,
                 VentaId = venta.Id,
                 Tipo = TipoMovimiento.Aumento,
@@ -72,7 +70,8 @@ namespace GestionVentasCel.service.venta.impl
             if (tieneCuenta)
             {
                 _cuentaCorrienteRepo.Update(cuentaCorriente);
-            } else
+            }
+            else
             {
                 _cuentaCorrienteRepo.Add(cuentaCorriente);
             }
@@ -80,7 +79,7 @@ namespace GestionVentasCel.service.venta.impl
 
         public void ActualizarVenta(Venta ventaActualizada)
         {
-            
+
             _ventaRepo.Actualizar(ventaActualizada);
         }
 

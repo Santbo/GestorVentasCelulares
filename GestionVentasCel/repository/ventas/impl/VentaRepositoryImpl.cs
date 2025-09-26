@@ -4,12 +4,9 @@ using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.exceptions.venta;
-using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.CuentaCorreinte;
-using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel.repository.ventas.impl
 {
@@ -129,14 +126,14 @@ namespace GestionVentasCel.repository.ventas.impl
 
                         // Guardar los cambios, una vez que se guardaron todos los detalles
                         _context.SaveChanges();
-                        
+
 
                         // Después de no se cuánto tiempo de problemas de tracking, la forma más fácil
                         // de hacer que esto funcione es guardando los cambios de la venta después de que se 
                         // guardaron los nuevos detalles, y volver a traer la venta de la base de datos para
                         // que EF core se arregle con instanciar los artículos y las reparaciones para que no de 
                         // errror de tracking. Es feo pero está en una transacción asi que no debería pasar nada
-                        
+
                         ventaOriginal = this.ObtenerPorIdConDetalles(ventaActualizada.Id);
 
 
@@ -184,7 +181,7 @@ namespace GestionVentasCel.repository.ventas.impl
 
                                 movimiento.Monto = ventaOriginal.TotalConIva;
                                 _context.MovimientosCuentasCorrientes.Update(movimiento);
-                            } 
+                            }
                             // 6.2 Si la venta actualizada se pagó con efectivo:
                             else
                             {
@@ -214,7 +211,7 @@ namespace GestionVentasCel.repository.ventas.impl
                                     Tipo = TipoMovimiento.Aumento,
                                     Monto = ventaOriginal.TotalConIva,
                                     VentaId = ventaOriginal.Id,
-                                    Fecha = (DateTime) ventaOriginal.FechaVenta!,
+                                    Fecha = (DateTime)ventaOriginal.FechaVenta!,
                                     Descripcion = $"Venta número {ventaOriginal.Id} del {ventaOriginal.FechaVenta}"
                                 });
                             }
@@ -233,8 +230,8 @@ namespace GestionVentasCel.repository.ventas.impl
                     }
                 }
             });
-            
-            
+
+
         }
 
 
@@ -347,7 +344,7 @@ namespace GestionVentasCel.repository.ventas.impl
                     .ThenInclude(d => d.Reparacion)
                 .FirstOrDefault(v => v.Id == id);
         }
-        
+
         public Venta? ObtenerPorIdConDetallesNoTracking(int id)
         {
             return _context.Ventas

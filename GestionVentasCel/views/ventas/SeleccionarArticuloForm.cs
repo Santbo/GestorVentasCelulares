@@ -2,7 +2,6 @@
 using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.cliente;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.temas;

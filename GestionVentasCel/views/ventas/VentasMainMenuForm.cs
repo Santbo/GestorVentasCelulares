@@ -137,7 +137,8 @@ namespace GestionVentasCel.views.usuario_empleado
             IEnumerable<Venta> filtrados = _ventas;
 
             // filtro por Activo
-            if (chkMostrarInactivos.Checked){
+            if (chkMostrarInactivos.Checked)
+            {
                 filtrados = filtrados.Where(u => u.EstadoVenta == enumerations.ventas.EstadoVentaEnum.Anulada);
             }
             else
@@ -227,7 +228,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         "Venta guardada",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-                    } else if (resultado == DialogResult.Yes)
+                    }
+                    else if (resultado == DialogResult.Yes)
                     {
                         bool facturar = MessageBox.Show(
                         "La venta se confirmó correctamente. ¿Desea emitir una factura?",
