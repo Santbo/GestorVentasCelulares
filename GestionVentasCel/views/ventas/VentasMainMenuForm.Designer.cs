@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelBtn = new Panel();
+            btnVerDetalles = new Button();
             txtBuscar = new TextBox();
             chkMostrarInactivos = new CheckBox();
             btnEditar = new Button();
@@ -51,6 +52,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnVerDetalles);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Controls.Add(chkMostrarInactivos);
             panelBtn.Controls.Add(btnEditar);
@@ -61,6 +63,17 @@
             panelBtn.Name = "panelBtn";
             panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 0;
+            // 
+            // btnVerDetalles
+            // 
+            btnVerDetalles.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnVerDetalles.Location = new Point(479, 6);
+            btnVerDetalles.Name = "btnVerDetalles";
+            btnVerDetalles.Size = new Size(174, 75);
+            btnVerDetalles.TabIndex = 5;
+            btnVerDetalles.Text = "Ver detalles";
+            btnVerDetalles.UseVisualStyleBackColor = true;
+            btnVerDetalles.Click += btnVerDetalles_Click;
             // 
             // txtBuscar
             // 
@@ -211,5 +224,6 @@
         private SplitContainer splitContainer1;
         private Panel panelHeader;
         private Label lblTituloForm;
+        private Button btnVerDetalles;
     }
 }

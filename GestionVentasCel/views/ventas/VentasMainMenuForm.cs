@@ -116,7 +116,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 filtrados = filtrados.Where(u => u.EstadoVenta != enumerations.ventas.EstadoVentaEnum.Anulada);
             }
 
-            
+
             string filtro = txtBuscar.Text.Trim().ToLower();
             if (!string.IsNullOrEmpty(filtro))
             {
@@ -299,6 +299,11 @@ namespace GestionVentasCel.views.usuario_empleado
                     // Control U para actualizar el usuario
                     btnEditar.PerformClick();
                 }
+                if (e.Control && e.KeyCode == Keys.D)
+                {
+                    // Control D para ver detalles
+                    btnVerDetalles.PerformClick();
+                }
 
                 if (e.Control && e.KeyCode == Keys.F)
                 {
@@ -312,6 +317,31 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+        }
+
+        private void btnVerDetalles_Click(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+
+                // Asegurarse de que no haya tracking, porque el actualizar se va a romper si no
+                var venta = _ventaService.ObtenerVentaPorIdConDetallesNoTracking(id);
+                if (venta == null)
+                {
+                    MessageBox.Show("La venta no fue encontrada",
+                        "Venta no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                using (var formDetalle = new VerDetalleVentaForm(venta))
+                {
+                    formDetalle.ShowDialog();
+                }
+            }
         }
     }
 }
