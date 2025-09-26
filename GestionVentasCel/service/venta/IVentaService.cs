@@ -16,10 +16,6 @@ namespace GestionVentasCel.service.venta
         Venta? ObtenerVentaPorIdConDetalles(int id);
         Venta? ObtenerVentaPorIdConDetallesNoTracking(int id);
 
-        // Presupuestos
-        IEnumerable<Venta> ObtenerPresupuestos();
-        IEnumerable<Venta> ObtenerVentas();
-
         void ConfirmarVenta(int ventaId, bool editando = true);
 
         List<string> ObtenerMediosDePagoDisponibles(int idCliente);

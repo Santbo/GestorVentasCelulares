@@ -357,34 +357,6 @@ namespace GestionVentasCel.repository.ventas.impl
                     .ThenInclude(d => d.Reparacion)
                 .FirstOrDefault(v => v.Id == id);
         }
-
-        /// <summary>
-        /// Obtener las ventas que SÍ son presupuestos.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Venta> ObtenerPresupuestos()
-        {
-            return _context.Ventas
-                .Include(v => v.Cliente)
-                .Where(v => v.FechaVenta == null && v.EstadoVenta == EstadoVentaEnum.Presupuesto)
-                .AsNoTracking()
-                .ToList();
-        }
-
-        /// <summary>
-        /// Obtener todas las ventas que NO sean prespuestos.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Venta> ObtenerVentas()
-        {
-            return _context.Ventas
-                .Include(v => v.Cliente)
-                .Include(v => v.Detalles)
-                .Where(v => v.EstadoVenta != EstadoVentaEnum.Presupuesto)
-                .AsNoTracking()
-                .ToList();
-        }
-
     }
 
 }

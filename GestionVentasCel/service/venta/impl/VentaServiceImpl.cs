@@ -134,12 +134,11 @@ namespace GestionVentasCel.service.venta.impl
         /// Obtener todas las ventas que SEAN PRESUPUESTOS
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Venta> ObtenerPresupuestos() => _ventaRepo.ObtenerPresupuestos();
         /// <summary>
         /// Obtener todas las ventas que NO sean presupuestos
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Venta> ObtenerVentas() => _ventaRepo.ObtenerVentas();
+        public IEnumerable<Venta> ObtenerVentas() => _ventaRepo.ObtenerTodasConDetalles();
 
         /// <summary>
         /// Obtener los medios de pago con los que el cliente puede pagar. ünicamente se 

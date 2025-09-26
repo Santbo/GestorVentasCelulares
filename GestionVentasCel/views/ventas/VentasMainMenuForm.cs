@@ -36,7 +36,7 @@ namespace GestionVentasCel.views.usuario_empleado
         //Se crea un bindingSource para poder filtrar entre usuarios activos e inactivos
         private void CargarVentas()
         {
-            var listaVentas = _ventaService.ObtenerVentas().ToList();
+            var listaVentas = _ventaService.ListarVentasConDetalles().ToList();
 
             _ventas = new BindingList<Venta>(listaVentas);
 
@@ -152,7 +152,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
                     if (facturar)
                     {
-                        throw new NotImplementedException("Hay que implementar la lógica para facturar");
+                        _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
                     }
                 }
             }
