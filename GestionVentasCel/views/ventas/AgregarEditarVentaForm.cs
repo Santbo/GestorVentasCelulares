@@ -154,6 +154,10 @@ namespace GestionVentasCel.views.ventas
             comboEstado.DataSource = Enum.GetValues(typeof(EstadoVentaEnum));
             comboEstado.SelectedItem = _venta.EstadoVenta;
 
+            comboCliente.SelectedItem = _venta.Cliente;
+            comboTipoPago.SelectedItem = _venta.TipoPago;
+
+
             // Binding al modelo
             comboEstado.DataBindings.Add("SelectedValue", _venta, "EstadoVenta", true, DataSourceUpdateMode.OnPropertyChanged);
             comboCliente.DataBindings.Add("SelectedValue", _venta, "ClienteId", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -164,6 +168,8 @@ namespace GestionVentasCel.views.ventas
                 if (comboCliente.SelectedValue is int clienteId)
                 {
                     comboTipoPago.DataSource = _service.ObtenerMediosDePagoDisponibles(clienteId);
+                    comboTipoPago.SelectedItem = _venta.TipoPago;
+
                     //TODO: Recorrer los detalles y eliminar todas las reparaciones.
                 }
             };
@@ -171,6 +177,8 @@ namespace GestionVentasCel.views.ventas
             if (comboCliente.SelectedValue is int primerClienteId)
             {
                 comboTipoPago.DataSource = _service.ObtenerMediosDePagoDisponibles(primerClienteId);
+                comboTipoPago.SelectedItem = _venta.TipoPago;
+
             }
         }
 
@@ -289,6 +297,11 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            _venta.TipoPago = (TipoPagoEnum)Enum.Parse(
+                typeof(TipoPagoEnum),
+                comboTipoPago.SelectedItem.ToString()
+            );
+
             if (ValidarVenta())
             {
                 if (_editando)

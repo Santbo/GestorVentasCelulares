@@ -1,8 +1,11 @@
 ﻿using GestionVentasCel.data;
+using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.articulo;
+using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
@@ -46,9 +49,9 @@ namespace GestionVentasCel.repository.ventas.impl
             //  7. Si la venta original se pagó con efectivo:
             //      7.1 Si la venta actualizada se pagó con cuenta corriente:
             //          7.1.2 Crear el movimiento, creando la cuenta corriente si es necesario
+            //  8. Actualizar el tipo de pago.
 
             // TODO: Ver si cambia el tipo de pago, y ejecutar todo el flujo de crear cuenta corriente
-            // TODO: Implementar VentaId en MovimientoCuentaCorriente
             // TODO: Implementar la capacidad de ver la venta del movimiento
             // TODO: Implementar el ver detalle de venta, que sea un editar nomas pero con todo desactivado
             // TODO: Sacar EstaVencida del listado de reparaciones
@@ -160,6 +163,66 @@ namespace GestionVentasCel.repository.ventas.impl
 
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
+
+
+                        // 6. Si la venta original se pagó con cuenta corriente:
+                        if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente)
+                        {
+                            MovimientoCuentaCorriente? movimiento = _context.MovimientosCuentasCorrientes
+                                    .FirstOrDefault(m => m.VentaId == ventaOriginal.Id);
+                            if (movimiento == null)
+                            {
+                                throw new MovimientoInexistenteException("Se intentó actualizar un movimiento de cuenta corriente que noe xiste.");
+                            }
+                            //TODO: Que no deje eliminar, editar o agregar movimientos de tipo Venta
+                            // 6.1 Si la venta actualizada se pagó con cuenta corriente:
+                            if (ventaActualizada.TipoPago == TipoPagoEnum.CuentaCorriente)
+                            {
+                                // 6.1.1 Actualizar el movimiento
+
+
+                                movimiento.Monto = ventaOriginal.TotalConIva;
+                                _context.MovimientosCuentasCorrientes.Update(movimiento);
+                            } 
+                            // 6.2 Si la venta actualizada se pagó con efectivo:
+                            else
+                            {
+                                // 6.2.1 Eliminar el movimiento
+                                _context.MovimientosCuentasCorrientes.Remove(movimiento);
+                            }
+                        }
+                        // 7. Si la venta original se pagó con efectivo
+                        else
+                        {
+                            // 7.1 Si la venta actualizada se pagó con cuenta corriente
+                            if (ventaActualizada.TipoPago == TipoPagoEnum.CuentaCorriente)
+                            {
+                                // 7.1.1 Crear el movimiento, creando la cuenta corriente si es necesario
+                                CuentaCorriente? cuenta = _context.CuentasCorrientes
+                                    .FirstOrDefault(cc => cc.ClienteId == ventaOriginal.ClienteId);
+                                if (cuenta == null)
+                                {
+                                    cuenta = new CuentaCorriente
+                                    {
+                                        ClienteId = ventaOriginal.ClienteId,
+                                    };
+                                }
+                                //TODO: Hay que actualizar el usario que vendió, pero bloquear en el form que se pueda cmabiar el cliente
+                                cuenta.Movimientos.Add(new MovimientoCuentaCorriente
+                                {
+                                    Tipo = TipoMovimiento.Aumento,
+                                    Monto = ventaOriginal.TotalConIva,
+                                    VentaId = ventaOriginal.Id,
+                                    Fecha = (DateTime) ventaOriginal.FechaVenta!,
+                                    Descripcion = $"Venta número {ventaOriginal.Id} del {ventaOriginal.FechaVenta}"
+                                });
+                            }
+                        }
+
+                        // 8. Actualizar el tipo de pago
+                        ventaOriginal.TipoPago = ventaActualizada.TipoPago;
+                        _context.SaveChanges();
+
                         transaccion.Commit();
                     }
                     catch

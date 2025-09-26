@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using GestionVentasCel.enumerations.cuentaCorriente;
+using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.models.CuentaCorreinte
@@ -10,6 +11,9 @@ namespace GestionVentasCel.models.CuentaCorreinte
         public int Id { get; set; }
         public int CuentaCorrienteId { get; set; }
         public CuentaCorriente CuentaCorriente { get; set; } = null!;
+
+        public int? VentaId { get; set; }
+        public Venta Venta { get; set; } = null!;
 
         [Required]
         public DateTime Fecha { get; set; }

@@ -63,6 +63,7 @@ namespace GestionVentasCel.service.venta.impl
             {
                 Fecha = (DateTime) venta.FechaVenta!,
                 Monto = venta.TotalConIva,
+                VentaId = venta.Id,
                 Tipo = TipoMovimiento.Aumento,
                 Descripcion = $"Venta número {venta.Id} del {venta.FechaVenta}"
 
@@ -152,13 +153,14 @@ namespace GestionVentasCel.service.venta.impl
             venta.EstadoVenta = EstadoVentaEnum.Confirmada;
             venta.FechaVenta = DateTime.Now;
 
-            _ventaRepo.Actualizar(venta);
-
-
             if (venta.TipoPago == TipoPagoEnum.CuentaCorriente)
             {
                 this.GestionarVentaACuenta(venta);
             }
+
+            _ventaRepo.Actualizar(venta);
+
+
         }
 
         /// <summary>
