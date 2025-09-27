@@ -44,6 +44,8 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarClientes.DataSource = _bindingSource;
             dgvListarClientes.Columns["Id"].Visible = false;
             dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
+            dgvListarClientes.Columns["NombreCompleto"].Visible = false;
+            dgvListarClientes.Columns["DniNombre"].Visible = false;
 
             dgvListarClientes.DataBindingComplete += (s, e) =>
             {

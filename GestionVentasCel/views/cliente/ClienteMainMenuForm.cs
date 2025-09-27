@@ -47,6 +47,9 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarClientes.DataSource = _bindingSource;
             dgvListarClientes.Columns["Id"].Visible = false;
             dgvListarClientes.Columns["CuentaCorriente"].Visible = false;
+            dgvListarClientes.Columns["NombreCompleto"].Visible = false;
+            dgvListarClientes.Columns["DniNombre"].Visible = false;
+
 
             // Añadir la columna que establece el estado de la cuenta corriente
             if (dgvListarClientes.Columns["CuentaCorrienteTexto"] == null)

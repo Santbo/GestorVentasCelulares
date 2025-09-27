@@ -4,7 +4,11 @@ using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.models.ventas;
+using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
+using GestionVentasCel.views.ventas;
+using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -13,14 +17,16 @@ namespace GestionVentasCel.views.usuario_empleado
     public partial class MovimientosCCMainMenuForm : Form
     {
         private readonly ClienteController _clienteController;
+        private readonly IVentaService _ventaService;
         private BindingList<MovimientoCuentaCorriente> _movimientos;
         private CuentaCorriente _cuentaCorriente;
         private BindingSource _bindingSource;
-        public MovimientosCCMainMenuForm(ClienteController clienteController, CuentaCorriente CuentaCorriente)
+        public MovimientosCCMainMenuForm(ClienteController clienteController, CuentaCorriente CuentaCorriente, IVentaService ventaService)
         {
             InitializeComponent();
             _clienteController = clienteController;
             _cuentaCorriente = CuentaCorriente;
+            _ventaService = ventaService;
 
             this.lblTituloForm.Text = $"Movimientos de {_cuentaCorriente.Cliente}";
             CargarMovimientos();
@@ -60,6 +66,8 @@ namespace GestionVentasCel.views.usuario_empleado
             dgvListarMovimientos.Columns["CuentaCorriente"].Visible = false;
             dgvListarMovimientos.Columns["Tipo"].Visible = false;
             dgvListarMovimientos.Columns["Monto"].Visible = false;
+            dgvListarMovimientos.Columns["VentaId"].Visible = false;
+            dgvListarMovimientos.Columns["Venta"].Visible = false;
 
 
 
@@ -270,7 +278,56 @@ namespace GestionVentasCel.views.usuario_empleado
                 bool generadoPorVenta = movimiento.VentaId != null;
 
                 btnEliminar.Enabled = !generadoPorVenta;
+
                 btnEditar.Enabled = !generadoPorVenta;
+
+                btnVerDetalleVenta.Enabled = generadoPorVenta;
+            }
+        }
+
+        private void btnVerDetalleVenta_Click(object sender, EventArgs e)
+        {
+            if (dgvListarMovimientos.CurrentRow != null)
+            {
+                // Esto realmente nunca debería ser null, pero por las dudas
+
+
+                var movimiento = (MovimientoCuentaCorriente)dgvListarMovimientos.CurrentRow.DataBoundItem;
+
+
+                if (!(movimiento.VentaId.HasValue)) { 
+
+                    MessageBox.Show(
+                        "Ese movimiento no es de una venta",
+                        "Movimiento no fue por venta",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+                }
+
+
+                Venta? venta = _ventaService.ObtenerVentaPorIdConDetallesNoTracking((int)movimiento.VentaId);
+
+                if (venta == null)
+                {
+                    MessageBox.Show(
+                        "La venta no existe.",
+                        "Venta inexistente",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+
+                }
+
+                using (var detalleVenta = new VerDetalleVentaForm(venta))
+                {
+                    detalleVenta.ShowDialog();
+                }
+                
+
+
             }
         }
     }

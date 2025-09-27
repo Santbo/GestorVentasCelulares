@@ -49,7 +49,6 @@ namespace GestionVentasCel.repository.ventas.impl
             //          7.1.2 Crear el movimiento, creando la cuenta corriente si es necesario
             //  8. Actualizar el tipo de pago.
 
-            // TODO: Implementar la capacidad de ver la venta del movimiento
             var strategy = _context.Database.CreateExecutionStrategy();
 
             strategy.Execute(() =>

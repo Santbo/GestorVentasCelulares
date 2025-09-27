@@ -5,7 +5,9 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -235,7 +237,11 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 CuentaCorriente cuenta = dgvListarCuentas.CurrentRow.DataBoundItem as CuentaCorriente;
 
-                using (var form = new MovimientosCCMainMenuForm(_clienteController, CuentaCorriente: cuenta!))
+                using (var form = new MovimientosCCMainMenuForm(
+                    clienteController: _clienteController,
+                    CuentaCorriente: cuenta!,
+                    ventaService: _serviceProvider.GetRequiredService<IVentaService>()
+                    ))
                 {
                     form.FormClosed += (s, e) =>
                     {
