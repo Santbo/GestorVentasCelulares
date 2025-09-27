@@ -22,7 +22,6 @@ namespace GestionVentasCel.repository.facturas.impl
                 .AsNoTracking()
                 .FirstOrDefault(f => f.Id == id);
         }
-        //TODO: Botón de ver factura en la venta facturada
 
         public IEnumerable<Factura> ObtenerTodas()
         {

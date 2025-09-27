@@ -159,7 +159,6 @@ namespace GestionVentasCel.repository.ventas.impl
 
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
-                        //TODO: Ver detalle de factura
 
 
                         // 6. Si la venta original se pagó con cuenta corriente:
@@ -353,6 +352,16 @@ namespace GestionVentasCel.repository.ventas.impl
                     .ThenInclude(d => d.Reparacion)
                 .FirstOrDefault(v => v.Id == id);
         }
+
+        public Factura? ObtenerFacturaDeVenta(Venta venta)
+        {
+            return _context.Facturas
+                .Include(f => f.Empresa)
+                .Include(f => f.Detalles)
+                .AsNoTracking()
+                .FirstOrDefault(f => f.VentaId == venta.Id);
+        }
+
     }
 
 }

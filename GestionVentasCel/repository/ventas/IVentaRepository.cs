@@ -18,5 +18,7 @@ namespace GestionVentasCel.repository.ventas
         Venta? ObtenerPorIdConDetallesNoTracking(int id);
         void ConfirmarVenta(int VentaId);
 
+        Factura? ObtenerFacturaDeVenta(Venta venta);
+
     }
 }

@@ -159,6 +159,11 @@ namespace GestionVentasCel.service.venta.impl
             }
             return listaFiltrada;
         }
+
+        public Factura? ObtenerFacturaDeVenta(Venta venta)
+        {
+            return _ventaRepo.ObtenerFacturaDeVenta(venta);
+        }
     }
 
 }

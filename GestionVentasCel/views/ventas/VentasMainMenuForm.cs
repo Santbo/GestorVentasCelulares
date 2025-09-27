@@ -2,6 +2,7 @@
 using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
+using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.service.factura;
@@ -29,6 +30,8 @@ namespace GestionVentasCel.views.usuario_empleado
             CargarVentas();
             ConfigurarDGV();
 
+            this.btnVerFactura.Visible = false;
+
         }
 
         //Se crea un bindingList de cliente y se lo agrega al DGV
@@ -42,6 +45,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
             _bindingSource = new BindingSource();
             _bindingSource.DataSource = _ventas;
+            this.dgvListar.ClearSelection();
+
 
             AplicarFiltro();
 
@@ -50,6 +55,8 @@ namespace GestionVentasCel.views.usuario_empleado
         private void ConfigurarDGV()
         {
             dgvListar.DataSource = _bindingSource;
+            this.dgvListar.ClearSelection();
+
             // Es más facil ocultar todas las columnas y mostrar, que al revés
 
             foreach (DataGridViewColumn col in dgvListar.Columns)
@@ -89,6 +96,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         row.Cells["TotalConIvaFormateado"].Value = venta.TotalConIva.ToString("C2", new CultureInfo("es-AR"));
                     }
                 }
+
+                this.dgvListar.ClearSelection();
             };
 
 
@@ -130,6 +139,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // asignar al BindingSource
             _bindingSource.DataSource = new BindingList<Venta>(filtrados.ToList());
+            this.dgvListar.ClearSelection();
+
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -362,6 +373,47 @@ namespace GestionVentasCel.views.usuario_empleado
                     formDetalle.ShowDialog();
                 }
             }
+        }
+
+        private void btnVerFactura_Click(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+
+                // Asegurarse de que no haya tracking, porque el actualizar se va a romper si no
+                var venta = _ventaService.ObtenerVentaPorIdConDetallesNoTracking(id);
+                if (venta == null)
+                {
+                    MessageBox.Show("La venta no fue encontrada",
+                        "Venta no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                var factura = _ventaService.ObtenerFacturaDeVenta(venta);
+                if (factura == null)
+                {
+                    MessageBox.Show("La factura no fue encontrada",
+                        "Factura no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+                using (var formDetalle = new VerDetalleFacturaForm(factura))
+                {
+                    formDetalle.ShowDialog();
+                }
+            }
+        }
+
+        private void dgvListar_SelectionChanged(object sender, EventArgs e)
+        {
+            // Ver si la venta seleccionada está facturada, y mostrar el botón de ver factura
+            this.btnVerFactura.Visible = ((Venta)this.dgvListar.CurrentRow.DataBoundItem).EstadoVenta == EstadoVentaEnum.Facturada;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace GestionVentasCel.service.venta
         Venta? ObtenerVentaPorIdConDetalles(int id);
         Venta? ObtenerVentaPorIdConDetallesNoTracking(int id);
 
+        Factura? ObtenerFacturaDeVenta(Venta venta);
+
         void ConfirmarVenta(int ventaId, bool editando = true);
 
         List<string> ObtenerMediosDePagoDisponibles(int idCliente);

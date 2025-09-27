@@ -183,7 +183,6 @@ namespace GestionVentasCel.views.ventas
             this.Close();
         }
 
-        // TODO: Agregar estado de la venta y ver la factura
 
         private void btnOk_Click(object sender, EventArgs e)
         {

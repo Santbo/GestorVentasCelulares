@@ -151,7 +151,6 @@ namespace GestionVentasCel.views.ventas
                     break;
             }
 
-            //TODO: Cambiar numero dde factura y hacer que sea AI desde la ID
             lblValorRazonSocial.Text = _factura.Empresa.RazonSocial;
             lblCondicionIVA.Text = _factura.Empresa.CondicionIVA.ToString();
             lblDomicilio.Text = _factura.Empresa.DomicilioFiscal;

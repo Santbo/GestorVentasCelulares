@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelBtn = new Panel();
+            btnVerFactura = new Button();
             btnVerDetalles = new Button();
             txtBuscar = new TextBox();
             chkMostrarInactivos = new CheckBox();
@@ -52,6 +53,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnVerFactura);
             panelBtn.Controls.Add(btnVerDetalles);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Controls.Add(chkMostrarInactivos);
@@ -63,6 +65,17 @@
             panelBtn.Name = "panelBtn";
             panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 0;
+            // 
+            // btnVerFactura
+            // 
+            btnVerFactura.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnVerFactura.Location = new Point(299, 6);
+            btnVerFactura.Name = "btnVerFactura";
+            btnVerFactura.Size = new Size(174, 75);
+            btnVerFactura.TabIndex = 6;
+            btnVerFactura.Text = "Ver factura";
+            btnVerFactura.UseVisualStyleBackColor = true;
+            btnVerFactura.Click += btnVerFactura_Click;
             // 
             // btnVerDetalles
             // 
@@ -101,7 +114,7 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(660, 6);
+            btnEditar.Location = new Point(659, 6);
             btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
@@ -113,7 +126,7 @@
             // btnAgregar
             // 
             btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(827, 6);
+            btnAgregar.Location = new Point(825, 6);
             btnAgregar.Margin = new Padding(4);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(160, 75);
@@ -187,6 +200,7 @@
             dgvListar.RowHeadersWidth = 51;
             dgvListar.Size = new Size(978, 430);
             dgvListar.TabIndex = 0;
+            dgvListar.SelectionChanged += dgvListar_SelectionChanged;
             // 
             // VentaMainMenuForm
             // 
@@ -225,5 +239,6 @@
         private Panel panelHeader;
         private Label lblTituloForm;
         private Button btnVerDetalles;
+        private Button btnVerFactura;
     }
 }
