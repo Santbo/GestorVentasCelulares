@@ -55,7 +55,7 @@ namespace GestionVentasCel.service.factura
             {
 
                 TipoComprobante = tipoFacturaFinal,
-                NumeroFactura = GenerarNumeroFactura(),
+                NumeroFactura = "TEMPORAL", // Temporal hasta que pueda guardar la factura, y obtener la id
                 FechaEmision = DateTime.Now,
 
                 // Datos cliente
@@ -87,12 +87,8 @@ namespace GestionVentasCel.service.factura
             };
 
             _facturaRepository.Agregar(factura);
+
             return _facturaRepository.ObtenerPorId(factura.Id)!;
-        }
-        private string GenerarNumeroFactura()
-        {
-            // Esto debería venir de ARCA, pero bueno
-            return $"0001-{DateTime.Now.Ticks % 1000000000:D8}";
         }
     }
 

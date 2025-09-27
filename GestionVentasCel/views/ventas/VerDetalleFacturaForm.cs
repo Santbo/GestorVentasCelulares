@@ -180,6 +180,7 @@ namespace GestionVentasCel.views.ventas
             this.BackColor = Tema.ColorSuperficie;
 
             this.BackColor = Tema.ColorSuperficie;
+            //TODO: Ocultar NombreCon y DNinombre de cliente
 
             // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
 

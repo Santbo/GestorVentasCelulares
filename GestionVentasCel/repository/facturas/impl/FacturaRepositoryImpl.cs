@@ -22,6 +22,7 @@ namespace GestionVentasCel.repository.facturas.impl
                 .AsNoTracking()
                 .FirstOrDefault(f => f.Id == id);
         }
+        //TODO: Botón de ver factura en la venta facturada
 
         public IEnumerable<Factura> ObtenerTodas()
         {
@@ -39,11 +40,25 @@ namespace GestionVentasCel.repository.facturas.impl
 
             _context.Facturas.Add(factura);
             _context.SaveChanges();
+
+            this.GenerarNumeroFactura(factura.Id);
         }
 
         public bool Existe(int id)
         {
             return _context.Facturas.Any(f => f.Id == id);
+        }
+
+        public void GenerarNumeroFactura(int id)
+        {
+            Factura fac = _context.Facturas.First(f => f.Id == id);
+
+            int numero = ((id - 1) % 99999999) + 1;
+            int serie = ((id - 1) / 99999999) + 1;
+
+            fac.NumeroFactura = $"{serie:D4}-{numero:D8}";
+
+            _context.SaveChanges();
         }
     }
 

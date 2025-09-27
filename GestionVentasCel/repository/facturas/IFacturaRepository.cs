@@ -6,6 +6,8 @@ namespace GestionVentasCel.repository.facturas
     {
         Factura? ObtenerPorId(int id);
         IEnumerable<Factura> ObtenerTodas();
+
+        public void GenerarNumeroFactura(int id);
         void Agregar(Factura factura);
         bool Existe(int id);
     }

@@ -78,6 +78,7 @@
             lblTipoFactura = new Label();
             gbEmpresa = new GroupBox();
             gbCliente = new GroupBox();
+            panel16 = new Panel();
             panel1 = new Panel();
             panel5 = new Panel();
             panel6 = new Panel();
@@ -108,6 +109,7 @@
             panel11.SuspendLayout();
             gbEmpresa.SuspendLayout();
             gbCliente.SuspendLayout();
+            panel16.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -176,16 +178,15 @@
             panel6.Controls.Add(label2);
             panel6.Location = new Point(24, 123);
             panel6.Name = "panel6";
-            panel6.Size = new Size(533, 42);
+            panel6.Size = new Size(543, 88);
             panel6.TabIndex = 3;
             // 
             // lblDomicilio
             // 
-            lblDomicilio.AutoSize = true;
             lblDomicilio.Font = new Font("Segoe UI", 12F);
             lblDomicilio.Location = new Point(108, -6);
             lblDomicilio.Name = "lblDomicilio";
-            lblDomicilio.Size = new Size(78, 32);
+            lblDomicilio.Size = new Size(435, 84);
             lblDomicilio.TabIndex = 1;
             lblDomicilio.Text = "label1";
             // 
@@ -487,7 +488,7 @@
             // 
             panel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel8.Controls.Add(btnOk);
-            panel8.Location = new Point(1036, 1125);
+            panel8.Location = new Point(1032, 917);
             panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
             panel8.Size = new Size(400, 46);
@@ -515,16 +516,16 @@
             dgvListarDetalles.Name = "dgvListarDetalles";
             dgvListarDetalles.ReadOnly = true;
             dgvListarDetalles.RowHeadersWidth = 51;
-            dgvListarDetalles.Size = new Size(1421, 576);
+            dgvListarDetalles.Size = new Size(1420, 341);
             dgvListarDetalles.TabIndex = 1;
             // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel3.Controls.Add(dgvListarDetalles);
-            panel3.Location = new Point(12, 476);
+            panel3.Location = new Point(12, 488);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1421, 576);
+            panel3.Size = new Size(1420, 341);
             panel3.TabIndex = 2;
             // 
             // panel11
@@ -533,7 +534,7 @@
             panel11.Controls.Add(lblTotal);
             panel11.Controls.Add(lblTotalIVA);
             panel11.Controls.Add(lblSubtotalSinIVA);
-            panel11.Location = new Point(666, 1058);
+            panel11.Location = new Point(666, 850);
             panel11.Name = "panel11";
             panel11.Size = new Size(766, 62);
             panel11.TabIndex = 100004;
@@ -602,27 +603,37 @@
             gbCliente.Controls.Add(panel14);
             gbCliente.Controls.Add(panel13);
             gbCliente.Controls.Add(panel12);
-            gbCliente.Location = new Point(12, 313);
+            gbCliente.Location = new Point(12, 317);
             gbCliente.Name = "gbCliente";
             gbCliente.Size = new Size(1420, 150);
             gbCliente.TabIndex = 100007;
             gbCliente.TabStop = false;
+            // 
+            // panel16
+            // 
+            panel16.AutoScroll = true;
+            panel16.Controls.Add(gbEmpresa);
+            panel16.Controls.Add(gbCliente);
+            panel16.Controls.Add(panel3);
+            panel16.Controls.Add(panel11);
+            panel16.Controls.Add(panel8);
+            panel16.Dock = DockStyle.Fill;
+            panel16.Location = new Point(0, 0);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(1440, 970);
+            panel16.TabIndex = 100008;
             // 
             // VerDetalleFacturaForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            ClientSize = new Size(1448, 1177);
-            Controls.Add(gbCliente);
-            Controls.Add(gbEmpresa);
-            Controls.Add(panel11);
-            Controls.Add(panel3);
-            Controls.Add(panel8);
+            ClientSize = new Size(1440, 970);
+            Controls.Add(panel16);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "VerDetalleFacturaForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "AgregarEditarVentaForm";
+            Text = "Detalles de la factura";
             Load += AgregarEditarVentaForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -656,6 +667,7 @@
             gbEmpresa.ResumeLayout(false);
             gbEmpresa.PerformLayout();
             gbCliente.ResumeLayout(false);
+            panel16.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -696,5 +708,6 @@
         private Label label10;
         private Label lblCuitCliente;
         private Label label9;
+        private Panel panel16;
     }
 }

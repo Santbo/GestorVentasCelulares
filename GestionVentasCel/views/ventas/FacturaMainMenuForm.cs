@@ -2,7 +2,9 @@
 using System.Globalization;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.service.factura;
+using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
+using GestionVentasCel.views.ventas;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -93,7 +95,7 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 filtrados = filtrados.Where(u =>
                     u.NombreCliente.ToLower().Contains(filtro)
-                    || u.FechaEmision.ToString().ToLower().Contains(filtro) 
+                    || u.FechaEmision.ToString().ToLower().Contains(filtro)
                 );
             }
 
@@ -164,6 +166,31 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+        }
+
+        private void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
+
+                // Asegurarse de que no haya tracking, porque el actualizar se va a romper si no
+                var factura = _facturaService.ObtenerPorId(id);
+                if (factura == null)
+                {
+                    MessageBox.Show("La factura no fue encontrada",
+                        "Venta no encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                using (var formDetalle = new VerDetalleFacturaForm(factura))
+                {
+                    formDetalle.ShowDialog();
+                }
+            }
         }
     }
 }

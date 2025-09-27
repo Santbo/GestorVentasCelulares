@@ -35,6 +35,7 @@
             panelHeader = new Panel();
             lblTituloForm = new Label();
             dgvListar = new DataGridView();
+            btnVerDetalle = new Button();
             panelBtn.SuspendLayout();
             panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -48,6 +49,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnVerDetalle);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
@@ -132,6 +134,17 @@
             dgvListar.Size = new Size(978, 430);
             dgvListar.TabIndex = 0;
             // 
+            // btnVerDetalle
+            // 
+            btnVerDetalle.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnVerDetalle.Location = new Point(820, 11);
+            btnVerDetalle.Name = "btnVerDetalle";
+            btnVerDetalle.Size = new Size(169, 63);
+            btnVerDetalle.TabIndex = 5;
+            btnVerDetalle.Text = "Ver detalle";
+            btnVerDetalle.UseVisualStyleBackColor = true;
+            btnVerDetalle.Click += btnVerDetalle_Click;
+            // 
             // FacturaMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -165,5 +178,6 @@
         private SplitContainer splitContainer1;
         private Panel panelHeader;
         private Label lblTituloForm;
+        private Button btnVerDetalle;
     }
 }
