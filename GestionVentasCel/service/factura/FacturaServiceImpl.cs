@@ -81,12 +81,13 @@ namespace GestionVentasCel.service.factura
                         : $"Reparación #{d.ReparacionId}",
                     Cantidad = d.Cantidad,
                     PrecioUnitario = d.PrecioUnitario,
+                    PorcentajeIVA = d.PorcentajeIva,
                     Subtotal = d.SubtotalConIva
                 }).ToList()
             };
 
             _facturaRepository.Agregar(factura);
-            return factura;
+            return _facturaRepository.ObtenerPorId(factura.Id)!;
         }
         private string GenerarNumeroFactura()
         {

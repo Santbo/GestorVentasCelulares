@@ -153,7 +153,21 @@ namespace GestionVentasCel.views.usuario_empleado
 
                     if (facturar)
                     {
-                        _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
+                        Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
+                        var mostrarFactura = MessageBox.Show(
+                            "Se emitió la factura de la venta. ¿Desea verla?",
+                            "Factura emitida",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        ) == DialogResult.Yes;
+
+                        if (mostrarFactura)
+                        {
+                            using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
+                            {
+                                detalleFactura.ShowDialog();
+                            }
+                        }
                     }
                 }
             }
@@ -221,14 +235,20 @@ namespace GestionVentasCel.views.usuario_empleado
                         if (facturar)
                         {
                             Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
-                            MessageBox.Show(
-                                "Se emitió la factura de la venta.",
+                            var mostrarFactura = MessageBox.Show(
+                                "Se emitió la factura de la venta. ¿Desea verla?",
                                 "Factura emitida",
-                                MessageBoxButtons.OK,
+                                MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Question
-                            );
+                            ) == DialogResult.Yes;
 
-                            // TODO: Mostrar directo el detalle de la factura
+                            if (mostrarFactura)
+                            {
+                                using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
+                                {
+                                    detalleFactura.ShowDialog();
+                                }
+                            }
                         }
                     }
                 }
