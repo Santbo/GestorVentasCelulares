@@ -2,7 +2,6 @@ using GestionVentasCel.exceptions.compra;
 using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.repository.compra;
-using GestionVentasCel.repository.configPrecios;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.configPrecios;
 
@@ -59,7 +58,7 @@ namespace GestionVentasCel.service.compra.impl
         }
 
         public IEnumerable<Compra> ListarCompras() => _repo.GetAll();
-        
+
 
         public IEnumerable<Compra> ListarComprasConDetalles() => _repo.GetAllWithDetails();
         public IEnumerable<Compra> GetByProveedor(int proveedorId) => _repo.GetByProveedor(proveedorId);

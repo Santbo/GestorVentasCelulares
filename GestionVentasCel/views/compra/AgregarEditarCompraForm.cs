@@ -9,7 +9,6 @@ using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.temas;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.views.compra
 {
@@ -23,7 +22,7 @@ namespace GestionVentasCel.views.compra
         public ModoFormulario Modo { get; set; }
         public Compra CompraActual { get; set; } = null!;
         private BindingList<DetalleCompra> _listaDetalle = new BindingList<DetalleCompra>();
-        
+
 
         public AgregarEditarCompraForm(CompraController compraController,
                                       ProveedorController proveedorController,
@@ -102,7 +101,7 @@ namespace GestionVentasCel.views.compra
             _listaDetalle = new BindingList<DetalleCompra>(_detalles);
 
             AgregarDetalles();
-            
+
         }
 
         private void AgregarDetalles()
@@ -154,7 +153,6 @@ namespace GestionVentasCel.views.compra
         {
             if (ValidarDetalle())
             {
-                // TODO: Si se agrego anteriormente el articulo se actualiza, si no se lo agrega
 
                 var detalleArticulo = _listaDetalle.FirstOrDefault(d => d.ArticuloId == (int)cmbArticulo.SelectedValue);
 
@@ -163,7 +161,8 @@ namespace GestionVentasCel.views.compra
                     detalleArticulo.Cantidad += (int)numCantidad.Value;
                     detalleArticulo.PrecioUnitario = numPrecioUnitario.Value;
                     detalleArticulo.Subtotal = (int)numCantidad.Value * numPrecioUnitario.Value;
-                }else
+                }
+                else
                 {
                     var detalle = new DetalleCompra
                     {
@@ -176,7 +175,7 @@ namespace GestionVentasCel.views.compra
 
                     _listaDetalle.Add(detalle);
                 }
-                   
+
                 LimpiarCamposDetalle();
                 ActualizarTotal();
             }
@@ -238,7 +237,7 @@ namespace GestionVentasCel.views.compra
             if (ValidarCompra())
             {
 
-                foreach(DetalleCompra detalle in _listaDetalle)
+                foreach (DetalleCompra detalle in _listaDetalle)
                 {
                     detalle.Articulo = null;
                 }
@@ -282,7 +281,8 @@ namespace GestionVentasCel.views.compra
 
                 _compraController.CrearCompraConDetalles(compra, _listaDetalle.ToList());
                 MessageBox.Show("Compra creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            } catch (MargenNoAgregadoException ex)
+            }
+            catch (MargenNoAgregadoException ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

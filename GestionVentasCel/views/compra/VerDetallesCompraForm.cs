@@ -3,8 +3,6 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
-using GestionVentasCel.enumerations.modoForms;
-using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.temas;
 

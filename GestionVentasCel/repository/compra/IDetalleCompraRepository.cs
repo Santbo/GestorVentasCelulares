@@ -7,6 +7,6 @@ namespace GestionVentasCel.repository.compra
         IEnumerable<DetalleCompra> GetByCompraId(int compraId);
         void AddRange(IEnumerable<DetalleCompra> detalles);
         void DeleteByCompraId(int compraId);
-        
+
     }
 }

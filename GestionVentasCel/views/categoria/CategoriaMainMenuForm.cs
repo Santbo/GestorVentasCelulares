@@ -33,13 +33,14 @@ namespace GestionVentasCel.views.categoria
 
             dgvListarCategorias.DataBindingComplete += (s, e) =>
             {
-                // Ocultar Id y Articulos
+                // Ocultar Id 
                 dgvListarCategorias.Columns["Id"].Visible = false;
-                dgvListarCategorias.Columns["Articulos"].Visible = false;
+
 
                 // Ordenarlas 
                 dgvListarCategorias.Columns["Nombre"].DisplayIndex = 1;
                 dgvListarCategorias.Columns["Nombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
 
                 dgvListarCategorias.Columns["Descripcion"].DisplayIndex = 2;
                 dgvListarCategorias.Columns["Activo"].DisplayIndex = 3;

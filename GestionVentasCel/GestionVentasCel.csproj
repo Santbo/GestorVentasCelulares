@@ -50,6 +50,33 @@
 	  <Compile Update="views\cliente\ClienteMainMenuForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="views\reparacion\ReparacionMainMenuForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\reparacion\VerDetallesReparacionForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\servicio\VerArticulosAsociadosForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\VerDetalleFacturaForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\VerDetalleVentaForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\SeleccionarReparacionForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\SeleccionarArticuloForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\FacturaMainMenuForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="views\ventas\VentasMainMenuForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

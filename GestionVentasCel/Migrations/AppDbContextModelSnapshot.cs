@@ -22,6 +22,40 @@ namespace GestionVentasCel.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("GestionVentasCel.enumerations.ventas.DetalleFactura", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("FacturaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PorcentajeIVA")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacturaId");
+
+                    b.ToTable("DetallesFacturas");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
                 {
                     b.Property<int>("Id")
@@ -70,9 +104,14 @@ namespace GestionVentasCel.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("VentaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CuentaCorrienteId");
+
+                    b.HasIndex("VentaId");
 
                     b.ToTable("MovimientosCuentasCorrientes");
                 });
@@ -304,6 +343,330 @@ namespace GestionVentasCel.Migrations
                     b.UseTptMappingStrategy();
                 });
 
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.Dispositivo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Dispositivos");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.Reparacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Diagnostico")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("DispositivoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FallasReportadas")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime?>("FechaEgreso")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("FechaVencimiento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DispositivoId");
+
+                    b.ToTable("Reparaciones");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.ReparacionServicio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ReparacionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReparacionId");
+
+                    b.HasIndex("ServicioId");
+
+                    b.ToTable("ReparacionServicio");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicios");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.ServicioArticulo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("ServicioId");
+
+                    b.ToTable("ServicioArticulos");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.DetalleVenta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ArticuloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PorcentajeIva")
+                        .HasPrecision(4, 3)
+                        .HasColumnType("decimal(4,3)");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ReparacionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloId");
+
+                    b.HasIndex("ReparacionId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("DetallesVenta");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Empresa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CUIT")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CondicionIVA")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DomicilioFiscal")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("IngresosBrutos")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("InicioActividades")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PuntoVenta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RazonSocial")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Factura", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CUITCliente")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CondicionIVACliente")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DomicilioCliente")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("IVA")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("NombreCliente")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NumeroFactura")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("TipoComprobante")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("Facturas");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Venta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EstadoVenta")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("FechaVencimiento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("FechaVenta")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("TipoPago")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Ventas");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
                 {
                     b.HasBaseType("GestionVentasCel.models.persona.Persona");
@@ -354,6 +717,17 @@ namespace GestionVentasCel.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
+            modelBuilder.Entity("GestionVentasCel.enumerations.ventas.DetalleFactura", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.ventas.Factura", "Factura")
+                        .WithMany("Detalles")
+                        .HasForeignKey("FacturaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Factura");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
                 {
                     b.HasOne("GestionVentasCel.models.clientes.Cliente", "Cliente")
@@ -371,7 +745,13 @@ namespace GestionVentasCel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GestionVentasCel.models.ventas.Venta", "Venta")
+                        .WithMany()
+                        .HasForeignKey("VentaId");
+
                     b.Navigation("CuentaCorriente");
+
+                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.articulo.Articulo", b =>
@@ -426,6 +806,127 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Compra");
                 });
 
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.Dispositivo", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.clientes.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.Reparacion", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.reparacion.Dispositivo", "Dispositivo")
+                        .WithMany()
+                        .HasForeignKey("DispositivoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dispositivo");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.ReparacionServicio", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.reparacion.Reparacion", "Reparacion")
+                        .WithMany("ReparacionServicios")
+                        .HasForeignKey("ReparacionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.servicio.Servicio", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("ServicioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reparacion");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.ServicioArticulo", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.servicio.Servicio", "Servicio")
+                        .WithMany("ArticulosUsados")
+                        .HasForeignKey("ServicioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.DetalleVenta", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.articulo.Articulo", "Articulo")
+                        .WithMany()
+                        .HasForeignKey("ArticuloId");
+
+                    b.HasOne("GestionVentasCel.models.reparacion.Reparacion", "Reparacion")
+                        .WithMany()
+                        .HasForeignKey("ReparacionId");
+
+                    b.HasOne("GestionVentasCel.models.ventas.Venta", "Venta")
+                        .WithMany("Detalles")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+
+                    b.Navigation("Reparacion");
+
+                    b.Navigation("Venta");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Factura", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.ventas.Empresa", "Empresa")
+                        .WithMany("Facturas")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.ventas.Venta", "Venta")
+                        .WithMany()
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Venta");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Venta", b =>
+                {
+                    b.HasOne("GestionVentasCel.models.clientes.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionVentasCel.models.usuario.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("GestionVentasCel.models.clientes.Cliente", b =>
                 {
                     b.HasOne("GestionVentasCel.models.persona.Persona", null)
@@ -459,6 +960,31 @@ namespace GestionVentasCel.Migrations
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
+                {
+                    b.Navigation("Detalles");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.reparacion.Reparacion", b =>
+                {
+                    b.Navigation("ReparacionServicios");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.servicio.Servicio", b =>
+                {
+                    b.Navigation("ArticulosUsados");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Empresa", b =>
+                {
+                    b.Navigation("Facturas");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Factura", b =>
+                {
+                    b.Navigation("Detalles");
+                });
+
+            modelBuilder.Entity("GestionVentasCel.models.ventas.Venta", b =>
                 {
                     b.Navigation("Detalles");
                 });

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.configPrecios;
+﻿using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.service.configPrecios;
 
 namespace GestionVentasCel.controller.configPrecios
@@ -18,7 +13,7 @@ namespace GestionVentasCel.controller.configPrecios
 
         public void AgregarMargen(string margenAumento)
         {
-            
+
             _service.AgregarMargen(margenAumento);
         }
 

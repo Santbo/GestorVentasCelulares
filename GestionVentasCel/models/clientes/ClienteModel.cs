@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
@@ -17,5 +18,11 @@ namespace GestionVentasCel.models.clientes
         {
             return $"{this.Nombre} {this.Apellido}";
         }
+
+        [NotMapped]
+        public string NombreCompleto => $"{Nombre} {Apellido}";
+
+        [NotMapped]
+        public string DniNombre => $"{this.NombreCompleto} - {this.Dni}";
     }
 }

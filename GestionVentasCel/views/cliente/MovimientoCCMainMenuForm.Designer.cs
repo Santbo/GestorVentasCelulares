@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelBtn = new Panel();
+            btnVerDetalleVenta = new Button();
             lblSaldoActual = new Label();
             txtBuscar = new TextBox();
             btnEliminar = new Button();
@@ -52,6 +53,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnVerDetalleVenta);
             panelBtn.Controls.Add(lblSaldoActual);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Controls.Add(btnEliminar);
@@ -61,8 +63,20 @@
             panelBtn.Location = new Point(0, 476);
             panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(1000, 86);
+            panelBtn.Size = new Size(1349, 86);
             panelBtn.TabIndex = 0;
+            // 
+            // btnVerDetalleVenta
+            // 
+            btnVerDetalleVenta.Anchor = AnchorStyles.Right;
+            btnVerDetalleVenta.Location = new Point(593, 7);
+            btnVerDetalleVenta.Margin = new Padding(4);
+            btnVerDetalleVenta.Name = "btnVerDetalleVenta";
+            btnVerDetalleVenta.Size = new Size(201, 75);
+            btnVerDetalleVenta.TabIndex = 6;
+            btnVerDetalleVenta.Text = "Ver venta";
+            btnVerDetalleVenta.UseVisualStyleBackColor = true;
+            btnVerDetalleVenta.Click += btnVerDetalleVenta_Click;
             // 
             // lblSaldoActual
             // 
@@ -86,7 +100,7 @@
             // btnEliminar
             // 
             btnEliminar.Anchor = AnchorStyles.Right;
-            btnEliminar.Location = new Point(453, 8);
+            btnEliminar.Location = new Point(802, 8);
             btnEliminar.Margin = new Padding(4);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(201, 75);
@@ -98,7 +112,7 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(662, 8);
+            btnEditar.Location = new Point(1011, 8);
             btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
@@ -110,7 +124,7 @@
             // btnAgregar
             // 
             btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(829, 8);
+            btnAgregar.Location = new Point(1178, 8);
             btnAgregar.Margin = new Padding(4);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(160, 75);
@@ -126,7 +140,7 @@
             panelContenedor.Location = new Point(0, 0);
             panelContenedor.Margin = new Padding(4);
             panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(1000, 476);
+            panelContenedor.Size = new Size(1349, 476);
             panelContenedor.TabIndex = 1;
             // 
             // splitContainer1
@@ -145,7 +159,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(dgvListarMovimientos);
             splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
-            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.Size = new Size(1349, 476);
             splitContainer1.SplitterDistance = 55;
             splitContainer1.TabIndex = 5;
             // 
@@ -155,7 +169,7 @@
             panelHeader.Dock = DockStyle.Fill;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1000, 55);
+            panelHeader.Size = new Size(1349, 55);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -165,7 +179,7 @@
             lblTituloForm.Location = new Point(0, 0);
             lblTituloForm.Name = "lblTituloForm";
             lblTituloForm.Padding = new Padding(8, 0, 8, 0);
-            lblTituloForm.Size = new Size(1000, 55);
+            lblTituloForm.Size = new Size(1349, 55);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Movimientos de";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
@@ -183,14 +197,15 @@
             dgvListarMovimientos.Name = "dgvListarMovimientos";
             dgvListarMovimientos.ReadOnly = true;
             dgvListarMovimientos.RowHeadersWidth = 51;
-            dgvListarMovimientos.Size = new Size(978, 409);
+            dgvListarMovimientos.Size = new Size(1327, 409);
             dgvListarMovimientos.TabIndex = 0;
+            dgvListarMovimientos.SelectionChanged += dgvListarMovimientos_SelectionChanged;
             // 
             // MovimientosCCMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(1349, 562);
             Controls.Add(panelContenedor);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -223,5 +238,6 @@
         private SplitContainer splitContainer1;
         private Panel panelHeader;
         private Label lblTituloForm;
+        private Button btnVerDetalleVenta;
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.exceptions.configPrecios;
+﻿using GestionVentasCel.exceptions.configPrecios;
 using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.repository.configPrecios;
 
@@ -30,7 +25,7 @@ namespace GestionVentasCel.service.configPrecios.impl
         {
 
             if (!_repo.MargenExist(id)) throw new MargenNoAgregadoException("No hay un margen agregado aun.");
-           var margen =  _repo.GetById(id);
+            var margen = _repo.GetById(id);
 
             return margen;
         }

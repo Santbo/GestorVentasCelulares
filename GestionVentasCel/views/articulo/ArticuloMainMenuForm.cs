@@ -6,7 +6,6 @@ using GestionVentasCel.controller.categoria;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.articulo;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.clientes;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.articulo

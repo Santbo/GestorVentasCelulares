@@ -69,7 +69,7 @@ namespace GestionVentasCel.views
 
                 var main = new MainMenuForm(_serviceProvider);
 
-                _sesionUsuario.IniciarSesion(usuario.Username, usuario.Rol);
+                _sesionUsuario.IniciarSesion(usuario.Username, usuario.Rol, usuario.Id);
 
                 main.RolAccedido = usuario.Rol;
 

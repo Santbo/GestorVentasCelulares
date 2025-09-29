@@ -40,6 +40,12 @@
             proveedoresMenuItem = new ToolStripMenuItem();
             comprasMenuItem = new ToolStripMenuItem();
             aumentarMargenMenuItem = new ToolStripMenuItem();
+            reparacionesToolStripMenuItem = new ToolStripMenuItem();
+            administrarServiciosMenuItem = new ToolStripMenuItem();
+            administrarReparacionesMenuItem = new ToolStripMenuItem();
+            ventasToolStripMenuItem = new ToolStripMenuItem();
+            gestionarVentasToolStripMenuItem = new ToolStripMenuItem();
+            gestionarFacturasToolStripMenuItem = new ToolStripMenuItem();
             panelContenedor = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -49,7 +55,7 @@
             menuStrip1.BackColor = SystemColors.ActiveCaption;
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem, gestionarProveedoresToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem, gestionarProveedoresToolStripMenuItem, reparacionesToolStripMenuItem, ventasToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(10, 5, 0, 5);
@@ -136,11 +142,53 @@
             aumentarMargenMenuItem.Text = "Margen de &Ganancia";
             aumentarMargenMenuItem.Click += aumentarMargenMenuItem_Click;
             // 
+            // reparacionesToolStripMenuItem
+            // 
+            reparacionesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { administrarServiciosMenuItem, administrarReparacionesMenuItem });
+            reparacionesToolStripMenuItem.Name = "reparacionesToolStripMenuItem";
+            reparacionesToolStripMenuItem.Size = new Size(157, 34);
+            reparacionesToolStripMenuItem.Text = "&Reparaciones";
+            // 
+            // administrarServiciosMenuItem
+            // 
+            administrarServiciosMenuItem.Name = "administrarServiciosMenuItem";
+            administrarServiciosMenuItem.Size = new Size(338, 38);
+            administrarServiciosMenuItem.Text = "Gestionar &servicios";
+            administrarServiciosMenuItem.Click += administrarServiciosMenuItem_Click;
+            // 
+            // administrarReparacionesMenuItem
+            // 
+            administrarReparacionesMenuItem.Name = "administrarReparacionesMenuItem";
+            administrarReparacionesMenuItem.Size = new Size(338, 38);
+            administrarReparacionesMenuItem.Text = "Gestionar &reparaciones";
+            administrarReparacionesMenuItem.Click += administrarReparacionesMenuItem_Click;
+            // 
+            // ventasToolStripMenuItem
+            // 
+            ventasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gestionarVentasToolStripMenuItem, gestionarFacturasToolStripMenuItem });
+            ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
+            ventasToolStripMenuItem.Size = new Size(93, 34);
+            ventasToolStripMenuItem.Text = "&Ventas";
+            // 
+            // gestionarVentasToolStripMenuItem
+            // 
+            gestionarVentasToolStripMenuItem.Name = "gestionarVentasToolStripMenuItem";
+            gestionarVentasToolStripMenuItem.Size = new Size(289, 38);
+            gestionarVentasToolStripMenuItem.Text = "Gestionar &ventas";
+            gestionarVentasToolStripMenuItem.Click += gestionarVentasToolStripMenuItem_Click;
+            // 
+            // gestionarFacturasToolStripMenuItem
+            // 
+            gestionarFacturasToolStripMenuItem.Name = "gestionarFacturasToolStripMenuItem";
+            gestionarFacturasToolStripMenuItem.Size = new Size(289, 38);
+            gestionarFacturasToolStripMenuItem.Text = "Gestionar &facturas";
+            gestionarFacturasToolStripMenuItem.Click += gestionarFacturasToolStripMenuItem_Click;
+            // 
             // panelContenedor
             // 
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 44);
-            panelContenedor.Margin = new Padding(5, 5, 5, 5);
+            panelContenedor.Margin = new Padding(5);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1000, 518);
             panelContenedor.TabIndex = 1;
@@ -153,7 +201,7 @@
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainMenuForm";
@@ -182,5 +230,11 @@
         private ToolStripMenuItem gestionarClientesToolStripMenuItem;
         private ToolStripMenuItem gestionarCuentasCorrientesToolStripMenuItem;
         private ToolStripMenuItem aumentarMargenMenuItem;
+        private ToolStripMenuItem reparacionesToolStripMenuItem;
+        private ToolStripMenuItem administrarServiciosMenuItem;
+        private ToolStripMenuItem administrarReparacionesMenuItem;
+        private ToolStripMenuItem ventasToolStripMenuItem;
+        private ToolStripMenuItem gestionarVentasToolStripMenuItem;
+        private ToolStripMenuItem gestionarFacturasToolStripMenuItem;
     }
 }

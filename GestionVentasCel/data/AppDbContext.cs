@@ -1,4 +1,5 @@
-﻿using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.compra;
@@ -6,7 +7,10 @@ using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.models.ventas;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -32,6 +36,20 @@ namespace GestionVentasCel.data
         public DbSet<MovimientoCuentaCorriente> MovimientosCuentasCorrientes { get; set; }
 
         public DbSet<ConfiguracionPrecios> ConfiguracionPrecios { get; set; }
+
+        public DbSet<Servicio> Servicios { get; set; }
+        public DbSet<ServicioArticulo> ServicioArticulos { get; set; }
+
+        public DbSet<Reparacion> Reparaciones { get; set; }
+        public DbSet<Dispositivo> Dispositivos { get; set; }
+
+        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<DetalleVenta> DetallesVenta { get; set; }
+
+        public DbSet<Empresa> Empresas { get; set; }
+
+        public DbSet<Factura> Facturas { get; set; }
+        public DbSet<DetalleFactura> DetallesFacturas { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +79,68 @@ namespace GestionVentasCel.data
 
             modelBuilder.Entity<MovimientoCuentaCorriente>()
                 .Property(m => m.Tipo)
+                .HasConversion<string>();
+
+            //se define clave 
+            modelBuilder.Entity<ServicioArticulo>()
+                        .HasKey(sa => sa.Id);
+
+            //Relacion Servicio a ServicioArticulo
+            modelBuilder.Entity<ServicioArticulo>()
+                            .HasOne(sa => sa.Servicio)
+                            .WithMany(s => s.ArticulosUsados)
+                            .HasForeignKey(sa => sa.ServicioId);
+
+            // Relación Articulo a ServicioArticulo
+            modelBuilder.Entity<ServicioArticulo>()
+                .HasOne(sa => sa.Articulo)
+                .WithMany(); //Lo dejo aca para que no haya una tabla en Articulo.
+
+            modelBuilder.Entity<Reparacion>()
+                .Property(r => r.Estado)
+                .HasConversion<string>();
+
+            //se define clave 
+            modelBuilder.Entity<ReparacionServicio>()
+                        .HasKey(rs => rs.Id);
+
+            //Relacion Reparacion a ReparacionServicio
+            modelBuilder.Entity<ReparacionServicio>()
+                            .HasOne(rs => rs.Reparacion)
+                            .WithMany(r => r.ReparacionServicios)
+                            .HasForeignKey(rs => rs.ReparacionId);
+
+            // Relación Servicio a ReparacionServicio
+            modelBuilder.Entity<ReparacionServicio>()
+                .HasOne(rs => rs.Servicio)
+                .WithMany(); //Lo dejo aca para que no haya una tabla en Servicio.
+
+
+            modelBuilder
+                .Entity<Venta>()
+                .Property(v => v.EstadoVenta)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<Venta>()
+                .Property(v => v.TipoPago)
+                .HasConversion<string>();
+
+            // Relación Venta - DetalleVenta
+            modelBuilder.Entity<DetalleVenta>()
+                .HasOne(d => d.Venta)
+                .WithMany(v => v.Detalles)
+                .HasForeignKey(d => d.VentaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<Factura>()
+                .Property(f => f.TipoComprobante)
+                .HasConversion<string>();
+
+            modelBuilder
+                .Entity<Empresa>()
+                .Property(e => e.CondicionIVA)
                 .HasConversion<string>();
 
         }

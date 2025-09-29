@@ -42,20 +42,21 @@ namespace GestionVentasCel.views.proveedor
 
             // Nombre, Apellido, Tipo de documento, Numero de documento, telefono, email, calle, ciudad, tipo proveedor, activo
 
-            dgvListar.DataBindingComplete += (s, e) => {
+            dgvListar.DataBindingComplete += (s, e) =>
+            {
 
-                dgvListar.Columns["Nombre"].DisplayIndex        = 1;
-                dgvListar.Columns["Apellido"].DisplayIndex      = 2;
+                dgvListar.Columns["Nombre"].DisplayIndex = 1;
+                dgvListar.Columns["Apellido"].DisplayIndex = 2;
                 dgvListar.Columns["TipoDocumento"].DisplayIndex = 3;
-                dgvListar.Columns["Dni"].DisplayIndex           = 4;
-                dgvListar.Columns["Telefono"].DisplayIndex      = 5;
-                dgvListar.Columns["Email"].DisplayIndex         = 6;
-                dgvListar.Columns["Calle"].DisplayIndex         = 7;
-                dgvListar.Columns["Ciudad"].DisplayIndex        = 8;
-                dgvListar.Columns["Activo"].DisplayIndex        = 9;
-                dgvListar.Columns["Activo"].AutoSizeMode        = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvListar.Columns["Dni"].DisplayIndex = 4;
+                dgvListar.Columns["Telefono"].DisplayIndex = 5;
+                dgvListar.Columns["Email"].DisplayIndex = 6;
+                dgvListar.Columns["Calle"].DisplayIndex = 7;
+                dgvListar.Columns["Ciudad"].DisplayIndex = 8;
+                dgvListar.Columns["Activo"].DisplayIndex = 9;
+                dgvListar.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            
+
             };
         }
 

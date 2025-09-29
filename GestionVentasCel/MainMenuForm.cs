@@ -4,16 +4,19 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.controller.reparaciones;
+using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.service.factura;
+using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
 using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
+using GestionVentasCel.views.servicio;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -69,7 +72,7 @@ namespace GestionVentasCel
             // Hay un bug molesto que hace que tengas que hacer click en el formulario que se abre para
             // que se puedan usar los atajos que define. Eso es porque el abrir el formulario no garantiza que tenga el foco.
             // HAcerle foco manual arregla eso
-            formularioHijo.Focus(); 
+            formularioHijo.Focus();
         }
 
         private void UsuarioMenuItem_Click(object sender, EventArgs e)
@@ -148,7 +151,7 @@ namespace GestionVentasCel
         {
             using (var aumentarMargen = new ConfiguracionPreciosForm(_serviceProvider.GetRequiredService<ConfiguracionPreciosController>()))
             {
-            
+
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (aumentarMargen.ShowDialog() == DialogResult.OK)
                 {
@@ -160,6 +163,41 @@ namespace GestionVentasCel
 
                 }
             }
+        }
+
+        private void administrarServiciosMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Administrar Servicios - SGVC";
+            AbrirFormularioHijo(new ServicioMainMenuForm(_serviceProvider.GetRequiredService<ServicioController>(),
+                                                         _serviceProvider.GetRequiredService<ArticuloController>()));
+        }
+
+        private void administrarReparacionesMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Administrar Reparaciones - SGVC";
+            AbrirFormularioHijo(new ReparacionMainMenuForm(_serviceProvider.GetRequiredService<ReparacionController>(),
+                                                            _serviceProvider.GetRequiredService<ClienteController>(),
+                                                            _serviceProvider.GetRequiredService<ServicioController>(),
+                                                            _serviceProvider.GetRequiredService<ArticuloController>()));
+        }
+
+        private void gestionarVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Administrar ventas - SGVC";
+            AbrirFormularioHijo(new VentaMainMenuForm(
+                _serviceProvider.GetRequiredService<IVentaService>(),
+                _serviceProvider
+                )
+            );
+        }
+
+        private void gestionarFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Facturas emitidas - SGVC";
+            AbrirFormularioHijo(new FacturaMainMenuForm(
+                _serviceProvider.GetRequiredService<IFacturaService>()
+                )
+            );
         }
     }
 }

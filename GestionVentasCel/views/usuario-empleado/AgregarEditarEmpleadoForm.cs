@@ -5,7 +5,6 @@ using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.usuario;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.temas;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
