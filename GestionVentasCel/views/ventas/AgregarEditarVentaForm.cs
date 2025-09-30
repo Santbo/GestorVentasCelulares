@@ -45,6 +45,8 @@ namespace GestionVentasCel.views.ventas
             // Siempre hay que guardar qué usuario autorizó la venta o la edición
             _venta.UsuarioId = _sesionUsuario.Id;
 
+            this.comboTipoPago.Enabled = false;
+
             this.ConfigurarBindings();
             this.InicializarCombos();
             this.ConfigurarDGVDetalles();
@@ -63,6 +65,8 @@ namespace GestionVentasCel.views.ventas
             {
                 panelEstado.Visible = false;
             }
+
+
 
         }
 
@@ -171,6 +175,8 @@ namespace GestionVentasCel.views.ventas
 
             comboCliente.SelectedValueChanged += (s, e) =>
             {
+                // Hay que enablearlo porque si no tenía un bug de que si se hacía click nunca se podia salir
+                comboTipoPago.Enabled = true;
                 if (comboCliente.SelectedValue is int clienteId)
                 {
                     comboTipoPago.DataSource = _service.ObtenerMediosDePagoDisponibles(clienteId);
@@ -495,7 +501,7 @@ namespace GestionVentasCel.views.ventas
             this._bindingSource.ResetBindings(false);
             this.comboBoxTipoItem.SelectedIndex = -1;
             this.txtDescripcionDetalle.Text = String.Empty;
-            this.nupCantidad.Value = 0;
+            this.nupCantidad.Value = 1;
             this.nupCantidad.Enabled = true;
 
 
