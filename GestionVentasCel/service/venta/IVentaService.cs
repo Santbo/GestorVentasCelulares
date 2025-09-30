@@ -8,12 +8,8 @@ namespace GestionVentasCel.service.venta
         void AgregarVenta(Venta venta);
         void ActualizarVenta(Venta venta);
         void EliminarVenta(int id);
-        bool ExisteVenta(int id);
 
-        IEnumerable<Venta> ListarVentas();
         IEnumerable<Venta> ListarVentasConDetalles();
-        Venta? ObtenerVentaPorId(int id);
-        Venta? ObtenerVentaPorIdConDetalles(int id);
         Venta? ObtenerVentaPorIdConDetallesNoTracking(int id);
 
         Factura? ObtenerFacturaDeVenta(Venta venta);

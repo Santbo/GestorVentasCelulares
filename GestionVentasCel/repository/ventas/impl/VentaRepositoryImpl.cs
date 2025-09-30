@@ -255,6 +255,8 @@ namespace GestionVentasCel.repository.ventas.impl
                 if (detalle.EsReparacion && detalle.Reparacion != null)
                 {
                     detalle.Reparacion.Estado = EstadoReparacionEnum.Entregado;
+                    detalle.Reparacion.FechaEgreso = venta.FechaVenta;
+
                 }
             }
 
