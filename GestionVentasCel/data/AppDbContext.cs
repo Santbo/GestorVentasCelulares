@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.articulo;
+using GestionVentasCel.models.caja;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.compra;
@@ -50,6 +51,10 @@ namespace GestionVentasCel.data
 
         public DbSet<Factura> Facturas { get; set; }
         public DbSet<DetalleFactura> DetallesFacturas { get; set; }
+
+        public DbSet<Caja> Caja { get; set; }
+
+        public DbSet<MovimientoCaja> MovimientosCaja { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -141,6 +146,14 @@ namespace GestionVentasCel.data
             modelBuilder
                 .Entity<Empresa>()
                 .Property(e => e.CondicionIVA)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Caja>()
+                .Property(c => c.Estado)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<MovimientoCaja>()
+                .Property(m => m.TipoMovimiento)
                 .HasConversion<string>();
 
         }
