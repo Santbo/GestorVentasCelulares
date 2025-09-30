@@ -30,13 +30,13 @@
         {
             components = new System.ComponentModel.Container();
             Panel panel1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarVentaForm));
             Panel panel4;
-            imageList1 = new ImageList(components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarVentaForm));
             comboCliente = new ComboBox();
             lblCliente = new Label();
             dtpFechaCreacion = new DateTimePicker();
             lblFecha = new Label();
+            imageList1 = new ImageList(components);
             btnSalir = new Button();
             lblTituloForm = new Label();
             panel8 = new Panel();
@@ -97,14 +97,6 @@
             panel1.Size = new Size(718, 68);
             panel1.TabIndex = 0;
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
-            imageList1.Images.SetKeyName(1, "plus-solid.png");
-            // 
             // comboCliente
             // 
             comboCliente.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -157,6 +149,14 @@
             lblFecha.Size = new Size(61, 25);
             lblFecha.TabIndex = 0;
             lblFecha.Text = "Fecha";
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            imageList1.Images.SetKeyName(1, "plus-solid.png");
             // 
             // btnSalir
             // 
@@ -324,6 +324,7 @@
             nupIVA.Location = new Point(0, 34);
             nupIVA.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             nupIVA.Name = "nupIVA";
+            nupIVA.ReadOnly = true;
             nupIVA.Size = new Size(271, 39);
             nupIVA.TabIndex = 1;
             // 
@@ -353,9 +354,11 @@
             nupCantidad.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nupCantidad.Location = new Point(0, 34);
             nupCantidad.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            nupCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nupCantidad.Name = "nupCantidad";
             nupCantidad.Size = new Size(268, 39);
             nupCantidad.TabIndex = 1;
+            nupCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // lblCantidad
             // 

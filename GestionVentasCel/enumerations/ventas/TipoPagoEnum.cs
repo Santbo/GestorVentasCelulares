@@ -3,6 +3,10 @@
     public enum TipoPagoEnum
     {
         Efectivo,
-        CuentaCorriente
+        CuentaCorriente,
+        Transferencia,
+        BilleteraVirtual,
+        TarjetaCredito,
+        TarjetaDebito
     }
 }
