@@ -16,6 +16,9 @@ namespace GestionVentasCel.repository.caja
         Caja? GetById(int id);
         Caja? GetWithMovimientosById(int id);
         bool Exist(int id);
+        bool EstaCerrada(int id);
+        bool HayCajaAbierta();
+        Caja? ObtenerCajaActualAbierta();
 
         // Movimientos
         void AddMovimiento(MovimientoCaja movimiento);

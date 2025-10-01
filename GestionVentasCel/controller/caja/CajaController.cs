@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.service.caja;
 
@@ -58,15 +59,25 @@ namespace GestionVentasCel.controller.caja
             _service.CerrarCaja(id, montoCierre);
         }
 
+        public bool EstaCerrada(int id)
+        {
+            return _service.EstaCerrada(id);
+        }
+
+        public bool HayCajaAbierta()
+        {
+            return _service.HayCajaAbierta();
+        }
+
         // Movimientos
         public void RegistrarRetiro(int cajaId, decimal monto, string descripcion)
         {
             _service.RegistrarRetiro(cajaId, monto, descripcion);
         }
 
-        public void RegistrarVenta(int cajaId, decimal monto)
+        public void RegistrarVenta(int cajaId, decimal monto, TipoPagoEnum tipoPago)
         {
-            _service.RegistrarVenta(cajaId, monto);
+            _service.RegistrarVenta(cajaId, monto, tipoPago);
         }
 
         public IEnumerable<MovimientoCaja> ListarMovimientosCaja(int cajaId)

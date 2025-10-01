@@ -1,17 +1,21 @@
 ﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.repository.facturas;
+using GestionVentasCel.service.caja;
 
 namespace GestionVentasCel.service.factura
 {
     public class FacturaServiceImpl : IFacturaService
     {
         private readonly IFacturaRepository _facturaRepository;
+        private readonly ICajaService _cajaService;
 
-        public FacturaServiceImpl(IFacturaRepository facturaRepository)
+        public FacturaServiceImpl(IFacturaRepository facturaRepository, ICajaService cajaService)
         {
             _facturaRepository = facturaRepository;
+            _cajaService = cajaService;
         }
 
         public Factura? ObtenerPorId(int id)
@@ -85,6 +89,9 @@ namespace GestionVentasCel.service.factura
                     Subtotal = d.SubtotalConIva
                 }).ToList()
             };
+
+            var cajaId = _cajaService.ObtenerCajaActualAbierta();
+            _cajaService.RegistrarVenta(cajaId, factura.Total, venta.TipoPago);
 
             _facturaRepository.Agregar(factura);
 

@@ -7,6 +7,7 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.models.ventas;
@@ -176,6 +177,15 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
+                if (_cajaController.EstaCerrada(id))
+                {
+                    MessageBox.Show("Error: La caja se encuentra cerrada",
+                       "Caja Cerrada",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning);
+                    return;
+                }
+
                 using (var retiroCaja = new RetiroCajaForm(_cajaController, id))
                 {
 
@@ -226,7 +236,38 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void btnCerrarCaja_Click(object sender, EventArgs e)
         {
+            if (dgvListar.CurrentRow != null)
+            {
+                int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
+                try
+                {
+                    var caja = _cajaController.ObtenerConMovimientos(id);
+
+                    if (caja != null)
+                    {
+                        decimal totalCierre = 0;
+
+                        foreach (var monto in caja.TotalesPorTipoPago)
+                        {
+                            if(monto.Key == TipoPagoEnum.Retiro)
+                            {
+                                totalCierre -= monto.Value;
+                            }
+
+                            totalCierre += monto.Value;
+                        }
+                        totalCierre += caja.MontoApertura;
+                        _cajaController.CerrarCaja(caja.Id, totalCierre);
+                    }
+                } catch(CajaYaCerradaException ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                CargarCajas();
+                ConfigurarDGV();
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -313,8 +354,12 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void dgvListar_SelectionChanged(object sender, EventArgs e)
         {
-            // Ver si la caja seleccionada está abierta, y mostrar el botón de cerrar caja
-            this.btnCerrarCaja.Visible = ((Caja)this.dgvListar.CurrentRow.DataBoundItem).Estado == EstadoCajaEnum.Abierta;
+            if (dgvListar.CurrentRow != null)
+            {
+
+                // Ver si la caja seleccionada está abierta, y mostrar el botón de cerrar caja
+                this.btnCerrarCaja.Visible = ((Caja)this.dgvListar.CurrentRow.DataBoundItem).Estado == EstadoCajaEnum.Abierta;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestionVentasCel.controller.caja;
+using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 
 namespace GestionVentasCel.views.caja
@@ -51,11 +52,23 @@ namespace GestionVentasCel.views.caja
         {
             if (validarCampos())
             {
+
+                var caja = _cajaController.ObtenerConMovimientos(_cajaId);
+                var totalEfectivo = caja.TotalesPorTipoPago.GetValueOrDefault(TipoPagoEnum.Efectivo) + caja.MontoApertura;
+                var totalCaja = totalEfectivo - caja.TotalesPorTipoPago.GetValueOrDefault(TipoPagoEnum.Retiro);
                 try
                 {
+                    if(totalCaja >= decimal.Parse(txtMonto.Text))
+                    {
+                        _cajaController.RegistrarRetiro(_cajaId, decimal.Parse(txtMonto.Text), txtDescripcion.Text);
+                        DialogResult = DialogResult.OK;
 
-                    _cajaController.RegistrarRetiro(_cajaId, decimal.Parse(txtMonto.Text), txtDescripcion.Text);
-                    DialogResult = DialogResult.OK;
+                    } else
+                    {
+
+                        MessageBox.Show("No se puede retirar mas dinero del disponible", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                 }
                 catch (CajaNoEncontradaException ex)
                 {

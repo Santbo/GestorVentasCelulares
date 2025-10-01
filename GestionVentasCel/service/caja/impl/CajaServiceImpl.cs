@@ -8,6 +8,7 @@ using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.repository.caja;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.service.caja.impl
 {
@@ -77,6 +78,22 @@ namespace GestionVentasCel.service.caja.impl
             _repo.Update(caja);
         }
 
+        public bool EstaCerrada(int id)
+        {
+            return _repo.EstaCerrada(id);
+        }
+
+        public bool HayCajaAbierta()
+        {
+            return _repo.HayCajaAbierta();
+        }
+
+        public int ObtenerCajaActualAbierta()
+        {
+            var caja = _repo.ObtenerCajaActualAbierta();
+            return caja.Id;
+        }
+
         // --- Movimientos ---
         public void RegistrarRetiro(int cajaId, decimal monto, string descripcion)
         {
@@ -101,7 +118,7 @@ namespace GestionVentasCel.service.caja.impl
             _repo.AddMovimiento(movimiento);
         }
 
-        public void RegistrarVenta(int cajaId, decimal monto)
+        public void RegistrarVenta(int cajaId, decimal monto, TipoPagoEnum tipoPago)
         {
             var caja = _repo.GetById(cajaId);
 
@@ -115,6 +132,7 @@ namespace GestionVentasCel.service.caja.impl
             {
                 CajaId = caja.Id,
                 TipoMovimiento = TipoMovimientoEnum.Venta,
+                TipoPago = tipoPago,
                 Monto = monto,
                 Descripcion = "Venta automática",
                 Fecha = DateTime.Now

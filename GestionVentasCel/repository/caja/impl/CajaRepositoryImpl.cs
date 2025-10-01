@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.data;
+using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.models.caja;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +59,22 @@ namespace GestionVentasCel.repository.caja.impl
         public bool Exist(int id)
         {
             return _context.Caja.Any(c => c.Id == id);
+        }
+
+        public bool EstaCerrada(int id)
+        {
+            return _context.Caja.Any(c => c.Id == id && c.Estado == EstadoCajaEnum.Cerrada);
+        }
+
+        public bool HayCajaAbierta()
+        {
+            return _context.Caja.Any(c => c.Estado == EstadoCajaEnum.Abierta);
+        }
+
+        public Caja? ObtenerCajaActualAbierta()
+        {
+            return _context.Caja.FirstOrDefault(c => c.Estado == EstadoCajaEnum.Abierta);
+            
         }
 
         // --- Movimientos ---

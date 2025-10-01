@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using GestionVentasCel.models.ventas;
+using GestionVentasCel.service.caja;
 using GestionVentasCel.service.factura;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;

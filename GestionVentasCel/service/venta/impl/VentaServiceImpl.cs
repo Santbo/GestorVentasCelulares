@@ -6,6 +6,7 @@ using GestionVentasCel.models.ventas;
 using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ventas;
 using GestionVentasCel.service.articulo;
+using GestionVentasCel.service.caja;
 using GestionVentasCel.service.reparacion;
 
 namespace GestionVentasCel.service.venta.impl
@@ -16,18 +17,21 @@ namespace GestionVentasCel.service.venta.impl
         private readonly IArticuloService _articuloService;
         private readonly ICuentaCorrienteRepository _cuentaCorrienteRepo;
         private readonly IReparacionService _reparacionService;
+        private readonly ICajaService _cajaService;
 
         public VentaServiceImpl(
             IVentaRepository ventaRepo,
             IArticuloService articuloService,
             ICuentaCorrienteRepository cuentaCorrienteRepo,
-            IReparacionService reparacionService
+            IReparacionService reparacionService,
+            ICajaService cajaService
             )
         {
             _ventaRepo = ventaRepo;
             _articuloService = articuloService;
             _cuentaCorrienteRepo = cuentaCorrienteRepo;
             _reparacionService = reparacionService;
+            _cajaService = cajaService;
         }
 
         public void AgregarVenta(Venta venta)
@@ -125,7 +129,19 @@ namespace GestionVentasCel.service.venta.impl
         /// </summary>
         public void ConfirmarVenta(int ventaId, bool editando = false)
         {
-            _ventaRepo.ConfirmarVenta(ventaId);
+
+            if (_cajaService.HayCajaAbierta())
+            {
+
+                _ventaRepo.ConfirmarVenta(ventaId);
+
+            } else
+            {
+                MessageBox.Show("No se puede hacer una venta sin una caja Abierta. Por favor abra una", 
+                                "Abrir Caja",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
 
 
         }
@@ -152,6 +168,7 @@ namespace GestionVentasCel.service.venta.impl
             CuentaCorriente? cc = _cuentaCorrienteRepo.GetByClienteId(idCliente);
 
             var listaFiltrada = Enum.GetNames(typeof(TipoPagoEnum)).ToList();
+            listaFiltrada.Remove(TipoPagoEnum.Retiro.ToString());
 
             if (cc != null && !cc.Activo)
             {
