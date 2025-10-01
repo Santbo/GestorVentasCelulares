@@ -100,7 +100,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="views\caja\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.caja;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
@@ -9,6 +10,7 @@ using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.service.factura;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.articulo;
@@ -196,6 +198,15 @@ namespace GestionVentasCel
             this.Text = "Facturas emitidas - SGVC";
             AbrirFormularioHijo(new FacturaMainMenuForm(
                 _serviceProvider.GetRequiredService<IFacturaService>()
+                )
+            );
+        }
+
+        private void cajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Caja - SGVC";
+            AbrirFormularioHijo(new CajaMainMenuForm(
+                _serviceProvider.GetRequiredService<CajaController>(), _serviceProvider.GetRequiredService<SesionUsuario>()
                 )
             );
         }

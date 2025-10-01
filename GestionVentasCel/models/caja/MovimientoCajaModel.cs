@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.caja;
+using GestionVentasCel.enumerations.ventas;
 
 namespace GestionVentasCel.models.caja
 {
@@ -27,6 +28,9 @@ namespace GestionVentasCel.models.caja
         
         [MaxLength(255)]
         public string? Descripcion { get; set; }
+
+        [Required]
+        public TipoPagoEnum TipoPago { get; set; }
 
         [Required, DisplayName("Fecha")]
         public DateTime Fecha { get; set; } = DateTime.Now;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.caja;
+using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.repository.caja;
@@ -93,7 +94,8 @@ namespace GestionVentasCel.service.caja.impl
                 TipoMovimiento = TipoMovimientoEnum.Retiro,
                 Monto = monto,
                 Descripcion = descripcion,
-                Fecha = DateTime.Now
+                Fecha = DateTime.Now,
+                TipoPago = TipoPagoEnum.Retiro
             };
 
             _repo.AddMovimiento(movimiento);

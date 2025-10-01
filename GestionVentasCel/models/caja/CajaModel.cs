@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.enumerations.ventas;
 
 namespace GestionVentasCel.models.caja
 {
@@ -29,12 +30,18 @@ namespace GestionVentasCel.models.caja
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal MontoApertura { get; set; }
 
-        [Column(TypeName = "decimal(10,2)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? MontoCierre { get; set; }
 
         [Required]
         public EstadoCajaEnum Estado { get; set; } = EstadoCajaEnum.Abierta;
 
         public ICollection<MovimientoCaja> Movimientos { get; set; } = new List<MovimientoCaja>();
+
+        [NotMapped]
+        public Dictionary<TipoPagoEnum, decimal> TotalesPorTipoPago =>
+                    Movimientos
+                        .GroupBy(m => m.TipoPago)
+                        .ToDictionary(g => g.Key, g => g.Sum(m => m.Monto));
     }
 }

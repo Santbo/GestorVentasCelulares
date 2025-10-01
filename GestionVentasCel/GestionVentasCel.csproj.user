@@ -10,6 +10,18 @@
     <Compile Update="views\articulo\ArticuloMainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\caja\CajaMainMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\caja\MontoAperturaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\caja\RetiroCajaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="views\caja\VerMovimientosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\categoria\AgregarEditarCategoriaForm.cs">
       <SubType>Form</SubType>
     </Compile>

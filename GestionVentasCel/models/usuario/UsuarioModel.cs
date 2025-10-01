@@ -21,5 +21,10 @@ namespace GestionVentasCel.models.usuario
 
         public bool Activo { get; set; } = true;
 
+        public override string ToString()
+        {
+            return $"{Nombre} {Apellido}";
+        }
+
     }
 }
