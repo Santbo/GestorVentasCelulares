@@ -345,7 +345,7 @@ namespace GestionVentasCel.views.ventas
 
 
                 }
-                    this.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
 

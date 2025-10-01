@@ -8,7 +8,6 @@ using GestionVentasCel.models.ventas;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.ventas;
-using Microsoft.Extensions.Logging;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -295,7 +294,8 @@ namespace GestionVentasCel.views.usuario_empleado
                 var movimiento = (MovimientoCuentaCorriente)dgvListarMovimientos.CurrentRow.DataBoundItem;
 
 
-                if (!(movimiento.VentaId.HasValue)) { 
+                if (!(movimiento.VentaId.HasValue))
+                {
 
                     MessageBox.Show(
                         "Ese movimiento no es de una venta",
@@ -325,7 +325,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 {
                     detalleVenta.ShowDialog();
                 }
-                
+
 
 
             }

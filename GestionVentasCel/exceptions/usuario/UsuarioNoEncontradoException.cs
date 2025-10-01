@@ -1,6 +1,6 @@
 ﻿namespace GestionVentasCel.exceptions.usuario
 {
-    internal class UsuarioNoEncontradoException : Exception
+    public class UsuarioNoEncontradoException : Exception
     {
         public UsuarioNoEncontradoException() { }
 

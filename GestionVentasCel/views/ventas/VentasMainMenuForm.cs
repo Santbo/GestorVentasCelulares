@@ -3,7 +3,6 @@ using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.service.factura;
 using GestionVentasCel.service.usuario;
