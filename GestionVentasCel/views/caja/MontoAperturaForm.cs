@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestionVentasCel.controller.caja;
+using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.usuario;
+using GestionVentasCel.temas;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace GestionVentasCel.views.caja
@@ -54,77 +56,51 @@ namespace GestionVentasCel.views.caja
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtMontoApertura.Text))
+                // Realmente siempre debería ser mayor que cero pero por las dudas
+                if (nupMonto.Value >= 0)
                 {
-
-                    _cajaController.AbrirCaja(_UsuarioId, decimal.Parse(txtMontoApertura.Text));
+                    _cajaController.AbrirCaja(_UsuarioId, nupMonto.Value);
                     DialogResult = DialogResult.OK;
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, completá el campo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtMontoApertura.Focus();
-                }
+                    MessageBox.Show("Por favor, ingrese un monto positivo",
+                                    "Validación",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
 
+                    nupMonto.Focus();
+                }
             }
             catch (CajaYaAbiertaException ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+                MessageBox.Show("Error: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
             }
         }
 
-        private void txtMontoApertura_KeyPress(object sender, KeyPressEventArgs e)
+        private void ConfigurarEstilosVisuales()
         {
+            this.BackColor = Tema.ColorSuperficie;
 
-            TextBox txt = sender as TextBox;
-
-            // Permitir teclas de control como Backspace
-            if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-                return;
-            }
-
-            // Permitir dígitos
-            if (char.IsDigit(e.KeyChar))
-            {
-                // Si ya hay un punto, verificar los decimales
-                if (txt.Text.Contains("."))
-                {
-                    int index = txt.Text.IndexOf(".");
-                    string decimals = txt.Text.Substring(index + 1);
-
-                    // Si hay más de 1 decimal y el cursor está después del punto
-                    if (txt.SelectionStart > index && decimals.Length >= 2)
-                    {
-                        e.Handled = true;
-                        return;
-                    }
-                }
-
-                e.Handled = false;
-                return;
-            }
-
-            // Permitir solo un punto
-            if (e.KeyChar == '.')
-            {
-                if (txt.Text.Contains("."))
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    e.Handled = false;
-                }
-                return;
-            }
-
-            // Bloquear cualquier otro carácter
-            e.Handled = true;
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
+            this.BackColor = Tema.ColorSuperficie;
 
         }
 
+        private void MontoAperturaForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
+            this.ActiveControl = nupMonto;
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.btnCancelar.PerformClick();
+        }
     }
 }

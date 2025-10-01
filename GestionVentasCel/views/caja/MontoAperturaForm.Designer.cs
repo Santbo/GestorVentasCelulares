@@ -28,99 +28,143 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitulo = new Label();
-            txtMontoApertura = new TextBox();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MontoAperturaForm));
             lblMonto = new Label();
             label1 = new Label();
             btnAbrirCaja = new Button();
             btnCancelar = new Button();
+            btnSalir = new Button();
+            imageList1 = new ImageList(components);
+            lblTituloForm = new Label();
+            nupMonto = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)nupMonto).BeginInit();
             SuspendLayout();
-            // 
-            // lblTitulo
-            // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(15, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(475, 46);
-            lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "Agregar el Monto de Apertura";
-            // 
-            // txtMontoApertura
-            // 
-            txtMontoApertura.Location = new Point(213, 91);
-            txtMontoApertura.MaxLength = 13;
-            txtMontoApertura.Name = "txtMontoApertura";
-            txtMontoApertura.Size = new Size(203, 27);
-            txtMontoApertura.TabIndex = 2;
-            txtMontoApertura.KeyPress += txtMontoApertura_KeyPress;
             // 
             // lblMonto
             // 
             lblMonto.AutoSize = true;
-            lblMonto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMonto.Location = new Point(92, 87);
+            lblMonto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMonto.Location = new Point(38, 108);
+            lblMonto.Margin = new Padding(4, 0, 4, 0);
             lblMonto.Name = "lblMonto";
-            lblMonto.Size = new Size(72, 28);
+            lblMonto.Size = new Size(173, 32);
             lblMonto.TabIndex = 3;
-            lblMonto.Text = "Monto";
+            lblMonto.Text = "Monto inicial:";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(184, 87);
+            label1.Location = new Point(224, 108);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(23, 28);
+            label1.Size = new Size(27, 32);
             label1.TabIndex = 4;
             label1.Text = "$";
             // 
             // btnAbrirCaja
             // 
-            btnAbrirCaja.Location = new Point(382, 147);
+            btnAbrirCaja.Location = new Point(273, 195);
+            btnAbrirCaja.Margin = new Padding(4);
             btnAbrirCaja.Name = "btnAbrirCaja";
-            btnAbrirCaja.Size = new Size(108, 48);
-            btnAbrirCaja.TabIndex = 5;
+            btnAbrirCaja.Size = new Size(135, 60);
+            btnAbrirCaja.TabIndex = 1;
             btnAbrirCaja.Text = "Abrir Caja";
             btnAbrirCaja.UseVisualStyleBackColor = true;
             btnAbrirCaja.Click += btnAbrirCaja_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(268, 147);
+            btnCancelar.Location = new Point(130, 195);
+            btnCancelar.Margin = new Padding(4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(108, 48);
-            btnCancelar.TabIndex = 7;
+            btnCancelar.Size = new Size(135, 60);
+            btnCancelar.TabIndex = 2;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // btnSalir
+            // 
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Cursor = Cursors.Hand;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ImageKey = "xmark-solid-full.png";
+            btnSalir.ImageList = imageList1;
+            btnSalir.Location = new Point(494, 11);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(32, 32);
+            btnSalir.TabIndex = 39;
+            btnSalir.TabStop = false;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(538, 77);
+            lblTituloForm.TabIndex = 40;
+            lblTituloForm.Text = "Monto de apertura";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // nupMonto
+            // 
+            nupMonto.DecimalPlaces = 2;
+            nupMonto.Location = new Point(258, 109);
+            nupMonto.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
+            nupMonto.Name = "nupMonto";
+            nupMonto.Size = new Size(199, 31);
+            nupMonto.TabIndex = 41;
+            nupMonto.ThousandsSeparator = true;
+            // 
             // MontoAperturaForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AcceptButton = btnAbrirCaja;
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(502, 207);
+            CancelButton = btnCancelar;
+            ClientSize = new Size(538, 268);
+            Controls.Add(nupMonto);
+            Controls.Add(btnSalir);
             Controls.Add(btnCancelar);
             Controls.Add(btnAbrirCaja);
             Controls.Add(label1);
             Controls.Add(lblMonto);
-            Controls.Add(txtMontoApertura);
-            Controls.Add(lblTitulo);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Controls.Add(lblTituloForm);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "MontoAperturaForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += MontoAperturaForm_FormClosing;
+            Load += MontoAperturaForm_Load;
+            ((System.ComponentModel.ISupportInitialize)nupMonto).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label lblTitulo;
-        private TextBox txtMontoApertura;
         private Label lblMonto;
         private Label label1;
         private Button btnAbrirCaja;
         private Button btnCancelar;
+        private Button btnSalir;
+        private ImageList imageList1;
+        private Label lblTituloForm;
+        private NumericUpDown nupMonto;
     }
 }

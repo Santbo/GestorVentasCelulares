@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GestionVentasCel.controller.caja;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.caja
 {
@@ -58,12 +59,12 @@ namespace GestionVentasCel.views.caja
                 var totalCaja = totalEfectivo - caja.TotalesPorTipoPago.GetValueOrDefault(TipoPagoEnum.Retiro);
                 try
                 {
-                    if(totalCaja >= decimal.Parse(txtMonto.Text))
+                    if (totalCaja >= nupMonto.Value)
                     {
-                        _cajaController.RegistrarRetiro(_cajaId, decimal.Parse(txtMonto.Text), txtDescripcion.Text);
+                        _cajaController.RegistrarRetiro(_cajaId, nupMonto.Value, txtDescripcion.Text);
                         DialogResult = DialogResult.OK;
-
-                    } else
+                    }
+                    else
                     {
 
                         MessageBox.Show("No se puede retirar mas dinero del disponible", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -99,54 +100,29 @@ namespace GestionVentasCel.views.caja
             return true;
         }
 
-        private void txtMonto_KeyPress(object sender, KeyPressEventArgs e)
+        private void RetiroCajaForm_Load(object sender, EventArgs e)
         {
-            TextBox txt = sender as TextBox;
+            this.ConfigurarEstilosVisuales();
+            this.ActiveControl = nupMonto;
+        }
 
-            // Permitir teclas de control como Backspace
-            if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-                return;
-            }
+        private void ConfigurarEstilosVisuales()
+        {
+            this.BackColor = Tema.ColorSuperficie;
 
-            // Permitir dígitos
-            if (char.IsDigit(e.KeyChar))
-            {
-                // Si ya hay un punto, verificar los decimales
-                if (txt.Text.Contains("."))
-                {
-                    int index = txt.Text.IndexOf(".");
-                    string decimals = txt.Text.Substring(index + 1);
+            this.lblTituloForm.ForeColor = Tema.ColorTextoPrimario;
+            this.lblTituloForm.BackColor = Tema.ColorFondo;
+            this.btnSalir.BackColor = Tema.ColorFondo;
 
-                    // Si hay más de 1 decimal y el cursor está después del punto
-                    if (txt.SelectionStart > index && decimals.Length >= 2)
-                    {
-                        e.Handled = true;
-                        return;
-                    }
-                }
 
-                e.Handled = false;
-                return;
-            }
+            this.BackColor = Tema.ColorSuperficie;
 
-            // Permitir solo un punto
-            if (e.KeyChar == '.')
-            {
-                if (txt.Text.Contains("."))
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    e.Handled = false;
-                }
-                return;
-            }
+        }
 
-            // Bloquear cualquier otro carácter
-            e.Handled = true;
+        private void btnSalir_Click_1(object sender, EventArgs e)
+        {
+            this.btnCancelar.PerformClick();
+
         }
     }
 }

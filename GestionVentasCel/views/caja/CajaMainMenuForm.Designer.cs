@@ -60,18 +60,19 @@
             panelBtn.Controls.Add(btnRetirarDinero);
             panelBtn.Controls.Add(btnAbrirCaja);
             panelBtn.Dock = DockStyle.Bottom;
-            panelBtn.Location = new Point(0, 381);
+            panelBtn.Location = new Point(0, 476);
+            panelBtn.Margin = new Padding(4, 4, 4, 4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(800, 69);
+            panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 0;
             // 
             // btnCerrarCaja
             // 
             btnCerrarCaja.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCerrarCaja.Location = new Point(239, 5);
+            btnCerrarCaja.Location = new Point(299, 6);
             btnCerrarCaja.Margin = new Padding(2);
             btnCerrarCaja.Name = "btnCerrarCaja";
-            btnCerrarCaja.Size = new Size(139, 60);
+            btnCerrarCaja.Size = new Size(174, 75);
             btnCerrarCaja.TabIndex = 6;
             btnCerrarCaja.Text = "Cerrar Caja";
             btnCerrarCaja.UseVisualStyleBackColor = true;
@@ -80,10 +81,10 @@
             // btnVerMovimientos
             // 
             btnVerMovimientos.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnVerMovimientos.Location = new Point(383, 5);
+            btnVerMovimientos.Location = new Point(479, 6);
             btnVerMovimientos.Margin = new Padding(2);
             btnVerMovimientos.Name = "btnVerMovimientos";
-            btnVerMovimientos.Size = new Size(139, 60);
+            btnVerMovimientos.Size = new Size(174, 75);
             btnVerMovimientos.TabIndex = 5;
             btnVerMovimientos.Text = "Ver Movimientos";
             btnVerMovimientos.UseVisualStyleBackColor = true;
@@ -91,10 +92,11 @@
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(12, 9);
+            txtBuscar.Location = new Point(15, 11);
+            txtBuscar.Margin = new Padding(4, 4, 4, 4);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "(Ctrl + F) Buscar Caja";
-            txtBuscar.Size = new Size(266, 27);
+            txtBuscar.Size = new Size(332, 31);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
@@ -102,9 +104,10 @@
             // 
             chkMostrarInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkMostrarInactivos.AutoSize = true;
-            chkMostrarInactivos.Location = new Point(12, 41);
+            chkMostrarInactivos.Location = new Point(15, 52);
+            chkMostrarInactivos.Margin = new Padding(4, 4, 4, 4);
             chkMostrarInactivos.Name = "chkMostrarInactivos";
-            chkMostrarInactivos.Size = new Size(160, 24);
+            chkMostrarInactivos.Size = new Size(189, 29);
             chkMostrarInactivos.TabIndex = 3;
             chkMostrarInactivos.Text = "Incluir Caja Cerrada";
             chkMostrarInactivos.UseVisualStyleBackColor = true;
@@ -113,9 +116,10 @@
             // btnRetirarDinero
             // 
             btnRetirarDinero.Anchor = AnchorStyles.Right;
-            btnRetirarDinero.Location = new Point(527, 5);
+            btnRetirarDinero.Location = new Point(659, 6);
+            btnRetirarDinero.Margin = new Padding(4, 4, 4, 4);
             btnRetirarDinero.Name = "btnRetirarDinero";
-            btnRetirarDinero.Size = new Size(128, 60);
+            btnRetirarDinero.Size = new Size(160, 75);
             btnRetirarDinero.TabIndex = 1;
             btnRetirarDinero.Text = "Retirar Dinero";
             btnRetirarDinero.UseVisualStyleBackColor = true;
@@ -124,9 +128,10 @@
             // btnAbrirCaja
             // 
             btnAbrirCaja.Anchor = AnchorStyles.Right;
-            btnAbrirCaja.Location = new Point(660, 5);
+            btnAbrirCaja.Location = new Point(825, 6);
+            btnAbrirCaja.Margin = new Padding(4, 4, 4, 4);
             btnAbrirCaja.Name = "btnAbrirCaja";
-            btnAbrirCaja.Size = new Size(128, 60);
+            btnAbrirCaja.Size = new Size(160, 75);
             btnAbrirCaja.TabIndex = 0;
             btnAbrirCaja.Text = "Abrir Caja";
             btnAbrirCaja.UseVisualStyleBackColor = true;
@@ -137,8 +142,9 @@
             panelContenedor.Controls.Add(splitContainer1);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 0);
+            panelContenedor.Margin = new Padding(4, 4, 4, 4);
             panelContenedor.Name = "panelContenedor";
-            panelContenedor.Size = new Size(800, 381);
+            panelContenedor.Size = new Size(1000, 476);
             panelContenedor.TabIndex = 1;
             // 
             // splitContainer1
@@ -157,10 +163,9 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvListar);
-            splitContainer1.Panel2.Padding = new Padding(9, 3, 9, 3);
-            splitContainer1.Size = new Size(800, 381);
-            splitContainer1.SplitterDistance = 27;
-            splitContainer1.SplitterWidth = 3;
+            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
+            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.SplitterDistance = 33;
             splitContainer1.TabIndex = 4;
             // 
             // panelHeader
@@ -170,7 +175,7 @@
             panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(2);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(800, 27);
+            panelHeader.Size = new Size(1000, 33);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -180,8 +185,8 @@
             lblTituloForm.Location = new Point(0, 0);
             lblTituloForm.Margin = new Padding(2, 0, 2, 0);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Padding = new Padding(6, 0, 6, 0);
-            lblTituloForm.Size = new Size(800, 27);
+            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
+            lblTituloForm.Size = new Size(1000, 33);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Gestión de Caja";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
@@ -193,22 +198,24 @@
             dgvListar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
-            dgvListar.Location = new Point(9, 3);
+            dgvListar.Location = new Point(11, 4);
+            dgvListar.Margin = new Padding(4, 4, 4, 4);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(782, 345);
+            dgvListar.Size = new Size(978, 431);
             dgvListar.TabIndex = 0;
             dgvListar.SelectionChanged += dgvListar_SelectionChanged;
             // 
             // CajaMainMenuForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1000, 562);
             Controls.Add(panelContenedor);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "CajaMainMenuForm";
             Text = "UsuarioMainMenu";
             Load += VentaMianMenu_Load;

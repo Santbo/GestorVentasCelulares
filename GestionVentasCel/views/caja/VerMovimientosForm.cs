@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using GestionVentasCel.controller.caja;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.caja;
+using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.caja
 {
@@ -51,7 +52,7 @@ namespace GestionVentasCel.views.caja
 
             dgvListar.Columns["TipoMovimiento"].Visible = true;
             dgvListar.Columns["Descripcion"].Visible = true;
-            dgvListar.Columns["TipoPago"].Visible = true;
+            dgvListar.Columns["TipoPago"].Visible = false;
             dgvListar.Columns["Fecha"].Visible = true;
 
             if (dgvListar.Columns["MontoFormateado"] == null)
@@ -59,6 +60,12 @@ namespace GestionVentasCel.views.caja
                 dgvListar.Columns.Add("MontoFormateado", "Monto");
             }
             dgvListar.Columns["MontoFormateado"].Visible = true;
+
+            if (dgvListar.Columns["TipoPagoFormateado"] == null)
+            {
+                dgvListar.Columns.Add("TipoPagoFormateado", "Tipo de pago");
+            }
+            dgvListar.Columns["TipoPagoFormateado"].Visible = true;
 
 
 
@@ -70,7 +77,7 @@ namespace GestionVentasCel.views.caja
                 // Organizar el orden de las columnas despues de que se hayan bindeado todos los datos
                 dgvListar.Columns["TipoMovimiento"].DisplayIndex = 0;
                 dgvListar.Columns["MontoFormateado"].DisplayIndex = 1;
-                dgvListar.Columns["TipoPago"].DisplayIndex = 2;
+                dgvListar.Columns["TipoPagoFormateado"].DisplayIndex = 2;
                 dgvListar.Columns["Fecha"].DisplayIndex = 3;
                 dgvListar.Columns["Descripcion"].DisplayIndex = 4;
 
@@ -79,6 +86,12 @@ namespace GestionVentasCel.views.caja
                     if (row.DataBoundItem is MovimientoCaja movimiento)
                     {
                         row.Cells["MontoFormateado"].Value = movimiento.Monto.ToString("C2", new CultureInfo("es-AR"));
+
+                        if (movimiento.TipoPago == TipoPagoEnum.Retiro)
+                        {
+                            row.Cells["TipoPagoFormateado"].Value = "-";
+
+                        }
                     }
 
                 }
@@ -127,6 +140,47 @@ namespace GestionVentasCel.views.caja
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ConfigurarEstilosVisuales()
+        {
+            this.panelHeader.BackColor = Tema.ColorSuperficie;
+            this.splitContainer1.BackColor = Tema.ColorSuperficie;
+            this.panelBtn.BackColor = Tema.ColorSuperficie;
+
+
+            this.lblTituloForm.ForeColor = Tema.ColorTextoSecundario;
+
+            this.splitContainer1.Panel2.BackColor = Tema.ColorSuperficie;
+
+            // Configuración del DGV. Esto se puede hacer en el diseñador, pero acá queda mas visible el código
+
+            // Eliminar divisores entre columnas y filas
+            dgvListar.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvListar.GridColor = dgvListar.BackgroundColor;
+
+            // Eliminar divisores entre columnas del header
+            dgvListar.AdvancedColumnHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+
+            // Cambiar el color de fondo, de la letra y el tamaño de fuente de la fila del header
+            dgvListar.EnableHeadersVisualStyles = false;
+            dgvListar.ColumnHeadersDefaultCellStyle.BackColor = Tema.ColorFondo;
+            dgvListar.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvListar.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+
+            // Colorear alternando las filas
+            dgvListar.RowsDefaultCellStyle.BackColor = Color.White;
+            dgvListar.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            // Eliminar la columna de seleccion y configurar los modos de seleccion
+            dgvListar.RowHeadersVisible = false;
+            dgvListar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListar.MultiSelect = false;
+            dgvListar.ColumnHeadersDefaultCellStyle.SelectionBackColor = Tema.ColorFondo;
+        }
+        private void VerMovimientosForm_Load(object sender, EventArgs e)
+        {
+            this.ConfigurarEstilosVisuales();
         }
     }
 }

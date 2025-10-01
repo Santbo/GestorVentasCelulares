@@ -28,111 +28,191 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtMonto = new TextBox();
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RetiroCajaForm));
             lblMonto = new Label();
             txtDescripcion = new TextBox();
             lblDesripcion = new Label();
             btnGuardar = new Button();
-            lblTitulo = new Label();
             btnCancelar = new Button();
+            panel1 = new Panel();
+            nupMonto = new NumericUpDown();
+            btnSalir = new Button();
+            imageList1 = new ImageList(components);
+            lblTituloForm = new Label();
+            panel2 = new Panel();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nupMonto).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
-            // 
-            // txtMonto
-            // 
-            txtMonto.Location = new Point(37, 112);
-            txtMonto.MaxLength = 13;
-            txtMonto.Name = "txtMonto";
-            txtMonto.PlaceholderText = "$0000.00";
-            txtMonto.Size = new Size(244, 27);
-            txtMonto.TabIndex = 2;
-            txtMonto.KeyPress += txtMonto_KeyPress;
             // 
             // lblMonto
             // 
             lblMonto.AutoSize = true;
-            lblMonto.Location = new Point(37, 89);
+            lblMonto.Dock = DockStyle.Top;
+            lblMonto.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMonto.Location = new Point(0, 0);
+            lblMonto.Margin = new Padding(4, 0, 4, 0);
             lblMonto.Name = "lblMonto";
-            lblMonto.Size = new Size(53, 20);
-            lblMonto.TabIndex = 3;
+            lblMonto.Size = new Size(69, 25);
+            lblMonto.TabIndex = 0;
             lblMonto.Text = "Monto";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(37, 192);
+            txtDescripcion.Dock = DockStyle.Bottom;
+            txtDescripcion.Font = new Font("Segoe UI", 12F);
+            txtDescripcion.Location = new Point(0, 29);
+            txtDescripcion.Margin = new Padding(4);
             txtDescripcion.MaxLength = 255;
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.PlaceholderText = "Escribe el motivo del retiro...";
             txtDescripcion.ScrollBars = ScrollBars.Vertical;
-            txtDescripcion.Size = new Size(389, 153);
-            txtDescripcion.TabIndex = 4;
+            txtDescripcion.Size = new Size(488, 188);
+            txtDescripcion.TabIndex = 1;
             // 
             // lblDesripcion
             // 
             lblDesripcion.AutoSize = true;
-            lblDesripcion.Location = new Point(37, 169);
+            lblDesripcion.Dock = DockStyle.Top;
+            lblDesripcion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDesripcion.Location = new Point(0, 0);
+            lblDesripcion.Margin = new Padding(4, 0, 4, 0);
             lblDesripcion.Name = "lblDesripcion";
-            lblDesripcion.Size = new Size(87, 20);
-            lblDesripcion.TabIndex = 5;
+            lblDesripcion.Size = new Size(111, 25);
+            lblDesripcion.TabIndex = 0;
             lblDesripcion.Text = "Descripcion";
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(312, 394);
+            btnGuardar.Location = new Point(368, 464);
+            btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(133, 44);
-            btnGuardar.TabIndex = 6;
+            btnGuardar.Size = new Size(166, 55);
+            btnGuardar.TabIndex = 2;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
             btnGuardar.Click += btnGuardar_Click;
             // 
-            // lblTitulo
-            // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(12, 9);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(221, 38);
-            lblTitulo.TabIndex = 7;
-            lblTitulo.Text = "Retiro de Dinero";
-            // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(173, 394);
+            btnCancelar.Location = new Point(194, 464);
+            btnCancelar.Margin = new Padding(4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(133, 44);
-            btnCancelar.TabIndex = 8;
+            btnCancelar.Size = new Size(166, 55);
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(nupMonto);
+            panel1.Controls.Add(lblMonto);
+            panel1.Location = new Point(46, 117);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(300, 68);
+            panel1.TabIndex = 0;
+            // 
+            // nupMonto
+            // 
+            nupMonto.DecimalPlaces = 2;
+            nupMonto.Dock = DockStyle.Bottom;
+            nupMonto.Font = new Font("Segoe UI", 12F);
+            nupMonto.Location = new Point(0, 29);
+            nupMonto.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
+            nupMonto.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nupMonto.Name = "nupMonto";
+            nupMonto.Size = new Size(300, 39);
+            nupMonto.TabIndex = 1;
+            nupMonto.ThousandsSeparator = true;
+            nupMonto.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // btnSalir
+            // 
+            btnSalir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSalir.Cursor = Cursors.Hand;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalir.ImageKey = "xmark-solid-full.png";
+            btnSalir.ImageList = imageList1;
+            btnSalir.Location = new Point(524, 12);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(32, 32);
+            btnSalir.TabIndex = 41;
+            btnSalir.TabStop = false;
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click_1;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "xmark-solid-full.png");
+            // 
+            // lblTituloForm
+            // 
+            lblTituloForm.Dock = DockStyle.Top;
+            lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
+            lblTituloForm.Name = "lblTituloForm";
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(571, 77);
+            lblTituloForm.TabIndex = 42;
+            lblTituloForm.Text = "Retiro de efectivo";
+            lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(lblDesripcion);
+            panel2.Controls.Add(txtDescripcion);
+            panel2.Location = new Point(46, 213);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(488, 217);
+            panel2.TabIndex = 1;
+            // 
             // RetiroCajaForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AcceptButton = btnGuardar;
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(457, 450);
+            CancelButton = btnCancelar;
+            ClientSize = new Size(571, 535);
+            Controls.Add(panel2);
+            Controls.Add(btnSalir);
+            Controls.Add(lblTituloForm);
+            Controls.Add(panel1);
             Controls.Add(btnCancelar);
-            Controls.Add(lblTitulo);
             Controls.Add(btnGuardar);
-            Controls.Add(lblDesripcion);
-            Controls.Add(txtDescripcion);
-            Controls.Add(lblMonto);
-            Controls.Add(txtMonto);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "RetiroCajaForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += RetiroCajaForm_FormClosing;
+            Load += RetiroCajaForm_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nupMonto).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private TextBox txtMonto;
         private Label lblMonto;
         private TextBox txtDescripcion;
         private Label lblDesripcion;
         private Button btnGuardar;
-        private Label lblTitulo;
         private Button btnCancelar;
+        private Panel panel1;
+        private NumericUpDown nupMonto;
+        private Button btnSalir;
+        private ImageList imageList1;
+        private Label lblTituloForm;
+        private Panel panel2;
     }
 }

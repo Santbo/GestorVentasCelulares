@@ -20,16 +20,16 @@ namespace GestionVentasCel.models.caja
         public Caja Caja { get; set; }
         public int CajaId { get; set; }
 
-        [Required]
+        [Required, DisplayName("Tipo")]
         public TipoMovimientoEnum TipoMovimiento { get; set; }
 
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal Monto { get; set; }
         
-        [MaxLength(255)]
+        [MaxLength(255), DisplayName("Descripción")]
         public string? Descripcion { get; set; }
 
-        [Required]
+        [Required, DisplayName("Tipo de pago")]
         public TipoPagoEnum TipoPago { get; set; }
 
         [Required, DisplayName("Fecha")]
