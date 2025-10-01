@@ -14,6 +14,7 @@ using GestionVentasCel.service.reparacion;
 using GestionVentasCel.service.venta.impl;
 using GestionVentasCel.exceptions.venta;
 using System.Windows.Forms;
+using GestionVentasCel.service.caja;
 
 public class VentaServiceTests
 {
@@ -21,6 +22,7 @@ public class VentaServiceTests
     private readonly Mock<IArticuloService> _articuloServiceMock;
     private readonly Mock<ICuentaCorrienteRepository> _ccRepoMock;
     private readonly Mock<IReparacionService> _reparacionServiceMock;
+    private readonly Mock<ICajaService> _cajaServiceMock;
     private readonly VentaServiceImpl _serviceVenta;
 
     public VentaServiceTests()
@@ -29,12 +31,14 @@ public class VentaServiceTests
         _articuloServiceMock = new Mock<IArticuloService>();
         _ccRepoMock = new Mock<ICuentaCorrienteRepository>();
         _reparacionServiceMock = new Mock<IReparacionService>();
+        _cajaServiceMock = new Mock<ICajaService>();
 
         _serviceVenta = new VentaServiceImpl(
             _ventaRepoMock.Object,
             _articuloServiceMock.Object,
             _ccRepoMock.Object,
-            _reparacionServiceMock.Object
+            _reparacionServiceMock.Object,
+            _cajaServiceMock.Object
         );
     }
 

@@ -4,33 +4,13 @@ namespace GestionVentasCel.service.usuario
 {
     public class SesionUsuario
     {
-        private static SesionUsuario? _instancia;
-        private static readonly object _lock = new object();
-
         public string Username { get; private set; } = string.Empty;
-        public RolEnum? Rol { get; private set; } = null;
+        public RolEnum? Rol { get; private set; }
         public int Id { get; private set; }
         public bool EstaAutenticado => !string.IsNullOrEmpty(Username) && Rol.HasValue;
 
-        private SesionUsuario() { }
-
-        public static SesionUsuario Instancia
-        {
-            get
-            {
-                if (_instancia == null)
-                {
-                    lock (_lock)
-                    {
-                        if (_instancia == null)
-                        {
-                            _instancia = new SesionUsuario();
-                        }
-                    }
-                }
-                return _instancia;
-            }
-        }
+        // Constructor público (para DI)
+        public SesionUsuario() { }
 
         public void IniciarSesion(string username, RolEnum rol, int id)
         {

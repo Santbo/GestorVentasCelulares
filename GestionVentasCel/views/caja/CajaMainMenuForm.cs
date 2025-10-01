@@ -201,6 +201,12 @@ namespace GestionVentasCel.views.usuario_empleado
                         ConfigurarDGV();
                     }
                 }
+            } else
+            {
+                MessageBox.Show("Debe seleccionar una caja",
+                   "Seleccion",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
             }
 
         }
@@ -267,6 +273,12 @@ namespace GestionVentasCel.views.usuario_empleado
 
                 CargarCajas();
                 ConfigurarDGV();
+            } else
+            {
+                MessageBox.Show("Debe seleccionar una caja",
+                   "Seleccion",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Information);
             }
         }
 
