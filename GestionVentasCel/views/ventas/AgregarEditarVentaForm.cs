@@ -4,6 +4,7 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
@@ -224,14 +225,18 @@ namespace GestionVentasCel.views.ventas
         private void btnDescartar_Click(object sender, EventArgs e)
         {
             var accion = MessageBox.Show(
-                "Está por descartar la venta, ¿Desea hacerlo?",
+                "Está por descartar los cambios, ¿Desea hacerlo?",
                 "Descartando cambios",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Exclamation);
 
+            // OK => Venta guardada, ya sea por edición o por guardado, pero NO CONFIRMADA
+            // YES => Venta confirmada, ya sea por guardado o por edición.
+            // Cancel => Se canceló el guardado, no
+
             if (accion == DialogResult.Yes)
             {
-                this.DialogResult = DialogResult.Yes;
+                this.DialogResult = DialogResult.Cancel;
             }
             else if (accion == DialogResult.No)
             {
@@ -325,28 +330,65 @@ namespace GestionVentasCel.views.ventas
             {
                 if (_editando)
                 {
-                    _service.ActualizarVenta(_venta);
-                    MessageBox.Show("La venta se actualizó correctamente", "Venta actualizada");
-
-                    // Si se confirmó la venta, entonces hay que preguntar si facturarla, lo cual se encarga
-                    // el form principal si el resultado de esta es YES
-                    if (_venta.EstadoVenta == EstadoVentaEnum.Confirmada)
+                    try
                     {
-                        this.DialogResult = DialogResult.Yes;
+                        _service.ActualizarVenta(_venta);
+                        MessageBox.Show("La venta se actualizó correctamente", "Venta actualizada");
+
+                        // Si se confirmó la venta, entonces hay que preguntar si facturarla, lo cual se encarga
+                        // el form principal si el resultado de esta es YES
+                        if (_venta.EstadoVenta == EstadoVentaEnum.Confirmada)
+                        {
+                            this.DialogResult = DialogResult.Yes;
+                            this.Close();
+                            return;
+                        }
+                        else
+                        {
+                            this.DialogResult = DialogResult.OK;
+                            this.Close(); return;
+                        }
+                    } catch (CajaNoEncontradaException)
+                    {
+                        MessageBox.Show(
+                            "No puede realizarse una venta si no se abre la caja. Los cambios se descartaron; por favor, abra una caja y luego intente nuevamente.",
+                            "La caja está cerrada",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        this.DialogResult = DialogResult.Retry;
                         this.Close();
                         return;
                     }
+                    
+                    
                 }
                 else
                 {
                     _service.AgregarVenta(_venta);
-                    _service.ConfirmarVenta(_venta.Id);
-                    MessageBox.Show("La venta se guardó correctamente", "Venta guardada");
+
+                    try
+                    {
+                        _service.ConfirmarVenta(_venta.Id);
+                        MessageBox.Show("La venta se guardó correctamente", "Venta guardada");
+
+                        this.DialogResult = DialogResult.Yes;
+                        this.Close();
+                        return;
+
+                    } catch (CajaNoEncontradaException)
+                    {
+                        MessageBox.Show(
+                            "No puede realizarse una venta si no se abre la caja. La venta se guardó como borrador para que pueda continuar con ella; por favor, abra una caja y luego intente nuevamente.",
+                            "La caja está cerrada",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        this.DialogResult = DialogResult.Retry;
+                        this.Close();
+                        return;
+                    }
 
 
                 }
-                this.DialogResult = DialogResult.OK;
-                this.Close();
             }
 
         }

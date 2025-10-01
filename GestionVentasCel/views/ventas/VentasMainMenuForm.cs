@@ -151,32 +151,30 @@ namespace GestionVentasCel.views.usuario_empleado
                 serviceProvider: _serviceProvider
             ))
             {
+
+                // OK => Venta guardada, ya sea por edición o por guardado, pero NO CONFIRMADA
+                // Retry => Venta guardada como borrador, porque no estaba abierta la caja
+                // YES => Venta confirmada, ya sea por guardado o por edición.
+                // Cancel => Se canceló el guardado, no hace falta hacer nada
+
                 var resultado = form.ShowDialog();
-                // OK significa que se guardó la venta correctamente
-                if (resultado == DialogResult.OK)
+                
+                if (resultado == DialogResult.Yes) // Si la venta se guardó, pero no se confirmó.
                 {
-                    bool facturar = MessageBox.Show(
-                        "La venta se agregó correctamente. ¿Desea emitir una factura?",
-                        "Venta agregada",
+
+                    Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
+                    var mostrarFactura = MessageBox.Show(
+                        "Se emitió la factura de la venta. ¿Desea verla?",
+                        "Factura emitida",
                         MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.Yes;
+                        MessageBoxIcon.Question
+                    ) == DialogResult.Yes;
 
-                    if (facturar)
+                    if (mostrarFactura)
                     {
-                        Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
-                        var mostrarFactura = MessageBox.Show(
-                            "Se emitió la factura de la venta. ¿Desea verla?",
-                            "Factura emitida",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question
-                        ) == DialogResult.Yes;
-
-                        if (mostrarFactura)
+                        using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
                         {
-                            using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
-                            {
-                                detalleFactura.ShowDialog();
-                            }
+                            detalleFactura.ShowDialog();
                         }
                     }
                 }
@@ -236,28 +234,19 @@ namespace GestionVentasCel.views.usuario_empleado
                     }
                     else if (resultado == DialogResult.Yes)
                     {
-                        bool facturar = MessageBox.Show(
-                        "La venta se confirmó correctamente. ¿Desea emitir una factura?",
-                        "Venta agregada",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.Yes;
+                        Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
+                        var mostrarFactura = MessageBox.Show(
+                            "Se emitió la factura de la venta. ¿Desea verla?",
+                            "Factura emitida",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        ) == DialogResult.Yes;
 
-                        if (facturar)
+                        if (mostrarFactura)
                         {
-                            Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
-                            var mostrarFactura = MessageBox.Show(
-                                "Se emitió la factura de la venta. ¿Desea verla?",
-                                "Factura emitida",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question
-                            ) == DialogResult.Yes;
-
-                            if (mostrarFactura)
+                            using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
                             {
-                                using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
-                                {
-                                    detalleFactura.ShowDialog();
-                                }
+                                detalleFactura.ShowDialog();
                             }
                         }
                     }

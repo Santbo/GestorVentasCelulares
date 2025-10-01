@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.ventas;
@@ -39,52 +40,19 @@ namespace GestionVentasCel.service.venta.impl
             _ventaRepo.Agregar(venta);
         }
 
-        private void GestionarVentaACuenta(Venta venta)
-        {
-            // 1. Si el cliente no tiene cuenta corriente:
-            //      1.1 Crear una cuenta corriente
-            // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
-
-            CuentaCorriente? cuentaCorriente = _cuentaCorrienteRepo.GetByClienteId(venta.ClienteId);
-            bool tieneCuenta = cuentaCorriente != null;
-
-            // 1. Si el cliente no tiene cuenta corriente
-            if (cuentaCorriente == null)
-            {
-                // 1.1 Crear una cuenta corriente
-
-                cuentaCorriente = new CuentaCorriente
-                {
-                    ClienteId = venta.ClienteId,
-                    Activo = true
-                };
-            }
-
-            // 2. Agregar un movimiento a la cuenta corriente con el monto de la venta.
-            cuentaCorriente.Movimientos.Add(new MovimientoCuentaCorriente
-            {
-                Fecha = (DateTime)venta.FechaVenta!,
-                Monto = venta.TotalConIva,
-                VentaId = venta.Id,
-                Tipo = TipoMovimiento.Aumento,
-                Descripcion = $"Venta número {venta.Id} del {venta.FechaVenta}"
-
-            });
-
-            if (tieneCuenta)
-            {
-                _cuentaCorrienteRepo.Update(cuentaCorriente);
-            }
-            else
-            {
-                _cuentaCorrienteRepo.Add(cuentaCorriente);
-            }
-        }
 
         public void ActualizarVenta(Venta ventaActualizada)
         {
+            if (_cajaService.HayCajaAbierta())
+            {
 
-            _ventaRepo.Actualizar(ventaActualizada);
+                _ventaRepo.Actualizar(ventaActualizada);
+
+            }
+            else
+            {
+                throw new CajaNoEncontradaException("Se intentó vender algo teniendo la caja cerrada");
+            }
         }
 
         public void EliminarVenta(int id)
@@ -132,10 +100,7 @@ namespace GestionVentasCel.service.venta.impl
 
             } else
             {
-                MessageBox.Show("No se puede hacer una venta sin una caja Abierta. Por favor abra una", 
-                                "Abrir Caja",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                throw new CajaNoEncontradaException("Se intentó vender algo teniendo la caja cerrada");
             }
 
 
