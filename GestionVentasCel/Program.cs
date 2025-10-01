@@ -1,4 +1,5 @@
 using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.caja;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
@@ -10,6 +11,8 @@ using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.repository.articulo.impl;
+using GestionVentasCel.repository.caja;
+using GestionVentasCel.repository.caja.impl;
 using GestionVentasCel.repository.categoria;
 using GestionVentasCel.repository.categoria.impl;
 using GestionVentasCel.repository.ClienteCuentaCorriente;
@@ -34,6 +37,8 @@ using GestionVentasCel.repository.ventas;
 using GestionVentasCel.repository.ventas.impl;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
+using GestionVentasCel.service.caja;
+using GestionVentasCel.service.caja.impl;
 using GestionVentasCel.service.categoria;
 using GestionVentasCel.service.categoria.impl;
 using GestionVentasCel.service.cliente;
@@ -123,6 +128,7 @@ namespace GestionVentasCel
             services.AddTransient<IReparacionRepository, ReparacionRepositoryImpl>();
             services.AddTransient<IVentaRepository, VentaRepositoryImpl>();
             services.AddTransient<IFacturaRepository, FacturaRepositoryImpl>();
+            services.AddTransient<ICajaRepository, CajaRepositoryImpl>();
 
 
 
@@ -140,6 +146,7 @@ namespace GestionVentasCel
             services.AddTransient<IReparacionService, ReparacionServiceImpl>();
             services.AddTransient<IVentaService, VentaServiceImpl>();
             services.AddTransient<IFacturaService, FacturaServiceImpl>();
+            services.AddTransient<ICajaService, CajaServiceImpl>();
 
 
 
@@ -155,6 +162,7 @@ namespace GestionVentasCel
             services.AddTransient<ConfiguracionPreciosController>();
             services.AddTransient<ServicioController>();
             services.AddTransient<ReparacionController>();
+            services.AddTransient<CajaController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();

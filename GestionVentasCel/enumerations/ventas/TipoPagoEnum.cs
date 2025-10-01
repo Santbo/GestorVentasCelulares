@@ -7,6 +7,7 @@
         Transferencia,
         BilleteraVirtual,
         TarjetaCredito,
-        TarjetaDebito
+        TarjetaDebito,
+        Retiro
     }
 }

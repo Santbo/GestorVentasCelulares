@@ -4,6 +4,7 @@ using GestionVentasCel.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionVentasCel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250929233042_Ventas")]
+    partial class Ventas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,75 +192,6 @@ namespace GestionVentasCel.Migrations
                     b.HasIndex("ArticuloId");
 
                     b.ToTable("HistorialPrecios");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.caja.Caja", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("FechaApertura")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("FechaCierre")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("MontoApertura")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<decimal?>("MontoCierre")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Caja");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.caja.MovimientoCaja", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CajaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("TipoMovimiento")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TipoPago")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CajaId");
-
-                    b.ToTable("MovimientosCaja");
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.categoria.Categoria", b =>
@@ -845,28 +779,6 @@ namespace GestionVentasCel.Migrations
                     b.Navigation("Articulo");
                 });
 
-            modelBuilder.Entity("GestionVentasCel.models.caja.Caja", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.usuario.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.caja.MovimientoCaja", b =>
-                {
-                    b.HasOne("GestionVentasCel.models.caja.Caja", "Caja")
-                        .WithMany("Movimientos")
-                        .HasForeignKey("CajaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Caja");
-                });
-
             modelBuilder.Entity("GestionVentasCel.models.compra.Compra", b =>
                 {
                     b.HasOne("GestionVentasCel.models.proveedor.Proveedor", "Proveedor")
@@ -1046,11 +958,6 @@ namespace GestionVentasCel.Migrations
                 });
 
             modelBuilder.Entity("GestionVentasCel.models.CuentaCorreinte.CuentaCorriente", b =>
-                {
-                    b.Navigation("Movimientos");
-                });
-
-            modelBuilder.Entity("GestionVentasCel.models.caja.Caja", b =>
                 {
                     b.Navigation("Movimientos");
                 });

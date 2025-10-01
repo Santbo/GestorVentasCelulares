@@ -1,4 +1,5 @@
 using GestionVentasCel.controller.articulo;
+using GestionVentasCel.controller.caja;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.compra;
@@ -8,7 +9,9 @@ using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.service.caja;
 using GestionVentasCel.service.factura;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
@@ -41,6 +44,21 @@ namespace GestionVentasCel
 
         private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            if (_serviceProvider.GetRequiredService<CajaController>().HayCajaAbierta())
+            {
+                MessageBox.Show(
+                "Debe cerrar la Caja Abierta antes de Cerrar Sesion",
+                "Caja Aún Abierta",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning
+                );
+                e.Cancel = true;
+                return;
+                
+            } 
+            
+
             var result = MessageBox.Show(
             "¿Seguro que desea salir?",
             "Confirmación",
@@ -52,6 +70,7 @@ namespace GestionVentasCel
             {
                 e.Cancel = true;
             }
+            
         }
 
         //Metodo para abrir formularios hijos y embeberlos en el MainMenu
@@ -233,6 +252,15 @@ namespace GestionVentasCel
             this.Text = "Facturas emitidas - SGVC";
             AbrirFormularioHijo(new FacturaMainMenuForm(
                 _serviceProvider.GetRequiredService<IFacturaService>()
+                )
+            );
+        }
+
+        private void cajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Caja - SGVC";
+            AbrirFormularioHijo(new CajaMainMenuForm(
+                _serviceProvider.GetRequiredService<CajaController>(), _serviceProvider.GetRequiredService<SesionUsuario>()
                 )
             );
         }
