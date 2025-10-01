@@ -1,18 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.cliente;
-using GestionVentasCel.controller.reparaciones;
-using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.clientes;
-using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.ventas;
-using GestionVentasCel.service.usuario;
-using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
-using GestionVentasCel.views.usuario_empleado;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel.views.ventas
 {

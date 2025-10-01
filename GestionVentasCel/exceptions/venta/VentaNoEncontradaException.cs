@@ -1,6 +1,6 @@
 ﻿namespace GestionVentasCel.exceptions.venta
 {
-    internal class VentaNoEncontradaException : Exception
+    public class VentaNoEncontradaException : Exception
     {
         public VentaNoEncontradaException() { }
 

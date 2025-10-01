@@ -1,6 +1,6 @@
 ﻿namespace GestionVentasCel.exceptions.venta
 {
-    internal class ConfirmacionVentaDupicadaException : Exception
+    public class ConfirmacionVentaDupicadaException : Exception
     {
         public ConfirmacionVentaDupicadaException() { }
 
