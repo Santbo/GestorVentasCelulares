@@ -101,7 +101,7 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "memoria")
+                .UseInMemoryDatabase(databaseName: "factura1")
                 .Options;
 
             var context = new AppDbContext(opciones);
@@ -196,7 +196,7 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "memoria")
+                .UseInMemoryDatabase(databaseName: "factura2")
                 .Options;
 
             var context = new AppDbContext(opciones);
@@ -291,7 +291,7 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "memoria")
+                .UseInMemoryDatabase(databaseName: "factura3")
                 .Options;
 
             var context = new AppDbContext(opciones);

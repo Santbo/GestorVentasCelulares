@@ -270,6 +270,8 @@ namespace GestionVentasCel.repository.ventas.impl
                     {
                         ClienteId = venta.ClienteId,
                     };
+
+                    _context.CuentasCorrientes.Add(cuenta);
                 }
                 cuenta.Movimientos.Add(new MovimientoCuentaCorriente
                 {
