@@ -15,6 +15,7 @@ using GestionVentasCel.service.venta.impl;
 using GestionVentasCel.exceptions.venta;
 using System.Windows.Forms;
 using GestionVentasCel.service.caja;
+using GestionVentasCel.exceptions.caja;
 
 public class VentaServiceTests
 {
@@ -42,9 +43,10 @@ public class VentaServiceTests
         );
     }
 
+    // TODO: Testear si vender a CC hace movimiento
 
     [Fact]
-    public void EliminarVenta_VentaNoExiste_LanzaExcepcion()
+    public void AnularVenta_VentaNoExiste_LanzaExcepcion()
     {
         _ventaRepoMock.Setup(r => r.ObtenerPorIdConDetalles(1))
                       .Returns((Venta)null);
@@ -55,7 +57,7 @@ public class VentaServiceTests
     }
 
     [Fact]
-    public void EliminarVenta_VentaConfirmada_ReintegraStockYLlamaUpdateArticulo()
+    public void AnularVenta_VentaConfirmada_ReintegraStockYLlamaUpdateArticulo()
     {
         var articulo = new Articulo
         {
@@ -113,9 +115,14 @@ public class VentaServiceTests
     {
         _ccRepoMock.Setup(r => r.GetByClienteId(1)).Returns((CuentaCorriente)null);
 
-        var result = _serviceVenta.ObtenerMediosDePagoDisponibles(1);
+        var obtenidos = _serviceVenta.ObtenerMediosDePagoDisponibles(1);
 
-        result.Should().Contain(Enum.GetNames(typeof(TipoPagoEnum)));
+        List<string> mediosPago = Enum.GetNames(typeof(TipoPagoEnum)).ToList();
+        // hay que remover Retiro, porque Retiro se usa únicamente en los movimientos de caja.
+        mediosPago.Remove("Retiro");
+
+
+        obtenidos.Should().Contain(mediosPago);
     }
 
     [Fact]
@@ -132,9 +139,14 @@ public class VentaServiceTests
 
         _ccRepoMock.Setup(r => r.GetByClienteId(1)).Returns(cuentaCorriente);
 
-        var result = _serviceVenta.ObtenerMediosDePagoDisponibles(1);
+        var obtenidos = _serviceVenta.ObtenerMediosDePagoDisponibles(1);
 
-        result.Should().Contain(Enum.GetNames(typeof(TipoPagoEnum)));
+        List<string> mediosPago = Enum.GetNames(typeof(TipoPagoEnum)).ToList();
+        // hay que remover Retiro, porque Retiro se usa únicamente en los movimientos de caja.
+        mediosPago.Remove("Retiro");
+
+
+        obtenidos.Should().Contain(mediosPago);
     }
 
     [Fact]
@@ -154,4 +166,14 @@ public class VentaServiceTests
         result.Should().NotContain(TipoPagoEnum.CuentaCorriente.ToString());
     }
 
+    [Fact]
+    public void ConfirmarVenta_CajaCerrada_Falla()
+    { // No se puede vender sin abrir una caja, se debería arrojar un aexcepcion
+
+        _cajaServiceMock.Setup(c => c.HayCajaAbierta()).Returns(false);
+
+        Action accion = () => { _serviceVenta.ConfirmarVenta(1); };
+
+        accion.Should().Throw<CajaNoEncontradaException>();
+    }
 }
