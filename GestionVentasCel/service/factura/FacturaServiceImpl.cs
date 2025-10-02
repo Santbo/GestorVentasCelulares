@@ -95,7 +95,7 @@ namespace GestionVentasCel.service.factura
 
             _facturaRepository.Agregar(factura);
 
-            return _facturaRepository.ObtenerPorId(factura.Id)!;
+            return factura;
         }
     }
 
