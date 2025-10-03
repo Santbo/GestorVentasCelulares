@@ -277,7 +277,6 @@ namespace Testing.ventas
             //Siempre s etiene que agregar un movimiento en la caja cuando se factura una venta.
             // Lo que haga el service de movimientos no interesa, pero el service de factura
             // tiene la responsabilidad de llamarlo.
-            // Si el cliente es exento, se tiene que emitir factura A
             var venta = new Venta
             {
                 Id = 1,

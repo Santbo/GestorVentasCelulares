@@ -321,13 +321,15 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            _venta.TipoPago = (TipoPagoEnum)Enum.Parse(
-                typeof(TipoPagoEnum),
-                comboTipoPago.SelectedItem.ToString()
-            );
+
 
             if (ValidarVenta())
             {
+                _venta.TipoPago = (TipoPagoEnum)Enum.Parse(
+                    typeof(TipoPagoEnum),
+                    comboTipoPago.SelectedItem.ToString()
+                );
+
                 if (_editando)
                 {
                     try
