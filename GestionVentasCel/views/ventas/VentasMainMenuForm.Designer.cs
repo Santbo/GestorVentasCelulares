@@ -105,9 +105,9 @@
             chkMostrarInactivos.Location = new Point(15, 53);
             chkMostrarInactivos.Margin = new Padding(4);
             chkMostrarInactivos.Name = "chkMostrarInactivos";
-            chkMostrarInactivos.Size = new Size(216, 29);
+            chkMostrarInactivos.Size = new Size(194, 29);
             chkMostrarInactivos.TabIndex = 3;
-            chkMostrarInactivos.Text = "Incluir ventas anuladas";
+            chkMostrarInactivos.Text = "Ver ventas anuladas";
             chkMostrarInactivos.UseVisualStyleBackColor = true;
             chkMostrarInactivos.CheckedChanged += chkMostrarInactivos_CheckedChanged;
             // 
