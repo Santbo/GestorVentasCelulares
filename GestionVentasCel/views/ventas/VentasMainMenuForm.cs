@@ -130,6 +130,7 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 filtrados = filtrados.Where(u =>
                     u.Cliente.Nombre.ToLower().Contains(filtro)
+                    || u.TipoPago.ToString().ToLower().Contains(filtro)
                     || u.FechaCreacion.ToString().ToLower().Contains(filtro)
                     || (u.FechaVenta.HasValue && u.FechaVenta.Value.ToString().ToLower().Contains(filtro))
 
@@ -162,7 +163,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 if (resultado == DialogResult.Yes) // Si la venta se guardó, pero no se confirmó.
                 {
 
-                    Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta);
+                    int facId = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(form._venta).Id;
                     var mostrarFactura = MessageBox.Show(
                         "Se emitió la factura de la venta. ¿Desea verla?",
                         "Factura emitida",
@@ -172,7 +173,9 @@ namespace GestionVentasCel.views.usuario_empleado
 
                     if (mostrarFactura)
                     {
-                        using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
+                        using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(
+                            _serviceProvider.GetRequiredService<IFacturaService>().ObtenerPorId(facId))
+                        )
                         {
                             detalleFactura.ShowDialog();
                         }
@@ -234,7 +237,7 @@ namespace GestionVentasCel.views.usuario_empleado
                     }
                     else if (resultado == DialogResult.Yes)
                     {
-                        Factura fac = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta);
+                        int facId = _serviceProvider.GetRequiredService<IFacturaService>().EmitirFactura(venta).Id;
                         var mostrarFactura = MessageBox.Show(
                             "Se emitió la factura de la venta. ¿Desea verla?",
                             "Factura emitida",
@@ -244,7 +247,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
                         if (mostrarFactura)
                         {
-                            using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
+                            using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(
+                                _serviceProvider.GetRequiredService<IFacturaService>().ObtenerPorId(facId)))
                             {
                                 detalleFactura.ShowDialog();
                             }
@@ -400,8 +404,10 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void dgvListar_SelectionChanged(object sender, EventArgs e)
         {
-            // Ver si la venta seleccionada está facturada, y mostrar el botón de ver factura
-            this.btnVerFactura.Visible = ((Venta)this.dgvListar.CurrentRow.DataBoundItem).EstadoVenta == EstadoVentaEnum.Facturada;
+            if (this.dgvListar.CurrentRow != null){
+                // Ver si la venta seleccionada está facturada, y mostrar el botón de ver factura
+                this.btnVerFactura.Visible = ((Venta)this.dgvListar.CurrentRow.DataBoundItem).EstadoVenta == EstadoVentaEnum.Facturada;
+            }
         }
     }
 }
