@@ -46,7 +46,8 @@ namespace GestionVentasCel.views.ventas
             // Siempre hay que guardar qué usuario autorizó la venta o la edición
             _venta.UsuarioId = _sesionUsuario.Id;
 
-            this.comboTipoPago.Enabled = false;
+            // Hay que deshabilitar el combo del tipo de pago por un problema en el selectionchange del cliente
+            this.comboTipoPago.Enabled = _editando;
 
             this.ConfigurarBindings();
             this.InicializarCombos();
@@ -321,7 +322,6 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
 
             if (ValidarVenta())
             {

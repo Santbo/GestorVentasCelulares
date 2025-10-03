@@ -130,6 +130,7 @@ namespace GestionVentasCel.views.usuario_empleado
             {
                 filtrados = filtrados.Where(u =>
                     u.Cliente.Nombre.ToLower().Contains(filtro)
+                    || u.TipoPago.ToString().ToLower().Contains(filtro)
                     || u.FechaCreacion.ToString().ToLower().Contains(filtro)
                     || (u.FechaVenta.HasValue && u.FechaVenta.Value.ToString().ToLower().Contains(filtro))
 
@@ -400,8 +401,10 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void dgvListar_SelectionChanged(object sender, EventArgs e)
         {
-            // Ver si la venta seleccionada está facturada, y mostrar el botón de ver factura
-            this.btnVerFactura.Visible = ((Venta)this.dgvListar.CurrentRow.DataBoundItem).EstadoVenta == EstadoVentaEnum.Facturada;
+            if (this.dgvListar.CurrentRow != null){
+                // Ver si la venta seleccionada está facturada, y mostrar el botón de ver factura
+                this.btnVerFactura.Visible = ((Venta)this.dgvListar.CurrentRow.DataBoundItem).EstadoVenta == EstadoVentaEnum.Facturada;
+            }
         }
     }
 }

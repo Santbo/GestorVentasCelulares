@@ -40,6 +40,7 @@ namespace GestionVentasCel.repository.facturas.impl
             _context.Facturas.Add(factura);
             _context.SaveChanges();
 
+
             this.GenerarNumeroFactura(factura.Id);
         }
 
