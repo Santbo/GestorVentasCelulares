@@ -1,6 +1,6 @@
 ﻿namespace GestionVentasCel.exceptions.articulo
 {
-    internal class ArticuloNoEncontradoException : Exception
+    public class ArticuloNoEncontradoException : Exception
     {
         public ArticuloNoEncontradoException() { }
 

@@ -91,6 +91,9 @@ namespace GestionVentasCel.views.caja
                         {
                             row.Cells["TipoPagoFormateado"].Value = "-";
 
+                        } else
+                        {
+                            row.Cells["TipoPagoFormateado"].Value = movimiento.TipoPago.ToString();
                         }
                     }
 
@@ -120,12 +123,23 @@ namespace GestionVentasCel.views.caja
                 if (labelsPorTipo.TryGetValue(tipo, out var label))
                 {
                     _caja.TotalesPorTipoPago.TryGetValue(tipo, out var monto);
-                    label.Text = monto.ToString("C", new CultureInfo("es-AR"));
 
+                    if(tipo == TipoPagoEnum.Efectivo)
+                    {
+                        monto = monto + _caja.MontoApertura;
+                        label.Text = monto.ToString("C", new CultureInfo("es-AR"));
+                    }
+                    else
+                    {
+                        label.Text = monto.ToString("C", new CultureInfo("es-AR"));
+
+                    }
 
                     if (tipo != TipoPagoEnum.Retiro)
                     {
                         totales += monto;
+
+
                     }
                     else
                     {
@@ -133,7 +147,7 @@ namespace GestionVentasCel.views.caja
                     }
                 }
             }
-            totales += _caja.MontoApertura;
+           
             lblTotales.Text = totales.ToString("C", new CultureInfo("es-AR"));
         }
 

@@ -124,5 +124,13 @@ namespace GestionVentasCel.views.caja
             this.btnCancelar.PerformClick();
 
         }
+
+        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

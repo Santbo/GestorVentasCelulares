@@ -178,6 +178,7 @@ namespace GestionVentasCel.views.compra
 
                 LimpiarCamposDetalle();
                 ActualizarTotal();
+                dgvDetalles.Refresh();
             }
         }
 

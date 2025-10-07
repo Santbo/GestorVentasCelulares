@@ -33,7 +33,7 @@ namespace GestionVentasCel.views.compra
             try
             {
 
-                var listaCompras = _compraController.ObtenerCompras().ToList();
+                var listaCompras = _compraController.ObtenerCompras(true).ToList();
                 _compras = new BindingList<Compra>(listaCompras);
 
                 _bindingSource = new BindingSource();
