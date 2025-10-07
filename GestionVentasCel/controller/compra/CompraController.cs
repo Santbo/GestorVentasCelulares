@@ -28,9 +28,9 @@ namespace GestionVentasCel.controller.compra
             _service.EliminarCompra(id);
         }
 
-        public IEnumerable<Compra> ObtenerCompras()
+        public IEnumerable<Compra> ObtenerCompras(bool ultimoMes = false)
         {
-            return _service.ListarCompras();
+            return _service.ListarCompras(ultimoMes);
         }
 
         public IEnumerable<Compra> GetByProveedor(int proveedorId)

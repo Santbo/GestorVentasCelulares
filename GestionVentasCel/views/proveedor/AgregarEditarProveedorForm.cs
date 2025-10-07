@@ -223,7 +223,7 @@ namespace GestionVentasCel.views.proveedor
             string calle = txtCalle.Text.Trim();
             if (calle.Length > 45 || !Regex.IsMatch(calle, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{5,}$"))
             {
-                MessageBox.Show("La calle debe estar vacía o tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La calle debe tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCalle.Focus();
                 return false;
             }
@@ -232,7 +232,7 @@ namespace GestionVentasCel.views.proveedor
             string ciudad = txtCiudad.Text.Trim();
             if (ciudad.Length > 45 || !Regex.IsMatch(ciudad, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,}$"))
             {
-                MessageBox.Show("La ciudad debe estar vacía o tener hasta 45 letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La ciudad debe tener hasta 45 letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCiudad.Focus();
                 return false;
             }

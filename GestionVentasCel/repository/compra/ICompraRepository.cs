@@ -5,7 +5,7 @@ namespace GestionVentasCel.repository.compra
     public interface ICompraRepository
     {
         Compra? GetByIdWithDetails(int id);
-        IEnumerable<Compra> GetAll();
+        IEnumerable<Compra> GetAll(bool ultimoMes = false);
         IEnumerable<Compra> GetAllWithDetails();
         IEnumerable<Compra> GetByProveedor(int proveedorId);
         void Add(Compra compra);
