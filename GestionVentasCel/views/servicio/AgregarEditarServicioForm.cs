@@ -171,12 +171,7 @@ namespace GestionVentasCel.views.servicio
                     return false;
                 }
             }
-
-            if (!_listaArticulosAgregados.Any())
-            {
-                MessageBox.Show("Por favor, Agrega al menos un Articulo a la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
+            //TODO: Eliminar detalleServicio del listado de servicios
 
             return true;
         }

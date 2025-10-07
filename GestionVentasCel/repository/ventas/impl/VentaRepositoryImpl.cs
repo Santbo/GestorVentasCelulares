@@ -161,13 +161,39 @@ namespace GestionVentasCel.repository.ventas.impl
 
 
                         // 6. Si la venta original se pagó con cuenta corriente:
-                        if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente)
+                        if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente )
+                        //TODO: Esto se rompe cuando la venta está en borrador y se la quiere confirmar con cuenta corriente
                         {
                             MovimientoCuentaCorriente? movimiento = _context.MovimientosCuentasCorrientes
                                     .FirstOrDefault(m => m.VentaId == ventaOriginal.Id);
                             if (movimiento == null)
                             {
-                                throw new MovimientoInexistenteException("Se intentó actualizar un movimiento de cuenta corriente que noe xiste.");
+                                // Si la cuenta no existe, y la venta estaba en borrador, entonces hay que crear toda la cuenta corriente y eso
+                                {
+                                    // 7.1.1 Crear el movimiento, creando la cuenta corriente si es necesario
+                                    CuentaCorriente? cuenta = _context.CuentasCorrientes
+                                        .FirstOrDefault(cc => cc.ClienteId == ventaOriginal.ClienteId);
+                                    if (cuenta == null)
+                                    {
+                                        cuenta = new CuentaCorriente
+                                        {
+                                            ClienteId = ventaOriginal.ClienteId,
+                                        };
+                                    }
+
+                                    movimiento = new MovimientoCuentaCorriente
+                                    {
+                                        Tipo = TipoMovimiento.Aumento,
+                                        Monto = ventaOriginal.TotalConIva,
+                                        VentaId = ventaOriginal.Id,
+                                        Fecha = (DateTime)ventaOriginal.FechaVenta!,
+                                        Descripcion = $"Venta número {ventaOriginal.Id} del {ventaOriginal.FechaVenta}"
+                                    };
+                                    cuenta.Movimientos.Add(movimiento);
+                                    _context.CuentasCorrientes.Add(cuenta);
+                                    _context.SaveChanges();
+                                }
+
                             }
                             // 6.1 Si la venta actualizada se pagó con cuenta corriente:
                             if (ventaActualizada.TipoPago == TipoPagoEnum.CuentaCorriente)

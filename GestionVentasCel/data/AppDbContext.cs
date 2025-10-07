@@ -104,6 +104,7 @@ namespace GestionVentasCel.data
             modelBuilder.Entity<Reparacion>()
                 .Property(r => r.Estado)
                 .HasConversion<string>();
+            // TODO: Solucionar error de servicio null
 
             //se define clave 
             modelBuilder.Entity<ReparacionServicio>()
