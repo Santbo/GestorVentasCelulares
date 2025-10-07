@@ -146,6 +146,16 @@ namespace GestionVentasCel.views.usuario_empleado
                     this.DialogResult = DialogResult.Cancel;
                     this.Close();
                 }
+                catch (DNIDuplicadoException)
+                {
+                    MessageBox.Show(
+                        "El número de documento ya está cargado en el sistema.",
+                        "Número de documento duplicado.",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+                }
             }
 
         }
@@ -212,9 +222,9 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // Calle: Entre 5 y 45 caracteres, letras y numeros
             string calle = txtCalle.Text.Trim();
-            if (calle.Length > 45 || !Regex.IsMatch(calle, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{5,}$"))
+            if (calle.Length > 45 || !Regex.IsMatch(calle, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\. ]{5,}$"))
             {
-                MessageBox.Show("La calle debe estar vacía o tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La calle debe tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCalle.Focus();
                 return false;
             }

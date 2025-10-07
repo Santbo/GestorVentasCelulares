@@ -159,10 +159,10 @@ namespace GestionVentasCel.repository.ventas.impl
                         _context.Ventas.Update(ventaOriginal);
                         _context.SaveChanges();
 
+                        // TODO: Todo lo que sea fecha hay que disablear directamente
 
                         // 6. Si la venta original se pagó con cuenta corriente:
                         if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente )
-                        //TODO: Esto se rompe cuando la venta está en borrador y se la quiere confirmar con cuenta corriente
                         {
                             MovimientoCuentaCorriente? movimiento = _context.MovimientosCuentasCorrientes
                                     .FirstOrDefault(m => m.VentaId == ventaOriginal.Id);
