@@ -42,6 +42,7 @@ namespace GestionVentasCel.data
         public DbSet<ServicioArticulo> ServicioArticulos { get; set; }
 
         public DbSet<Reparacion> Reparaciones { get; set; }
+        public DbSet<ReparacionServicio> ReparacionServicios { get; set; }
         public DbSet<Dispositivo> Dispositivos { get; set; }
 
         public DbSet<Venta> Ventas { get; set; }

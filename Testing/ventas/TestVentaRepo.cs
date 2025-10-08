@@ -22,6 +22,7 @@ using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.CuentaCorreinte;
 
+namespace Testing.ventas;
 public class VentaRepoTest
 {
     public Venta CrearVenta()
