@@ -55,8 +55,17 @@ namespace GestionVentasCel.repository.compra.impl
             return _context.Compras.Any(c => c.Id == id);
         }
 
-        public IEnumerable<Compra> GetAll()
+        public IEnumerable<Compra> GetAll(bool ultimoMes = false)
         {
+
+            if (ultimoMes)
+            {
+                return _context.Compras
+                    .Include(c => c.Proveedor)
+                    .AsNoTracking()
+                    .Where(c => c.Fecha.Month == DateTime.Now.Month);
+            }
+
             return _context.Compras
                 .Include(c => c.Proveedor)
                 .AsNoTracking()

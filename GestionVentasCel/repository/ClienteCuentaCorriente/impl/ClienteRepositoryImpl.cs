@@ -1,4 +1,5 @@
 ﻿using GestionVentasCel.data;
+using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.persona;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,11 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 
         public void Add(Cliente cliente)
         {
+            if (_context.Clientes.Count(c => c.Dni == cliente.Dni) != 0)
+            {
+                throw new DNIDuplicadoException("Se intentó agregar un cliente con un documento duplicado");
+            }
+
             if (cliente.Id == 0)
             {
                 // Hay que agregar una nueva persona y un cliente si la id es 0, porque significa que se quiere crear uno nuevo
@@ -75,6 +81,10 @@ namespace GestionVentasCel.repository.ClienteCuentaCorriente.impl
 
         public void Update(Cliente cliente)
         {
+            if (_context.Clientes.Count(c => c.Dni == cliente.Dni && c.Id != cliente.Id) != 0)
+            {
+                throw new DNIDuplicadoException("Se intentó editar un cliente con un documento duplicado");
+            }
             _context.Clientes.Update(cliente);
             _context.SaveChanges();
         }

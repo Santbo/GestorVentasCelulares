@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using GestionVentasCel.service.caja;
 using GestionVentasCel.exceptions.caja;
 
+namespace Testing.ventas;
 public class VentaServiceTests
 {
     private readonly Mock<IVentaRepository> _ventaRepoMock;

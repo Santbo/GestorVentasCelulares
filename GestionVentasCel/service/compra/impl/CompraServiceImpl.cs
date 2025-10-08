@@ -57,7 +57,7 @@ namespace GestionVentasCel.service.compra.impl
             _detalleRepo.AddRange(detalles);
         }
 
-        public IEnumerable<Compra> ListarCompras() => _repo.GetAll();
+        public IEnumerable<Compra> ListarCompras(bool ultimoMes = false) => _repo.GetAll(ultimoMes);
 
 
         public IEnumerable<Compra> ListarComprasConDetalles() => _repo.GetAllWithDetails();

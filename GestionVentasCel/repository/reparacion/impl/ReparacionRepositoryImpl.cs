@@ -24,7 +24,16 @@ namespace GestionVentasCel.repository.reparacion.impl
 
         public void Update(Reparacion reparacion)
         {
-            _context.Reparaciones.Update(reparacion);
+
+            foreach (var rs in reparacion.ReparacionServicios)
+            {
+                if (rs.Id == 0)
+                    _context.Entry(rs).State = EntityState.Added;
+                else
+                    _context.Entry(rs).State = EntityState.Modified;
+            }
+
+            _context.Reparaciones.Attach(reparacion);
             _context.SaveChanges();
         }
 

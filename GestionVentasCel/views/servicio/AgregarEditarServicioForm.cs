@@ -136,7 +136,7 @@ namespace GestionVentasCel.views.servicio
                 if (ServicioActual != null)
                 {
                     ServicioActual.Nombre = txtNombre.Text;
-                    ServicioActual.Precio = decimal.Parse(txtPrecio.Text);
+                    ServicioActual.Precio = (decimal)nudPrecio.Value;
                     ServicioActual.Descripcion = txtDescripcion.Text;
                     ServicioActual.ArticulosUsados = _listaArticulosAgregados;
 
@@ -147,14 +147,15 @@ namespace GestionVentasCel.views.servicio
                 {
 
                     _servicioController.AgregarServicio(txtNombre.Text,
-                                                    decimal.Parse(txtPrecio.Text),
+                                                    (decimal)nudPrecio.Value,
                                                     _listaArticulosAgregados.ToList(),
                                                     txtDescripcion.Text);
                 }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
 
         }
 
@@ -166,17 +167,14 @@ namespace GestionVentasCel.views.servicio
             {
                 if (ctrl is System.Windows.Forms.TextBox txt && string.IsNullOrWhiteSpace(txt.Text) && txt != txtDescripcion)
                 {
-                    MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txt.Focus();
                     return false;
                 }
             }
-
-            if (!_listaArticulosAgregados.Any())
-            {
-                MessageBox.Show("Por favor, Agrega al menos un Articulo a la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
+            //TODO: Eliminar detalleServicio del listado de servicios
+            //TODO: Cambiar UI de agregar servicio
+            //TODO: Hacer que no se pueda guardar una reparación sin servicios asociados
 
             return true;
         }
@@ -187,7 +185,7 @@ namespace GestionVentasCel.views.servicio
             {
                 lblTitulo.Text = "Editar Servicio";
                 txtNombre.Text = ServicioActual.Nombre;
-                txtPrecio.Text = ServicioActual.Precio.ToString();
+                nudPrecio.Value = ServicioActual.Precio;
                 txtDescripcion.Text = ServicioActual.Descripcion;
 
                 var listaArticulos = ServicioActual.ArticulosUsados.ToList();
