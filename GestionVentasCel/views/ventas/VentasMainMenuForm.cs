@@ -170,6 +170,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         MessageBoxIcon.Question
                     ) == DialogResult.Yes;
 
+                    fac = _serviceProvider.GetRequiredService<IFacturaService>().ObtenerPorId(fac.Id);
+
                     if (mostrarFactura)
                     {
                         using (VerDetalleFacturaForm detalleFactura = new VerDetalleFacturaForm(fac))
@@ -241,6 +243,8 @@ namespace GestionVentasCel.views.usuario_empleado
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question
                         ) == DialogResult.Yes;
+
+                        fac = _serviceProvider.GetRequiredService<IFacturaService>().ObtenerPorId(fac.Id);
 
                         if (mostrarFactura)
                         {
