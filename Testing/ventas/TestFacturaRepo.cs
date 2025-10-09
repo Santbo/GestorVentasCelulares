@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GestionVentasCel.data;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.Migrations;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.ventas;
@@ -101,11 +95,11 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "factura1")
+                .UseInMemoryDatabase(databaseName: "memoria")
                 .Options;
 
             var context = new AppDbContext(opciones);
-            
+
             // Se simula que ya existe una venta, despues su estado tiene que cambiar a Facturada
             context.Ventas.Add(venta);
             context.SaveChanges();
@@ -196,7 +190,7 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "factura2")
+                .UseInMemoryDatabase(databaseName: "memoria")
                 .Options;
 
             var context = new AppDbContext(opciones);
@@ -211,12 +205,12 @@ namespace Testing.ventas
             factura.NumeroFactura.Should().Be("0001-00000001");
 
         }
-        
+
         [Fact]
         public void EmitirFactura_GeneraCodigoCorrectoAumentaSerie()
         {
             // La factura debería terminar con un número correcto según su id, y la serie se 
-             //debería aumentar cuando la id de la factura es mayor a 99999999
+            //debería aumentar cuando la id de la factura es mayor a 99999999
             var venta = new Venta
             {
                 Id = 1,
@@ -291,7 +285,7 @@ namespace Testing.ventas
             };
 
             var opciones = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "factura3")
+                .UseInMemoryDatabase(databaseName: "memoria")
                 .Options;
 
             var context = new AppDbContext(opciones);

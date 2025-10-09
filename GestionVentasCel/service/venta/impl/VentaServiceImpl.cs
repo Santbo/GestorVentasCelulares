@@ -1,5 +1,4 @@
-﻿using GestionVentasCel.enumerations.cuentaCorriente;
-using GestionVentasCel.enumerations.ventas;
+﻿using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.CuentaCorreinte;
@@ -82,7 +81,7 @@ namespace GestionVentasCel.service.venta.impl
 
 
 
-        public IEnumerable<Venta> ListarVentasConDetalles() => _ventaRepo.ObtenerTodasConDetalles();
+        public IEnumerable<Venta> ListarVentasConDetalles() => _ventaRepo.ObtenerTodasConDetalles(hoy: true);
 
 
         public Venta? ObtenerVentaPorIdConDetallesNoTracking(int id) => _ventaRepo.ObtenerPorIdConDetallesNoTracking(id);
@@ -98,7 +97,8 @@ namespace GestionVentasCel.service.venta.impl
 
                 _ventaRepo.ConfirmarVenta(ventaId);
 
-            } else
+            }
+            else
             {
                 throw new CajaNoEncontradaException("Se intentó vender algo teniendo la caja cerrada");
             }

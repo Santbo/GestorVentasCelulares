@@ -12,7 +12,7 @@ namespace GestionVentasCel.repository.ventas
 
         // Gets
         IEnumerable<Venta> ObtenerTodas();
-        IEnumerable<Venta> ObtenerTodasConDetalles();
+        IEnumerable<Venta> ObtenerTodasConDetalles(bool hoy = false);
         Venta? ObtenerPorId(int id);
         Venta? ObtenerPorIdConDetalles(int id);
         Venta? ObtenerPorIdConDetallesNoTracking(int id);

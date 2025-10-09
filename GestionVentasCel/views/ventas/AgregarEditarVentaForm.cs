@@ -350,7 +350,8 @@ namespace GestionVentasCel.views.ventas
                             this.DialogResult = DialogResult.OK;
                             this.Close(); return;
                         }
-                    } catch (CajaNoEncontradaException)
+                    }
+                    catch (CajaNoEncontradaException)
                     {
                         MessageBox.Show(
                             "No puede realizarse una venta si no se abre la caja. Los cambios se descartaron; por favor, abra una caja y luego intente nuevamente.",
@@ -361,8 +362,8 @@ namespace GestionVentasCel.views.ventas
                         this.Close();
                         return;
                     }
-                    
-                    
+
+
                 }
                 else
                 {
@@ -377,7 +378,8 @@ namespace GestionVentasCel.views.ventas
                         this.Close();
                         return;
 
-                    } catch (CajaNoEncontradaException)
+                    }
+                    catch (CajaNoEncontradaException)
                     {
                         MessageBox.Show(
                             "No puede realizarse una venta si no se abre la caja. La venta se guardó como borrador para que pueda continuar con ella; por favor, abra una caja y luego intente nuevamente.",

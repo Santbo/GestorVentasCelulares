@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Moq;
-using Xunit;
+﻿using FluentAssertions;
 using GestionVentasCel.controller.articulo;
-using GestionVentasCel.controller.servicio;
-using GestionVentasCel.exceptions;
 using GestionVentasCel.controller.reparaciones;
+using GestionVentasCel.controller.servicio;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.articulo;
@@ -15,7 +10,7 @@ using GestionVentasCel.models.servicio;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.reparacion;
 using GestionVentasCel.service.servicio;
-using FluentAssertions;
+using Moq;
 
 namespace Testing.ServiciosReparaciones;
 public class ReparacionControllerTests

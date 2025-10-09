@@ -133,6 +133,7 @@
             // dtpFechaCreacion
             // 
             dtpFechaCreacion.Dock = DockStyle.Bottom;
+            dtpFechaCreacion.Enabled = false;
             dtpFechaCreacion.Font = new Font("Segoe UI", 12F);
             dtpFechaCreacion.Location = new Point(0, 29);
             dtpFechaCreacion.Name = "dtpFechaCreacion";

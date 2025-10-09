@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.models.articulo;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.service.articulo.impl;
-using GestionVentasCel.exceptions.articulo;
 using Moq;
 
 namespace Testing.articulos

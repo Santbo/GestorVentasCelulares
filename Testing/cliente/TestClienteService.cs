@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
@@ -44,7 +39,7 @@ namespace Testing.cliente
         public void CrearCuentaCorriente_DeberiaLanzarSiClienteIdEsCero()
         {
             var cliente = new Cliente { Id = 123 };
-            
+
 
             Action act = () => _service.CrearCuentaCorriente(cliente);
 

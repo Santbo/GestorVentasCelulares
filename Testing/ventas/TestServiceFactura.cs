@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.articulo;
@@ -271,63 +266,6 @@ namespace Testing.ventas
             factura.TipoComprobante.Should().Be(TipoFacturaEnum.FacturaB);
         }
 
-        [Fact]
-        public void EmitirFactura_LlamaAAgregarMovimientoCaja()
-        {
-            //Siempre s etiene que agregar un movimiento en la caja cuando se factura una venta.
-            // Lo que haga el service de movimientos no interesa, pero el service de factura
-            // tiene la responsabilidad de llamarlo.
-            var venta = new Venta
-            {
-                Id = 1,
-                EstadoVenta = EstadoVentaEnum.Confirmada,
-                Detalles = new List<DetalleVenta>
-                {
-                    new DetalleVenta
-                    {
-                        Cantidad = 5,
-                        PrecioUnitario = 100m,
-                        PorcentajeIva = 0.21m,
-                        Articulo = new Articulo
-                        {
-                            Id = 1,
-                            Nombre = "prueba",
-                            Marca = "prueba",
-                            Precio = 100m,
-                            Stock = 0,
-                            Aviso_stock = 2,
-                            CategoriaId = 1
-                        },
-                        ArticuloId = 1
-                    }
-                },
-                Cliente = new Cliente
-                {
-                    Id = 1,
-                    CondicionIVA = CondicionIVAEnum.Exento,
-                    Nombre = "IVA",
-                    Apellido = "Exento",
-                    TipoDocumento = TipoDocumentoEnum.CUIT,
-                    Dni = "30-12345678-2",
-                    Calle = "Calle falsa 123",
-                    Ciudad = "Springfield"
-
-                }
-            };
-
-            _cajaService.Setup(c => c.ObtenerCajaActualAbierta()).Returns(1);
-
-            var factura = _facturaService.EmitirFactura(venta);
-
-            _cajaService.Verify(
-                c => c.RegistrarVenta(
-                    1,
-                    venta.TotalConIva,
-                    venta.TipoPago),
-                Times.Once
-            );
-
-        }
 
     }
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GestionVentasCel.data;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
-using GestionVentasCel.models.proveedor;
 using GestionVentasCel.repository.ClienteCuentaCorriente.impl;
 using Microsoft.EntityFrameworkCore;
 
@@ -87,7 +81,7 @@ namespace Testing.cliente
 
             accion.Should().Throw<DNIDuplicadoException>();
         }
-        
+
         [Fact]
         public void EditarDNIDuplicado_arrojaExcepcion()
         {

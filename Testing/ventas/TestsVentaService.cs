@@ -1,21 +1,17 @@
-﻿using Xunit;
-using Moq;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
+﻿using FluentAssertions;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.exceptions.caja;
+using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.repository.ClienteCuentaCorriente;
 using GestionVentasCel.repository.ventas;
 using GestionVentasCel.service.articulo;
+using GestionVentasCel.service.caja;
 using GestionVentasCel.service.reparacion;
 using GestionVentasCel.service.venta.impl;
-using GestionVentasCel.exceptions.venta;
-using System.Windows.Forms;
-using GestionVentasCel.service.caja;
-using GestionVentasCel.exceptions.caja;
+using Moq;
 
 namespace Testing.ventas;
 public class VentaServiceTests
@@ -43,8 +39,6 @@ public class VentaServiceTests
             _cajaServiceMock.Object
         );
     }
-
-    // TODO: Testear si vender a CC hace movimiento
 
     [Fact]
     public void AnularVenta_VentaNoExiste_LanzaExcepcion()

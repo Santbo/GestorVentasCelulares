@@ -63,7 +63,7 @@ namespace GestionVentasCel.controller.reparaciones
         public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
         {
             _service.CambiarEstado(id, nuevoEstado);
-            
+
             if (nuevoEstado >= EstadoReparacionEnum.Reparando)
             {
                 var reparacion = _service.ObtenerPorId(id);

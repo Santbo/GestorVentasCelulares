@@ -2,7 +2,6 @@
 using GestionVentasCel.enumerations.cuentaCorriente;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.ventas;
@@ -162,7 +161,7 @@ namespace GestionVentasCel.repository.ventas.impl
                         // TODO: Todo lo que sea fecha hay que disablear directamente
 
                         // 6. Si la venta original se pagó con cuenta corriente:
-                        if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente )
+                        if (ventaOriginal.TipoPago == TipoPagoEnum.CuentaCorriente)
                         {
                             MovimientoCuentaCorriente? movimiento = _context.MovimientosCuentasCorrientes
                                     .FirstOrDefault(m => m.VentaId == ventaOriginal.Id);
@@ -336,17 +335,23 @@ namespace GestionVentasCel.repository.ventas.impl
                 .ToList();
         }
 
-        public IEnumerable<Venta> ObtenerTodasConDetalles()
+        public IEnumerable<Venta> ObtenerTodasConDetalles(bool hoy = false)
         {
-            return _context.Ventas
+
+            var ventas = _context.Ventas
                 .Include(v => v.Cliente)
                 .Include(v => v.Usuario)
                 .Include(v => v.Detalles)
                     .ThenInclude(d => d.Articulo)
                 .Include(v => v.Detalles)
                     .ThenInclude(d => d.Reparacion)
-                .AsNoTracking()
-                .ToList();
+                .AsNoTracking();
+
+            var resultado = hoy
+                ? ventas.Where(v => v.FechaCreacion.Date == DateTime.Today.Date)
+                : ventas;
+
+            return resultado.ToList();
         }
 
         public Venta? ObtenerPorId(int id)
