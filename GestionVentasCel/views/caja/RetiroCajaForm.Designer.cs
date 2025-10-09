@@ -52,8 +52,9 @@
             lblMonto.Dock = DockStyle.Top;
             lblMonto.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblMonto.Location = new Point(0, 0);
+            lblMonto.Margin = new Padding(4, 0, 4, 0);
             lblMonto.Name = "lblMonto";
-            lblMonto.Size = new Size(56, 20);
+            lblMonto.Size = new Size(69, 25);
             lblMonto.TabIndex = 0;
             lblMonto.Text = "Monto";
             // 
@@ -61,15 +62,16 @@
             // 
             txtDescripcion.Dock = DockStyle.Bottom;
             txtDescripcion.Font = new Font("Segoe UI", 12F);
-            txtDescripcion.Location = new Point(0, 23);
+            txtDescripcion.Location = new Point(0, 30);
+            txtDescripcion.Margin = new Padding(4);
             txtDescripcion.MaxLength = 255;
             txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.PlaceholderText = "Escribe el motivo del retiro...";
             txtDescripcion.ScrollBars = ScrollBars.Vertical;
-            txtDescripcion.Size = new Size(390, 151);
+            txtDescripcion.Size = new Size(488, 188);
             txtDescripcion.TabIndex = 1;
-            //txtDescripcion.KeyPress += txtDescripcion_KeyPress;
+            txtDescripcion.KeyPress += txtDescripcion_KeyPress;
             // 
             // lblDesripcion
             // 
@@ -77,16 +79,18 @@
             lblDesripcion.Dock = DockStyle.Top;
             lblDesripcion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblDesripcion.Location = new Point(0, 0);
+            lblDesripcion.Margin = new Padding(4, 0, 4, 0);
             lblDesripcion.Name = "lblDesripcion";
-            lblDesripcion.Size = new Size(90, 20);
+            lblDesripcion.Size = new Size(111, 25);
             lblDesripcion.TabIndex = 0;
             lblDesripcion.Text = "Descripcion";
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(294, 371);
+            btnGuardar.Location = new Point(368, 464);
+            btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(133, 44);
+            btnGuardar.Size = new Size(166, 55);
             btnGuardar.TabIndex = 2;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -94,9 +98,10 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(155, 371);
+            btnCancelar.Location = new Point(194, 464);
+            btnCancelar.Margin = new Padding(4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(133, 44);
+            btnCancelar.Size = new Size(166, 55);
             btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -106,10 +111,10 @@
             // 
             panel1.Controls.Add(nupMonto);
             panel1.Controls.Add(lblMonto);
-            panel1.Location = new Point(37, 94);
+            panel1.Location = new Point(46, 118);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(240, 54);
+            panel1.Size = new Size(300, 68);
             panel1.TabIndex = 0;
             // 
             // nupMonto
@@ -117,12 +122,12 @@
             nupMonto.DecimalPlaces = 2;
             nupMonto.Dock = DockStyle.Bottom;
             nupMonto.Font = new Font("Segoe UI", 12F);
-            nupMonto.Location = new Point(0, 20);
+            nupMonto.Location = new Point(0, 29);
             nupMonto.Margin = new Padding(2);
             nupMonto.Maximum = new decimal(new int[] { 1410065407, 2, 0, 0 });
             nupMonto.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nupMonto.Name = "nupMonto";
-            nupMonto.Size = new Size(240, 34);
+            nupMonto.Size = new Size(300, 39);
             nupMonto.TabIndex = 1;
             nupMonto.ThousandsSeparator = true;
             nupMonto.Value = new decimal(new int[] { 1, 0, 0, 0 });
@@ -136,10 +141,10 @@
             btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSalir.ImageKey = "xmark-solid-full.png";
             btnSalir.ImageList = imageList1;
-            btnSalir.Location = new Point(419, 10);
+            btnSalir.Location = new Point(524, 12);
             btnSalir.Margin = new Padding(2);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(26, 26);
+            btnSalir.Size = new Size(32, 32);
             btnSalir.TabIndex = 41;
             btnSalir.TabStop = false;
             btnSalir.UseVisualStyleBackColor = true;
@@ -157,9 +162,10 @@
             lblTituloForm.Dock = DockStyle.Top;
             lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Padding = new Padding(7, 0, 7, 0);
-            lblTituloForm.Size = new Size(457, 62);
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(571, 78);
             lblTituloForm.TabIndex = 42;
             lblTituloForm.Text = "Retiro de efectivo";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
@@ -168,19 +174,19 @@
             // 
             panel2.Controls.Add(lblDesripcion);
             panel2.Controls.Add(txtDescripcion);
-            panel2.Location = new Point(37, 170);
+            panel2.Location = new Point(46, 212);
             panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(390, 174);
+            panel2.Size = new Size(488, 218);
             panel2.TabIndex = 1;
             // 
             // RetiroCajaForm
             // 
             AcceptButton = btnGuardar;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(457, 428);
+            ClientSize = new Size(571, 535);
             Controls.Add(panel2);
             Controls.Add(btnSalir);
             Controls.Add(lblTituloForm);
@@ -188,6 +194,7 @@
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "RetiroCajaForm";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += RetiroCajaForm_FormClosing;
