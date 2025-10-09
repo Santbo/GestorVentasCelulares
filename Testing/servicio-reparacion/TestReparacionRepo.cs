@@ -1,15 +1,11 @@
-﻿using GestionVentasCel.data;
+﻿using FluentAssertions;
+using GestionVentasCel.data;
+using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.repository.reparacion.impl;
 using Microsoft.EntityFrameworkCore;
-using FluentAssertions;
-using Xunit;
-using System.Linq;
-using GestionVentasCel.models.servicio;
-using GestionVentasCel.models.clientes;
-using GestionVentasCel.enumerations.persona;
-using System.Runtime.InteropServices;
 
 namespace Testing.ServiciosReparaciones;
 public class ReparacionRepositoryTests
@@ -37,7 +33,7 @@ public class ReparacionRepositoryTests
             Telefono = "1233123123"
         };
         context.Clientes.Add(cliente);
-        
+
         var repo = new ReparacionRepositoryImpl(context);
 
         context.Reparaciones.AddRange(new[]

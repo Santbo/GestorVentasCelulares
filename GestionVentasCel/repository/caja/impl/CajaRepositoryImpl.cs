@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.models.caja;
 using Microsoft.EntityFrameworkCore;
@@ -74,7 +69,7 @@ namespace GestionVentasCel.repository.caja.impl
         public Caja? ObtenerCajaActualAbierta()
         {
             return _context.Caja.FirstOrDefault(c => c.Estado == EstadoCajaEnum.Abierta);
-            
+
         }
 
         // --- Movimientos ---

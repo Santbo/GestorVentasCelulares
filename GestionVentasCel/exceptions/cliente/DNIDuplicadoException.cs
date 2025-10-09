@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GestionVentasCel.exceptions.cliente
+﻿namespace GestionVentasCel.exceptions.cliente
 {
     [Serializable]
     public class DNIDuplicadoException : Exception

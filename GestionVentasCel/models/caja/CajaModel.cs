@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.enumerations.caja;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.enumerations.ventas;
+using GestionVentasCel.models.usuario;
 
 namespace GestionVentasCel.models.caja
 {

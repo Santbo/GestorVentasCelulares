@@ -9,11 +9,9 @@ using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
-using GestionVentasCel.service.caja;
 using GestionVentasCel.service.factura;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
-using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.articulo;
 using GestionVentasCel.views.categoria;
@@ -55,9 +53,9 @@ namespace GestionVentasCel
                 );
                 e.Cancel = true;
                 return;
-                
-            } 
-            
+
+            }
+
 
             var result = MessageBox.Show(
             "¿Seguro que desea salir?",
@@ -70,7 +68,7 @@ namespace GestionVentasCel
             {
                 e.Cancel = true;
             }
-            
+
         }
 
         //Metodo para abrir formularios hijos y embeberlos en el MainMenu
@@ -115,46 +113,46 @@ namespace GestionVentasCel
         private void ConfigurarPermisos()
         {
             // Configurar visibilidad de MENÚS PRINCIPALES según permisos
-            
+
             // Menú de usuarios (solo Admin)
             UsuarioMenuItem.Visible = _sesionUsuario.PuedeAccederAUsuarios();
-            
+
             // Menú de inventario/artículos (Admin y Vendedor)
             gestionarArticulosToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAArticulos();
-            
+
             // Menú de clientes (Admin y Vendedor)
             clientesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAClientes();
-            
+
             // Menú de proveedores/compras (Admin y Vendedor)
             gestionarProveedoresToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAProveedores();
-            
+
             // Menú de ventas (Admin y Vendedor)
             ventasToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAVentas();
-            
+
             // Menú de reparaciones (Admin y Técnico)
             reparacionesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones() || _sesionUsuario.PuedeAccederAServicios();
-            
+
             // Configurar visibilidad de SUBMENÚS según permisos
-            
+
             // Submenús de ventas y facturas (Admin y Vendedor)
             gestionarVentasToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAVentas();
             gestionarFacturasToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAFacturas();
-            
+
             // Submenús de clientes (Admin y Vendedor)
             gestionarClientesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAClientes();
             gestionarCuentasCorrientesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAClientes();
-            
+
             // Submenús de compras y proveedores (Admin y Vendedor)
             comprasMenuItem.Visible = _sesionUsuario.PuedeAccederACompras();
             proveedoresMenuItem.Visible = _sesionUsuario.PuedeAccederAProveedores();
-            
+
             // Submenús de artículos y categorías (Admin y Vendedor)
             ArticulosMenuItem.Visible = _sesionUsuario.PuedeAccederAArticulos();
             categoriasMenuItem.Visible = _sesionUsuario.PuedeAccederACategorias();
-            
+
             // Submenús de configuración de precios (solo Admin)
             aumentarMargenMenuItem.Visible = _sesionUsuario.PuedeAccederAConfiguracionPrecios();
-            
+
             // Submenús de reparaciones y servicios (Admin y Técnico)
             administrarReparacionesMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones();
             administrarServiciosMenuItem.Visible = _sesionUsuario.PuedeAccederAServicios();

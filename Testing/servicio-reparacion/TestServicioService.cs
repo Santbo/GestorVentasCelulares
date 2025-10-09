@@ -1,12 +1,9 @@
-﻿using Xunit;
-using FluentAssertions;
-using Moq;
-using System;
-using System.Collections.Generic;
+﻿using FluentAssertions;
 using GestionVentasCel.exceptions.servicio;
 using GestionVentasCel.models.servicio;
 using GestionVentasCel.repository.servicio;
 using GestionVentasCel.service.servicio.impl;
+using Moq;
 
 namespace Testing.ServiciosReparaciones;
 public class ServicioServiceTests

@@ -2,23 +2,13 @@
 using System.Data;
 using System.Globalization;
 using GestionVentasCel.controller.caja;
-using GestionVentasCel.controller.categoria;
-using GestionVentasCel.controller.cliente;
 using GestionVentasCel.enumerations.caja;
-using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
-using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.caja;
-using GestionVentasCel.models.ventas;
-using GestionVentasCel.service.factura;
 using GestionVentasCel.service.usuario;
-using GestionVentasCel.service.venta;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.caja;
-using GestionVentasCel.views.categoria;
-using GestionVentasCel.views.ventas;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GestionVentasCel.views.usuario_empleado
 {
@@ -155,7 +145,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
             using (var abrirCaja = new MontoAperturaForm(_cajaController, usuario))
             {
-            
+
                 if (abrirCaja.ShowDialog() == DialogResult.OK)
                 {
 
@@ -201,7 +191,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         ConfigurarDGV();
                     }
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Debe seleccionar una caja",
                    "Seleccion",
@@ -231,7 +222,8 @@ namespace GestionVentasCel.views.usuario_empleado
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Debe seleccionar una caja",
                        "Seleccion",
@@ -256,7 +248,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
                         foreach (var monto in caja.TotalesPorTipoPago)
                         {
-                            if(monto.Key == TipoPagoEnum.Retiro)
+                            if (monto.Key == TipoPagoEnum.Retiro)
                             {
                                 totalCierre -= monto.Value;
                             }
@@ -266,14 +258,16 @@ namespace GestionVentasCel.views.usuario_empleado
                         totalCierre += caja.MontoApertura;
                         _cajaController.CerrarCaja(caja.Id, totalCierre);
                     }
-                } catch(CajaYaCerradaException ex)
+                }
+                catch (CajaYaCerradaException ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 CargarCajas();
                 ConfigurarDGV();
-            } else
+            }
+            else
             {
                 MessageBox.Show("Debe seleccionar una caja",
                    "Seleccion",
