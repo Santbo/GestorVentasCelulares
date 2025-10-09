@@ -69,7 +69,7 @@
             txtDescripcion.ScrollBars = ScrollBars.Vertical;
             txtDescripcion.Size = new Size(390, 151);
             txtDescripcion.TabIndex = 1;
-            txtDescripcion.KeyPress += txtDescripcion_KeyPress;
+            //txtDescripcion.KeyPress += txtDescripcion_KeyPress;
             // 
             // lblDesripcion
             // 
