@@ -42,7 +42,7 @@ namespace GestionVentasCel.repository.facturas.impl
 
             // Se necesita que esté la empresa porque si no no se puede mostrar la factura cuando el usuario
             // quiere verla inmediatamente después de agregar o editar una venta.
-            factura.Empresa = _context.Empresas.AsNoTracking().First(e => e.Id == factura.EmpresaId);
+            //factura.Empresa = _context.Empresas.AsNoTracking().First(e => e.Id == factura.EmpresaId);
 
 
             this.GenerarNumeroFactura(factura.Id);

@@ -1,4 +1,5 @@
-﻿using GestionVentasCel.models.articulo;
+﻿using GestionVentasCel.exceptions.articulo;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.repository.articulo;
 using GestionVentasCel.service.articulo.impl;
 using Moq;
