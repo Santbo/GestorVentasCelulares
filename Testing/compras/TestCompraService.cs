@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using Moq;
+﻿using GestionVentasCel.exceptions.compra;
+using GestionVentasCel.exceptions.configPrecios;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.models.configPrecios;
 using GestionVentasCel.repository.compra;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.compra.impl;
 using GestionVentasCel.service.configPrecios;
-using GestionVentasCel.exceptions.configPrecios;
-using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.configPrecios;
-using GestionVentasCel.exceptions.compra;
+using Moq;
 
 
 

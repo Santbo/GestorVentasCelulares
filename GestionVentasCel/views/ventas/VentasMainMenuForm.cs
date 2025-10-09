@@ -158,7 +158,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 // Cancel => Se canceló el guardado, no hace falta hacer nada
 
                 var resultado = form.ShowDialog();
-                
+
                 if (resultado == DialogResult.Yes) // Si la venta se guardó, pero no se confirmó.
                 {
 

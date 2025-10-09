@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Collections.Generic;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.proveedor;
 using GestionVentasCel.repository.proveedor.impl;
+using Microsoft.EntityFrameworkCore;
 
 namespace Testing.compras
 {

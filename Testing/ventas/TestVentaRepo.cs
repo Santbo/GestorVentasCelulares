@@ -1,27 +1,20 @@
-﻿using Xunit;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using FluentAssertions;
 using GestionVentasCel.data;
 using GestionVentasCel.enumerations.cuentaCorriente;
+using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.venta;
 using GestionVentasCel.models.articulo;
-using GestionVentasCel.models.reparacion;
-using GestionVentasCel.models.ventas;
-using GestionVentasCel.service.venta;
-using GestionVentasCel.service.venta.impl;
-using GestionVentasCel.repository.ventas.impl;
-using Moq;
-using GestionVentasCel.repository.ventas;
-using FluentAssertions;
 using GestionVentasCel.models.clientes;
-using GestionVentasCel.enumerations.persona;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.models.CuentaCorreinte;
+using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.usuario;
+using GestionVentasCel.models.ventas;
+using GestionVentasCel.repository.ventas.impl;
+using Microsoft.EntityFrameworkCore;
 
+namespace Testing.ventas;
 public class VentaRepoTest
 {
     public Venta CrearVenta()
@@ -97,7 +90,7 @@ public class VentaRepoTest
         };
     }
 
-    public AppDbContext CrearContextoMemoria (string Nombre)
+    public AppDbContext CrearContextoMemoria(string Nombre)
     {
         var opciones = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: Nombre).Options;
         return new AppDbContext(opciones);
@@ -122,7 +115,7 @@ public class VentaRepoTest
 
         articulo.Stock.Should().Be(8);
         reparacion.Estado.Should().Be(EstadoReparacionEnum.Entregado);
-        
+
 
     }
 

@@ -1,6 +1,5 @@
 ﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.ventas;
 using GestionVentasCel.repository.facturas;
 using GestionVentasCel.service.caja;

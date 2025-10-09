@@ -17,36 +17,7 @@ namespace GestionVentasCel.service.cliente
         /// <param name="TipoDocumento"></param>
         /// <param name="Dni"></param>
         /// <param name="CondicionIVA"></param>
-        void CrearCliente(
-            int PersonaId,
-            TipoDocumentoEnum TipoDocumento,
-            string Dni,
-            CondicionIVAEnum CondicionIVA,
-            string? Calle = null,
-            string? Ciudad = null
-        );
-
-        /// <summary>
-        /// Crear un nuevo cliente, creando primero una nueva persona.
-        /// </summary>
-        /// <param name="Nombre"></param>
-        /// <param name="Apellido"></param>
-        /// <param name="Telefono"></param>
-        /// <param name="TipoDocumento"></param>
-        /// <param name="Dni"></param>
-        /// <param name="Email"></param>
-        void CrearCliente(
-            string Nombre,
-            string? Apellido,
-            TipoDocumentoEnum TipoDocumento,
-            string Dni,
-            CondicionIVAEnum CondicionIVA,
-            string Telefono,
-            string Email,
-            string Calle,
-            string Ciudad
-            );
-
+        
         IEnumerable<Cliente> ListarClientes();
         void UpdateCliente(Cliente cliente);
         void ToggleActivo(int id);
@@ -55,8 +26,6 @@ namespace GestionVentasCel.service.cliente
         decimal ObtenerSaldoCuentaCorriente(CuentaCorriente cuenta);
 
         void CrearCuentaCorriente(Cliente cliente);
-
-        void EliminarCuentaCorriente(Cliente cliente);
 
         void EliminarMovimiento(MovimientoCuentaCorriente movimiento);
         void RegistrarMovimientoCuentaCorriente(Cliente cliente, MovimientoCuentaCorriente movimiento);

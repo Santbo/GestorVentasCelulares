@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using Xunit;
-using System.Collections.Generic;
-using GestionVentasCel.service.proveedor;
-using GestionVentasCel.repository.proveedor;
-using GestionVentasCel.service.proveedor.impl;
-using GestionVentasCel.models.proveedor;
-using GestionVentasCel.enumerations.persona;
+﻿using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.persona;
 using GestionVentasCel.exceptions.proveedor;
+using GestionVentasCel.models.proveedor;
+using GestionVentasCel.repository.proveedor;
+using GestionVentasCel.service.proveedor.impl;
+using Moq;
 
 namespace Testing.compras
 {
@@ -39,9 +31,12 @@ namespace Testing.compras
         public void AgregarProveedor_DocumentoDuplicado_LanzaExcepcion()
         {
             //Arrange
-            var proveedor = new Proveedor { Id = 1, 
-                                            Dni = "12345678", 
-                                            TipoDocumento = TipoDocumentoEnum.CUIT};
+            var proveedor = new Proveedor
+            {
+                Id = 1,
+                Dni = "12345678",
+                TipoDocumento = TipoDocumentoEnum.CUIT
+            };
 
             //Se configura el repo para que diga que el cuit que agregamos existe en la BD
             _repoMock.Setup(r => r.DocumentoExist(proveedor.Dni, proveedor.TipoDocumento.ToString(), null))
@@ -90,7 +85,7 @@ namespace Testing.compras
         [Fact]
         public void ActualizarProveedor_DocumentoDuplicado_LanzaExcepcion()
         {
-            var proveedor = new Proveedor { Id = 1, Dni = "12345678", TipoDocumento = TipoDocumentoEnum.CUIT};
+            var proveedor = new Proveedor { Id = 1, Dni = "12345678", TipoDocumento = TipoDocumentoEnum.CUIT };
             _repoMock.Setup(r => r.Exist(proveedor.Id)).Returns(true);
             _repoMock.Setup(r => r.DocumentoExist(proveedor.Dni, proveedor.TipoDocumento.ToString(), proveedor.Id))
                      .Returns(true);
@@ -114,12 +109,12 @@ namespace Testing.compras
             };
 
             _repoMock.Setup(r => r.Exist(proveedor.Id)).Returns(true);
-            _repoMock.Setup(r=> r.DocumentoExist(It.IsAny<String>(), It.IsAny<String>(), proveedor.Id))
+            _repoMock.Setup(r => r.DocumentoExist(It.IsAny<String>(), It.IsAny<String>(), proveedor.Id))
                 .Returns(false);
 
             _service.ActualizarProveedor(proveedor);
 
-            _repoMock.Verify(r=> r.Update(proveedor), Times.Once);
+            _repoMock.Verify(r => r.Update(proveedor), Times.Once);
         }
 
         /*
@@ -185,6 +180,6 @@ namespace Testing.compras
                 p => Assert.Equal("Proveedor 1", p.Nombre),
                 p => Assert.Equal("Proveedor 2", p.Nombre));
         }
-    
+
     }
 }

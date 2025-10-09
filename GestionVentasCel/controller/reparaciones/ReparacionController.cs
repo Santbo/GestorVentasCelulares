@@ -64,17 +64,15 @@ namespace GestionVentasCel.controller.reparaciones
         {
             _service.CambiarEstado(id, nuevoEstado);
 
-            if (nuevoEstado == EstadoReparacionEnum.Entregado)
-            {
-                var reparacion = _service.ObtenerPorId(id);
-                reparacion.FechaEgreso = DateTime.Now;
-                _service.ActualizarReparacion(reparacion);
-            }
-
             if (nuevoEstado >= EstadoReparacionEnum.Reparando)
             {
                 var reparacion = _service.ObtenerPorId(id);
                 reparacion.FechaVencimiento = null;
+
+                if (nuevoEstado == EstadoReparacionEnum.Entregado)
+                {
+                    reparacion.FechaEgreso = DateTime.Now;
+                }
                 _service.ActualizarReparacion(reparacion);
             }
         }

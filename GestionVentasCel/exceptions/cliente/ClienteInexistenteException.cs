@@ -1,7 +1,7 @@
 ﻿namespace GestionVentasCel.exceptions.cliente
 {
     [Serializable]
-    internal class ClienteInexistenteException : Exception
+    public class ClienteInexistenteException : Exception
     {
         public ClienteInexistenteException()
         {

@@ -105,7 +105,7 @@ namespace Testing.ventas
                 .Options;
 
             var context = new AppDbContext(opciones);
-            
+
             // Se simula que ya existe una venta, despues su estado tiene que cambiar a Facturada
             context.Ventas.Add(venta);
             context.SaveChanges();
@@ -211,12 +211,12 @@ namespace Testing.ventas
             factura.NumeroFactura.Should().Be("0001-00000001");
 
         }
-        
+
         [Fact]
         public void EmitirFactura_GeneraCodigoCorrectoAumentaSerie()
         {
             // La factura debería terminar con un número correcto según su id, y la serie se 
-             //debería aumentar cuando la id de la factura es mayor a 99999999
+            //debería aumentar cuando la id de la factura es mayor a 99999999
             var venta = new Venta
             {
                 Id = 1,

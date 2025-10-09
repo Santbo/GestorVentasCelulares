@@ -46,7 +46,8 @@ namespace GestionVentasCel.views.ventas
             // Siempre hay que guardar qué usuario autorizó la venta o la edición
             _venta.UsuarioId = _sesionUsuario.Id;
 
-            this.comboTipoPago.Enabled = false;
+            // Hay que deshabilitar el combo del tipo de pago por un problema en el selectionchange del cliente
+            this.comboTipoPago.Enabled = _editando;
 
             this.ConfigurarBindings();
             this.InicializarCombos();
@@ -321,13 +322,14 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            _venta.TipoPago = (TipoPagoEnum)Enum.Parse(
-                typeof(TipoPagoEnum),
-                comboTipoPago.SelectedItem.ToString()
-            );
 
             if (ValidarVenta())
             {
+                _venta.TipoPago = (TipoPagoEnum)Enum.Parse(
+                    typeof(TipoPagoEnum),
+                    comboTipoPago.SelectedItem.ToString()
+                );
+
                 if (_editando)
                 {
                     try
@@ -348,7 +350,8 @@ namespace GestionVentasCel.views.ventas
                             this.DialogResult = DialogResult.OK;
                             this.Close(); return;
                         }
-                    } catch (CajaNoEncontradaException)
+                    }
+                    catch (CajaNoEncontradaException)
                     {
                         MessageBox.Show(
                             "No puede realizarse una venta si no se abre la caja. Los cambios se descartaron; por favor, abra una caja y luego intente nuevamente.",
@@ -359,8 +362,8 @@ namespace GestionVentasCel.views.ventas
                         this.Close();
                         return;
                     }
-                    
-                    
+
+
                 }
                 else
                 {
@@ -375,7 +378,8 @@ namespace GestionVentasCel.views.ventas
                         this.Close();
                         return;
 
-                    } catch (CajaNoEncontradaException)
+                    }
+                    catch (CajaNoEncontradaException)
                     {
                         MessageBox.Show(
                             "No puede realizarse una venta si no se abre la caja. La venta se guardó como borrador para que pueda continuar con ella; por favor, abra una caja y luego intente nuevamente.",

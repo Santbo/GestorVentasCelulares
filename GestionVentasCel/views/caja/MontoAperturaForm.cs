@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GestionVentasCel.controller.caja;
-using GestionVentasCel.enumerations.modoForms;
+﻿using GestionVentasCel.controller.caja;
 using GestionVentasCel.exceptions.caja;
-using GestionVentasCel.models.usuario;
 using GestionVentasCel.temas;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GestionVentasCel.views.caja
 {

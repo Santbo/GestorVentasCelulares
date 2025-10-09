@@ -106,8 +106,8 @@ namespace GestionVentasCel
                         maxRetryDelay: TimeSpan.FromSeconds(60),
                         errorNumbersToAdd: null)
                     .CommandTimeout(120))
-                    .LogTo(Console.WriteLine, LogLevel.Information)   // 👈 log a consola
-                    .EnableSensitiveDataLogging()                     // 👈 incluye valores de parámetros
+                    .LogTo(Console.WriteLine, LogLevel.Information)
+                    .EnableSensitiveDataLogging()
                     .EnableDetailedErrors()
             );
 
@@ -121,7 +121,6 @@ namespace GestionVentasCel
 
             services.AddTransient<IClienteRepository, ClienteRepositoryImpl>();
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepositoryImpl>();
-            services.AddTransient<IMovimientoCuentaCorrienteRepository, MovimientoCuentaCorrienteRepositoryImpl>();
             services.AddTransient<IPersonaRepository, PersonaRepositoryImpl>();
             services.AddTransient<IConfiguracionPreciosRepository, ConfiguracionPreciosRepositoryImpl>();
             services.AddTransient<IServicioRepository, ServicioRepositoryImpl>();
