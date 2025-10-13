@@ -244,19 +244,30 @@ namespace GestionVentasCel.views.usuario_empleado
 
                     if (caja != null)
                     {
-                        decimal totalCierre = 0;
+                        var result = MessageBox.Show(
+                        "¿Seguro que desea Cerrar la Caja?",
+                        "Confirmación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                        );
 
-                        foreach (var monto in caja.TotalesPorTipoPago)
+                        if(result == DialogResult.Yes)
                         {
-                            if (monto.Key == TipoPagoEnum.Retiro)
-                            {
-                                totalCierre -= monto.Value;
-                            }
 
-                            totalCierre += monto.Value;
+                            decimal totalCierre = 0;
+
+                            foreach (var monto in caja.TotalesPorTipoPago)
+                            {
+                                if (monto.Key == TipoPagoEnum.Retiro)
+                                {
+                                    totalCierre -= monto.Value;
+                                }
+
+                                totalCierre += monto.Value;
+                            }
+                            totalCierre += caja.MontoApertura;
+                            _cajaController.CerrarCaja(caja.Id, totalCierre);
                         }
-                        totalCierre += caja.MontoApertura;
-                        _cajaController.CerrarCaja(caja.Id, totalCierre);
                     }
                 }
                 catch (CajaYaCerradaException ex)
