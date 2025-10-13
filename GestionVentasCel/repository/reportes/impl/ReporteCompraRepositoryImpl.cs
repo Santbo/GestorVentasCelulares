@@ -1,5 +1,5 @@
 using GestionVentasCel.data;
-using GestionVentasCel.enumerations.cliente;
+using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.models.reportes;
 using Microsoft.EntityFrameworkCore;
 
