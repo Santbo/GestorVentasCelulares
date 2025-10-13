@@ -112,6 +112,11 @@ namespace GestionVentasCel.views.caja
                 if (labelsPorTipo.TryGetValue(tipo, out var label))
                 {
                     _caja.TotalesPorTipoPago.TryGetValue(tipo, out var monto);
+
+                    if (tipo == TipoPagoEnum.Efectivo)
+                    {
+                        monto += _caja.MontoApertura;
+                    }
                     label.Text = monto.ToString("C", new CultureInfo("es-AR"));
 
 
