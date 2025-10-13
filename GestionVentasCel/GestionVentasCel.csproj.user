@@ -64,6 +64,9 @@
     <Compile Update="views\reparacion\AgregarEditarReparacionForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="views\reportes\ReportesMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="views\servicio\AgregarEditarServicioForm.cs">
       <SubType>Form</SubType>
     </Compile>
