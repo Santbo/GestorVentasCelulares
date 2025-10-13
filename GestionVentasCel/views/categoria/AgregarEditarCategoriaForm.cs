@@ -3,7 +3,6 @@ using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.exceptions.categoria;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.temas;
-using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -95,7 +94,7 @@ namespace GestionVentasCel.views.categoria
 
         private bool CamposValidos()
         {
-            
+
             if (string.IsNullOrEmpty(txtNombre.Text))
             {
                 MessageBox.Show("Por favor, completá el campo Nombre.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -6,6 +6,7 @@ using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.reparaciones;
+using GestionVentasCel.controller.reportes;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.data;
@@ -29,12 +30,15 @@ using GestionVentasCel.repository.proveedor;
 using GestionVentasCel.repository.proveedor.impl;
 using GestionVentasCel.repository.reparacion;
 using GestionVentasCel.repository.reparacion.impl;
+using GestionVentasCel.repository.reportes;
+using GestionVentasCel.repository.reportes.impl;
 using GestionVentasCel.repository.servicio;
 using GestionVentasCel.repository.servicio.impl;
 using GestionVentasCel.repository.usuario;
 using GestionVentasCel.repository.usuario.impl;
 using GestionVentasCel.repository.ventas;
 using GestionVentasCel.repository.ventas.impl;
+using GestionVentasCel.service;
 using GestionVentasCel.service.articulo;
 using GestionVentasCel.service.articulo.impl;
 using GestionVentasCel.service.caja;
@@ -128,6 +132,9 @@ namespace GestionVentasCel
             services.AddTransient<IVentaRepository, VentaRepositoryImpl>();
             services.AddTransient<IFacturaRepository, FacturaRepositoryImpl>();
             services.AddTransient<ICajaRepository, CajaRepositoryImpl>();
+            services.AddTransient<IReporteCompraRepository, ReporteCompraRepositoryImpl>();
+            services.AddTransient<IReporteVentaRepository, ReporteVentaRepositoryImpl>();
+
 
 
 
@@ -146,8 +153,8 @@ namespace GestionVentasCel
             services.AddTransient<IVentaService, VentaServiceImpl>();
             services.AddTransient<IFacturaService, FacturaServiceImpl>();
             services.AddTransient<ICajaService, CajaServiceImpl>();
-
-
+            services.AddTransient<ReporteCompraService>();
+            services.AddTransient<ReporteVentaService>();
 
 
 
@@ -162,6 +169,8 @@ namespace GestionVentasCel
             services.AddTransient<ServicioController>();
             services.AddTransient<ReparacionController>();
             services.AddTransient<CajaController>();
+            services.AddTransient<ReporteCompraController>();
+            services.AddTransient<ReporteVentaController>();
 
             // Registrar forms
             services.AddTransient<LoginForm>();

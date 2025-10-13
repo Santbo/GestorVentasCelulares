@@ -48,6 +48,7 @@
             gestionarFacturasToolStripMenuItem = new ToolStripMenuItem();
             cajaToolStripMenuItem = new ToolStripMenuItem();
             panelContenedor = new Panel();
+            reportesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             menuStrip1.BackColor = SystemColors.ActiveCaption;
             menuStrip1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem, gestionarProveedoresToolStripMenuItem, reparacionesToolStripMenuItem, ventasToolStripMenuItem, cajaToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { UsuarioMenuItem, gestionarArticulosToolStripMenuItem, clientesToolStripMenuItem, gestionarProveedoresToolStripMenuItem, reparacionesToolStripMenuItem, ventasToolStripMenuItem, cajaToolStripMenuItem, reportesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(10, 5, 0, 5);
@@ -196,10 +197,17 @@
             // 
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(0, 44);
-            panelContenedor.Margin = new Padding(5, 5, 5, 5);
+            panelContenedor.Margin = new Padding(5);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(1069, 518);
             panelContenedor.TabIndex = 1;
+            // 
+            // reportesToolStripMenuItem
+            // 
+            reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            reportesToolStripMenuItem.Size = new Size(115, 34);
+            reportesToolStripMenuItem.Text = "Re&portes";
+            reportesToolStripMenuItem.Click += reportesToolStripMenuItem_Click;
             // 
             // MainMenuForm
             // 
@@ -209,7 +217,7 @@
             Controls.Add(panelContenedor);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainMenuForm";
@@ -245,5 +253,6 @@
         private ToolStripMenuItem gestionarVentasToolStripMenuItem;
         private ToolStripMenuItem gestionarFacturasToolStripMenuItem;
         private ToolStripMenuItem cajaToolStripMenuItem;
+        private ToolStripMenuItem reportesToolStripMenuItem;
     }
 }

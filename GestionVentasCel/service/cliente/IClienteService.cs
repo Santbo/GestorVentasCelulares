@@ -1,5 +1,4 @@
-﻿using GestionVentasCel.enumerations.persona;
-using GestionVentasCel.models.clientes;
+﻿using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
 using GestionVentasCel.models.persona;
 
@@ -17,7 +16,7 @@ namespace GestionVentasCel.service.cliente
         /// <param name="TipoDocumento"></param>
         /// <param name="Dni"></param>
         /// <param name="CondicionIVA"></param>
-        
+
         IEnumerable<Cliente> ListarClientes();
         void UpdateCliente(Cliente cliente);
         void ToggleActivo(int id);

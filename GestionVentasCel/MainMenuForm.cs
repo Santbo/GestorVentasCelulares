@@ -6,9 +6,11 @@ using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.configPrecios;
 using GestionVentasCel.controller.proveedor;
 using GestionVentasCel.controller.reparaciones;
+using GestionVentasCel.controller.reportes;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.usuarios;
+using GestionVentasCel.service;
 using GestionVentasCel.service.factura;
 using GestionVentasCel.service.usuario;
 using GestionVentasCel.service.venta;
@@ -18,6 +20,7 @@ using GestionVentasCel.views.categoria;
 using GestionVentasCel.views.compra;
 using GestionVentasCel.views.configuracionPrecios;
 using GestionVentasCel.views.proveedor;
+using GestionVentasCel.views.reportes;
 using GestionVentasCel.views.servicio;
 using GestionVentasCel.views.usuario_empleado;
 using Microsoft.Extensions.DependencyInjection;
@@ -259,6 +262,17 @@ namespace GestionVentasCel
             this.Text = "Caja - SGVC";
             AbrirFormularioHijo(new CajaMainMenuForm(
                 _serviceProvider.GetRequiredService<CajaController>(), _serviceProvider.GetRequiredService<SesionUsuario>()
+                )
+            );
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Reportes - SGVC";
+            AbrirFormularioHijo(new ReportesMainForm(
+                _serviceProvider.GetRequiredService<ReporteVentaController>(),
+                _serviceProvider.GetRequiredService<ReporteCompraController>(),
+                new ExportService()
                 )
             );
         }

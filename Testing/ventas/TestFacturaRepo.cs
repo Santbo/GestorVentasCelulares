@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using GestionVentasCel.data;
 using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.ventas;
-using GestionVentasCel.Migrations;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.ventas;

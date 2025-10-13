@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.categoria;
 using GestionVentasCel.repository.articulo.impl;
