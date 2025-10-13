@@ -77,15 +77,11 @@ namespace GestionVentasCel.views.caja
 
         private bool validarCampos()
         {
-            //valida textbox vacios
-            foreach (Control ctrl in this.Controls)
+            if(string.IsNullOrEmpty(txtDescripcion.Text))
             {
-                if (ctrl is System.Windows.Forms.TextBox txt && string.IsNullOrWhiteSpace(txt.Text) && txt != txtDescripcion)
-                {
-                    MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txt.Focus();
-                    return false;
-                }
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcion.Focus();
+                return false;
             }
 
             return true;
