@@ -121,6 +121,7 @@
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // panelContenedor
             // 
@@ -190,7 +191,6 @@
             dgvListarUsuarios.RowHeadersWidth = 51;
             dgvListarUsuarios.Size = new Size(978, 429);
             dgvListarUsuarios.TabIndex = 0;
-            //dgvListarUsuarios.KeyDown += UsuarioMainMenuForm_KeyDown;
             // 
             // UsuarioMainMenuForm
             // 
