@@ -20,7 +20,7 @@ namespace GestionVentasCel.controller.reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al obtener ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new List<ReporteVentaDTO>();
             }
@@ -34,7 +34,7 @@ namespace GestionVentasCel.controller.reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener resumen de ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al obtener resumen de ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new ResumenReporteDTO();
             }
@@ -48,7 +48,7 @@ namespace GestionVentasCel.controller.reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener ventas del mes: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al obtener ventas del mes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new List<ReporteVentaDTO>();
             }
@@ -62,7 +62,7 @@ namespace GestionVentasCel.controller.reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al obtener resumen del mes: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al obtener resumen del mes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new ResumenReporteDTO();
             }

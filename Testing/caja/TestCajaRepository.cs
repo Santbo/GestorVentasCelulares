@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.data;
+﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.caja;
@@ -20,7 +15,7 @@ namespace Testing.caja
         public TestCajaRepository()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) 
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             _context = new AppDbContext(options);

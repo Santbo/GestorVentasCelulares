@@ -77,7 +77,7 @@ namespace GestionVentasCel.views.caja
 
         private bool validarCampos()
         {
-            if(string.IsNullOrEmpty(txtDescripcion.Text))
+            if (string.IsNullOrEmpty(txtDescripcion.Text))
             {
                 MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
@@ -114,7 +114,8 @@ namespace GestionVentasCel.views.caja
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsLetterOrDigit (e.KeyChar) && e.KeyChar != ' ' && !char.IsControl(e.KeyChar)) {
+            if (!char.IsLetterOrDigit(e.KeyChar) && e.KeyChar != ' ' && !char.IsControl(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }

@@ -1,9 +1,10 @@
-using GestionVentasCel.controller.reportes;
-using GestionVentasCel.models.reportes;
-using GestionVentasCel.service;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms.DataVisualization.Charting;
+using GestionVentasCel.controller.reportes;
+using GestionVentasCel.models.reportes;
+using GestionVentasCel.service;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace GestionVentasCel.views.reportes
 {
@@ -214,7 +215,7 @@ namespace GestionVentasCel.views.reportes
             chartVentas.ChartAreas.Clear();
             var areaVentas = new ChartArea("MainArea");
             chartVentas.ChartAreas.Add(areaVentas);
-            
+
             var seriesVentas = new Series("Ventas por Tipo")
             {
                 ChartType = SeriesChartType.Pie,
@@ -229,7 +230,7 @@ namespace GestionVentasCel.views.reportes
             chartCompras.ChartAreas.Clear();
             var areaCompras = new ChartArea("MainArea");
             chartCompras.ChartAreas.Add(areaCompras);
-            
+
             var seriesCompras = new Series("Compras por Tipo")
             {
                 ChartType = SeriesChartType.Pie,
@@ -322,13 +323,13 @@ namespace GestionVentasCel.views.reportes
             );
 
             chartVentas.Series[0].Points.Clear();
-            
+
             foreach (var tipo in resumen.TotalesPorTipo)
             {
                 if (tipo.Value > 0)
                 {
                     var point = chartVentas.Series[0].Points.Add((double)tipo.Value);
-                    point.Label = $"{tipo.Key}\n{tipo.Value:C2}";
+                    point.Label = $"{tipo.Key}\n{tipo.Value.ToString("C2", new CultureInfo("es-AR"))}";
                     point.LegendText = tipo.Key;
                 }
             }
@@ -342,13 +343,13 @@ namespace GestionVentasCel.views.reportes
             );
 
             chartCompras.Series[0].Points.Clear();
-            
+
             foreach (var tipo in resumen.TotalesPorTipo)
             {
                 if (tipo.Value > 0)
                 {
                     var point = chartCompras.Series[0].Points.Add((double)tipo.Value);
-                    point.Label = $"{tipo.Key}\n{tipo.Value:C2}";
+                    point.Label = $"{tipo.Key}\n{tipo.Value.ToString("C2", new CultureInfo("es-AR"))}";
                     point.LegendText = tipo.Key;
                 }
             }
@@ -421,7 +422,7 @@ namespace GestionVentasCel.views.reportes
         private void MostrarMenuExportacion(TipoReporte tipoReporte)
         {
             var menu = new ContextMenuStrip();
-            
+
             var itemExcel = new ToolStripMenuItem("Exportar a Excel");
             itemExcel.Click += (s, e) => ExportarAExcel(tipoReporte);
             menu.Items.Add(itemExcel);

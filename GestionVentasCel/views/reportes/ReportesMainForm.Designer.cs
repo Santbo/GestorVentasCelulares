@@ -79,10 +79,10 @@ namespace GestionVentasCel.views.reportes
             tabControl.Controls.Add(tabCompras);
             tabControl.Dock = DockStyle.Fill;
             tabControl.Location = new Point(0, 0);
-            tabControl.Margin = new Padding(3, 4, 3, 4);
+            tabControl.Margin = new Padding(4, 5, 4, 5);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1600, 1067);
+            tabControl.Size = new Size(1943, 1199);
             tabControl.TabIndex = 0;
             // 
             // tabVentas
@@ -92,16 +92,17 @@ namespace GestionVentasCel.views.reportes
             tabVentas.Controls.Add(panelResumenVentas);
             tabVentas.Controls.Add(dgvVentas);
             tabVentas.Controls.Add(chartVentas);
-            tabVentas.Location = new Point(4, 29);
-            tabVentas.Margin = new Padding(3, 4, 3, 4);
+            tabVentas.Location = new Point(4, 34);
+            tabVentas.Margin = new Padding(4, 5, 4, 5);
             tabVentas.Name = "tabVentas";
-            tabVentas.Padding = new Padding(11, 13, 11, 13);
-            tabVentas.Size = new Size(1592, 1034);
+            tabVentas.Padding = new Padding(14, 16, 14, 16);
+            tabVentas.Size = new Size(1935, 1161);
             tabVentas.TabIndex = 0;
             tabVentas.Text = "Reporte de Ventas";
             // 
             // panelFiltrosVentas
             // 
+            panelFiltrosVentas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelFiltrosVentas.BackColor = Color.FromArgb(240, 240, 240);
             panelFiltrosVentas.BorderStyle = BorderStyle.FixedSingle;
             panelFiltrosVentas.Controls.Add(lblVentasFiltros);
@@ -112,56 +113,59 @@ namespace GestionVentasCel.views.reportes
             panelFiltrosVentas.Controls.Add(btnVentasFiltrar);
             panelFiltrosVentas.Controls.Add(btnVentasLimpiar);
             panelFiltrosVentas.Controls.Add(btnExportarVentas);
-            panelFiltrosVentas.Location = new Point(11, 13);
-            panelFiltrosVentas.Margin = new Padding(3, 4, 3, 4);
+            panelFiltrosVentas.Location = new Point(14, 16);
+            panelFiltrosVentas.Margin = new Padding(4, 5, 4, 5);
             panelFiltrosVentas.Name = "panelFiltrosVentas";
-            panelFiltrosVentas.Size = new Size(1568, 106);
+            panelFiltrosVentas.Size = new Size(1900, 132);
             panelFiltrosVentas.TabIndex = 0;
             // 
             // lblVentasFiltros
             // 
             lblVentasFiltros.AutoSize = true;
             lblVentasFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblVentasFiltros.Location = new Point(11, 13);
+            lblVentasFiltros.Location = new Point(14, 16);
+            lblVentasFiltros.Margin = new Padding(4, 0, 4, 0);
             lblVentasFiltros.Name = "lblVentasFiltros";
-            lblVentasFiltros.Size = new Size(198, 28);
+            lblVentasFiltros.Size = new Size(239, 32);
             lblVentasFiltros.TabIndex = 0;
             lblVentasFiltros.Text = "Filtros de Búsqueda";
             // 
             // lblVentasDesde
             // 
             lblVentasDesde.AutoSize = true;
-            lblVentasDesde.Location = new Point(11, 60);
+            lblVentasDesde.Location = new Point(14, 75);
+            lblVentasDesde.Margin = new Padding(4, 0, 4, 0);
             lblVentasDesde.Name = "lblVentasDesde";
-            lblVentasDesde.Size = new Size(54, 20);
+            lblVentasDesde.Size = new Size(66, 25);
             lblVentasDesde.TabIndex = 1;
             lblVentasDesde.Text = "Desde:";
             // 
             // dtpVentasDesde
             // 
             dtpVentasDesde.Format = DateTimePickerFormat.Short;
-            dtpVentasDesde.Location = new Point(69, 56);
-            dtpVentasDesde.Margin = new Padding(3, 4, 3, 4);
+            dtpVentasDesde.Location = new Point(86, 70);
+            dtpVentasDesde.Margin = new Padding(4, 5, 4, 5);
             dtpVentasDesde.Name = "dtpVentasDesde";
-            dtpVentasDesde.Size = new Size(137, 27);
+            dtpVentasDesde.Size = new Size(170, 31);
             dtpVentasDesde.TabIndex = 2;
             // 
             // lblVentasHasta
             // 
             lblVentasHasta.AutoSize = true;
-            lblVentasHasta.Location = new Point(217, 60);
+            lblVentasHasta.Location = new Point(271, 75);
+            lblVentasHasta.Margin = new Padding(4, 0, 4, 0);
             lblVentasHasta.Name = "lblVentasHasta";
-            lblVentasHasta.Size = new Size(50, 20);
+            lblVentasHasta.Size = new Size(61, 25);
             lblVentasHasta.TabIndex = 3;
             lblVentasHasta.Text = "Hasta:";
             // 
             // dtpVentasHasta
             // 
             dtpVentasHasta.Format = DateTimePickerFormat.Short;
-            dtpVentasHasta.Location = new Point(270, 56);
-            dtpVentasHasta.Margin = new Padding(3, 4, 3, 4);
+            dtpVentasHasta.Location = new Point(338, 70);
+            dtpVentasHasta.Margin = new Padding(4, 5, 4, 5);
             dtpVentasHasta.Name = "dtpVentasHasta";
-            dtpVentasHasta.Size = new Size(137, 27);
+            dtpVentasHasta.Size = new Size(170, 31);
             dtpVentasHasta.TabIndex = 4;
             // 
             // btnVentasFiltrar
@@ -169,10 +173,10 @@ namespace GestionVentasCel.views.reportes
             btnVentasFiltrar.BackColor = Color.FromArgb(52, 152, 219);
             btnVentasFiltrar.FlatStyle = FlatStyle.Flat;
             btnVentasFiltrar.ForeColor = Color.White;
-            btnVentasFiltrar.Location = new Point(423, 53);
-            btnVentasFiltrar.Margin = new Padding(3, 4, 3, 4);
+            btnVentasFiltrar.Location = new Point(529, 66);
+            btnVentasFiltrar.Margin = new Padding(4, 5, 4, 5);
             btnVentasFiltrar.Name = "btnVentasFiltrar";
-            btnVentasFiltrar.Size = new Size(114, 37);
+            btnVentasFiltrar.Size = new Size(142, 46);
             btnVentasFiltrar.TabIndex = 5;
             btnVentasFiltrar.Text = "Filtrar";
             btnVentasFiltrar.UseVisualStyleBackColor = false;
@@ -183,10 +187,10 @@ namespace GestionVentasCel.views.reportes
             btnVentasLimpiar.BackColor = Color.FromArgb(149, 165, 166);
             btnVentasLimpiar.FlatStyle = FlatStyle.Flat;
             btnVentasLimpiar.ForeColor = Color.White;
-            btnVentasLimpiar.Location = new Point(549, 53);
-            btnVentasLimpiar.Margin = new Padding(3, 4, 3, 4);
+            btnVentasLimpiar.Location = new Point(686, 66);
+            btnVentasLimpiar.Margin = new Padding(4, 5, 4, 5);
             btnVentasLimpiar.Name = "btnVentasLimpiar";
-            btnVentasLimpiar.Size = new Size(114, 37);
+            btnVentasLimpiar.Size = new Size(142, 46);
             btnVentasLimpiar.TabIndex = 6;
             btnVentasLimpiar.Text = "Limpiar";
             btnVentasLimpiar.UseVisualStyleBackColor = false;
@@ -194,13 +198,14 @@ namespace GestionVentasCel.views.reportes
             // 
             // btnExportarVentas
             // 
+            btnExportarVentas.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExportarVentas.BackColor = Color.FromArgb(46, 204, 113);
             btnExportarVentas.FlatStyle = FlatStyle.Flat;
             btnExportarVentas.ForeColor = Color.White;
-            btnExportarVentas.Location = new Point(1417, 53);
-            btnExportarVentas.Margin = new Padding(3, 4, 3, 4);
+            btnExportarVentas.Location = new Point(1713, 64);
+            btnExportarVentas.Margin = new Padding(4, 5, 4, 5);
             btnExportarVentas.Name = "btnExportarVentas";
-            btnExportarVentas.Size = new Size(137, 37);
+            btnExportarVentas.Size = new Size(171, 46);
             btnExportarVentas.TabIndex = 7;
             btnExportarVentas.Text = "📄 Exportar";
             btnExportarVentas.UseVisualStyleBackColor = false;
@@ -208,6 +213,7 @@ namespace GestionVentasCel.views.reportes
             // 
             // panelResumenVentas
             // 
+            panelResumenVentas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panelResumenVentas.BackColor = Color.FromArgb(52, 152, 219);
             panelResumenVentas.BorderStyle = BorderStyle.FixedSingle;
             panelResumenVentas.Controls.Add(lblVentasResumen);
@@ -217,10 +223,10 @@ namespace GestionVentasCel.views.reportes
             panelResumenVentas.Controls.Add(lblVentasCantidad);
             panelResumenVentas.Controls.Add(lblVentasPromedioTexto);
             panelResumenVentas.Controls.Add(lblVentasPromedio);
-            panelResumenVentas.Location = new Point(11, 133);
-            panelResumenVentas.Margin = new Padding(3, 4, 3, 4);
+            panelResumenVentas.Location = new Point(14, 166);
+            panelResumenVentas.Margin = new Padding(4, 5, 4, 5);
             panelResumenVentas.Name = "panelResumenVentas";
-            panelResumenVentas.Size = new Size(1568, 133);
+            panelResumenVentas.Size = new Size(1900, 166);
             panelResumenVentas.TabIndex = 1;
             // 
             // lblVentasResumen
@@ -228,9 +234,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasResumen.AutoSize = true;
             lblVentasResumen.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblVentasResumen.ForeColor = Color.White;
-            lblVentasResumen.Location = new Point(11, 13);
+            lblVentasResumen.Location = new Point(14, 16);
+            lblVentasResumen.Margin = new Padding(4, 0, 4, 0);
             lblVentasResumen.Name = "lblVentasResumen";
-            lblVentasResumen.Size = new Size(256, 32);
+            lblVentasResumen.Size = new Size(293, 38);
             lblVentasResumen.TabIndex = 0;
             lblVentasResumen.Text = "Resumen del Período";
             // 
@@ -239,9 +246,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasTotalTexto.AutoSize = true;
             lblVentasTotalTexto.Font = new Font("Segoe UI", 10F);
             lblVentasTotalTexto.ForeColor = Color.White;
-            lblVentasTotalTexto.Location = new Point(11, 67);
+            lblVentasTotalTexto.Location = new Point(14, 84);
+            lblVentasTotalTexto.Margin = new Padding(4, 0, 4, 0);
             lblVentasTotalTexto.Name = "lblVentasTotalTexto";
-            lblVentasTotalTexto.Size = new Size(114, 23);
+            lblVentasTotalTexto.Size = new Size(130, 28);
             lblVentasTotalTexto.TabIndex = 1;
             lblVentasTotalTexto.Text = "Total General:";
             // 
@@ -250,9 +258,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasTotalGeneral.AutoSize = true;
             lblVentasTotalGeneral.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblVentasTotalGeneral.ForeColor = Color.White;
-            lblVentasTotalGeneral.Location = new Point(11, 87);
+            lblVentasTotalGeneral.Location = new Point(14, 109);
+            lblVentasTotalGeneral.Margin = new Padding(4, 0, 4, 0);
             lblVentasTotalGeneral.Name = "lblVentasTotalGeneral";
-            lblVentasTotalGeneral.Size = new Size(88, 37);
+            lblVentasTotalGeneral.Size = new Size(101, 45);
             lblVentasTotalGeneral.TabIndex = 2;
             lblVentasTotalGeneral.Text = "$0.00";
             // 
@@ -261,9 +270,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasCantidadTexto.AutoSize = true;
             lblVentasCantidadTexto.Font = new Font("Segoe UI", 10F);
             lblVentasCantidadTexto.ForeColor = Color.White;
-            lblVentasCantidadTexto.Location = new Point(514, 67);
+            lblVentasCantidadTexto.Location = new Point(642, 84);
+            lblVentasCantidadTexto.Margin = new Padding(4, 0, 4, 0);
             lblVentasCantidadTexto.Name = "lblVentasCantidadTexto";
-            lblVentasCantidadTexto.Size = new Size(207, 23);
+            lblVentasCantidadTexto.Size = new Size(236, 28);
             lblVentasCantidadTexto.TabIndex = 3;
             lblVentasCantidadTexto.Text = "Cantidad de Operaciones:";
             // 
@@ -272,9 +282,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasCantidad.AutoSize = true;
             lblVentasCantidad.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblVentasCantidad.ForeColor = Color.White;
-            lblVentasCantidad.Location = new Point(514, 87);
+            lblVentasCantidad.Location = new Point(642, 109);
+            lblVentasCantidad.Margin = new Padding(4, 0, 4, 0);
             lblVentasCantidad.Name = "lblVentasCantidad";
-            lblVentasCantidad.Size = new Size(33, 37);
+            lblVentasCantidad.Size = new Size(38, 45);
             lblVentasCantidad.TabIndex = 4;
             lblVentasCantidad.Text = "0";
             // 
@@ -283,9 +294,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasPromedioTexto.AutoSize = true;
             lblVentasPromedioTexto.Font = new Font("Segoe UI", 10F);
             lblVentasPromedioTexto.ForeColor = Color.White;
-            lblVentasPromedioTexto.Location = new Point(971, 67);
+            lblVentasPromedioTexto.Location = new Point(1214, 84);
+            lblVentasPromedioTexto.Margin = new Padding(4, 0, 4, 0);
             lblVentasPromedioTexto.Name = "lblVentasPromedioTexto";
-            lblVentasPromedioTexto.Size = new Size(203, 23);
+            lblVentasPromedioTexto.Size = new Size(234, 28);
             lblVentasPromedioTexto.TabIndex = 5;
             lblVentasPromedioTexto.Text = "Promedio por Operación:";
             // 
@@ -294,9 +306,10 @@ namespace GestionVentasCel.views.reportes
             lblVentasPromedio.AutoSize = true;
             lblVentasPromedio.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblVentasPromedio.ForeColor = Color.White;
-            lblVentasPromedio.Location = new Point(971, 87);
+            lblVentasPromedio.Location = new Point(1214, 109);
+            lblVentasPromedio.Margin = new Padding(4, 0, 4, 0);
             lblVentasPromedio.Name = "lblVentasPromedio";
-            lblVentasPromedio.Size = new Size(88, 37);
+            lblVentasPromedio.Size = new Size(101, 45);
             lblVentasPromedio.TabIndex = 6;
             lblVentasPromedio.Text = "$0.00";
             // 
@@ -304,23 +317,25 @@ namespace GestionVentasCel.views.reportes
             // 
             dgvVentas.AllowUserToAddRows = false;
             dgvVentas.AllowUserToDeleteRows = false;
+            dgvVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgvVentas.BackgroundColor = Color.White;
             dgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVentas.Location = new Point(11, 280);
-            dgvVentas.Margin = new Padding(3, 4, 3, 4);
+            dgvVentas.Location = new Point(14, 350);
+            dgvVentas.Margin = new Padding(4, 5, 4, 5);
             dgvVentas.Name = "dgvVentas";
             dgvVentas.ReadOnly = true;
             dgvVentas.RowHeadersWidth = 51;
             dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvVentas.Size = new Size(1029, 723);
+            dgvVentas.Size = new Size(1286, 769);
             dgvVentas.TabIndex = 2;
             // 
             // chartVentas
             // 
-            chartVentas.Location = new Point(1057, 280);
-            chartVentas.Margin = new Padding(3, 4, 3, 4);
+            chartVentas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            chartVentas.Location = new Point(1321, 350);
+            chartVentas.Margin = new Padding(4, 5, 4, 5);
             chartVentas.Name = "chartVentas";
-            chartVentas.Size = new Size(522, 723);
+            chartVentas.Size = new Size(595, 769);
             chartVentas.TabIndex = 3;
             chartVentas.Text = "chartVentas";
             // 
@@ -331,11 +346,11 @@ namespace GestionVentasCel.views.reportes
             tabCompras.Controls.Add(panelResumenCompras);
             tabCompras.Controls.Add(dgvCompras);
             tabCompras.Controls.Add(chartCompras);
-            tabCompras.Location = new Point(4, 29);
-            tabCompras.Margin = new Padding(3, 4, 3, 4);
+            tabCompras.Location = new Point(4, 34);
+            tabCompras.Margin = new Padding(4, 5, 4, 5);
             tabCompras.Name = "tabCompras";
-            tabCompras.Padding = new Padding(11, 13, 11, 13);
-            tabCompras.Size = new Size(1592, 1034);
+            tabCompras.Padding = new Padding(14, 16, 14, 16);
+            tabCompras.Size = new Size(1935, 1161);
             tabCompras.TabIndex = 1;
             tabCompras.Text = "Reporte de Compras";
             // 
@@ -351,56 +366,59 @@ namespace GestionVentasCel.views.reportes
             panelFiltrosCompras.Controls.Add(btnComprasFiltrar);
             panelFiltrosCompras.Controls.Add(btnComprasLimpiar);
             panelFiltrosCompras.Controls.Add(btnExportarCompras);
-            panelFiltrosCompras.Location = new Point(11, 13);
-            panelFiltrosCompras.Margin = new Padding(3, 4, 3, 4);
+            panelFiltrosCompras.Location = new Point(14, 16);
+            panelFiltrosCompras.Margin = new Padding(4, 5, 4, 5);
             panelFiltrosCompras.Name = "panelFiltrosCompras";
-            panelFiltrosCompras.Size = new Size(1568, 106);
+            panelFiltrosCompras.Size = new Size(1903, 132);
             panelFiltrosCompras.TabIndex = 0;
             // 
             // lblComprasFiltros
             // 
             lblComprasFiltros.AutoSize = true;
             lblComprasFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblComprasFiltros.Location = new Point(11, 13);
+            lblComprasFiltros.Location = new Point(14, 16);
+            lblComprasFiltros.Margin = new Padding(4, 0, 4, 0);
             lblComprasFiltros.Name = "lblComprasFiltros";
-            lblComprasFiltros.Size = new Size(198, 28);
+            lblComprasFiltros.Size = new Size(239, 32);
             lblComprasFiltros.TabIndex = 0;
             lblComprasFiltros.Text = "Filtros de Búsqueda";
             // 
             // lblComprasDesde
             // 
             lblComprasDesde.AutoSize = true;
-            lblComprasDesde.Location = new Point(11, 60);
+            lblComprasDesde.Location = new Point(14, 75);
+            lblComprasDesde.Margin = new Padding(4, 0, 4, 0);
             lblComprasDesde.Name = "lblComprasDesde";
-            lblComprasDesde.Size = new Size(54, 20);
+            lblComprasDesde.Size = new Size(66, 25);
             lblComprasDesde.TabIndex = 1;
             lblComprasDesde.Text = "Desde:";
             // 
             // dtpComprasDesde
             // 
             dtpComprasDesde.Format = DateTimePickerFormat.Short;
-            dtpComprasDesde.Location = new Point(69, 56);
-            dtpComprasDesde.Margin = new Padding(3, 4, 3, 4);
+            dtpComprasDesde.Location = new Point(86, 70);
+            dtpComprasDesde.Margin = new Padding(4, 5, 4, 5);
             dtpComprasDesde.Name = "dtpComprasDesde";
-            dtpComprasDesde.Size = new Size(137, 27);
+            dtpComprasDesde.Size = new Size(170, 31);
             dtpComprasDesde.TabIndex = 2;
             // 
             // lblComprasHasta
             // 
             lblComprasHasta.AutoSize = true;
-            lblComprasHasta.Location = new Point(217, 60);
+            lblComprasHasta.Location = new Point(271, 75);
+            lblComprasHasta.Margin = new Padding(4, 0, 4, 0);
             lblComprasHasta.Name = "lblComprasHasta";
-            lblComprasHasta.Size = new Size(50, 20);
+            lblComprasHasta.Size = new Size(61, 25);
             lblComprasHasta.TabIndex = 3;
             lblComprasHasta.Text = "Hasta:";
             // 
             // dtpComprasHasta
             // 
             dtpComprasHasta.Format = DateTimePickerFormat.Short;
-            dtpComprasHasta.Location = new Point(270, 56);
-            dtpComprasHasta.Margin = new Padding(3, 4, 3, 4);
+            dtpComprasHasta.Location = new Point(338, 70);
+            dtpComprasHasta.Margin = new Padding(4, 5, 4, 5);
             dtpComprasHasta.Name = "dtpComprasHasta";
-            dtpComprasHasta.Size = new Size(137, 27);
+            dtpComprasHasta.Size = new Size(170, 31);
             dtpComprasHasta.TabIndex = 4;
             // 
             // btnComprasFiltrar
@@ -408,10 +426,10 @@ namespace GestionVentasCel.views.reportes
             btnComprasFiltrar.BackColor = Color.FromArgb(52, 152, 219);
             btnComprasFiltrar.FlatStyle = FlatStyle.Flat;
             btnComprasFiltrar.ForeColor = Color.White;
-            btnComprasFiltrar.Location = new Point(423, 53);
-            btnComprasFiltrar.Margin = new Padding(3, 4, 3, 4);
+            btnComprasFiltrar.Location = new Point(529, 66);
+            btnComprasFiltrar.Margin = new Padding(4, 5, 4, 5);
             btnComprasFiltrar.Name = "btnComprasFiltrar";
-            btnComprasFiltrar.Size = new Size(114, 37);
+            btnComprasFiltrar.Size = new Size(142, 46);
             btnComprasFiltrar.TabIndex = 5;
             btnComprasFiltrar.Text = "Filtrar";
             btnComprasFiltrar.UseVisualStyleBackColor = false;
@@ -422,10 +440,10 @@ namespace GestionVentasCel.views.reportes
             btnComprasLimpiar.BackColor = Color.FromArgb(149, 165, 166);
             btnComprasLimpiar.FlatStyle = FlatStyle.Flat;
             btnComprasLimpiar.ForeColor = Color.White;
-            btnComprasLimpiar.Location = new Point(549, 53);
-            btnComprasLimpiar.Margin = new Padding(3, 4, 3, 4);
+            btnComprasLimpiar.Location = new Point(686, 66);
+            btnComprasLimpiar.Margin = new Padding(4, 5, 4, 5);
             btnComprasLimpiar.Name = "btnComprasLimpiar";
-            btnComprasLimpiar.Size = new Size(114, 37);
+            btnComprasLimpiar.Size = new Size(142, 46);
             btnComprasLimpiar.TabIndex = 6;
             btnComprasLimpiar.Text = "Limpiar";
             btnComprasLimpiar.UseVisualStyleBackColor = false;
@@ -436,10 +454,10 @@ namespace GestionVentasCel.views.reportes
             btnExportarCompras.BackColor = Color.FromArgb(46, 204, 113);
             btnExportarCompras.FlatStyle = FlatStyle.Flat;
             btnExportarCompras.ForeColor = Color.White;
-            btnExportarCompras.Location = new Point(1417, 53);
-            btnExportarCompras.Margin = new Padding(3, 4, 3, 4);
+            btnExportarCompras.Location = new Point(1714, 64);
+            btnExportarCompras.Margin = new Padding(4, 5, 4, 5);
             btnExportarCompras.Name = "btnExportarCompras";
-            btnExportarCompras.Size = new Size(137, 37);
+            btnExportarCompras.Size = new Size(171, 46);
             btnExportarCompras.TabIndex = 7;
             btnExportarCompras.Text = "📄 Exportar";
             btnExportarCompras.UseVisualStyleBackColor = false;
@@ -456,10 +474,10 @@ namespace GestionVentasCel.views.reportes
             panelResumenCompras.Controls.Add(lblComprasCantidad);
             panelResumenCompras.Controls.Add(lblComprasPromedioTexto);
             panelResumenCompras.Controls.Add(lblComprasPromedio);
-            panelResumenCompras.Location = new Point(11, 133);
-            panelResumenCompras.Margin = new Padding(3, 4, 3, 4);
+            panelResumenCompras.Location = new Point(14, 166);
+            panelResumenCompras.Margin = new Padding(4, 5, 4, 5);
             panelResumenCompras.Name = "panelResumenCompras";
-            panelResumenCompras.Size = new Size(1568, 133);
+            panelResumenCompras.Size = new Size(1900, 166);
             panelResumenCompras.TabIndex = 1;
             // 
             // lblComprasResumen
@@ -467,9 +485,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasResumen.AutoSize = true;
             lblComprasResumen.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblComprasResumen.ForeColor = Color.White;
-            lblComprasResumen.Location = new Point(11, 13);
+            lblComprasResumen.Location = new Point(14, 16);
+            lblComprasResumen.Margin = new Padding(4, 0, 4, 0);
             lblComprasResumen.Name = "lblComprasResumen";
-            lblComprasResumen.Size = new Size(256, 32);
+            lblComprasResumen.Size = new Size(293, 38);
             lblComprasResumen.TabIndex = 0;
             lblComprasResumen.Text = "Resumen del Período";
             // 
@@ -478,9 +497,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasTotalTexto.AutoSize = true;
             lblComprasTotalTexto.Font = new Font("Segoe UI", 10F);
             lblComprasTotalTexto.ForeColor = Color.White;
-            lblComprasTotalTexto.Location = new Point(11, 67);
+            lblComprasTotalTexto.Location = new Point(14, 84);
+            lblComprasTotalTexto.Margin = new Padding(4, 0, 4, 0);
             lblComprasTotalTexto.Name = "lblComprasTotalTexto";
-            lblComprasTotalTexto.Size = new Size(114, 23);
+            lblComprasTotalTexto.Size = new Size(130, 28);
             lblComprasTotalTexto.TabIndex = 1;
             lblComprasTotalTexto.Text = "Total General:";
             // 
@@ -489,9 +509,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasTotalGeneral.AutoSize = true;
             lblComprasTotalGeneral.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblComprasTotalGeneral.ForeColor = Color.White;
-            lblComprasTotalGeneral.Location = new Point(11, 87);
+            lblComprasTotalGeneral.Location = new Point(14, 109);
+            lblComprasTotalGeneral.Margin = new Padding(4, 0, 4, 0);
             lblComprasTotalGeneral.Name = "lblComprasTotalGeneral";
-            lblComprasTotalGeneral.Size = new Size(88, 37);
+            lblComprasTotalGeneral.Size = new Size(101, 45);
             lblComprasTotalGeneral.TabIndex = 2;
             lblComprasTotalGeneral.Text = "$0.00";
             // 
@@ -500,9 +521,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasCantidadTexto.AutoSize = true;
             lblComprasCantidadTexto.Font = new Font("Segoe UI", 10F);
             lblComprasCantidadTexto.ForeColor = Color.White;
-            lblComprasCantidadTexto.Location = new Point(514, 67);
+            lblComprasCantidadTexto.Location = new Point(642, 84);
+            lblComprasCantidadTexto.Margin = new Padding(4, 0, 4, 0);
             lblComprasCantidadTexto.Name = "lblComprasCantidadTexto";
-            lblComprasCantidadTexto.Size = new Size(207, 23);
+            lblComprasCantidadTexto.Size = new Size(236, 28);
             lblComprasCantidadTexto.TabIndex = 3;
             lblComprasCantidadTexto.Text = "Cantidad de Operaciones:";
             // 
@@ -511,9 +533,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasCantidad.AutoSize = true;
             lblComprasCantidad.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblComprasCantidad.ForeColor = Color.White;
-            lblComprasCantidad.Location = new Point(514, 87);
+            lblComprasCantidad.Location = new Point(642, 109);
+            lblComprasCantidad.Margin = new Padding(4, 0, 4, 0);
             lblComprasCantidad.Name = "lblComprasCantidad";
-            lblComprasCantidad.Size = new Size(33, 37);
+            lblComprasCantidad.Size = new Size(38, 45);
             lblComprasCantidad.TabIndex = 4;
             lblComprasCantidad.Text = "0";
             // 
@@ -522,9 +545,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasPromedioTexto.AutoSize = true;
             lblComprasPromedioTexto.Font = new Font("Segoe UI", 10F);
             lblComprasPromedioTexto.ForeColor = Color.White;
-            lblComprasPromedioTexto.Location = new Point(971, 67);
+            lblComprasPromedioTexto.Location = new Point(1214, 84);
+            lblComprasPromedioTexto.Margin = new Padding(4, 0, 4, 0);
             lblComprasPromedioTexto.Name = "lblComprasPromedioTexto";
-            lblComprasPromedioTexto.Size = new Size(203, 23);
+            lblComprasPromedioTexto.Size = new Size(234, 28);
             lblComprasPromedioTexto.TabIndex = 5;
             lblComprasPromedioTexto.Text = "Promedio por Operación:";
             // 
@@ -533,9 +557,10 @@ namespace GestionVentasCel.views.reportes
             lblComprasPromedio.AutoSize = true;
             lblComprasPromedio.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblComprasPromedio.ForeColor = Color.White;
-            lblComprasPromedio.Location = new Point(971, 87);
+            lblComprasPromedio.Location = new Point(1214, 109);
+            lblComprasPromedio.Margin = new Padding(4, 0, 4, 0);
             lblComprasPromedio.Name = "lblComprasPromedio";
-            lblComprasPromedio.Size = new Size(88, 37);
+            lblComprasPromedio.Size = new Size(101, 45);
             lblComprasPromedio.TabIndex = 6;
             lblComprasPromedio.Text = "$0.00";
             // 
@@ -545,31 +570,32 @@ namespace GestionVentasCel.views.reportes
             dgvCompras.AllowUserToDeleteRows = false;
             dgvCompras.BackgroundColor = Color.White;
             dgvCompras.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCompras.Location = new Point(11, 280);
-            dgvCompras.Margin = new Padding(3, 4, 3, 4);
+            dgvCompras.Location = new Point(14, 350);
+            dgvCompras.Margin = new Padding(4, 5, 4, 5);
             dgvCompras.Name = "dgvCompras";
             dgvCompras.ReadOnly = true;
             dgvCompras.RowHeadersWidth = 51;
             dgvCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCompras.Size = new Size(1029, 723);
+            dgvCompras.Size = new Size(1286, 769);
             dgvCompras.TabIndex = 2;
             // 
             // chartCompras
             // 
-            chartCompras.Location = new Point(1057, 280);
-            chartCompras.Margin = new Padding(3, 4, 3, 4);
+            chartCompras.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            chartCompras.Location = new Point(1321, 350);
+            chartCompras.Margin = new Padding(4, 5, 4, 5);
             chartCompras.Name = "chartCompras";
-            chartCompras.Size = new Size(522, 723);
+            chartCompras.Size = new Size(595, 769);
             chartCompras.TabIndex = 3;
             chartCompras.Text = "chartCompras";
             // 
             // ReportesMainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1600, 1067);
+            ClientSize = new Size(1943, 1199);
             Controls.Add(tabControl);
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "ReportesMainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de Reportes - Compras y Ventas";

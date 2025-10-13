@@ -134,7 +134,7 @@ namespace GestionVentasCel
             services.AddTransient<ICajaRepository, CajaRepositoryImpl>();
             services.AddTransient<IReporteCompraRepository, ReporteCompraRepositoryImpl>();
             services.AddTransient<IReporteVentaRepository, ReporteVentaRepositoryImpl>();
-            
+
 
 
 

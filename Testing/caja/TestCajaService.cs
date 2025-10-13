@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GestionVentasCel.enumerations.caja;
+﻿using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.repository.caja;
-using GestionVentasCel.service.caja;
 using GestionVentasCel.service.caja.impl;
 using Moq;
 

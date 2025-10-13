@@ -1,5 +1,4 @@
 ﻿using GestionVentasCel.enumerations.cuentaCorriente;
-using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.exceptions.cliente;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.CuentaCorreinte;
@@ -23,7 +22,7 @@ namespace GestionVentasCel.service.cliente.impl
             _repoCuentaCorriente = repoCuentaCorriente;
         }
 
-       public void CrearCuentaCorriente(Cliente cliente)
+        public void CrearCuentaCorriente(Cliente cliente)
         {
             if (cliente.Id == 0)
             {

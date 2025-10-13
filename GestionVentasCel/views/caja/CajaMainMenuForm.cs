@@ -251,7 +251,7 @@ namespace GestionVentasCel.views.usuario_empleado
                         MessageBoxIcon.Question
                         );
 
-                        if(result == DialogResult.Yes)
+                        if (result == DialogResult.Yes)
                         {
 
                             decimal totalCierre = 0;

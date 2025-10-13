@@ -22,8 +22,8 @@ namespace GestionVentasCel.repository.reportes.impl
             var ventas = _context.Ventas
                 .Include(v => v.Cliente)
                 .Include(v => v.Detalles)
-                .Where(v => v.FechaVenta.HasValue && 
-                           v.FechaVenta >= fechaDesde && 
+                .Where(v => v.FechaVenta.HasValue &&
+                           v.FechaVenta >= fechaDesde &&
                            v.FechaVenta <= fechaHasta &&
                            v.EstadoVenta != EstadoVentaEnum.Anulada)
                 .AsNoTracking()
@@ -54,8 +54,8 @@ namespace GestionVentasCel.repository.reportes.impl
 
             var ventas = _context.Ventas
                 .Include(v => v.Detalles)
-                .Where(v => v.FechaVenta.HasValue && 
-                           v.FechaVenta >= fechaDesde && 
+                .Where(v => v.FechaVenta.HasValue &&
+                           v.FechaVenta >= fechaDesde &&
                            v.FechaVenta <= fechaHasta &&
                            v.EstadoVenta != EstadoVentaEnum.Anulada)
                 .AsNoTracking()

@@ -1,9 +1,8 @@
 using GestionVentasCel.models.reportes;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Drawing;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 //Libreria para exportar a excel y pdf
 
