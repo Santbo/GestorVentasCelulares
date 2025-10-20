@@ -25,7 +25,7 @@ namespace GestionVentasCel.service
                 var worksheet = package.Workbook.Worksheets.Add("Reporte de Ventas");
 
                 // Configurar título
-                worksheet.Cells["A1:H1"].Merge = true;
+                worksheet.Cells["A1:I1"].Merge = true;
                 worksheet.Cells["A1"].Value = "REPORTE DE VENTAS";
                 worksheet.Cells["A1"].Style.Font.Size = 16;
                 worksheet.Cells["A1"].Style.Font.Bold = true;
@@ -39,15 +39,16 @@ namespace GestionVentasCel.service
                 int row = 4;
                 worksheet.Cells[row, 1].Value = "Fecha";
                 worksheet.Cells[row, 2].Value = "N° Comprobante";
-                worksheet.Cells[row, 3].Value = "Cliente";
-                worksheet.Cells[row, 4].Value = "Tipo de Pago";
-                worksheet.Cells[row, 5].Value = "Estado";
-                worksheet.Cells[row, 6].Value = "Monto sin IVA";
-                worksheet.Cells[row, 7].Value = "Monto IVA";
-                worksheet.Cells[row, 8].Value = "Monto Total";
+                worksheet.Cells[row, 3].Value = "Tipo de Comprobante";
+                worksheet.Cells[row, 4].Value = "Cliente";
+                worksheet.Cells[row, 5].Value = "Tipo de Pago";
+                worksheet.Cells[row, 6].Value = "Estado";
+                worksheet.Cells[row, 7].Value = "Monto sin IVA";
+                worksheet.Cells[row, 8].Value = "Monto IVA";
+                worksheet.Cells[row, 9].Value = "Monto Total";
 
                 // Estilo de encabezados
-                using (var range = worksheet.Cells[row, 1, row, 8])
+                using (var range = worksheet.Cells[row, 1, row, 9])
                 {
                     range.Style.Font.Bold = true;
                     range.Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -62,41 +63,42 @@ namespace GestionVentasCel.service
                 {
                     worksheet.Cells[row, 1].Value = venta.Fecha.ToString("dd/MM/yyyy");
                     worksheet.Cells[row, 2].Value = venta.NumeroComprobante;
-                    worksheet.Cells[row, 3].Value = venta.Cliente;
-                    worksheet.Cells[row, 4].Value = venta.TipoPagoDescripcion;
-                    worksheet.Cells[row, 5].Value = venta.EstadoDescripcion;
-                    worksheet.Cells[row, 6].Value = venta.MontoSinIva;
-                    worksheet.Cells[row, 7].Value = venta.MontoIva;
-                    worksheet.Cells[row, 8].Value = venta.MontoTotal;
+                    worksheet.Cells[row, 3].Value = venta.TipoComprobante;
+                    worksheet.Cells[row, 4].Value = venta.Cliente;
+                    worksheet.Cells[row, 5].Value = venta.TipoPagoDescripcion;
+                    worksheet.Cells[row, 6].Value = venta.EstadoDescripcion;
+                    worksheet.Cells[row, 7].Value = venta.MontoSinIva;
+                    worksheet.Cells[row, 8].Value = venta.MontoIva;
+                    worksheet.Cells[row, 9].Value = venta.MontoTotal;
 
                     // Formato de moneda
-                    worksheet.Cells[row, 6].Style.Numberformat.Format = "$#,##0.00";
                     worksheet.Cells[row, 7].Style.Numberformat.Format = "$#,##0.00";
                     worksheet.Cells[row, 8].Style.Numberformat.Format = "$#,##0.00";
+                    worksheet.Cells[row, 9].Style.Numberformat.Format = "$#,##0.00";
 
                     row++;
                 }
 
                 // Resumen
                 row++;
-                worksheet.Cells[row, 7].Value = "Total General:";
-                worksheet.Cells[row, 7].Style.Font.Bold = true;
-                worksheet.Cells[row, 8].Value = resumen.TotalGeneral;
-                worksheet.Cells[row, 8].Style.Numberformat.Format = "$#,##0.00";
+                worksheet.Cells[row, 8].Value = "Total General:";
                 worksheet.Cells[row, 8].Style.Font.Bold = true;
+                worksheet.Cells[row, 9].Value = resumen.TotalGeneral;
+                worksheet.Cells[row, 9].Style.Numberformat.Format = "$#,##0.00";
+                worksheet.Cells[row, 9].Style.Font.Bold = true;
 
                 row++;
-                worksheet.Cells[row, 7].Value = "Cantidad de Operaciones:";
-                worksheet.Cells[row, 7].Style.Font.Bold = true;
-                worksheet.Cells[row, 8].Value = resumen.CantidadOperaciones;
+                worksheet.Cells[row, 8].Value = "Cantidad de Operaciones:";
                 worksheet.Cells[row, 8].Style.Font.Bold = true;
+                worksheet.Cells[row, 9].Value = resumen.CantidadOperaciones;
+                worksheet.Cells[row, 9].Style.Font.Bold = true;
 
                 row++;
-                worksheet.Cells[row, 7].Value = "Promedio por Operación:";
-                worksheet.Cells[row, 7].Style.Font.Bold = true;
-                worksheet.Cells[row, 8].Value = resumen.PromedioOperacion;
-                worksheet.Cells[row, 8].Style.Numberformat.Format = "$#,##0.00";
+                worksheet.Cells[row, 8].Value = "Promedio por Operación:";
                 worksheet.Cells[row, 8].Style.Font.Bold = true;
+                worksheet.Cells[row, 9].Value = resumen.PromedioOperacion;
+                worksheet.Cells[row, 9].Style.Numberformat.Format = "$#,##0.00";
+                worksheet.Cells[row, 9].Style.Font.Bold = true;
 
                 // Auto ajustar columnas
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
@@ -149,7 +151,7 @@ namespace GestionVentasCel.service
                     worksheet.Cells[row, 1].Value = compra.Fecha.ToString("dd/MM/yyyy");
                     worksheet.Cells[row, 2].Value = compra.NumeroComprobante;
                     worksheet.Cells[row, 3].Value = compra.Proveedor;
-                    worksheet.Cells[row, 4].Value = compra.TipoCompra;
+                    worksheet.Cells[row, 4].Value = compra.CondicionIVAProveedor;
                     worksheet.Cells[row, 5].Value = compra.MontoTotal;
                     worksheet.Cells[row, 6].Value = compra.Observaciones;
 
@@ -219,14 +221,14 @@ namespace GestionVentasCel.service
                 document.Add(dateParagraph);
 
                 // Tabla de datos
-                var table = new PdfPTable(8)
+                var table = new PdfPTable(9)
                 {
                     WidthPercentage = 100,
                     SpacingBefore = 10,
                     SpacingAfter = 10
                 };
 
-                float[] widths = { 10f, 12f, 20f, 12f, 10f, 12f, 12f, 12f };
+                float[] widths = { 10f, 12f, 12f, 20f, 12f, 10f, 12f, 12f, 12f };
                 table.SetWidths(widths);
 
                 // Encabezados
@@ -235,6 +237,7 @@ namespace GestionVentasCel.service
 
                 AddTableHeader(table, "Fecha", headerFont, headerColor);
                 AddTableHeader(table, "N° Comprobante", headerFont, headerColor);
+                AddTableHeader(table, "Tipo de Comprobante", headerFont, headerColor);
                 AddTableHeader(table, "Cliente", headerFont, headerColor);
                 AddTableHeader(table, "Tipo Pago", headerFont, headerColor);
                 AddTableHeader(table, "Estado", headerFont, headerColor);
@@ -248,6 +251,7 @@ namespace GestionVentasCel.service
                 {
                     table.AddCell(new PdfPCell(new Phrase(venta.Fecha.ToString("dd/MM/yyyy"), cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(venta.NumeroComprobante, cellFont)) { Padding = 5 });
+                    table.AddCell(new PdfPCell(new Phrase(venta.TipoComprobante, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(venta.Cliente, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(venta.TipoPagoDescripcion, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(venta.EstadoDescripcion, cellFont)) { Padding = 5 });
@@ -333,7 +337,7 @@ namespace GestionVentasCel.service
                     table.AddCell(new PdfPCell(new Phrase(compra.Fecha.ToString("dd/MM/yyyy"), cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(compra.NumeroComprobante, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(compra.Proveedor, cellFont)) { Padding = 5 });
-                    table.AddCell(new PdfPCell(new Phrase(compra.TipoCompra, cellFont)) { Padding = 5 });
+                    table.AddCell(new PdfPCell(new Phrase(compra.CondicionIVAProveedor, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase($"${compra.MontoTotal:N2}", cellFont)) { Padding = 5, HorizontalAlignment = Element.ALIGN_RIGHT });
                     table.AddCell(new PdfPCell(new Phrase(compra.Observaciones ?? "", cellFont)) { Padding = 5 });
                 }

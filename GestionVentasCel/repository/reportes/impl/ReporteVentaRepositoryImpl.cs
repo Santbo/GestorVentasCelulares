@@ -29,14 +29,20 @@ namespace GestionVentasCel.repository.reportes.impl
                 .AsNoTracking()
                 .ToList();
 
+            var facturas = _context.Facturas
+                .AsNoTracking()
+                .Where(f => ventas.Select(v => v.Id).Contains(f.VentaId))
+                .ToList();
+
             return ventas.Select(v => new ReporteVentaDTO
             {
                 Id = v.Id,
                 Fecha = v.FechaVenta ?? v.FechaCreacion,
-                NumeroComprobante = $"V-{v.Id:D6}",
+                NumeroComprobante = facturas.First(f => f.VentaId == v.Id).NumeroFactura,
+                TipoComprobante = facturas.First(f => f.VentaId == v.Id).TipoComprobante.ToString().Replace("Factura", "Factura "),
                 Cliente = v.Cliente != null ? v.Cliente.NombreCompleto : "Sin Cliente",
                 TipoPago = v.TipoPago,
-                TipoPagoDescripcion = v.TipoPago == TipoPagoEnum.Efectivo ? "Efectivo" : "Cuenta Corriente",
+                TipoPagoDescripcion = v.TipoPago.ToString(),
                 Estado = v.EstadoVenta,
                 EstadoDescripcion = v.EstadoVenta.ToString(),
                 MontoTotal = v.Detalles.Sum(d => d.SubtotalConIva),

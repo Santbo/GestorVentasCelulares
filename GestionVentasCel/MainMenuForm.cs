@@ -266,11 +266,20 @@ namespace GestionVentasCel
             );
         }
 
-        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ventasToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Text = "Reportes - SGVC";
-            AbrirFormularioHijo(new ReportesMainForm(
+            this.Text = "Reportes de Ventas - SGVC";
+            AbrirFormularioHijo(new ReporteVentasForm(
                 _serviceProvider.GetRequiredService<ReporteVentaController>(),
+                new ExportService()
+                )
+            );
+        }
+
+        private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Text = "Reportes de Compras - SGVC";
+            AbrirFormularioHijo(new ReporteComprasForm(
                 _serviceProvider.GetRequiredService<ReporteCompraController>(),
                 new ExportService()
                 )

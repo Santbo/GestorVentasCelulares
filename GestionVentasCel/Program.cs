@@ -197,6 +197,7 @@ namespace GestionVentasCel
 
                 Application.Run(loginForm);
             }
+            //TODO: En el detalle de factura, no se muestra el nombre completo dle cliente
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al conectar con la base de datos:\n\n{ex.Message}\n\nVerifica que:\n- MySQL esté ejecutándose\n- La base de datos 'dbsistemaprogramacion' exista\n- Las credenciales sean correctas",

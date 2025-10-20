@@ -30,7 +30,7 @@ namespace GestionVentasCel.repository.reportes.impl
                     Fecha = c.Fecha,
                     NumeroComprobante = $"C-{c.Id:D6}",
                     Proveedor = c.Proveedor != null ? c.Proveedor.Nombre : "Sin Proveedor",
-                    TipoCompra = c.Proveedor != null && c.Proveedor.CondicionIVA.HasValue ?
+                    CondicionIVAProveedor = c.Proveedor != null && c.Proveedor.CondicionIVA.HasValue ?
                         DeterminarTipoCompra(c.Proveedor.CondicionIVA.Value) : "Sin Especificar",
                     MontoTotal = c.Total,
                     Observaciones = c.Observaciones ?? ""
@@ -41,9 +41,17 @@ namespace GestionVentasCel.repository.reportes.impl
 
         private static string DeterminarTipoCompra(CondicionIVAEnum condicionIVA)
         {
-            // Lógica simple para determinar el tipo de compra basado en condición IVA
-            // Se puede mejorar según la lógica de negocio
-            return condicionIVA.ToString().Contains("Exterior") ? "Proveedor Externo" : "Proveedor Local";
+            // Retorna la condición de IVA del proveedor
+            return condicionIVA switch
+            {
+                CondicionIVAEnum.ResponsableInscripto => "Responsable Inscripto",
+                CondicionIVAEnum.Monotributista => "Monotributista",
+                CondicionIVAEnum.ConsumidorFinal => "Consumidor Final",
+                CondicionIVAEnum.Exento => "Exento",
+                CondicionIVAEnum.NoResponsable => "No Responsable",
+                CondicionIVAEnum.ResponsableNoInscripto => "Responsable No Inscripto",
+                _ => "Sin Especificar"
+            };
         }
 
         public ResumenReporteDTO ObtenerResumenCompras(DateTime fechaDesde, DateTime fechaHasta)
