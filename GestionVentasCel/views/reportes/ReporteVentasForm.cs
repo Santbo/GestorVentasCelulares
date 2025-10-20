@@ -63,8 +63,18 @@ namespace GestionVentasCel.views.reportes
                 DataPropertyName = "NumeroComprobante",
                 HeaderText = "N° Comp.",
                 MinimumWidth = 90,
-                FillWeight = 10
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
+
+            dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "TipoComprobante",
+                DataPropertyName = "TipoComprobante",
+                HeaderText = "Tipo de comprobante",
+                MinimumWidth = 90,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
             dgvVentas.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Cliente",
