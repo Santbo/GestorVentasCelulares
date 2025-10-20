@@ -49,6 +49,7 @@ namespace GestionVentasCel.views.servicio
                 dgvListar.Columns["Id"].Visible = false;
                 dgvListar.Columns["ArticulosUsados"].Visible = false;
                 dgvListar.Columns["Precio"].Visible = false;
+                dgvListar.Columns["detalleServicio"].Visible = false;
 
 
                 // Ordenarlas 
