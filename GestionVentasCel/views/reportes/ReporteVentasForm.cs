@@ -4,23 +4,19 @@ using System.Windows.Forms.DataVisualization.Charting;
 using GestionVentasCel.controller.reportes;
 using GestionVentasCel.models.reportes;
 using GestionVentasCel.service;
-using Org.BouncyCastle.Crypto.Engines;
 
 namespace GestionVentasCel.views.reportes
 {
-    public partial class ReportesMainForm : Form
+    public partial class ReporteVentasForm : Form
     {
         private readonly ReporteVentaController _ventaController;
-        private readonly ReporteCompraController _compraController;
         private readonly ExportService _exportService;
         private BindingList<ReporteVentaDTO> _ventas = new BindingList<ReporteVentaDTO>();
-        private BindingList<ReporteCompraDTO> _compras = new BindingList<ReporteCompraDTO>();
 
-        public ReportesMainForm(ReporteVentaController ventaController, ReporteCompraController compraController, ExportService exportService)
+        public ReporteVentasForm(ReporteVentaController ventaController, ExportService exportService)
         {
             InitializeComponent();
             _ventaController = ventaController;
-            _compraController = compraController;
             _exportService = exportService;
             ConfigurarFormulario();
             CargarDatosMesActual();
@@ -35,13 +31,10 @@ namespace GestionVentasCel.views.reportes
 
             dtpVentasDesde.Value = primerDiaDelMes;
             dtpVentasHasta.Value = ultimoDiaDelMes;
-            dtpComprasDesde.Value = primerDiaDelMes;
-            dtpComprasHasta.Value = ultimoDiaDelMes;
 
             // Configurar DataGridView de Ventas
             ConfigurarDataGridViewVentas();
-            ConfigurarDataGridViewCompras();
-            ConfigurarGraficos();
+            ConfigurarGrafico();
         }
 
         private void ConfigurarDataGridViewVentas()
@@ -140,75 +133,7 @@ namespace GestionVentasCel.views.reportes
             });
         }
 
-        private void ConfigurarDataGridViewCompras()
-        {
-            dgvCompras.AutoGenerateColumns = false;
-            dgvCompras.AllowUserToAddRows = false;
-            dgvCompras.AllowUserToDeleteRows = false;
-            dgvCompras.ReadOnly = true;
-            dgvCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCompras.MultiSelect = false;
-            dgvCompras.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            dgvCompras.Columns.Clear();
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Fecha",
-                DataPropertyName = "Fecha",
-                HeaderText = "Fecha",
-                MinimumWidth = 85,
-                FillWeight = 12,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }
-            });
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "NumeroComprobante",
-                DataPropertyName = "NumeroComprobante",
-                HeaderText = "N° Comp.",
-                MinimumWidth = 90,
-                FillWeight = 12
-            });
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Proveedor",
-                DataPropertyName = "Proveedor",
-                HeaderText = "Proveedor",
-                MinimumWidth = 150,
-                FillWeight = 22
-            });
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "CondicionIVAProveedor",
-                DataPropertyName = "CondicionIVAProveedor",
-                HeaderText = "Tipo",
-                MinimumWidth = 100,
-                FillWeight = 15
-            });
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "MontoTotal",
-                DataPropertyName = "MontoTotal",
-                HeaderText = "Monto Total",
-                MinimumWidth = 110,
-                FillWeight = 15,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    FormatProvider = new CultureInfo("es-AR"),
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            });
-            dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Observaciones",
-                DataPropertyName = "Observaciones",
-                HeaderText = "Observaciones",
-                MinimumWidth = 150,
-                FillWeight = 24
-            });
-        }
-
-        private void ConfigurarGraficos()
+        private void ConfigurarGrafico()
         {
             // Configurar gráfico de ventas
             chartVentas.Series.Clear();
@@ -224,27 +149,11 @@ namespace GestionVentasCel.views.reportes
             };
             chartVentas.Series.Add(seriesVentas);
             chartVentas.Legends.Add(new Legend("Legend"));
-
-            // Configurar gráfico de compras
-            chartCompras.Series.Clear();
-            chartCompras.ChartAreas.Clear();
-            var areaCompras = new ChartArea("MainArea");
-            chartCompras.ChartAreas.Add(areaCompras);
-
-            var seriesCompras = new Series("Compras por Tipo")
-            {
-                ChartType = SeriesChartType.Pie,
-                IsValueShownAsLabel = true,
-                LabelFormat = "C2"
-            };
-            chartCompras.Series.Add(seriesCompras);
-            chartCompras.Legends.Add(new Legend("Legend"));
         }
 
         private void CargarDatosMesActual()
         {
             CargarVentas();
-            CargarCompras();
         }
 
         private void CargarVentas()
@@ -269,28 +178,6 @@ namespace GestionVentasCel.views.reportes
             }
         }
 
-        private void CargarCompras()
-        {
-            try
-            {
-                var compras = _compraController.ObtenerComprasPorRangoFecha(
-                    dtpComprasDesde.Value.Date,
-                    dtpComprasHasta.Value.Date
-                );
-
-                _compras = new BindingList<ReporteCompraDTO>(compras.ToList());
-                dgvCompras.DataSource = _compras;
-
-                ActualizarResumenCompras();
-                ActualizarGraficoCompras();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar compras: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void ActualizarResumenVentas()
         {
             var resumen = _ventaController.ObtenerResumenVentas(
@@ -301,18 +188,6 @@ namespace GestionVentasCel.views.reportes
             lblVentasTotalGeneral.Text = resumen.TotalGeneral.ToString("C2", new CultureInfo("es-AR"));
             lblVentasCantidad.Text = resumen.CantidadOperaciones.ToString();
             lblVentasPromedio.Text = resumen.PromedioOperacion.ToString("C2", new CultureInfo("es-AR"));
-        }
-
-        private void ActualizarResumenCompras()
-        {
-            var resumen = _compraController.ObtenerResumenCompras(
-                dtpComprasDesde.Value.Date,
-                dtpComprasHasta.Value.Date
-            );
-
-            lblComprasTotalGeneral.Text = resumen.TotalGeneral.ToString("C2", new CultureInfo("es-AR"));
-            lblComprasCantidad.Text = resumen.CantidadOperaciones.ToString();
-            lblComprasPromedio.Text = resumen.PromedioOperacion.ToString("C2", new CultureInfo("es-AR"));
         }
 
         private void ActualizarGraficoVentas()
@@ -335,26 +210,6 @@ namespace GestionVentasCel.views.reportes
             }
         }
 
-        private void ActualizarGraficoCompras()
-        {
-            var resumen = _compraController.ObtenerResumenCompras(
-                dtpComprasDesde.Value.Date,
-                dtpComprasHasta.Value.Date
-            );
-
-            chartCompras.Series[0].Points.Clear();
-
-            foreach (var tipo in resumen.TotalesPorTipo)
-            {
-                if (tipo.Value > 0)
-                {
-                    var point = chartCompras.Series[0].Points.Add((double)tipo.Value);
-                    point.Label = $"{tipo.Key}\n{tipo.Value.ToString("C2", new CultureInfo("es-AR"))}";
-                    point.LegendText = tipo.Key;
-                }
-            }
-        }
-
         private void btnVentasFiltrar_Click(object sender, EventArgs e)
         {
             if (dtpVentasDesde.Value.Date > dtpVentasHasta.Value.Date)
@@ -371,22 +226,6 @@ namespace GestionVentasCel.views.reportes
             CargarVentas();
         }
 
-        private void btnComprasFiltrar_Click(object sender, EventArgs e)
-        {
-            if (dtpComprasDesde.Value.Date > dtpComprasHasta.Value.Date)
-            {
-                MessageBox.Show(
-                    "La fecha 'Desde' no puede ser mayor que la fecha 'Hasta'.",
-                    "Error de Validación",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
-
-            CargarCompras();
-        }
-
         private void btnVentasLimpiar_Click(object sender, EventArgs e)
         {
             var hoy = DateTime.Today;
@@ -398,72 +237,44 @@ namespace GestionVentasCel.views.reportes
             CargarVentas();
         }
 
-        private void btnComprasLimpiar_Click(object sender, EventArgs e)
-        {
-            var hoy = DateTime.Today;
-            var primerDiaDelMes = new DateTime(hoy.Year, hoy.Month, 1);
-            var ultimoDiaDelMes = primerDiaDelMes.AddMonths(1).AddDays(-1);
-
-            dtpComprasDesde.Value = primerDiaDelMes;
-            dtpComprasHasta.Value = ultimoDiaDelMes;
-            CargarCompras();
-        }
-
         private void btnExportarVentas_Click(object sender, EventArgs e)
         {
-            MostrarMenuExportacion(TipoReporte.Ventas);
+            MostrarMenuExportacion();
         }
 
-        private void btnExportarCompras_Click(object sender, EventArgs e)
-        {
-            MostrarMenuExportacion(TipoReporte.Compras);
-        }
-
-        private void MostrarMenuExportacion(TipoReporte tipoReporte)
+        private void MostrarMenuExportacion()
         {
             var menu = new ContextMenuStrip();
 
             var itemExcel = new ToolStripMenuItem("Exportar a Excel");
-            itemExcel.Click += (s, e) => ExportarAExcel(tipoReporte);
+            itemExcel.Click += (s, e) => ExportarAExcel();
             menu.Items.Add(itemExcel);
 
             var itemPdf = new ToolStripMenuItem("Exportar a PDF");
-            itemPdf.Click += (s, e) => ExportarAPdf(tipoReporte);
+            itemPdf.Click += (s, e) => ExportarAPdf();
             menu.Items.Add(itemPdf);
 
-            var boton = tipoReporte == TipoReporte.Ventas ? btnExportarVentas : btnExportarCompras;
-            menu.Show(boton, new System.Drawing.Point(0, boton.Height));
+            menu.Show(btnExportarVentas, new System.Drawing.Point(0, btnExportarVentas.Height));
         }
 
-        private void ExportarAExcel(TipoReporte tipoReporte)
+        private void ExportarAExcel()
         {
             try
             {
                 var saveDialog = new SaveFileDialog
                 {
                     Filter = "Archivo Excel (*.xlsx)|*.xlsx",
-                    FileName = $"{(tipoReporte == TipoReporte.Ventas ? "ReporteVentas" : "ReporteCompras")}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx",
+                    FileName = $"ReporteVentas_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx",
                     DefaultExt = "xlsx"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (tipoReporte == TipoReporte.Ventas)
-                    {
-                        var resumen = _ventaController.ObtenerResumenVentas(
-                            dtpVentasDesde.Value.Date,
-                            dtpVentasHasta.Value.Date
-                        );
-                        _exportService.ExportarVentasAExcel(_ventas.ToList(), resumen, saveDialog.FileName);
-                    }
-                    else
-                    {
-                        var resumen = _compraController.ObtenerResumenCompras(
-                            dtpComprasDesde.Value.Date,
-                            dtpComprasHasta.Value.Date
-                        );
-                        _exportService.ExportarComprasAExcel(_compras.ToList(), resumen, saveDialog.FileName);
-                    }
+                    var resumen = _ventaController.ObtenerResumenVentas(
+                        dtpVentasDesde.Value.Date,
+                        dtpVentasHasta.Value.Date
+                    );
+                    _exportService.ExportarVentasAExcel(_ventas.ToList(), resumen, saveDialog.FileName);
 
                     MessageBox.Show("Reporte exportado exitosamente a Excel.", "Exportación Exitosa",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -487,35 +298,24 @@ namespace GestionVentasCel.views.reportes
             }
         }
 
-        private void ExportarAPdf(TipoReporte tipoReporte)
+        private void ExportarAPdf()
         {
             try
             {
                 var saveDialog = new SaveFileDialog
                 {
                     Filter = "Archivo PDF (*.pdf)|*.pdf",
-                    FileName = $"{(tipoReporte == TipoReporte.Ventas ? "ReporteVentas" : "ReporteCompras")}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
+                    FileName = $"ReporteVentas_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
                     DefaultExt = "pdf"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (tipoReporte == TipoReporte.Ventas)
-                    {
-                        var resumen = _ventaController.ObtenerResumenVentas(
-                            dtpVentasDesde.Value.Date,
-                            dtpVentasHasta.Value.Date
-                        );
-                        _exportService.ExportarVentasAPdf(_ventas.ToList(), resumen, saveDialog.FileName);
-                    }
-                    else
-                    {
-                        var resumen = _compraController.ObtenerResumenCompras(
-                            dtpComprasDesde.Value.Date,
-                            dtpComprasHasta.Value.Date
-                        );
-                        _exportService.ExportarComprasAPdf(_compras.ToList(), resumen, saveDialog.FileName);
-                    }
+                    var resumen = _ventaController.ObtenerResumenVentas(
+                        dtpVentasDesde.Value.Date,
+                        dtpVentasHasta.Value.Date
+                    );
+                    _exportService.ExportarVentasAPdf(_ventas.ToList(), resumen, saveDialog.FileName);
 
                     MessageBox.Show("Reporte exportado exitosamente a PDF.", "Exportación Exitosa",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -538,12 +338,5 @@ namespace GestionVentasCel.views.reportes
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private enum TipoReporte
-        {
-            Ventas,
-            Compras
-        }
     }
 }
-

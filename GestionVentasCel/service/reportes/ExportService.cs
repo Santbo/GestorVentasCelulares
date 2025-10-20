@@ -149,7 +149,7 @@ namespace GestionVentasCel.service
                     worksheet.Cells[row, 1].Value = compra.Fecha.ToString("dd/MM/yyyy");
                     worksheet.Cells[row, 2].Value = compra.NumeroComprobante;
                     worksheet.Cells[row, 3].Value = compra.Proveedor;
-                    worksheet.Cells[row, 4].Value = compra.TipoCompra;
+                    worksheet.Cells[row, 4].Value = compra.CondicionIVAProveedor;
                     worksheet.Cells[row, 5].Value = compra.MontoTotal;
                     worksheet.Cells[row, 6].Value = compra.Observaciones;
 
@@ -333,7 +333,7 @@ namespace GestionVentasCel.service
                     table.AddCell(new PdfPCell(new Phrase(compra.Fecha.ToString("dd/MM/yyyy"), cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(compra.NumeroComprobante, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase(compra.Proveedor, cellFont)) { Padding = 5 });
-                    table.AddCell(new PdfPCell(new Phrase(compra.TipoCompra, cellFont)) { Padding = 5 });
+                    table.AddCell(new PdfPCell(new Phrase(compra.CondicionIVAProveedor, cellFont)) { Padding = 5 });
                     table.AddCell(new PdfPCell(new Phrase($"${compra.MontoTotal:N2}", cellFont)) { Padding = 5, HorizontalAlignment = Element.ALIGN_RIGHT });
                     table.AddCell(new PdfPCell(new Phrase(compra.Observaciones ?? "", cellFont)) { Padding = 5 });
                 }
