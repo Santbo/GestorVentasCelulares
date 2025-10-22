@@ -78,10 +78,10 @@ namespace GestionVentasCel.views.proveedor
             // btnGuardar
             // 
             btnGuardar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnGuardar.Location = new Point(463, 299);
-            btnGuardar.Margin = new Padding(3, 4, 3, 4);
+            btnGuardar.Location = new Point(579, 374);
+            btnGuardar.Margin = new Padding(4, 5, 4, 5);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(159, 40);
+            btnGuardar.Size = new Size(199, 50);
             btnGuardar.TabIndex = 20;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -90,10 +90,10 @@ namespace GestionVentasCel.views.proveedor
             // btnDescartar
             // 
             btnDescartar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnDescartar.Location = new Point(298, 299);
-            btnDescartar.Margin = new Padding(3, 4, 3, 4);
+            btnDescartar.Location = new Point(372, 374);
+            btnDescartar.Margin = new Padding(4, 5, 4, 5);
             btnDescartar.Name = "btnDescartar";
-            btnDescartar.Size = new Size(159, 40);
+            btnDescartar.Size = new Size(199, 50);
             btnDescartar.TabIndex = 21;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
@@ -108,10 +108,10 @@ namespace GestionVentasCel.views.proveedor
             btnSalir.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSalir.ImageKey = "xmark-solid-full.png";
             btnSalir.ImageList = imageList1;
-            btnSalir.Location = new Point(596, 10);
+            btnSalir.Location = new Point(745, 12);
             btnSalir.Margin = new Padding(2);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(26, 30);
+            btnSalir.Size = new Size(32, 38);
             btnSalir.TabIndex = 37;
             btnSalir.TabStop = false;
             btnSalir.UseVisualStyleBackColor = true;
@@ -135,20 +135,20 @@ namespace GestionVentasCel.views.proveedor
             panel11.Controls.Add(panel1);
             panel11.Controls.Add(panel6);
             panel11.Controls.Add(panel5);
-            panel11.Location = new Point(10, 64);
+            panel11.Location = new Point(12, 80);
             panel11.Margin = new Padding(2);
             panel11.Name = "panel11";
-            panel11.Size = new Size(624, 230);
+            panel11.Size = new Size(780, 288);
             panel11.TabIndex = 36;
             // 
             // panel9
             // 
             panel9.Controls.Add(lblCalle);
             panel9.Controls.Add(txtCalle);
-            panel9.Location = new Point(213, 152);
+            panel9.Location = new Point(266, 190);
             panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
-            panel9.Size = new Size(192, 52);
+            panel9.Size = new Size(240, 65);
             panel9.TabIndex = 7;
             // 
             // lblCalle
@@ -157,8 +157,9 @@ namespace GestionVentasCel.views.proveedor
             lblCalle.Dock = DockStyle.Top;
             lblCalle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCalle.Location = new Point(0, 0);
+            lblCalle.Margin = new Padding(4, 0, 4, 0);
             lblCalle.Name = "lblCalle";
-            lblCalle.Size = new Size(42, 20);
+            lblCalle.Size = new Size(53, 25);
             lblCalle.TabIndex = 18;
             lblCalle.Text = "Calle";
             // 
@@ -166,21 +167,21 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtCalle.Dock = DockStyle.Bottom;
             txtCalle.Font = new Font("Segoe UI", 12F);
-            txtCalle.Location = new Point(0, 18);
+            txtCalle.Location = new Point(0, 26);
             txtCalle.Margin = new Padding(2);
             txtCalle.MaxLength = 50;
             txtCalle.Name = "txtCalle";
-            txtCalle.Size = new Size(192, 34);
+            txtCalle.Size = new Size(240, 39);
             txtCalle.TabIndex = 7;
             // 
             // panel4
             // 
             panel4.Controls.Add(lblEmail);
             panel4.Controls.Add(txtEmail);
-            panel4.Location = new Point(6, 152);
+            panel4.Location = new Point(8, 190);
             panel4.Margin = new Padding(2);
             panel4.Name = "panel4";
-            panel4.Size = new Size(192, 52);
+            panel4.Size = new Size(240, 65);
             panel4.TabIndex = 6;
             // 
             // lblEmail
@@ -189,8 +190,9 @@ namespace GestionVentasCel.views.proveedor
             lblEmail.Dock = DockStyle.Top;
             lblEmail.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblEmail.Location = new Point(0, 0);
+            lblEmail.Margin = new Padding(4, 0, 4, 0);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(47, 20);
+            lblEmail.Size = new Size(58, 25);
             lblEmail.TabIndex = 18;
             lblEmail.Text = "Email";
             // 
@@ -198,21 +200,21 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtEmail.Dock = DockStyle.Bottom;
             txtEmail.Font = new Font("Segoe UI", 12F);
-            txtEmail.Location = new Point(0, 18);
+            txtEmail.Location = new Point(0, 26);
             txtEmail.Margin = new Padding(2);
             txtEmail.MaxLength = 50;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(192, 34);
+            txtEmail.Size = new Size(240, 39);
             txtEmail.TabIndex = 6;
             // 
             // panel10
             // 
             panel10.Controls.Add(lblCiudad);
             panel10.Controls.Add(txtCiudad);
-            panel10.Location = new Point(422, 152);
+            panel10.Location = new Point(528, 190);
             panel10.Margin = new Padding(2);
             panel10.Name = "panel10";
-            panel10.Size = new Size(192, 52);
+            panel10.Size = new Size(240, 65);
             panel10.TabIndex = 8;
             // 
             // lblCiudad
@@ -221,8 +223,9 @@ namespace GestionVentasCel.views.proveedor
             lblCiudad.Dock = DockStyle.Top;
             lblCiudad.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCiudad.Location = new Point(0, 0);
+            lblCiudad.Margin = new Padding(4, 0, 4, 0);
             lblCiudad.Name = "lblCiudad";
-            lblCiudad.Size = new Size(57, 20);
+            lblCiudad.Size = new Size(71, 25);
             lblCiudad.TabIndex = 18;
             lblCiudad.Text = "Ciudad";
             // 
@@ -230,21 +233,21 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtCiudad.Dock = DockStyle.Bottom;
             txtCiudad.Font = new Font("Segoe UI", 12F);
-            txtCiudad.Location = new Point(0, 18);
+            txtCiudad.Location = new Point(0, 26);
             txtCiudad.Margin = new Padding(2);
             txtCiudad.MaxLength = 50;
             txtCiudad.Name = "txtCiudad";
-            txtCiudad.Size = new Size(192, 34);
+            txtCiudad.Size = new Size(240, 39);
             txtCiudad.TabIndex = 8;
             // 
             // panel3
             // 
             panel3.Controls.Add(lblTipoDocumento);
             panel3.Controls.Add(comboTipoDoc);
-            panel3.Location = new Point(213, 19);
+            panel3.Location = new Point(266, 24);
             panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(192, 52);
+            panel3.Size = new Size(240, 65);
             panel3.TabIndex = 2;
             // 
             // lblTipoDocumento
@@ -253,8 +256,9 @@ namespace GestionVentasCel.views.proveedor
             lblTipoDocumento.Dock = DockStyle.Top;
             lblTipoDocumento.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTipoDocumento.Location = new Point(0, 0);
+            lblTipoDocumento.Margin = new Padding(4, 0, 4, 0);
             lblTipoDocumento.Name = "lblTipoDocumento";
-            lblTipoDocumento.Size = new Size(147, 20);
+            lblTipoDocumento.Size = new Size(180, 25);
             lblTipoDocumento.TabIndex = 19;
             lblTipoDocumento.Text = "Tipo de Documento";
             // 
@@ -263,20 +267,21 @@ namespace GestionVentasCel.views.proveedor
             comboTipoDoc.Dock = DockStyle.Bottom;
             comboTipoDoc.Font = new Font("Segoe UI", 12F);
             comboTipoDoc.FormattingEnabled = true;
-            comboTipoDoc.Location = new Point(0, 16);
+            comboTipoDoc.Location = new Point(0, 25);
             comboTipoDoc.Margin = new Padding(2);
             comboTipoDoc.Name = "comboTipoDoc";
-            comboTipoDoc.Size = new Size(192, 36);
+            comboTipoDoc.Size = new Size(240, 40);
             comboTipoDoc.TabIndex = 2;
+            comboTipoDoc.SelectedIndexChanged += comboTipoDoc_SelectedIndexChanged;
             // 
             // panel2
             // 
             panel2.Controls.Add(lblCondicionIVA);
             panel2.Controls.Add(comboCondicionIVA);
-            panel2.Location = new Point(423, 19);
+            panel2.Location = new Point(529, 24);
             panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(192, 52);
+            panel2.Size = new Size(240, 65);
             panel2.TabIndex = 4;
             // 
             // lblCondicionIVA
@@ -285,8 +290,9 @@ namespace GestionVentasCel.views.proveedor
             lblCondicionIVA.Dock = DockStyle.Top;
             lblCondicionIVA.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCondicionIVA.Location = new Point(0, 0);
+            lblCondicionIVA.Margin = new Padding(4, 0, 4, 0);
             lblCondicionIVA.Name = "lblCondicionIVA";
-            lblCondicionIVA.Size = new Size(166, 20);
+            lblCondicionIVA.Size = new Size(204, 25);
             lblCondicionIVA.TabIndex = 21;
             lblCondicionIVA.Text = "Condición frente a IVA";
             // 
@@ -295,20 +301,20 @@ namespace GestionVentasCel.views.proveedor
             comboCondicionIVA.Dock = DockStyle.Bottom;
             comboCondicionIVA.Font = new Font("Segoe UI", 12F);
             comboCondicionIVA.FormattingEnabled = true;
-            comboCondicionIVA.Location = new Point(0, 16);
+            comboCondicionIVA.Location = new Point(0, 25);
             comboCondicionIVA.Margin = new Padding(2);
             comboCondicionIVA.Name = "comboCondicionIVA";
-            comboCondicionIVA.Size = new Size(192, 36);
+            comboCondicionIVA.Size = new Size(240, 40);
             comboCondicionIVA.TabIndex = 4;
             // 
             // panel7
             // 
             panel7.Controls.Add(lblDni);
             panel7.Controls.Add(txtDni);
-            panel7.Location = new Point(213, 85);
+            panel7.Location = new Point(266, 106);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
-            panel7.Size = new Size(192, 52);
+            panel7.Size = new Size(240, 65);
             panel7.TabIndex = 3;
             // 
             // lblDni
@@ -317,8 +323,9 @@ namespace GestionVentasCel.views.proveedor
             lblDni.Dock = DockStyle.Top;
             lblDni.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblDni.Location = new Point(0, 0);
+            lblDni.Margin = new Padding(4, 0, 4, 0);
             lblDni.Name = "lblDni";
-            lblDni.Size = new Size(172, 20);
+            lblDni.Size = new Size(209, 25);
             lblDni.TabIndex = 17;
             lblDni.Text = "Número de documento";
             // 
@@ -326,11 +333,11 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtDni.Dock = DockStyle.Bottom;
             txtDni.Font = new Font("Segoe UI", 12F);
-            txtDni.Location = new Point(0, 18);
+            txtDni.Location = new Point(0, 26);
             txtDni.Margin = new Padding(2);
             txtDni.MaxLength = 13;
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(192, 34);
+            txtDni.Size = new Size(240, 39);
             txtDni.TabIndex = 3;
             txtDni.KeyPress += txtDni_KeyPress;
             // 
@@ -338,10 +345,10 @@ namespace GestionVentasCel.views.proveedor
             // 
             panel1.Controls.Add(lblNombre);
             panel1.Controls.Add(txtNombre);
-            panel1.Location = new Point(6, 19);
+            panel1.Location = new Point(8, 24);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(192, 52);
+            panel1.Size = new Size(240, 65);
             panel1.TabIndex = 0;
             // 
             // lblNombre
@@ -350,8 +357,9 @@ namespace GestionVentasCel.views.proveedor
             lblNombre.Dock = DockStyle.Top;
             lblNombre.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNombre.Location = new Point(0, 0);
+            lblNombre.Margin = new Padding(4, 0, 4, 0);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(164, 20);
+            lblNombre.Size = new Size(200, 25);
             lblNombre.TabIndex = 14;
             lblNombre.Text = "Nombre / razón social";
             // 
@@ -359,11 +367,11 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtNombre.Dock = DockStyle.Bottom;
             txtNombre.Font = new Font("Segoe UI", 12F);
-            txtNombre.Location = new Point(0, 18);
+            txtNombre.Location = new Point(0, 26);
             txtNombre.Margin = new Padding(2);
             txtNombre.MaxLength = 45;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(192, 34);
+            txtNombre.Size = new Size(240, 39);
             txtNombre.TabIndex = 0;
             txtNombre.KeyPress += txtNombre_KeyPress;
             // 
@@ -371,10 +379,10 @@ namespace GestionVentasCel.views.proveedor
             // 
             panel6.Controls.Add(lblTelefono);
             panel6.Controls.Add(txtTelefono);
-            panel6.Location = new Point(422, 85);
+            panel6.Location = new Point(528, 106);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Size = new Size(192, 52);
+            panel6.Size = new Size(240, 65);
             panel6.TabIndex = 5;
             // 
             // lblTelefono
@@ -383,8 +391,9 @@ namespace GestionVentasCel.views.proveedor
             lblTelefono.Dock = DockStyle.Top;
             lblTelefono.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTelefono.Location = new Point(0, 0);
+            lblTelefono.Margin = new Padding(4, 0, 4, 0);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(70, 20);
+            lblTelefono.Size = new Size(86, 25);
             lblTelefono.TabIndex = 16;
             lblTelefono.Text = "Teléfono";
             // 
@@ -392,11 +401,11 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtTelefono.Dock = DockStyle.Bottom;
             txtTelefono.Font = new Font("Segoe UI", 12F);
-            txtTelefono.Location = new Point(0, 18);
+            txtTelefono.Location = new Point(0, 26);
             txtTelefono.Margin = new Padding(2);
             txtTelefono.MaxLength = 14;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(192, 34);
+            txtTelefono.Size = new Size(240, 39);
             txtTelefono.TabIndex = 5;
             txtTelefono.KeyPress += txtTelefono_KeyPress;
             // 
@@ -404,10 +413,10 @@ namespace GestionVentasCel.views.proveedor
             // 
             panel5.Controls.Add(lblApellido);
             panel5.Controls.Add(txtApellido);
-            panel5.Location = new Point(6, 85);
+            panel5.Location = new Point(8, 106);
             panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(192, 52);
+            panel5.Size = new Size(240, 65);
             panel5.TabIndex = 1;
             // 
             // lblApellido
@@ -416,8 +425,9 @@ namespace GestionVentasCel.views.proveedor
             lblApellido.Dock = DockStyle.Top;
             lblApellido.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblApellido.Location = new Point(0, 0);
+            lblApellido.Margin = new Padding(4, 0, 4, 0);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(67, 20);
+            lblApellido.Size = new Size(83, 25);
             lblApellido.TabIndex = 15;
             lblApellido.Text = "Apellido";
             // 
@@ -425,12 +435,12 @@ namespace GestionVentasCel.views.proveedor
             // 
             txtApellido.Dock = DockStyle.Bottom;
             txtApellido.Font = new Font("Segoe UI", 12F);
-            txtApellido.Location = new Point(0, 18);
+            txtApellido.Location = new Point(0, 26);
             txtApellido.Margin = new Padding(2);
             txtApellido.MaxLength = 45;
             txtApellido.Name = "txtApellido";
             txtApellido.PlaceholderText = "(Opcional)";
-            txtApellido.Size = new Size(192, 34);
+            txtApellido.Size = new Size(240, 39);
             txtApellido.TabIndex = 1;
             // 
             // lblTituloForm
@@ -438,9 +448,10 @@ namespace GestionVentasCel.views.proveedor
             lblTituloForm.Dock = DockStyle.Top;
             lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(4, 0, 4, 0);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Padding = new Padding(7, 0, 7, 0);
-            lblTituloForm.Size = new Size(636, 62);
+            lblTituloForm.Padding = new Padding(9, 0, 9, 0);
+            lblTituloForm.Size = new Size(795, 78);
             lblTituloForm.TabIndex = 38;
             lblTituloForm.Text = "Agregar proveedor";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
@@ -448,17 +459,17 @@ namespace GestionVentasCel.views.proveedor
             // AgregarEditarProveedorForm
             // 
             AcceptButton = btnGuardar;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnDescartar;
-            ClientSize = new Size(636, 350);
+            ClientSize = new Size(795, 438);
             Controls.Add(btnSalir);
             Controls.Add(lblTituloForm);
             Controls.Add(panel11);
             Controls.Add(btnDescartar);
             Controls.Add(btnGuardar);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AgregarEditarProveedorForm";

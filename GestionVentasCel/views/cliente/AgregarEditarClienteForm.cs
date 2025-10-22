@@ -306,5 +306,26 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             this.ConfigurarEstilosVisuales();
         }
+
+        private void comboTipoDoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Se tiene que cambiar la longitud máxima cuando cambia el tipo de documento.
+            // 8 para DNI, y 13 para CUIT
+
+            switch (comboTipoDoc.SelectedItem?.ToString())
+            {
+                case "DNI":
+                    txtDni.MaxLength = 8;
+                    break;
+                case "CUIT":
+                case "CUIL":
+                    txtDni.MaxLength = 13;
+                    break;
+            }
+
+            // También hay que recortar el texto si es que se pasó de CUIT/CUIL -> DNI
+            if (txtDni.Text.Length > txtDni.MaxLength)
+                txtDni.Text = txtDni.Text.Substring(0, txtDni.MaxLength);
+        }
     }
 }

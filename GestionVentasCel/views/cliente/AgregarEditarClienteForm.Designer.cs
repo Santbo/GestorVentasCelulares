@@ -232,6 +232,7 @@
             comboTipoDoc.Name = "comboTipoDoc";
             comboTipoDoc.Size = new Size(240, 40);
             comboTipoDoc.TabIndex = 2;
+            comboTipoDoc.SelectedIndexChanged += comboTipoDoc_SelectedIndexChanged;
             // 
             // comboIVA
             // 

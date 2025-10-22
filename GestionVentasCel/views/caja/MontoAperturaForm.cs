@@ -90,5 +90,16 @@ namespace GestionVentasCel.views.caja
         {
             this.btnCancelar.PerformClick();
         }
+
+        private void nupMonto_Leave(object sender, EventArgs e)
+        {
+            // HAbía un error en el cual si se ponían puntos o comas en el campo y se presionaba enter,
+            // se revertía a cero.
+            // Eso pasaba porque fallaba al intentar parsearlo porque no coincidía el valor con lo que esperaba
+            // la Locale. Eliminar las comas y puntos lo soluciona.
+            var n = (NumericUpDown)sender;
+            if (decimal.TryParse(n.Text.Replace(".", ","), out decimal value))
+                n.Value = value;
+        }
     }
 }

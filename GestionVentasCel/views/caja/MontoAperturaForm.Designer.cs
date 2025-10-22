@@ -131,6 +131,7 @@
             nupMonto.Size = new Size(199, 31);
             nupMonto.TabIndex = 41;
             nupMonto.ThousandsSeparator = true;
+            nupMonto.Leave += nupMonto_Leave;
             // 
             // MontoAperturaForm
             // 
