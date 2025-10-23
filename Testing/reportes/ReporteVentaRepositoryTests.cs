@@ -1,4 +1,5 @@
 using GestionVentasCel.data;
+using GestionVentasCel.enumerations.persona;
 using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.models.clientes;
@@ -13,6 +14,7 @@ public class ReporteVentaRepositoryTests : IDisposable
 {
     private readonly AppDbContext _context;
     private readonly ReporteVentaRepositoryImpl _repository;
+    private Cliente _cliente;
 
     public ReporteVentaRepositoryTests()
     {
@@ -45,22 +47,25 @@ public class ReporteVentaRepositoryTests : IDisposable
             Activo = true
         };
 
-        var cliente = new Cliente
+        _cliente = new Cliente
         {
             Nombre = "Cliente Test",
             Apellido = "Apellido Test",
-            Telefono = "123456789"
+            Telefono = "123456789",
+            Dni = "20-32578954-2",
+            CondicionIVA = CondicionIVAEnum.Monotributista,
+            Calle = "Siempre Viva 123"
+            
         };
 
         _context.Usuarios.Add(usuario);
-        _context.Clientes.Add(cliente);
+        _context.Clientes.Add(_cliente);
         _context.SaveChanges();
     }
 
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeRetornarVentasEnRango()
     {
-        // Arrange
         var fechaInicio = new DateTime(2024, 1, 1);
         var fechaFin = new DateTime(2024, 1, 31);
 
@@ -68,10 +73,21 @@ public class ReporteVentaRepositoryTests : IDisposable
         _context.Ventas.Add(venta);
         _context.SaveChanges();
 
-        // Act
+        _context.Facturas.Add(new Factura
+        {
+            VentaId = venta.Id,
+            NumeroFactura = "F001-0001",
+            TipoComprobante = TipoFacturaEnum.FacturaA,
+            CUITCliente = _cliente.Dni,
+            CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+            DomicilioCliente = _cliente.Calle,
+            NombreCliente = _cliente.NombreCompleto
+
+        });
+        _context.SaveChanges();
+
         var resultado = _repository.ObtenerVentasPorRangoFecha(fechaInicio, fechaFin);
 
-        // Assert
         Assert.Single(resultado);
         Assert.Equal(venta.Id, resultado.First().Id);
     }
@@ -79,19 +95,36 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeExcluirVentasAnuladas()
     {
-        // Arrange
         var fecha = new DateTime(2024, 2, 1);
 
         var ventaConfirmada = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         var ventaAnulada = CrearVentaConDetalles(fecha, EstadoVentaEnum.Anulada);
 
         _context.Ventas.AddRange(ventaConfirmada, ventaAnulada);
+        _context.SaveChanges(); // IDs reales
+
+        _context.Facturas.AddRange(
+            new Factura { VentaId = ventaConfirmada.Id, 
+                          NumeroFactura = "F001-0002", 
+                          TipoComprobante = TipoFacturaEnum.FacturaA,
+                        CUITCliente = _cliente.Dni,
+                        CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+                        DomicilioCliente = _cliente.Calle,
+                        NombreCliente = _cliente.NombreCompleto
+            },
+            new Factura { VentaId = ventaAnulada.Id, 
+                        NumeroFactura = "F001-0003", 
+                        TipoComprobante = TipoFacturaEnum.FacturaB,
+                CUITCliente = _cliente.Dni,
+                CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+                DomicilioCliente = _cliente.Calle,
+                NombreCliente = _cliente.NombreCompleto
+            }
+        );
         _context.SaveChanges();
 
-        // Act
         var resultado = _repository.ObtenerVentasPorRangoFecha(fecha, fecha);
 
-        // Assert
         Assert.Single(resultado);
         Assert.Equal(EstadoVentaEnum.Confirmada, resultado.First().Estado);
     }
@@ -99,51 +132,68 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeRetornarListaVaciaCuandoNoHayVentas()
     {
-        // Arrange
+        
         var fechaInicio = new DateTime(2024, 3, 1);
         var fechaFin = new DateTime(2024, 3, 31);
 
-        // Act
         var resultado = _repository.ObtenerVentasPorRangoFecha(fechaInicio, fechaFin);
 
-        // Assert
+        
         Assert.Empty(resultado);
     }
 
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeCalcularMontosCorrectamente()
     {
-        // Arrange
         var fecha = new DateTime(2024, 4, 1);
         var venta = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         _context.Ventas.Add(venta);
         _context.SaveChanges();
 
-        // Act
+        _context.Facturas.Add(new Factura
+        {
+            VentaId = venta.Id,
+            NumeroFactura = "F001-0004",
+            TipoComprobante = TipoFacturaEnum.FacturaC,
+            CUITCliente = _cliente.Dni,
+            CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+            DomicilioCliente = _cliente.Calle,
+            NombreCliente = _cliente.NombreCompleto
+
+        });
+        _context.SaveChanges();
+
         var resultado = _repository.ObtenerVentasPorRangoFecha(fecha, fecha);
 
-        // Assert
         var reporteVenta = resultado.First();
         Assert.True(reporteVenta.MontoTotal > 0);
         Assert.True(reporteVenta.MontoSinIva > 0);
         Assert.True(reporteVenta.MontoIva >= 0);
-        // Verificar que la diferencia sea menor a 1 (tolerancia para redondeo)
         Assert.True(Math.Abs((reporteVenta.MontoSinIva + reporteVenta.MontoIva) - reporteVenta.MontoTotal) < 1);
     }
 
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeIncluirInformacionDelCliente()
     {
-        // Arrange
         var fecha = new DateTime(2024, 5, 1);
         var venta = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         _context.Ventas.Add(venta);
         _context.SaveChanges();
 
-        // Act
+        _context.Facturas.Add(new Factura
+        {
+            VentaId = venta.Id,
+            NumeroFactura = "F001-0005",
+            TipoComprobante = TipoFacturaEnum.FacturaA,
+            CUITCliente = _cliente.Dni,
+            CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+            DomicilioCliente = _cliente.Calle,
+            NombreCliente = _cliente.NombreCompleto
+        });
+        _context.SaveChanges();
+
         var resultado = _repository.ObtenerVentasPorRangoFecha(fecha, fecha);
 
-        // Assert
         var reporteVenta = resultado.First();
         Assert.NotNull(reporteVenta.Cliente);
         Assert.NotEmpty(reporteVenta.Cliente);
@@ -152,7 +202,6 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerVentasPorRangoFecha_DebeOrdenarPorFechaDescendente()
     {
-        // Arrange
         var fecha1 = new DateTime(2024, 6, 1);
         var fecha2 = new DateTime(2024, 6, 15);
         var fecha3 = new DateTime(2024, 6, 30);
@@ -164,10 +213,36 @@ public class ReporteVentaRepositoryTests : IDisposable
         _context.Ventas.AddRange(venta1, venta2, venta3);
         _context.SaveChanges();
 
-        // Act
+        _context.Facturas.AddRange(
+            new Factura { VentaId = venta1.Id, 
+                        NumeroFactura = "0001-00000001", 
+                        TipoComprobante = TipoFacturaEnum.FacturaA,
+                        CUITCliente = _cliente.Dni,
+                        CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+                        DomicilioCliente = _cliente.Calle,
+                        NombreCliente = _cliente.NombreCompleto
+                        },
+            new Factura { VentaId = venta2.Id, 
+                        NumeroFactura = "0001-00000002", 
+                        TipoComprobante = TipoFacturaEnum.FacturaA,
+                        CUITCliente = _cliente.Dni,
+                        CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+                        DomicilioCliente = _cliente.Calle,
+                        NombreCliente = _cliente.NombreCompleto
+                    },
+            new Factura { VentaId = venta3.Id, 
+                        NumeroFactura = "0001-00000003", 
+                        TipoComprobante = TipoFacturaEnum.FacturaA,
+                        CUITCliente = _cliente.Dni,
+                        CondicionIVACliente = _cliente.CondicionIVA.ToString(),
+                        DomicilioCliente = _cliente.Calle,
+                        NombreCliente = _cliente.NombreCompleto
+                    }
+        );
+        _context.SaveChanges();
+
         var resultado = _repository.ObtenerVentasPorRangoFecha(fecha1, fecha3).ToList();
 
-        // Assert
         Assert.Equal(3, resultado.Count);
         Assert.True(resultado[0].Fecha >= resultado[1].Fecha);
         Assert.True(resultado[1].Fecha >= resultado[2].Fecha);
@@ -176,7 +251,7 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerResumenVentas_DebeCalcularTotalGeneralCorrectamente()
     {
-        // Arrange
+        
         var fecha = new DateTime(2024, 7, 1);
         var venta1 = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         var venta2 = CrearVentaConDetalles(fecha.AddDays(1), EstadoVentaEnum.Confirmada);
@@ -184,10 +259,10 @@ public class ReporteVentaRepositoryTests : IDisposable
         _context.Ventas.AddRange(venta1, venta2);
         _context.SaveChanges();
 
-        // Act
+       
         var resultado = _repository.ObtenerResumenVentas(fecha, fecha.AddDays(5));
 
-        // Assert
+        
         Assert.True(resultado.TotalGeneral > 0);
         Assert.Equal(2, resultado.CantidadOperaciones);
     }
@@ -195,7 +270,7 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerResumenVentas_DebeCalcularPromedioCorrectamente()
     {
-        // Arrange
+        
         var fecha = new DateTime(2024, 8, 1);
         var venta1 = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         var venta2 = CrearVentaConDetalles(fecha.AddDays(1), EstadoVentaEnum.Confirmada);
@@ -203,10 +278,10 @@ public class ReporteVentaRepositoryTests : IDisposable
         _context.Ventas.AddRange(venta1, venta2);
         _context.SaveChanges();
 
-        // Act
+        
         var resultado = _repository.ObtenerResumenVentas(fecha, fecha.AddDays(5));
 
-        // Assert
+        
         var promedioEsperado = resultado.TotalGeneral / resultado.CantidadOperaciones;
         Assert.Equal(promedioEsperado, resultado.PromedioOperacion);
     }
@@ -214,13 +289,13 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerResumenVentas_DebeRetornarCerosCuandoNoHayVentas()
     {
-        // Arrange
+        
         var fecha = new DateTime(2024, 9, 1);
 
-        // Act
+        
         var resultado = _repository.ObtenerResumenVentas(fecha, fecha.AddDays(30));
 
-        // Assert
+        
         Assert.Equal(0, resultado.TotalGeneral);
         Assert.Equal(0, resultado.CantidadOperaciones);
         Assert.Equal(0, resultado.PromedioOperacion);
@@ -229,7 +304,7 @@ public class ReporteVentaRepositoryTests : IDisposable
     [Fact]
     public void ObtenerResumenVentas_DebeExcluirVentasAnuladas()
     {
-        // Arrange
+        
         var fecha = new DateTime(2024, 10, 1);
         var ventaConfirmada = CrearVentaConDetalles(fecha, EstadoVentaEnum.Confirmada);
         var ventaAnulada = CrearVentaConDetalles(fecha, EstadoVentaEnum.Anulada);
@@ -237,10 +312,10 @@ public class ReporteVentaRepositoryTests : IDisposable
         _context.Ventas.AddRange(ventaConfirmada, ventaAnulada);
         _context.SaveChanges();
 
-        // Act
+       
         var resultado = _repository.ObtenerResumenVentas(fecha, fecha);
 
-        // Assert
+        
         Assert.Equal(1, resultado.CantidadOperaciones);
     }
 
