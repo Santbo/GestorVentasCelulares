@@ -86,5 +86,10 @@ namespace GestionVentasCel.service.usuario
         {
             return Rol == RolEnum.Admin || Rol == RolEnum.Vendedor;
         }
+
+        public bool PuedeAccederAReportes()
+        {
+            return Rol == RolEnum.Admin;
+        }
     }
 }

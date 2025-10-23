@@ -135,6 +135,9 @@ namespace GestionVentasCel
             // Menú de reparaciones (Admin y Técnico)
             reparacionesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones() || _sesionUsuario.PuedeAccederAServicios();
 
+            //Menú de reportes (Admin)
+            reportesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReportes();
+
             // Configurar visibilidad de SUBMENÚS según permisos
 
             // Submenús de ventas y facturas (Admin y Vendedor)

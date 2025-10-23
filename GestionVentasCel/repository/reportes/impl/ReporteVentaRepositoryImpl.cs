@@ -72,8 +72,9 @@ namespace GestionVentasCel.repository.reportes.impl
             var promedio = cantidadOperaciones > 0 ? totalGeneral / cantidadOperaciones : 0;
 
             var totalesPorTipo = ventas
-                .GroupBy(v => v.TipoPago == TipoPagoEnum.Efectivo ? "Efectivo" : "Cuenta Corriente")
-                .ToDictionary(g => g.Key, g => g.Sum(v => v.TotalConIva));
+                .GroupBy(v => v.TipoPago)
+                .ToDictionary(g => ObtenerNombreTipoPago(g.Key), 
+                              g => g.Sum(v => v.TotalConIva));
 
             return new ResumenReporteDTO
             {
@@ -83,6 +84,20 @@ namespace GestionVentasCel.repository.reportes.impl
                 FechaDesde = fechaDesde,
                 FechaHasta = fechaHasta.Date,
                 TotalesPorTipo = totalesPorTipo
+            };
+        }
+
+        private string ObtenerNombreTipoPago(TipoPagoEnum tipo)
+        {
+            return tipo switch
+            {
+                TipoPagoEnum.Efectivo => "Efectivo",
+                TipoPagoEnum.CuentaCorriente => "Cuenta Corriente",
+                TipoPagoEnum.TarjetaCredito => "Tarjeta de Crédito",
+                TipoPagoEnum.TarjetaDebito => "Tarjeta de Débito",
+                TipoPagoEnum.Transferencia => "Transferencia",
+                TipoPagoEnum.BilleteraVirtual => "Billetera Virtual",
+                _ => "Otro"
             };
         }
     }
