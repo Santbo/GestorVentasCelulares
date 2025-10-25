@@ -217,5 +217,12 @@ namespace GestionVentasCel.views.usuario_empleado
             this.ConfigurarEstilosVisuales();
 
         }
+
+        private void nMonto_Leave(object sender, EventArgs e)
+        {
+            var n = (NumericUpDown)sender;
+            if (decimal.TryParse(n.Text.Replace(".", ","), out decimal value))
+                n.Value = value;
+        }
     }
 }

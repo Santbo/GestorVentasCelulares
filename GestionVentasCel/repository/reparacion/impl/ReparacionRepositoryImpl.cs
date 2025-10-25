@@ -34,6 +34,7 @@ namespace GestionVentasCel.repository.reparacion.impl
             }
 
             _context.Reparaciones.Attach(reparacion);
+            _context.Reparaciones.Update(reparacion);
             _context.SaveChanges();
         }
 
@@ -63,6 +64,7 @@ namespace GestionVentasCel.repository.reparacion.impl
             return _context.Reparaciones
                            .Include(r => r.Dispositivo)
                            .Include(r => r.ReparacionServicios)
+                           .ThenInclude( rs => rs.Servicio)
                            .FirstOrDefault(r => r.Id == id)
                            ;
         }

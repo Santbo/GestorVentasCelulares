@@ -173,7 +173,7 @@ namespace GestionVentasCel.views.usuario_empleado
 
             // Apellido: Lo mismo que nombre, pero puede estar vacio (por eso se cambia + a * en la regex)
             string apellido = txtApellido.Text.Trim();
-            if (apellido.Length > 45 || !Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]*$"))
+            if (apellido.Length > 45 || !Regex.IsMatch(apellido, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*$"))
             {
                 MessageBox.Show("El apellido no puede tener más de 45 caracteres ni contener caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtApellido.Focus();
@@ -224,7 +224,7 @@ namespace GestionVentasCel.views.usuario_empleado
             string calle = txtCalle.Text.Trim();
             if (calle.Length > 45 || !Regex.IsMatch(calle, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\. ]{5,}$"))
             {
-                MessageBox.Show("La calle debe tener hasta 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La calle debe tener entre 5 y 45 caracteres, solo letras y números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCalle.Focus();
                 return false;
             }
@@ -233,7 +233,7 @@ namespace GestionVentasCel.views.usuario_empleado
             string ciudad = txtCiudad.Text.Trim();
             if (ciudad.Length > 45 || !Regex.IsMatch(ciudad, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,}$"))
             {
-                MessageBox.Show("La ciudad debe estar vacía o tener hasta 45 letras.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La ciudad debe tener entre dos y 45 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCiudad.Focus();
                 return false;
             }

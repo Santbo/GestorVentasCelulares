@@ -1,3 +1,4 @@
+using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.caja;
 using GestionVentasCel.controller.categoria;
@@ -194,6 +195,12 @@ namespace GestionVentasCel
 
                 // Obtener el form principal con todas las dependencias resueltas
                 var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+
+                // Porque tenemos problemas por tener las pcs en distintos idiomas, forzar la cultura
+                // asegura que se comporten correctamente los controles que requieren formateos específicos, más que nada
+                // los numericupdown.
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("es-AR");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-AR");
 
                 Application.Run(loginForm);
             }

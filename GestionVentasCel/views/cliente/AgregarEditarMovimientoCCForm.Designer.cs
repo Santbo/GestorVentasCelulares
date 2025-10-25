@@ -147,6 +147,7 @@
             nMonto.Size = new Size(300, 39);
             nMonto.TabIndex = 15;
             nMonto.ThousandsSeparator = true;
+            nMonto.Leave += nMonto_Leave;
             // 
             // panel2
             // 

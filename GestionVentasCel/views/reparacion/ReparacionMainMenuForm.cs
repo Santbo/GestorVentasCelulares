@@ -285,6 +285,7 @@ namespace GestionVentasCel.views.servicio
                         // Esto no debería ser así, realmente debería haber un método en el service para hacer esto, 
                         // pero como la lógica de calcular está en la UI, es mas facil llamar a la ui
                         _reparacionController.RecalcularReparacion(reparacion.Id);
+                        CargarReparaciones();
                     }
                 }
                 else
