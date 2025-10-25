@@ -354,7 +354,6 @@
             nupCantidad.Dock = DockStyle.Bottom;
             nupCantidad.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nupCantidad.Location = new Point(0, 34);
-            nupCantidad.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             nupCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nupCantidad.Name = "nupCantidad";
             nupCantidad.Size = new Size(268, 39);

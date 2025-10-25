@@ -26,7 +26,7 @@ namespace GestionVentasCel.views.ventas
         private readonly IServiceProvider _serviceProvider;
         private readonly ClienteController _clienteController;
         private readonly SesionUsuario _sesionUsuario;
-        private DetalleVenta _detalleActual;
+        private DetalleVenta? _detalleActual;
         public AgregarEditarVentaForm(
             IVentaService ventaService,
             ClienteController clienteController,
@@ -546,6 +546,8 @@ namespace GestionVentasCel.views.ventas
 
             this._bindingSource.ResetBindings(false);
             this.comboBoxTipoItem.SelectedIndex = -1;
+            this.comboBoxTipoItem.SelectedItem = null;
+            this._detalleActual = null;
             this.txtDescripcionDetalle.Text = String.Empty;
             this.nupCantidad.Value = 1;
             this.nupCantidad.Enabled = true;
