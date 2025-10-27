@@ -89,11 +89,16 @@
             // 
             // dgvListarDispositivos
             // 
+            dgvListarDispositivos.AllowUserToAddRows = false;
+            dgvListarDispositivos.AllowUserToDeleteRows = false;
+            dgvListarDispositivos.AllowUserToResizeColumns = false;
+            dgvListarDispositivos.AllowUserToResizeRows = false;
             dgvListarDispositivos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListarDispositivos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarDispositivos.Location = new Point(15, 191);
             dgvListarDispositivos.Margin = new Padding(4);
             dgvListarDispositivos.Name = "dgvListarDispositivos";
+            dgvListarDispositivos.ReadOnly = true;
             dgvListarDispositivos.RowHeadersWidth = 51;
             dgvListarDispositivos.Size = new Size(395, 134);
             dgvListarDispositivos.TabIndex = 3;
@@ -248,11 +253,16 @@
             // 
             // dgvListarServicios
             // 
+            dgvListarServicios.AllowUserToAddRows = false;
+            dgvListarServicios.AllowUserToDeleteRows = false;
+            dgvListarServicios.AllowUserToResizeColumns = false;
+            dgvListarServicios.AllowUserToResizeRows = false;
             dgvListarServicios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListarServicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListarServicios.Location = new Point(15, 492);
             dgvListarServicios.Margin = new Padding(4);
             dgvListarServicios.Name = "dgvListarServicios";
+            dgvListarServicios.ReadOnly = true;
             dgvListarServicios.RowHeadersWidth = 51;
             dgvListarServicios.Size = new Size(395, 134);
             dgvListarServicios.TabIndex = 18;
