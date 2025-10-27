@@ -52,6 +52,12 @@ namespace GestionVentasCel.views.configuracionPrecios
         private void btnGuardar_Click(object sender, EventArgs e)
         {
 
+            if(string.IsNullOrEmpty(txtAumento.Text) || decimal.Parse(txtAumento.Text) <= 0)
+            {
+                MessageBox.Show("El Campo no puede estar vacío ni contener valores menores a 1", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtAumento.Focus();
+                return;
+            }
             if (_configuracionPreciosController.MargenExist(1))
             {
                 var margenActual = _configuracionPreciosController.GetById(1);
