@@ -130,7 +130,7 @@ namespace GestionVentasCel.views.caja
                     }
                 }
             }
-            totales += _caja.MontoApertura;
+            
             lblTotales.Text = totales.ToString("C", new CultureInfo("es-AR"));
         }
 
