@@ -566,8 +566,15 @@ namespace GestionVentasCel.views.ventas
         }
         private void btnEliminarDetalle_Click(object sender, EventArgs e)
         {
-            if (dgvListarDetalles.CurrentRow == null)
+            if (dgvListarDetalles.CurrentRow == null){
+                MessageBox.Show(
+                    "Debe seleccionar por lo menos un detalle para eliminar",
+                    "Seleccione un artículo",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
                 return;
+            }
 
             var detalle = dgvListarDetalles.CurrentRow.DataBoundItem as DetalleVenta;
 
