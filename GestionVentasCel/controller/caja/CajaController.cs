@@ -64,6 +64,11 @@ namespace GestionVentasCel.controller.caja
             return _service.HayCajaAbierta();
         }
 
+        public IEnumerable<Caja> ListarCajaPorFecha(DateTime fecha)
+        {
+            return _service.ListarCajaPorFecha(fecha);
+        }
+
         // Movimientos
         public void RegistrarRetiro(int cajaId, decimal monto, string descripcion)
         {

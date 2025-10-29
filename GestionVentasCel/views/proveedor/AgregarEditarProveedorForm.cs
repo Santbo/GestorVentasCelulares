@@ -179,14 +179,7 @@ namespace GestionVentasCel.views.proveedor
                 return false;
             }
 
-            // DNI: Asegurarse de que esté entre 8 y 13 caracteres
             string dni = txtDni.Text.Trim();
-            if (dni.Length < 8 || dni.Length > 13)
-            {
-                MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDni.Focus();
-                return false;
-            }
 
             // DNI: Si se seleccionó CUIT, entonces tiene que seguir el formato correcto
             if ((TipoDocumentoEnum)comboTipoDoc.SelectedItem != TipoDocumentoEnum.DNI)
@@ -199,6 +192,13 @@ namespace GestionVentasCel.views.proveedor
                     return false;
 
                 }
+            }
+            // DNI: Asegurarse de que esté entre 8 y 13 caracteres
+            if (dni.Length < 8 || dni.Length > 13)
+            {
+                MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDni.Focus();
+                return false;
             }
 
             // Teléfono: Tiene el formato e.164 o entre 10 y 18 digitos

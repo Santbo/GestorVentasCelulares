@@ -51,10 +51,9 @@ namespace GestionVentasCel.views.proveedor
             // btnAgregar
             // 
             btnAgregar.Anchor = AnchorStyles.Right;
-            btnAgregar.Location = new Point(834, 4);
-            btnAgregar.Margin = new Padding(4);
+            btnAgregar.Location = new Point(667, 3);
             btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(160, 75);
+            btnAgregar.Size = new Size(128, 60);
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
@@ -63,10 +62,9 @@ namespace GestionVentasCel.views.proveedor
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(666, 4);
-            btnEditar.Margin = new Padding(4);
+            btnEditar.Location = new Point(533, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(160, 75);
+            btnEditar.Size = new Size(128, 60);
             btnEditar.TabIndex = 1;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
@@ -76,10 +74,9 @@ namespace GestionVentasCel.views.proveedor
             // 
             chkInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkInactivos.AutoSize = true;
-            chkInactivos.Location = new Point(15, 49);
-            chkInactivos.Margin = new Padding(4);
+            chkInactivos.Location = new Point(12, 38);
             chkInactivos.Name = "chkInactivos";
-            chkInactivos.Size = new Size(264, 29);
+            chkInactivos.Size = new Size(219, 24);
             chkInactivos.TabIndex = 2;
             chkInactivos.Text = "Incluir Proveedores Inactivos";
             chkInactivos.UseVisualStyleBackColor = true;
@@ -87,21 +84,19 @@ namespace GestionVentasCel.views.proveedor
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(15, 11);
-            txtBuscar.Margin = new Padding(4);
+            txtBuscar.Location = new Point(12, 9);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "(Ctrl + F) Buscar proveedor";
-            txtBuscar.Size = new Size(332, 31);
+            txtBuscar.Size = new Size(266, 27);
             txtBuscar.TabIndex = 3;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // btnToggleActivo
             // 
             btnToggleActivo.Anchor = AnchorStyles.Right;
-            btnToggleActivo.Location = new Point(458, 4);
-            btnToggleActivo.Margin = new Padding(4);
+            btnToggleActivo.Location = new Point(366, 3);
             btnToggleActivo.Name = "btnToggleActivo";
-            btnToggleActivo.Size = new Size(201, 75);
+            btnToggleActivo.Size = new Size(161, 60);
             btnToggleActivo.TabIndex = 4;
             btnToggleActivo.Text = "Habilitar/Deshabilitar";
             btnToggleActivo.UseVisualStyleBackColor = true;
@@ -109,11 +104,10 @@ namespace GestionVentasCel.views.proveedor
             // 
             // btnVerCompras
             // 
-            btnVerCompras.Anchor = AnchorStyles.Right;
-            btnVerCompras.Location = new Point(249, 4);
-            btnVerCompras.Margin = new Padding(4);
+            btnVerCompras.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnVerCompras.Location = new Point(199, 3);
             btnVerCompras.Name = "btnVerCompras";
-            btnVerCompras.Size = new Size(201, 75);
+            btnVerCompras.Size = new Size(161, 60);
             btnVerCompras.TabIndex = 5;
             btnVerCompras.Text = "Ver Compras";
             btnVerCompras.UseVisualStyleBackColor = true;
@@ -129,10 +123,9 @@ namespace GestionVentasCel.views.proveedor
             panelBtn.Controls.Add(btnAgregar);
             panelBtn.Controls.Add(txtBuscar);
             panelBtn.Dock = DockStyle.Bottom;
-            panelBtn.Location = new Point(0, 476);
-            panelBtn.Margin = new Padding(4);
+            panelBtn.Location = new Point(0, 381);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(1000, 86);
+            panelBtn.Size = new Size(800, 69);
             panelBtn.TabIndex = 5;
             // 
             // dgvListar
@@ -142,12 +135,11 @@ namespace GestionVentasCel.views.proveedor
             dgvListar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
-            dgvListar.Location = new Point(11, 4);
-            dgvListar.Margin = new Padding(4);
+            dgvListar.Location = new Point(9, 3);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(978, 430);
+            dgvListar.Size = new Size(782, 345);
             dgvListar.TabIndex = 2;
             // 
             // splitContainer1
@@ -155,6 +147,7 @@ namespace GestionVentasCel.views.proveedor
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.IsSplitterFixed = true;
             splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Margin = new Padding(2, 2, 2, 2);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
@@ -165,9 +158,10 @@ namespace GestionVentasCel.views.proveedor
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvListar);
-            splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
-            splitContainer1.Size = new Size(1000, 476);
-            splitContainer1.SplitterDistance = 34;
+            splitContainer1.Panel2.Padding = new Padding(9, 3, 9, 3);
+            splitContainer1.Size = new Size(800, 381);
+            splitContainer1.SplitterDistance = 27;
+            splitContainer1.SplitterWidth = 3;
             splitContainer1.TabIndex = 6;
             // 
             // panelHeader
@@ -175,8 +169,9 @@ namespace GestionVentasCel.views.proveedor
             panelHeader.Controls.Add(lblTituloForm);
             panelHeader.Dock = DockStyle.Fill;
             panelHeader.Location = new Point(0, 0);
+            panelHeader.Margin = new Padding(2, 2, 2, 2);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1000, 34);
+            panelHeader.Size = new Size(800, 27);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -184,22 +179,22 @@ namespace GestionVentasCel.views.proveedor
             lblTituloForm.Dock = DockStyle.Fill;
             lblTituloForm.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTituloForm.Location = new Point(0, 0);
+            lblTituloForm.Margin = new Padding(2, 0, 2, 0);
             lblTituloForm.Name = "lblTituloForm";
-            lblTituloForm.Padding = new Padding(8, 0, 8, 0);
-            lblTituloForm.Size = new Size(1000, 34);
+            lblTituloForm.Padding = new Padding(6, 0, 6, 0);
+            lblTituloForm.Size = new Size(800, 27);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Proveedores";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ProveedorMainMenuForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4);
             Name = "ProveedorMainMenuForm";
             Text = "Gestión de Proveedores";
             Load += ProveedorMainMenuForm_Load;

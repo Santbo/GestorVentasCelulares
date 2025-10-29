@@ -167,13 +167,13 @@ namespace GestionVentasCel
         private void categoriasMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Categorías - SGVC";
-            AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>()));
+            AbrirFormularioHijo(new CategoriaMainMenuForm(_serviceProvider.GetRequiredService<CategoriaController>(), _sesionUsuario));
         }
 
         private void ArticulosMenuItem_Click(object sender, EventArgs e)
         {
             this.Text = "Artículos - SGVC";
-            AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>()));
+            AbrirFormularioHijo(new ArticuloMainMenuForm(_serviceProvider.GetRequiredService<ArticuloController>(), _serviceProvider.GetRequiredService<CategoriaController>(), _sesionUsuario));
         }
 
         private void gestionarClientesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -194,7 +194,8 @@ namespace GestionVentasCel
             AbrirFormularioHijo(new ProveedorMainMenuForm(
                 _serviceProvider.GetRequiredService<ProveedorController>(),
                 _serviceProvider.GetRequiredService<CompraController>(),
-                _serviceProvider.GetRequiredService<ArticuloController>()
+                _serviceProvider.GetRequiredService<ArticuloController>(),
+                _sesionUsuario
                                ));
         }
 
@@ -204,7 +205,8 @@ namespace GestionVentasCel
             AbrirFormularioHijo(new CompraMainMenuForm(
                             _serviceProvider.GetRequiredService<CompraController>(),
                 _serviceProvider.GetRequiredService<ProveedorController>(),
-                _serviceProvider.GetRequiredService<ArticuloController>()));
+                _serviceProvider.GetRequiredService<ArticuloController>(),
+                _sesionUsuario));
         }
 
         private void aumentarMargenMenuItem_Click(object sender, EventArgs e)

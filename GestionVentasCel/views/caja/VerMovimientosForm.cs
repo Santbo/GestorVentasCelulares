@@ -83,6 +83,9 @@ namespace GestionVentasCel.views.caja
                         {
                             row.Cells["TipoPagoFormateado"].Value = "-";
 
+                        } else
+                        {
+                            row.Cells["TipoPagoFormateado"].Value = movimiento.TipoPago.ToString();
                         }
                     }
 
@@ -97,14 +100,14 @@ namespace GestionVentasCel.views.caja
         {
             // Mapeo entre TipoPagoEnum y sus labels
             var labelsPorTipo = new Dictionary<TipoPagoEnum, Label>
-{
-            { TipoPagoEnum.Efectivo, lblEfectivo },
-            { TipoPagoEnum.Transferencia, lblTransferencia },
-            { TipoPagoEnum.BilleteraVirtual, lblBv },
-            { TipoPagoEnum.TarjetaCredito, lblCredito },
-            { TipoPagoEnum.TarjetaDebito, lblDebito },
-            { TipoPagoEnum.Retiro, lblRetiro }
-};
+            {
+                        { TipoPagoEnum.Efectivo, lblEfectivo },
+                        { TipoPagoEnum.Transferencia, lblTransferencia },
+                        { TipoPagoEnum.BilleteraVirtual, lblBv },
+                        { TipoPagoEnum.TarjetaCredito, lblCredito },
+                        { TipoPagoEnum.TarjetaDebito, lblDebito },
+                        { TipoPagoEnum.Retiro, lblRetiro }
+            };
             decimal totales = 0;
             // Asignar valores a cada label
             foreach (var tipo in Enum.GetValues(typeof(TipoPagoEnum)).Cast<TipoPagoEnum>())
@@ -116,6 +119,9 @@ namespace GestionVentasCel.views.caja
                     if (tipo == TipoPagoEnum.Efectivo)
                     {
                         monto += _caja.MontoApertura;
+                        // Descontar el retiro si existe
+                        _caja.TotalesPorTipoPago.TryGetValue(TipoPagoEnum.Retiro, out var retiro);
+                        monto -= retiro;
                     }
                     label.Text = monto.ToString("C", new CultureInfo("es-AR"));
 
@@ -124,10 +130,7 @@ namespace GestionVentasCel.views.caja
                     {
                         totales += monto;
                     }
-                    else
-                    {
-                        totales -= monto;
-                    }
+                
                 }
             }
             
