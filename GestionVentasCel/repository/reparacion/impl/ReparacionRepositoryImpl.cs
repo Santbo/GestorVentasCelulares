@@ -1,6 +1,8 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -86,12 +88,34 @@ namespace GestionVentasCel.repository.reparacion.impl
 
         public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
         {
-            var reparacion = _context.Reparaciones.FirstOrDefault(r => r.Id == id);
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .FirstOrDefault(r => r.Id == id);
+
+
             if (reparacion != null)
             {
+                bool debeActualizarStock = reparacion.Estado == EstadoReparacionEnum.Ingresado && nuevoEstado == EstadoReparacionEnum.Reparando;
+                if (debeActualizarStock)
+                {
+                    foreach (ReparacionServicio rs in reparacion.ReparacionServicios)
+                    {
+                        foreach (ServicioArticulo sa in rs.Servicio.ArticulosUsados)
+                        {
+                            sa.Articulo.Stock -= sa.Cantidad;
+                        }
+                    }
+                }
+
                 reparacion.Estado = nuevoEstado;
+
+
                 _context.SaveChanges();
             }
+
         }
 
         public IEnumerable<Reparacion>? GetReparacionesDispositivo(Dispositivo dispositivo)
