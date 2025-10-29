@@ -402,5 +402,13 @@ namespace GestionVentasCel.views.servicio
                 detalleReparacion.ShowDialog();
             }
         }
+
+        private void dgvListar_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null && dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+            {
+                btnEditar.Enabled = r.Estado == EstadoReparacionEnum.Ingresado;
+            }
+        }
     }
 }

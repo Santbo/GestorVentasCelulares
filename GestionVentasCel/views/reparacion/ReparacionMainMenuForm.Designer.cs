@@ -57,18 +57,19 @@
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
             dgvListar.Location = new Point(11, 4);
-            dgvListar.Margin = new Padding(4, 4, 4, 4);
+            dgvListar.Margin = new Padding(4);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
             dgvListar.Size = new Size(978, 416);
             dgvListar.TabIndex = 4;
+            dgvListar.SelectionChanged += dgvListar_SelectionChanged;
             // 
             // btnEstadoReparacion
             // 
             btnEstadoReparacion.Anchor = AnchorStyles.Right;
             btnEstadoReparacion.Location = new Point(334, 5);
-            btnEstadoReparacion.Margin = new Padding(4, 4, 4, 4);
+            btnEstadoReparacion.Margin = new Padding(4);
             btnEstadoReparacion.Name = "btnEstadoReparacion";
             btnEstadoReparacion.Size = new Size(160, 75);
             btnEstadoReparacion.TabIndex = 7;
@@ -79,7 +80,7 @@
             // txtBuscar
             // 
             txtBuscar.Location = new Point(15, 8);
-            txtBuscar.Margin = new Padding(4, 4, 4, 4);
+            txtBuscar.Margin = new Padding(4);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "(Ctrl  + F) Buscar reparaciones";
             txtBuscar.Size = new Size(332, 31);
@@ -90,7 +91,7 @@
             // 
             btnCambiarEstado.Anchor = AnchorStyles.Right;
             btnCambiarEstado.Location = new Point(501, 5);
-            btnCambiarEstado.Margin = new Padding(4, 4, 4, 4);
+            btnCambiarEstado.Margin = new Padding(4);
             btnCambiarEstado.Name = "btnCambiarEstado";
             btnCambiarEstado.Size = new Size(160, 75);
             btnCambiarEstado.TabIndex = 8;
@@ -102,7 +103,7 @@
             // 
             btnEditar.Anchor = AnchorStyles.Right;
             btnEditar.Location = new Point(669, 5);
-            btnEditar.Margin = new Padding(4, 4, 4, 4);
+            btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
             btnEditar.TabIndex = 9;
@@ -115,7 +116,7 @@
             chkInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkInactivos.AutoSize = true;
             chkInactivos.Location = new Point(15, 49);
-            chkInactivos.Margin = new Padding(4, 4, 4, 4);
+            chkInactivos.Margin = new Padding(4);
             chkInactivos.Name = "chkInactivos";
             chkInactivos.Size = new Size(266, 29);
             chkInactivos.TabIndex = 10;
@@ -127,7 +128,7 @@
             // 
             btnAdd.Anchor = AnchorStyles.Right;
             btnAdd.Location = new Point(836, 4);
-            btnAdd.Margin = new Padding(4, 4, 4, 4);
+            btnAdd.Margin = new Padding(4);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(160, 75);
             btnAdd.TabIndex = 11;
@@ -147,7 +148,7 @@
             panelBtn.Controls.Add(btnDetalle);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
-            panelBtn.Margin = new Padding(4, 4, 4, 4);
+            panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
             panelBtn.Size = new Size(1000, 86);
             panelBtn.TabIndex = 2;
@@ -156,7 +157,7 @@
             // 
             btnDetalle.Anchor = AnchorStyles.Right;
             btnDetalle.Location = new Point(166, 4);
-            btnDetalle.Margin = new Padding(4, 4, 4, 4);
+            btnDetalle.Margin = new Padding(4);
             btnDetalle.Name = "btnDetalle";
             btnDetalle.Size = new Size(160, 75);
             btnDetalle.TabIndex = 12;
@@ -216,7 +217,7 @@
             Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "ReparacionMainMenuForm";
             Text = "ServicioMainMenuForm";
             Load += ServicioMainMenuForm_Load;
