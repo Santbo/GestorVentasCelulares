@@ -95,9 +95,9 @@
             btnCambiarEstado.Name = "btnCambiarEstado";
             btnCambiarEstado.Size = new Size(160, 75);
             btnCambiarEstado.TabIndex = 8;
-            btnCambiarEstado.Text = "Habilitar/Deshabilitar";
+            btnCambiarEstado.Text = "Cancelar";
             btnCambiarEstado.UseVisualStyleBackColor = true;
-            btnCambiarEstado.Click += btnCambiarEstado_Click;
+            btnCambiarEstado.Click += btnDesactivar_Click;
             // 
             // btnEditar
             // 

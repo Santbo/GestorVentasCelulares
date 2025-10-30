@@ -1,5 +1,6 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
@@ -40,6 +41,43 @@ namespace GestionVentasCel.repository.reparacion.impl
             _context.SaveChanges();
         }
 
+        public void Desactivar(int reparacionId)
+        {
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .FirstOrDefault(r => r.Id == reparacionId);
+
+            if (reparacion == null)
+            {
+                throw new ReparacionNoEncontradaException("La reparación no existe.");
+            }
+
+            if (reparacion.Activo) { 
+                // Está activa, entonces se la va a desactivar y se tiene que revertir el stock
+                // únicamente si está reparando
+                if (reparacion.Estado == EstadoReparacionEnum.Reparando)
+                
+                    foreach (ReparacionServicio rs in reparacion.ReparacionServicios)
+                    {
+
+                        if (rs.Servicio?.ArticulosUsados == null || !rs.Servicio.ArticulosUsados.Any())
+                            continue;
+
+                        foreach (ServicioArticulo sa in rs.Servicio.ArticulosUsados)
+                        {
+                            sa.Articulo.Stock += sa.Cantidad;
+                        }
+                    }
+            }
+
+            reparacion.Activo = false;
+
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Reparacion> GetAll()
         {
             return _context.Reparaciones
@@ -47,6 +85,7 @@ namespace GestionVentasCel.repository.reparacion.impl
                            .Include(r => r.Dispositivo)
                                .ThenInclude(d => d.Cliente)
                            .Include(r => r.ReparacionServicios)
+                           .OrderByDescending(r => r.FechaIngreso)
                            .ToList();
         }
 

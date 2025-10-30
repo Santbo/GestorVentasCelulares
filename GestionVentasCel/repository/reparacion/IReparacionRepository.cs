@@ -7,6 +7,7 @@ namespace GestionVentasCel.repository.reparacion
     {
         void Add(Reparacion reparacion);
         void Update(Reparacion reparacion);
+        void Desactivar(int reparacionId);
         IEnumerable<Reparacion> GetAll();
         IEnumerable<Reparacion> ListarReparacionesTerminadasCliente(int idCliente);
         Reparacion? GetById(int id);

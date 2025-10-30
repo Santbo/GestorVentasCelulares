@@ -16,7 +16,7 @@ namespace GestionVentasCel.service.reparacion
         bool Existe(int id);
         void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado);
         IEnumerable<Reparacion>? ObtenerPorDispositivo(Dispositivo dispositivo);
-        void ToggleActivo(int id);
+        void Desactivar(int id);
 
         IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId);
 

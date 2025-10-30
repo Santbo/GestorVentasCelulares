@@ -186,14 +186,40 @@ namespace GestionVentasCel.views.servicio
             AplicarFiltro();
         }
 
-        private void btnCambiarEstado_Click(object sender, EventArgs e)
+        private void btnDesactivar_Click(object sender, EventArgs e)
         {
             if (dgvListar.CurrentRow != null)
             {
+
+                if (dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+                {
+                    if (r.Activo == false)
+                    {
+                       MessageBox.Show(
+                            "La reparación ya está cancelada",
+                            "Confirmación",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error
+                        );
+                        return;
+                    }
+
+                    if (!(r.Estado == EstadoReparacionEnum.Ingresado || r.Estado == EstadoReparacionEnum.Reparando))
+                    {
+                        MessageBox.Show(
+                             "Solo pueden cancelarse reparaciones que estén ingresadas o en reparación.",
+                             "Confirmación",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error
+                         );
+                        return;
+                    }
+                }
+
                 int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
                 var result = MessageBox.Show(
-                    "¿Seguro que desea Habilitar/Deshabilitar esta Reparacion?",
+                    "¿Seguro que desea cancelar esta reparacion?",
                     "Confirmación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -202,12 +228,12 @@ namespace GestionVentasCel.views.servicio
                 if (result == DialogResult.No) return;
 
                 // Actualizo en la BD
-                _reparacionController.ToggleActivo(id);
+                _reparacionController.Desactivar(id);
 
                 // Actualizo en memoria
                 var servicio = _reparacion.FirstOrDefault(u => u.Id == id);
                 if (servicio != null)
-                    servicio.Activo = !servicio.Activo;
+                    servicio.Activo = false;
 
                 // Reaplico el filtro inmediatamente
                 AplicarFiltro();

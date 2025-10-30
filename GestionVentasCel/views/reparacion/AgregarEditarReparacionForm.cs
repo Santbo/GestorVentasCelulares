@@ -363,8 +363,6 @@ namespace GestionVentasCel.views.reparacion
                     reparacionActual.Diagnostico = txtDiagnostico.Text;
                     reparacionActual.FechaVencimiento = dtpFechaVencimiento.Value;
 
-                    // TODO: Actualizar una reparación vencida pone su precio en cero.
-
                     _reparacionController.ActualizarReparacion(reparacionActual);
                     this.DialogResult = DialogResult.OK;
                     this.Close();

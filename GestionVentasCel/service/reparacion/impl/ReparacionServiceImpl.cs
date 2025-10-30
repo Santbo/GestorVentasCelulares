@@ -49,18 +49,9 @@ namespace GestionVentasCel.service.reparacion.impl
             return _repo.GetReparacionesDispositivo(dispositivo);
         }
 
-        public void ToggleActivo(int id)
+        public void Desactivar(int id)
         {
-            var reparacion = _repo.GetById(id);
-
-            if (reparacion == null)
-            {
-                throw new ReparacionNoEncontradaException("La reparación no existe.");
-            }
-
-            reparacion.Activo = !reparacion.Activo;
-
-            _repo.Update(reparacion);
+            _repo.Desactivar(id);
         }
 
         public IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId)
