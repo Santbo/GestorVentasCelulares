@@ -21,10 +21,10 @@ public class UsuarioServiceTests
     [Fact]
     public void RegistrarUsuario_DebeRegistrarUsuarioCorrectamente()
     {
-        // Arrange
+        
         _mockRepository.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns((Usuario?)null);
 
-        // Act
+        
         _service.RegistrarUsuario(
             username: "nuevouser",
             password: "password123",
@@ -36,7 +36,7 @@ public class UsuarioServiceTests
             email: "test@test.com"
         );
 
-        // Assert
+        
         _mockRepository.Verify(r => r.Add(It.Is<Usuario>(u =>
             u.Username == "nuevouser" &&
             u.Password == "password123" &&
@@ -48,7 +48,7 @@ public class UsuarioServiceTests
     [Fact]
     public void RegistrarUsuario_DebeLanzarExcepcionCuandoUsuarioYaExiste()
     {
-        // Arrange
+        
         var usuarioExistente = new Usuario
         {
             Id = 1,
@@ -60,7 +60,7 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetByUsername("existente")).Returns(usuarioExistente);
 
-        // Act & Assert
+         & Assert
         var exception = Assert.Throws<UsuarioExistenteException>(() =>
             _service.RegistrarUsuario(
                 username: "existente",
@@ -81,7 +81,7 @@ public class UsuarioServiceTests
     [Fact]
     public void Login_DebeRetornarUsuarioCuandoCredencialesSonCorrectas()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -93,10 +93,10 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetByUsername("testuser")).Returns(usuario);
 
-        // Act
+        
         var resultado = _service.Login("testuser", "password123");
 
-        // Assert
+        
         Assert.NotNull(resultado);
         Assert.Equal("testuser", resultado.Username);
         Assert.Equal(RolEnum.Admin, resultado.Rol);
@@ -105,20 +105,20 @@ public class UsuarioServiceTests
     [Fact]
     public void Login_DebeRetornarNullCuandoUsuarioNoExiste()
     {
-        // Arrange
+        
         _mockRepository.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns((Usuario?)null);
 
-        // Act
+        
         var resultado = _service.Login("inexistente", "password");
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 
     [Fact]
     public void Login_DebeRetornarNullCuandoPasswordEsIncorrecto()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -130,17 +130,17 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetByUsername("testuser")).Returns(usuario);
 
-        // Act
+        
         var resultado = _service.Login("testuser", "wrongpassword");
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 
     [Fact]
     public void Login_DebeRetornarNullCuandoUsuarioNoEstaActivo()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -152,17 +152,17 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetByUsername("inactivo")).Returns(usuario);
 
-        // Act
+        
         var resultado = _service.Login("inactivo", "password123");
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 
     [Fact]
     public void ListarUsuarios_DebeRetornarTodosLosUsuarios()
     {
-        // Arrange
+        
         var usuarios = new List<Usuario>
         {
             new Usuario { Id = 1, Username = "user1", Password = "pass1", Rol = RolEnum.Admin, Nombre = "Uno", Activo = true },
@@ -170,10 +170,10 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetAll()).Returns(usuarios);
 
-        // Act
+        
         var resultado = _service.ListarUsuarios();
 
-        // Assert
+        
         Assert.Equal(2, resultado.Count());
         Assert.Contains(resultado, u => u.Username == "user1");
         Assert.Contains(resultado, u => u.Username == "user2");
@@ -182,7 +182,7 @@ public class UsuarioServiceTests
     [Fact]
     public void UpdateUsuario_DebeActualizarUsuarioCuandoExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -194,17 +194,17 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.Exist(1)).Returns(true);
 
-        // Act
+        
         _service.UpdateUsuario(usuario);
 
-        // Assert
+        
         _mockRepository.Verify(r => r.Update(It.Is<Usuario>(u => u.Id == 1)), Times.Once);
     }
 
     [Fact]
     public void UpdateUsuario_DebeLanzarExcepcionCuandoUsuarioNoExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 999,
@@ -216,7 +216,7 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.Exist(999)).Returns(false);
 
-        // Act & Assert
+         & Assert
         var exception = Assert.Throws<UsuarioNoEncontradoException>(() =>
             _service.UpdateUsuario(usuario)
         );
@@ -228,7 +228,7 @@ public class UsuarioServiceTests
     [Fact]
     public void ToggleActivo_DebeAlternarEstadoActivoCuandoUsuarioExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -240,10 +240,10 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetById(1)).Returns(usuario);
 
-        // Act
+        
         _service.ToggleActivo(1);
 
-        // Assert
+        
         Assert.False(usuario.Activo); // Debe cambiar de true a false
         _mockRepository.Verify(r => r.Update(It.Is<Usuario>(u => u.Id == 1 && !u.Activo)), Times.Once);
     }
@@ -251,10 +251,10 @@ public class UsuarioServiceTests
     [Fact]
     public void ToggleActivo_DebeLanzarExcepcionCuandoUsuarioNoExiste()
     {
-        // Arrange
+        
         _mockRepository.Setup(r => r.GetById(999)).Returns((Usuario?)null);
 
-        // Act & Assert
+         & Assert
         var exception = Assert.Throws<UsuarioNoEncontradoException>(() =>
             _service.ToggleActivo(999)
         );
@@ -266,7 +266,7 @@ public class UsuarioServiceTests
     [Fact]
     public void GetById_DebeRetornarUsuarioCuandoExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Id = 1,
@@ -278,10 +278,10 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetById(1)).Returns(usuario);
 
-        // Act
+        
         var resultado = _service.GetById(1);
 
-        // Assert
+        
         Assert.NotNull(resultado);
         Assert.Equal(1, resultado.Id);
         Assert.Equal("testuser", resultado.Username);
@@ -290,13 +290,13 @@ public class UsuarioServiceTests
     [Fact]
     public void GetById_DebeRetornarNullCuandoUsuarioNoExiste()
     {
-        // Arrange
+        
         _mockRepository.Setup(r => r.GetById(999)).Returns((Usuario?)null);
 
-        // Act
+        
         var resultado = _service.GetById(999);
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 }
