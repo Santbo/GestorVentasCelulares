@@ -22,6 +22,8 @@ namespace GestionVentasCel.repository.reparacion
         Dispositivo? GetDispositivoById(int dispositivoId);
         bool ExistDispositivo(int id);
 
+        Reparacion? ObtenerParaExportar(int reparacionId);
+
 
     }
 }

@@ -24,5 +24,7 @@ namespace GestionVentasCel.service.reparacion
         void UpdateDispositivo(Dispositivo dispositivo);
 
         Dispositivo? GetDispositivoById(int dispositivoId);
+
+        void ExportarComprobante(int reparacionId);
     }
 }

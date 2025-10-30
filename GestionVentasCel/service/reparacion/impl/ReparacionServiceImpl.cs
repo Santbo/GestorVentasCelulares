@@ -1,5 +1,7 @@
-﻿using GestionVentasCel.enumerations.reparacion;
+﻿using GestionVentasCel.controller.compra;
+using GestionVentasCel.enumerations.reparacion;
 using GestionVentasCel.exceptions.reparacion;
+using GestionVentasCel.models.compra;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.repository.reparacion;
 
@@ -79,6 +81,49 @@ namespace GestionVentasCel.service.reparacion.impl
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
             return _repo.GetDispositivoById(dispositivoId);
+        }
+
+        public void ExportarComprobante(int reparacionID)
+        {
+            try
+            {
+                var reparacion = _repo.ObtenerParaExportar(reparacionID);
+
+
+                var saveDialog = new SaveFileDialog
+                {
+                    Filter = "Archivo PDF (*.pdf)|*.pdf",
+                    FileName = $"Presupuesto de reparación N {reparacionID:D7}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
+                    DefaultExt = "pdf"
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var es = new ExportService();
+
+                    es.ExportarReparacionAPDF(reparacion!, saveDialog.FileName);
+
+                    MessageBox.Show("Reporte exportado exitosamente a PDF.", "Exportación Exitosa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Preguntar si desea abrir el archivo
+                    if (MessageBox.Show("¿Desea abrir el archivo?", "Abrir archivo",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = saveDialog.FileName,
+                            UseShellExecute = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar a PDF: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

@@ -138,7 +138,7 @@ namespace GestionVentasCel.views.reparacion
             }
 
 
-            if (!ValidarCampos() )
+            if (!ValidarCampos())
             {
                 return;
             }

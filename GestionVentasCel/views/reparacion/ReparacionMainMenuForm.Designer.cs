@@ -40,6 +40,7 @@
             splitContainer1 = new SplitContainer();
             panelHeader = new Panel();
             lblTituloForm = new Label();
+            btnExportarComprobante = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListar).BeginInit();
             panelBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -61,14 +62,14 @@
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(978, 416);
+            dgvListar.Size = new Size(1414, 416);
             dgvListar.TabIndex = 4;
             dgvListar.SelectionChanged += dgvListar_SelectionChanged;
             // 
             // btnEstadoReparacion
             // 
             btnEstadoReparacion.Anchor = AnchorStyles.Right;
-            btnEstadoReparacion.Location = new Point(334, 5);
+            btnEstadoReparacion.Location = new Point(770, 4);
             btnEstadoReparacion.Margin = new Padding(4);
             btnEstadoReparacion.Name = "btnEstadoReparacion";
             btnEstadoReparacion.Size = new Size(160, 75);
@@ -90,7 +91,7 @@
             // btnCambiarEstado
             // 
             btnCambiarEstado.Anchor = AnchorStyles.Right;
-            btnCambiarEstado.Location = new Point(501, 5);
+            btnCambiarEstado.Location = new Point(937, 4);
             btnCambiarEstado.Margin = new Padding(4);
             btnCambiarEstado.Name = "btnCambiarEstado";
             btnCambiarEstado.Size = new Size(160, 75);
@@ -102,7 +103,7 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(669, 5);
+            btnEditar.Location = new Point(1105, 4);
             btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
@@ -127,7 +128,7 @@
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Right;
-            btnAdd.Location = new Point(836, 4);
+            btnAdd.Location = new Point(1272, 4);
             btnAdd.Margin = new Padding(4);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(160, 75);
@@ -139,6 +140,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnExportarComprobante);
             panelBtn.Controls.Add(btnAdd);
             panelBtn.Controls.Add(chkInactivos);
             panelBtn.Controls.Add(btnEditar);
@@ -150,13 +152,13 @@
             panelBtn.Location = new Point(0, 476);
             panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(1000, 86);
+            panelBtn.Size = new Size(1436, 86);
             panelBtn.TabIndex = 2;
             // 
             // btnDetalle
             // 
             btnDetalle.Anchor = AnchorStyles.Right;
-            btnDetalle.Location = new Point(166, 4);
+            btnDetalle.Location = new Point(602, 4);
             btnDetalle.Margin = new Padding(4);
             btnDetalle.Name = "btnDetalle";
             btnDetalle.Size = new Size(160, 75);
@@ -182,7 +184,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(dgvListar);
             splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
-            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.Size = new Size(1436, 476);
             splitContainer1.SplitterDistance = 48;
             splitContainer1.TabIndex = 9;
             // 
@@ -193,7 +195,7 @@
             panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(2);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1000, 48);
+            panelHeader.Size = new Size(1436, 48);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -204,16 +206,28 @@
             lblTituloForm.Margin = new Padding(2, 0, 2, 0);
             lblTituloForm.Name = "lblTituloForm";
             lblTituloForm.Padding = new Padding(8, 0, 8, 0);
-            lblTituloForm.Size = new Size(1000, 48);
+            lblTituloForm.Size = new Size(1436, 48);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Reparaciones";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnExportarComprobante
+            // 
+            btnExportarComprobante.Anchor = AnchorStyles.Right;
+            btnExportarComprobante.Location = new Point(434, 4);
+            btnExportarComprobante.Margin = new Padding(4);
+            btnExportarComprobante.Name = "btnExportarComprobante";
+            btnExportarComprobante.Size = new Size(160, 75);
+            btnExportarComprobante.TabIndex = 13;
+            btnExportarComprobante.Text = "Exportar Comprobante";
+            btnExportarComprobante.UseVisualStyleBackColor = true;
+            btnExportarComprobante.Click += btnExportarComprobante_Click;
             // 
             // ReparacionMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(1436, 562);
             Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
@@ -248,5 +262,6 @@
         private Panel panelHeader;
         private Label lblTituloForm;
         private Button btnDetalle;
+        private Button btnExportarComprobante;
     }
 }

@@ -595,4 +595,3 @@ namespace GestionVentasCel.views.ventas
 
 
 //TODO: Técnico puede exportar un reporte de reparación con iva incluido
-//TODO: Deshabilitar reparación debe revertir stock si estaado > ingresado

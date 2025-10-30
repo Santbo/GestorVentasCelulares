@@ -144,5 +144,10 @@ namespace GestionVentasCel.controller.reparaciones
         {
             return _service.GetDispositivoById(dispositivoId);
         }
+
+        public void ExportarComprobante(int reparacionId)
+        {
+            _service.ExportarComprobante(reparacionId);
+        }
     }
 }

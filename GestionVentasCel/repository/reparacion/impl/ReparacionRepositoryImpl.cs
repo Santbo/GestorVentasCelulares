@@ -4,6 +4,7 @@ using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -197,6 +198,25 @@ namespace GestionVentasCel.repository.reparacion.impl
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
             return _context.Dispositivos.FirstOrDefault(d => d.Id == dispositivoId);
+        }
+
+        public Reparacion? ObtenerParaExportar(int reparacionId)
+        {
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .Include(r => r.Dispositivo)
+                .ThenInclude(d => d.Cliente)
+                .AsNoTracking()
+                .FirstOrDefault(r => r.Id == reparacionId);
+
+            if (reparacion == null)
+            {
+                throw new ReparacionNoEncontradaException("Se intentó exportar una reparación que no existe");
+            }
+            return reparacion;
         }
     }
 }

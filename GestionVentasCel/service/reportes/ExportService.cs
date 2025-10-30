@@ -1,4 +1,6 @@
+using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.reportes;
+using GestionVentasCel.repository.reparacion.impl;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using OfficeOpenXml;
@@ -358,6 +360,111 @@ namespace GestionVentasCel.service
                     {
                         document.Add(new Paragraph($"  • {total.Key}: ${total.Value:N2}", cellFont));
                     }
+                }
+
+                document.Close();
+            }
+        }
+
+        public void ExportarReparacionAPDF(Reparacion reparacion, string rutaArchivo)
+        {
+            using (var fs = new FileStream(rutaArchivo, FileMode.Create))
+            {
+                var document = new Document(PageSize.A4.Rotate(), 25, 25, 30, 30);
+                var writer = PdfWriter.GetInstance(document, fs);
+                document.Open();
+
+                // Título
+                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                var title = new Paragraph($"PRESUPUESTO DE REPARACIÓN #{reparacion.Id:D7} ", titleFont)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 10
+                };
+                document.Add(title);
+
+                // Fecha de generación
+                var dateFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, new BaseColor(128, 128, 128));
+                var dateParagraph = new Paragraph($"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm}", dateFont)
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 20
+                };
+                document.Add(dateParagraph);
+
+
+                // Datos del cliente y dispositivo
+                var fuenteLbl = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+                var fuenteValorlbl = FontFactory.GetFont(FontFactory.HELVETICA, 14);
+
+                // Nombre del cliente
+                var pCliente = new Paragraph
+                {
+                    SpacingAfter = 15
+                };
+                pCliente.Add(new Chunk("Cliente: ", fuenteLbl));
+                pCliente.Add(new Chunk(reparacion.Dispositivo.Cliente.NombreCompleto, fuenteValorlbl));
+                document.Add(pCliente);
+
+                // Dispositivo
+                var pDispositivo = new Paragraph
+                {
+                    SpacingAfter = 15
+                };
+                pDispositivo.Add(new Chunk("Dispositivo: ", fuenteLbl));
+                pDispositivo.Add(new Chunk(reparacion.Dispositivo.Nombre, fuenteValorlbl));
+                document.Add(pDispositivo);
+
+                var pFallas = new Paragraph
+                {
+                    SpacingAfter = 15
+                };
+                pFallas.Add(new Chunk("Fallas reportadas: ", fuenteLbl));
+                pFallas.Add(new Chunk(reparacion.FallasReportadas, fuenteValorlbl));
+                document.Add(pFallas);
+
+                var pDiagnostico = new Paragraph
+                {
+                    SpacingAfter = 20
+                };
+                pDiagnostico.Add(new Chunk("Diagnóstico: ", fuenteLbl));
+                pDiagnostico.Add(new Chunk(reparacion.Diagnostico, fuenteValorlbl));
+                document.Add(pDiagnostico);
+
+
+
+                // Tabla de datos
+                var table = new PdfPTable(1)
+                {
+                    WidthPercentage = 100,
+                    SpacingBefore = 10,
+                    SpacingAfter = 10
+                };
+
+
+                // Encabezados
+                var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, new BaseColor(255, 255, 255));
+                var headerColor = new BaseColor(68, 114, 196);
+
+                AddTableHeader(table, "Servicio", headerFont, headerColor);
+
+                // Datos
+                var cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+                foreach (var rs in reparacion.ReparacionServicios)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(rs.Servicio.Nombre, cellFont)) { Padding = 5 });
+                }
+
+                document.Add(table);
+
+                // Resumen
+                var summaryFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+                document.Add(new Paragraph($"\nTotal sin IVA: {reparacion.Total:C2}", summaryFont));
+                document.Add(new Paragraph($"Total a abonar: {reparacion.TotalIva:C2}", summaryFont));
+
+                if (reparacion.FechaVencimiento != null)
+                {
+                    document.Add(new Paragraph($"Presupuesto válido hasta: {reparacion.FechaVencimiento}", summaryFont));
                 }
 
                 document.Close();

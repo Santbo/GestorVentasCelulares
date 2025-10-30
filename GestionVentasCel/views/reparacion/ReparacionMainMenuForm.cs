@@ -75,7 +75,7 @@ namespace GestionVentasCel.views.servicio
                     break;
                 case RolEnum.Vendedor:
                     listaReparaciones = listaReparaciones
-                        .Where(r => 
+                        .Where(r =>
                             r.Estado == EstadoReparacionEnum.Ingresado ||
                             r.Estado == EstadoReparacionEnum.Terminado
                         ).ToList();
@@ -176,7 +176,8 @@ namespace GestionVentasCel.views.servicio
             {
                 filtrados = filtrados.Where(u => u.Activo);
                 this.lblTituloForm.Text = "Reparaciones";
-            } else
+            }
+            else
             {
                 filtrados = filtrados.Where(u => !u.Activo);
                 this.lblTituloForm.Text = "Reparaciones canceladas";
@@ -212,12 +213,12 @@ namespace GestionVentasCel.views.servicio
                 {
                     if (r.Activo == false)
                     {
-                       MessageBox.Show(
-                            "La reparación ya está cancelada",
-                            "Confirmación",
-                             MessageBoxButtons.OK,
-                             MessageBoxIcon.Error
-                        );
+                        MessageBox.Show(
+                             "La reparación ya está cancelada",
+                             "Confirmación",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error
+                         );
                         return;
                     }
 
@@ -504,6 +505,14 @@ namespace GestionVentasCel.views.servicio
             if (dgvListar.CurrentRow != null && dgvListar.CurrentRow.DataBoundItem is Reparacion r)
             {
                 btnEditar.Enabled = r.Estado == EstadoReparacionEnum.Ingresado;
+            }
+        }
+
+        private void btnExportarComprobante_Click(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null && dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+            {
+                _reparacionController.ExportarComprobante(r.Id);
             }
         }
     }
