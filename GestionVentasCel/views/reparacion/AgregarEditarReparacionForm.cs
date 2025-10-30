@@ -107,13 +107,16 @@ namespace GestionVentasCel.views.reparacion
 
                 _listaDispositivo = new BindingList<Dispositivo>(listaDispositivo);
 
-
-
-
                 dgvListarDispositivos.DataSource = _listaDispositivo;
                 dgvListarDispositivos.Columns["Id"].Visible = false;
                 dgvListarDispositivos.Columns["ClienteId"].Visible = false;
                 dgvListarDispositivos.Columns["Cliente"].Visible = false;
+
+                if (_listaDispositivo.Count > 0)
+                {
+                    dgvListarDispositivos.Rows[0].Selected = true;
+                    dgvListarDispositivos.CurrentCell = dgvListarDispositivos.Rows[0].Cells[1];
+                }
             }
         }
 
@@ -299,6 +302,12 @@ namespace GestionVentasCel.views.reparacion
                 dgvListarDispositivos.Columns["Id"].Visible = false;
                 dgvListarDispositivos.Columns["ClienteId"].Visible = false;
                 dgvListarDispositivos.Columns["Cliente"].Visible = false;
+
+                if (_listaDispositivo.Count > 0)
+                {
+                    dgvListarDispositivos.Rows[0].Selected = true;
+                    dgvListarDispositivos.CurrentCell = dgvListarDispositivos.Rows[0].Cells[1];
+                }
 
                 // Cargar todos los servicios de la reparación en el DataGridView
                 if (reparacionActual.ReparacionServicios != null && reparacionActual.ReparacionServicios.Any())
