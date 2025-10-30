@@ -65,6 +65,22 @@ namespace GestionVentasCel.views.servicio
         private void CargarReparaciones()
         {
             var listaReparaciones = _reparacionController.ListarReparaciones().ToList();
+            switch (_sesionUsuario.Rol)
+            {
+                case RolEnum.Tecnico:
+                    listaReparaciones = listaReparaciones.Where(r => r.Estado < EstadoReparacionEnum.Terminado).ToList();
+                    break;
+                case RolEnum.Admin:
+                    break;
+                case RolEnum.Vendedor:
+                    listaReparaciones = listaReparaciones
+                        .Where(r => 
+                            r.Estado == EstadoReparacionEnum.Ingresado ||
+                            r.Estado == EstadoReparacionEnum.Terminado
+                        ).ToList();
+                    break;
+
+            }
             _reparacion = new BindingList<Reparacion>(listaReparaciones);
 
             _bindingSource = new BindingSource();
