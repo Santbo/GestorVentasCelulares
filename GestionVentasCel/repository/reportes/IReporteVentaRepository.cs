@@ -6,6 +6,7 @@ namespace GestionVentasCel.repository.reportes
     {
         IEnumerable<ReporteVentaDTO> ObtenerVentasPorRangoFecha(DateTime fechaDesde, DateTime fechaHasta);
         ResumenReporteDTO ObtenerResumenVentas(DateTime fechaDesde, DateTime fechaHasta);
+        DetalleVentaDTO? ObtenerDetalleVenta(int ventaId);
     }
 }
 

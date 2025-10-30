@@ -39,6 +39,11 @@ namespace GestionVentasCel.service
 
             return ObtenerResumenCompras(primerDiaDelMes, ultimoDiaDelMes);
         }
+
+        public DetalleCompraCompletoDTO? ObtenerDetalleCompra(int compraId)
+        {
+            return _repository.ObtenerDetalleCompra(compraId);
+        }
     }
 }
 

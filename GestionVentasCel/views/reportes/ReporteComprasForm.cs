@@ -46,6 +46,9 @@ namespace GestionVentasCel.views.reportes
             dgvCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCompras.MultiSelect = false;
             dgvCompras.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+            // Agregar evento de doble click
+            dgvCompras.CellDoubleClick += DgvCompras_CellDoubleClick;
 
             dgvCompras.Columns.Clear();
             dgvCompras.Columns.Add(new DataGridViewTextBoxColumn
@@ -314,6 +317,24 @@ namespace GestionVentasCel.views.reportes
         private void lblTituloCompras_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DgvCompras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    var compraSeleccionada = _compras[e.RowIndex];
+                    var detalleCompraForm = new DetalleCompraForm(_compraController, compraSeleccionada.Id);
+                    detalleCompraForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al abrir el detalle de la compra: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -67,6 +67,20 @@ namespace GestionVentasCel.controller.reportes
                 return new ResumenReporteDTO();
             }
         }
+
+        public DetalleCompraCompletoDTO? ObtenerDetalleCompra(int compraId)
+        {
+            try
+            {
+                return _service.ObtenerDetalleCompra(compraId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener detalle de compra: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
     }
 }
 
