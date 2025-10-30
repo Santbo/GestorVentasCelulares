@@ -112,33 +112,35 @@
             // 
             txtUsuario.Dock = DockStyle.Bottom;
             txtUsuario.Font = new Font("Segoe UI", 12F);
-            txtUsuario.Location = new Point(0, 30);
+            txtUsuario.Location = new Point(0, 35);
             txtUsuario.Margin = new Padding(4);
             txtUsuario.MaxLength = 50;
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(300, 39);
+            txtUsuario.Size = new Size(300, 34);
             txtUsuario.TabIndex = 4;
+            txtUsuario.KeyPress += txtUsuario_KeyPress;
             // 
             // txtPassword
             // 
             txtPassword.Dock = DockStyle.Bottom;
             txtPassword.Font = new Font("Segoe UI", 12F);
-            txtPassword.Location = new Point(0, 30);
+            txtPassword.Location = new Point(0, 35);
             txtPassword.Margin = new Padding(4);
             txtPassword.MaxLength = 100;
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(300, 39);
+            txtPassword.Size = new Size(300, 34);
             txtPassword.TabIndex = 5;
+            txtPassword.KeyPress += txtPassword_KeyPress;
             // 
             // txtNombre
             // 
             txtNombre.Dock = DockStyle.Bottom;
             txtNombre.Font = new Font("Segoe UI", 12F);
-            txtNombre.Location = new Point(0, 30);
+            txtNombre.Location = new Point(0, 35);
             txtNombre.Margin = new Padding(4);
             txtNombre.MaxLength = 45;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(300, 39);
+            txtNombre.Size = new Size(300, 34);
             txtNombre.TabIndex = 6;
             txtNombre.KeyPress += txtNombre_KeyPress;
             // 
@@ -146,11 +148,11 @@
             // 
             txtApellido.Dock = DockStyle.Bottom;
             txtApellido.Font = new Font("Segoe UI", 12F);
-            txtApellido.Location = new Point(0, 30);
+            txtApellido.Location = new Point(0, 35);
             txtApellido.Margin = new Padding(4);
             txtApellido.MaxLength = 45;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(300, 39);
+            txtApellido.Size = new Size(300, 34);
             txtApellido.TabIndex = 7;
             txtApellido.KeyPress += txtNombre_KeyPress;
             // 
@@ -158,11 +160,11 @@
             // 
             txtTelefono.Dock = DockStyle.Bottom;
             txtTelefono.Font = new Font("Segoe UI", 12F);
-            txtTelefono.Location = new Point(0, 30);
+            txtTelefono.Location = new Point(0, 35);
             txtTelefono.Margin = new Padding(4);
             txtTelefono.MaxLength = 12;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(300, 39);
+            txtTelefono.Size = new Size(300, 34);
             txtTelefono.TabIndex = 8;
             txtTelefono.KeyPress += txtTelefono_KeyPress;
             // 
@@ -170,11 +172,11 @@
             // 
             txtDni.Dock = DockStyle.Bottom;
             txtDni.Font = new Font("Segoe UI", 12F);
-            txtDni.Location = new Point(0, 30);
+            txtDni.Location = new Point(0, 35);
             txtDni.Margin = new Padding(4);
             txtDni.MaxLength = 13;
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(300, 39);
+            txtDni.Size = new Size(300, 34);
             txtDni.TabIndex = 9;
             txtDni.KeyPress += txtDni_KeyPress;
             // 
@@ -182,11 +184,11 @@
             // 
             txtEmail.Dock = DockStyle.Bottom;
             txtEmail.Font = new Font("Segoe UI", 12F);
-            txtEmail.Location = new Point(0, 30);
+            txtEmail.Location = new Point(0, 35);
             txtEmail.Margin = new Padding(4);
             txtEmail.MaxLength = 50;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(300, 39);
+            txtEmail.Size = new Size(300, 34);
             txtEmail.TabIndex = 10;
             // 
             // lblUsuario
@@ -197,7 +199,7 @@
             lblUsuario.Location = new Point(0, 0);
             lblUsuario.Margin = new Padding(4, 0, 4, 0);
             lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(77, 25);
+            lblUsuario.Size = new Size(63, 20);
             lblUsuario.TabIndex = 12;
             lblUsuario.Text = "Usuario";
             // 
@@ -209,7 +211,7 @@
             lblContra.Location = new Point(0, 0);
             lblContra.Margin = new Padding(4, 0, 4, 0);
             lblContra.Name = "lblContra";
-            lblContra.Size = new Size(108, 25);
+            lblContra.Size = new Size(88, 20);
             lblContra.TabIndex = 13;
             lblContra.Text = "Contraseña";
             // 
@@ -221,7 +223,7 @@
             lblNombre.Location = new Point(0, 0);
             lblNombre.Margin = new Padding(4, 0, 4, 0);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(81, 25);
+            lblNombre.Size = new Size(67, 20);
             lblNombre.TabIndex = 14;
             lblNombre.Text = "Nombre";
             // 
@@ -233,7 +235,7 @@
             lblApellido.Location = new Point(0, 0);
             lblApellido.Margin = new Padding(4, 0, 4, 0);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(83, 25);
+            lblApellido.Size = new Size(67, 20);
             lblApellido.TabIndex = 15;
             lblApellido.Text = "Apellido";
             // 
@@ -245,7 +247,7 @@
             lblTelefono.Location = new Point(0, 0);
             lblTelefono.Margin = new Padding(4, 0, 4, 0);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(86, 25);
+            lblTelefono.Size = new Size(70, 20);
             lblTelefono.TabIndex = 16;
             lblTelefono.Text = "Teléfono";
             // 
@@ -257,7 +259,7 @@
             lblDni.Location = new Point(0, 0);
             lblDni.Margin = new Padding(4, 0, 4, 0);
             lblDni.Name = "lblDni";
-            lblDni.Size = new Size(41, 25);
+            lblDni.Size = new Size(33, 20);
             lblDni.TabIndex = 17;
             lblDni.Text = "Dni";
             // 
@@ -269,7 +271,7 @@
             lblEmail.Location = new Point(0, 0);
             lblEmail.Margin = new Padding(4, 0, 4, 0);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(58, 25);
+            lblEmail.Size = new Size(47, 20);
             lblEmail.TabIndex = 18;
             lblEmail.Text = "Email";
             // 
@@ -281,7 +283,7 @@
             lblRol.Location = new Point(0, 0);
             lblRol.Margin = new Padding(4, 0, 4, 0);
             lblRol.Name = "lblRol";
-            lblRol.Size = new Size(40, 25);
+            lblRol.Size = new Size(32, 20);
             lblRol.TabIndex = 19;
             lblRol.Text = "Rol";
             // 
@@ -290,10 +292,10 @@
             comboRol.Dock = DockStyle.Bottom;
             comboRol.Font = new Font("Segoe UI", 12F);
             comboRol.FormattingEnabled = true;
-            comboRol.Location = new Point(0, 29);
+            comboRol.Location = new Point(0, 33);
             comboRol.Margin = new Padding(4);
             comboRol.Name = "comboRol";
-            comboRol.Size = new Size(300, 40);
+            comboRol.Size = new Size(300, 36);
             comboRol.TabIndex = 20;
             // 
             // panelHeader
@@ -413,7 +415,7 @@
             // AgregarEditarEmpleadoForm
             // 
             AcceptButton = btnGuardar;
-            AutoScaleDimensions = new SizeF(11F, 25F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnDescartar;
             ClientSize = new Size(1005, 476);
