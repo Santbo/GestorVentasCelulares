@@ -596,6 +596,5 @@ namespace GestionVentasCel.views.ventas
 
 //TODO: Técnico puede exportar un reporte de reparación con iva incluido
 //TODO: Deshabilitar reparación debe revertir stock si estaado > ingresado
-//TODO: Que el tecnico pueda ir a reparaciones nomás
 //TODO: Que se muestren únicamente las reparaciones al técnico que tenga pendientes
 //TODO: Probar qué pasa si se quiere actualizar el precio de una reparacion vencida que no tenga artículos, en teoría nada pero andá a saber con este desarrollo

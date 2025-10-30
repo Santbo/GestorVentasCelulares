@@ -111,6 +111,11 @@ namespace GestionVentasCel
 
             // Configurar permisos basados en el singleton
             ConfigurarPermisos();
+
+            if (_sesionUsuario.Rol == RolEnum.Tecnico)
+            {
+                administrarReparacionesMenuItem.PerformClick();
+            }
         }
 
         private void ConfigurarPermisos()
@@ -165,6 +170,9 @@ namespace GestionVentasCel
             // Submenús de reparaciones y servicios (Admin y Técnico)
             administrarReparacionesMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones();
             administrarServiciosMenuItem.Visible = _sesionUsuario.PuedeAccederAServicios();
+
+            // Menú caja
+            cajaToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederACaja();
         }
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
