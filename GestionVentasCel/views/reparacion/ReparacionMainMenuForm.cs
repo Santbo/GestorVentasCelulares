@@ -60,6 +60,7 @@ namespace GestionVentasCel.views.servicio
 
 
             CargarReparaciones();
+            AplicarFiltro();
         }
 
         private void CargarReparaciones()
@@ -105,15 +106,22 @@ namespace GestionVentasCel.views.servicio
                 {
                     dgvListar.Columns.Add("FechaVencimientoFormateado", "Fecha de vencimiento");
                 }
+
+                if (dgvListar.Columns["TotalIvaFormateado"] == null)
+                {
+                    dgvListar.Columns.Add("TotalIvaFormateado", "Total (+IVA)");
+                }
                 // Ocultar Id y Articulos
                 dgvListar.Columns["Id"].Visible = false;
                 dgvListar.Columns["DispositivoId"].Visible = false;
                 dgvListar.Columns["ReparacionServicios"].Visible = false;
                 dgvListar.Columns["Total"].Visible = false;
+                dgvListar.Columns["TotalIva"].Visible = false;
                 dgvListar.Columns["FechaVencimiento"].Visible = false;
                 dgvListar.Columns["EstaVencida"].Visible = false;
                 dgvListar.Columns["Detalle"].Visible = false;
-
+                dgvListar.Columns["Activo"].Visible = false;
+                //TODO: Mostrar activo solamente si se muestran las ocultas
 
                 // Ordenarlas 
                 dgvListar.Columns["Dispositivo"].DisplayIndex = 1;
@@ -126,9 +134,8 @@ namespace GestionVentasCel.views.servicio
                 dgvListar.Columns["FechaEgreso"].DisplayIndex = 6;
                 dgvListar.Columns["FechaVencimientoFormateado"].DisplayIndex = 7;
                 dgvListar.Columns["TotalFormateado"].DisplayIndex = 8;
-                dgvListar.Columns["Estado"].DisplayIndex = 9;
-                dgvListar.Columns["Activo"].DisplayIndex = 10;
-                dgvListar.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvListar.Columns["TotalIvaFormateado"].DisplayIndex = 9;
+                dgvListar.Columns["Estado"].DisplayIndex = 10;
 
                 foreach (DataGridViewRow row in dgvListar.Rows)
                 {
@@ -136,6 +143,8 @@ namespace GestionVentasCel.views.servicio
                     {
                         // formatear el precio como moneda
                         row.Cells["TotalFormateado"].Value = reparacion.Total.ToString("C2", new CultureInfo("es-AR"));
+                        row.Cells["TotalIvaFormateado"].Value = reparacion.TotalIva.ToString("C2", new CultureInfo("es-AR"));
+
                         row.Cells["Cliente"].Value = reparacion.Dispositivo.Cliente.ToString();
                         row.Cells["FechaVencimientoFormateado"].Value = reparacion.FechaVencimiento?.ToString("dd/MM/yyyy");
 
@@ -162,8 +171,16 @@ namespace GestionVentasCel.views.servicio
             IEnumerable<Reparacion> filtrados = _reparacion;
 
             // filtro por Activo
+
             if (!chkInactivos.Checked)
+            {
                 filtrados = filtrados.Where(u => u.Activo);
+                this.lblTituloForm.Text = "Reparaciones";
+            } else
+            {
+                filtrados = filtrados.Where(u => !u.Activo);
+                this.lblTituloForm.Text = "Reparaciones canceladas";
+            }
 
             // filtro por búsqueda
             string filtro = txtBuscar.Text.Trim().ToLower();

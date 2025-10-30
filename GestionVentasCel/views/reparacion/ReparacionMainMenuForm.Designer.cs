@@ -118,9 +118,9 @@
             chkInactivos.Location = new Point(15, 49);
             chkInactivos.Margin = new Padding(4);
             chkInactivos.Name = "chkInactivos";
-            chkInactivos.Size = new Size(266, 29);
+            chkInactivos.Size = new Size(153, 29);
             chkInactivos.TabIndex = 10;
-            chkInactivos.Text = "Incluir Reparaciones inactivas";
+            chkInactivos.Text = "Ver canceladas";
             chkInactivos.UseVisualStyleBackColor = true;
             chkInactivos.CheckedChanged += chkInactivos_CheckedChanged;
             // 
