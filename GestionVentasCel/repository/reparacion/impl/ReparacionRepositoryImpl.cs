@@ -103,6 +103,10 @@ namespace GestionVentasCel.repository.reparacion.impl
                 {
                     foreach (ReparacionServicio rs in reparacion.ReparacionServicios)
                     {
+
+                        if (rs.Servicio?.ArticulosUsados == null || !rs.Servicio.ArticulosUsados.Any())
+                            continue;
+
                         foreach (ServicioArticulo sa in rs.Servicio.ArticulosUsados)
                         {
                             sa.Articulo.Stock -= sa.Cantidad;

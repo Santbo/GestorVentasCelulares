@@ -134,6 +134,9 @@ namespace GestionVentasCel
 
             // Menú de reparaciones (Admin y Técnico)
             reparacionesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones() || _sesionUsuario.PuedeAccederAServicios();
+            // Si es vendedor, se tiene que ocultar únicamente los servicios
+            administrarServiciosMenuItem.Visible = _sesionUsuario.PuedeAccederAServicios();
+            administrarReparacionesMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones();
 
             //Menú de reportes (Admin)
             reportesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReportes();
@@ -238,7 +241,10 @@ namespace GestionVentasCel
             AbrirFormularioHijo(new ReparacionMainMenuForm(_serviceProvider.GetRequiredService<ReparacionController>(),
                                                             _serviceProvider.GetRequiredService<ClienteController>(),
                                                             _serviceProvider.GetRequiredService<ServicioController>(),
-                                                            _serviceProvider.GetRequiredService<ArticuloController>()));
+                                                            _serviceProvider.GetRequiredService<ArticuloController>(),
+                                                            _serviceProvider.GetRequiredService<SesionUsuario>()
+                                                            )
+                );
         }
 
         private void gestionarVentasToolStripMenuItem_Click(object sender, EventArgs e)

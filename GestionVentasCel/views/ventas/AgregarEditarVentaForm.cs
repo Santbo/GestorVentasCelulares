@@ -594,6 +594,5 @@ namespace GestionVentasCel.views.ventas
 }
 
 
-//TODO: Vendedor puede entrar a reparaciones y escribir únicamente fallas.
 //TODO: Técnico puede exportar un reporte de reparación con iva incluido
-//TODO: Cambiar a estado Reparando debe bajar stock
+//TODO: Deshabilitar reparación debe revertir stock si estaado > ingresado

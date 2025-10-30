@@ -6,8 +6,10 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.servicio;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.compra;
 using GestionVentasCel.views.reparacion;
@@ -22,18 +24,41 @@ namespace GestionVentasCel.views.servicio
         private readonly ServicioController _servicioController;
         private readonly ArticuloController _articuloController;
 
+        private readonly SesionUsuario _sesionUsuario;
+
         private BindingList<Reparacion> _reparacion;
         private BindingSource _bindingSource;
         public ReparacionMainMenuForm(ReparacionController reparacionController,
                                         ClienteController clienteController,
                                         ServicioController servicioController,
-                                        ArticuloController articuloController)
+                                        ArticuloController articuloController,
+                                        SesionUsuario sesionUsuario
+                                        )
         {
             InitializeComponent();
             _reparacionController = reparacionController;
             _clienteController = clienteController;
             _servicioController = servicioController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
+
+            btnEditar.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEditar.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnCambiarEstado.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnCambiarEstado.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+
+            btnEstadoReparacion.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEstadoReparacion.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnEstadoReparacion.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEstadoReparacion.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnDetalle.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnDetalle.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+
             CargarReparaciones();
         }
 
@@ -181,7 +206,13 @@ namespace GestionVentasCel.views.servicio
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            using (var agregarReparacion = new AgregarEditarReparacionForm(_reparacionController, _clienteController, _servicioController, _articuloController))
+            using (var agregarReparacion = new AgregarEditarReparacionForm(
+                _reparacionController,
+                _clienteController,
+                _servicioController,
+                _articuloController,
+                _sesionUsuario
+                ))
             {
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (agregarReparacion.ShowDialog() == DialogResult.OK)
@@ -208,7 +239,13 @@ namespace GestionVentasCel.views.servicio
 
                     var reparacion = _reparacionController.ObtenerPorId(id);
 
-                    using (var editarReparacion = new AgregarEditarReparacionForm(_reparacionController, _clienteController, _servicioController, _articuloController))
+                    using (var editarReparacion = new AgregarEditarReparacionForm(
+                        _reparacionController,
+                        _clienteController,
+                        _servicioController,
+                        _articuloController,
+                        _sesionUsuario
+                        ))
                     {
 
                         editarReparacion.reparacionActual = reparacion;
