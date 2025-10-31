@@ -3,6 +3,7 @@ using GestionVentasCel.enumerations.ventas;
 using GestionVentasCel.exceptions.caja;
 using GestionVentasCel.models.caja;
 using GestionVentasCel.repository.caja;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GestionVentasCel.service.caja.impl
 {
@@ -87,6 +88,9 @@ namespace GestionVentasCel.service.caja.impl
             var caja = _repo.ObtenerCajaActualAbierta();
             return caja.Id;
         }
+
+        public IEnumerable<Caja> ListarCajaPorFecha(DateTime fecha) =>  _repo.ListarCajaPorFecha(fecha);
+
 
         // --- Movimientos ---
         public void RegistrarRetiro(int cajaId, decimal monto, string descripcion)

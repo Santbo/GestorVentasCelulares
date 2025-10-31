@@ -2,7 +2,9 @@
 using System.Data;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.enumerations.modoForms;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.models.categoria;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.categoria
@@ -12,10 +14,12 @@ namespace GestionVentasCel.views.categoria
         private readonly CategoriaController _categoriaController;
         private BindingList<Categoria> _categorias;
         private BindingSource _bindingSource;
-        public CategoriaMainMenuForm(CategoriaController categoriaController)
+        private readonly SesionUsuario _sesionUsuario;
+        public CategoriaMainMenuForm(CategoriaController categoriaController, SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _categoriaController = categoriaController;
+            _sesionUsuario = sesionUsuario;
             CargarCategorias();
         }
 
@@ -240,6 +244,12 @@ namespace GestionVentasCel.views.categoria
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnAgregar.Visible = false;
+                btnActualizar.Visible = false;
+                btnToggleActivo.Visible = false;
+            }
         }
     }
 }

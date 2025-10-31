@@ -3,7 +3,9 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.compra
@@ -14,6 +16,7 @@ namespace GestionVentasCel.views.compra
         private readonly CompraController _compraController;
         private readonly ProveedorController _proveedorController;
         private readonly ArticuloController _articuloController;
+        private readonly SesionUsuario _sesionUsuario;
         private BindingList<DetalleCompra> _detalleCompra;
 
         public VerDetallesCompraForm(Compra compra)
@@ -26,13 +29,15 @@ namespace GestionVentasCel.views.compra
         public VerDetallesCompraForm(Compra compra,
                                    CompraController compraController,
                                    ProveedorController proveedorController,
-                                   ArticuloController articuloController)
+                                   ArticuloController articuloController,
+                                   SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _compra = compra;
             _compraController = compraController;
             _proveedorController = proveedorController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
             CargarDatos();
         }
 
@@ -166,6 +171,11 @@ namespace GestionVentasCel.views.compra
         private void VerDetallesCompraForm_Load(object sender, EventArgs e)
         {
             this.ConfigurarEstilosVisuales();
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnEditar.Visible = false;
+               
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
