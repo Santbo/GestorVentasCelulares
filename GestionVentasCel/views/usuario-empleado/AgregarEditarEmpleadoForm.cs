@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using System.Text.RegularExpressions;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
@@ -65,7 +66,7 @@ namespace GestionVentasCel.views.usuario_empleado
                             comboRol.SelectedItem.ToString(),
                             txtNombre.Text.ToUpper(),
                             txtApellido.Text.ToUpper(),
-                            txtTelefono.Text.ToUpper(),
+                            txtTelefono.Text.Trim(),
                             txtDni.Text.ToUpper(),
                             txtEmail.Text.ToUpper()
                         );
@@ -88,7 +89,7 @@ namespace GestionVentasCel.views.usuario_empleado
                         UsuarioActual.Rol = (RolEnum)comboRol.SelectedItem;
                         UsuarioActual.Nombre = txtNombre.Text.ToUpper();
                         UsuarioActual.Apellido = txtApellido.Text.ToUpper();
-                        UsuarioActual.Telefono = txtTelefono.Text;
+                        UsuarioActual.Telefono = txtTelefono.Text.Trim();
                         UsuarioActual.Dni = txtDni.Text;
                         UsuarioActual.Email = txtEmail.Text.ToUpper();
 
@@ -138,9 +139,11 @@ namespace GestionVentasCel.views.usuario_empleado
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtTelefono.Text))
+            // Teléfono: Tiene el formato e.164 o entre 10 y 13 dígitos
+            string telefono = txtTelefono.Text.Trim();
+            if (!Regex.IsMatch(telefono, @"^\+?[0-9]{10,13}$"))
             {
-                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El teléfono debe seguir el formato +549... o tener entre 10 y 13 dígitos sin caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTelefono.Focus();
                 return false;
             }
@@ -233,8 +236,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Solo acepta dígitos y la tecla backspace
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            // Solo acepta dígitos, el más y borrar
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+')
             {
                 e.Handled = true;
             }
