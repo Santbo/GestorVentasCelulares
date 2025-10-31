@@ -36,6 +36,9 @@ namespace GestionVentasCel.models.reparacion
         [Required, Column(TypeName = "decimal(10,2)")]
         public decimal Total { get; set; }
 
+        [NotMapped]
+        public decimal TotalIva => Total * 1.21m;
+
         [DisplayName("Fecha de vencimiento")]
         public DateTime? FechaVencimiento { get; set; } = DateTime.Now.AddDays(7);
         [NotMapped]

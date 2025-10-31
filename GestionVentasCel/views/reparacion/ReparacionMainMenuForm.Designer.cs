@@ -40,6 +40,7 @@
             splitContainer1 = new SplitContainer();
             panelHeader = new Panel();
             lblTituloForm = new Label();
+            btnExportarComprobante = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListar).BeginInit();
             panelBtn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -57,18 +58,19 @@
             dgvListar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListar.Dock = DockStyle.Fill;
             dgvListar.Location = new Point(11, 4);
-            dgvListar.Margin = new Padding(4, 4, 4, 4);
+            dgvListar.Margin = new Padding(4);
             dgvListar.Name = "dgvListar";
             dgvListar.ReadOnly = true;
             dgvListar.RowHeadersWidth = 51;
-            dgvListar.Size = new Size(978, 416);
+            dgvListar.Size = new Size(1414, 416);
             dgvListar.TabIndex = 4;
+            dgvListar.SelectionChanged += dgvListar_SelectionChanged;
             // 
             // btnEstadoReparacion
             // 
             btnEstadoReparacion.Anchor = AnchorStyles.Right;
-            btnEstadoReparacion.Location = new Point(334, 5);
-            btnEstadoReparacion.Margin = new Padding(4, 4, 4, 4);
+            btnEstadoReparacion.Location = new Point(770, 4);
+            btnEstadoReparacion.Margin = new Padding(4);
             btnEstadoReparacion.Name = "btnEstadoReparacion";
             btnEstadoReparacion.Size = new Size(160, 75);
             btnEstadoReparacion.TabIndex = 7;
@@ -79,7 +81,7 @@
             // txtBuscar
             // 
             txtBuscar.Location = new Point(15, 8);
-            txtBuscar.Margin = new Padding(4, 4, 4, 4);
+            txtBuscar.Margin = new Padding(4);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.PlaceholderText = "(Ctrl  + F) Buscar reparaciones";
             txtBuscar.Size = new Size(332, 31);
@@ -89,20 +91,20 @@
             // btnCambiarEstado
             // 
             btnCambiarEstado.Anchor = AnchorStyles.Right;
-            btnCambiarEstado.Location = new Point(501, 5);
-            btnCambiarEstado.Margin = new Padding(4, 4, 4, 4);
+            btnCambiarEstado.Location = new Point(937, 4);
+            btnCambiarEstado.Margin = new Padding(4);
             btnCambiarEstado.Name = "btnCambiarEstado";
             btnCambiarEstado.Size = new Size(160, 75);
             btnCambiarEstado.TabIndex = 8;
-            btnCambiarEstado.Text = "Habilitar/Deshabilitar";
+            btnCambiarEstado.Text = "Cancelar";
             btnCambiarEstado.UseVisualStyleBackColor = true;
-            btnCambiarEstado.Click += btnCambiarEstado_Click;
+            btnCambiarEstado.Click += btnDesactivar_Click;
             // 
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Right;
-            btnEditar.Location = new Point(669, 5);
-            btnEditar.Margin = new Padding(4, 4, 4, 4);
+            btnEditar.Location = new Point(1105, 4);
+            btnEditar.Margin = new Padding(4);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(160, 75);
             btnEditar.TabIndex = 9;
@@ -115,19 +117,19 @@
             chkInactivos.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             chkInactivos.AutoSize = true;
             chkInactivos.Location = new Point(15, 49);
-            chkInactivos.Margin = new Padding(4, 4, 4, 4);
+            chkInactivos.Margin = new Padding(4);
             chkInactivos.Name = "chkInactivos";
-            chkInactivos.Size = new Size(266, 29);
+            chkInactivos.Size = new Size(153, 29);
             chkInactivos.TabIndex = 10;
-            chkInactivos.Text = "Incluir Reparaciones inactivas";
+            chkInactivos.Text = "Ver canceladas";
             chkInactivos.UseVisualStyleBackColor = true;
             chkInactivos.CheckedChanged += chkInactivos_CheckedChanged;
             // 
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Right;
-            btnAdd.Location = new Point(836, 4);
-            btnAdd.Margin = new Padding(4, 4, 4, 4);
+            btnAdd.Location = new Point(1272, 4);
+            btnAdd.Margin = new Padding(4);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(160, 75);
             btnAdd.TabIndex = 11;
@@ -138,6 +140,7 @@
             // panelBtn
             // 
             panelBtn.BackColor = SystemColors.ActiveCaption;
+            panelBtn.Controls.Add(btnExportarComprobante);
             panelBtn.Controls.Add(btnAdd);
             panelBtn.Controls.Add(chkInactivos);
             panelBtn.Controls.Add(btnEditar);
@@ -147,16 +150,16 @@
             panelBtn.Controls.Add(btnDetalle);
             panelBtn.Dock = DockStyle.Bottom;
             panelBtn.Location = new Point(0, 476);
-            panelBtn.Margin = new Padding(4, 4, 4, 4);
+            panelBtn.Margin = new Padding(4);
             panelBtn.Name = "panelBtn";
-            panelBtn.Size = new Size(1000, 86);
+            panelBtn.Size = new Size(1436, 86);
             panelBtn.TabIndex = 2;
             // 
             // btnDetalle
             // 
             btnDetalle.Anchor = AnchorStyles.Right;
-            btnDetalle.Location = new Point(166, 4);
-            btnDetalle.Margin = new Padding(4, 4, 4, 4);
+            btnDetalle.Location = new Point(602, 4);
+            btnDetalle.Margin = new Padding(4);
             btnDetalle.Name = "btnDetalle";
             btnDetalle.Size = new Size(160, 75);
             btnDetalle.TabIndex = 12;
@@ -181,7 +184,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(dgvListar);
             splitContainer1.Panel2.Padding = new Padding(11, 4, 11, 4);
-            splitContainer1.Size = new Size(1000, 476);
+            splitContainer1.Size = new Size(1436, 476);
             splitContainer1.SplitterDistance = 48;
             splitContainer1.TabIndex = 9;
             // 
@@ -192,7 +195,7 @@
             panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(2);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1000, 48);
+            panelHeader.Size = new Size(1436, 48);
             panelHeader.TabIndex = 1;
             // 
             // lblTituloForm
@@ -203,20 +206,32 @@
             lblTituloForm.Margin = new Padding(2, 0, 2, 0);
             lblTituloForm.Name = "lblTituloForm";
             lblTituloForm.Padding = new Padding(8, 0, 8, 0);
-            lblTituloForm.Size = new Size(1000, 48);
+            lblTituloForm.Size = new Size(1436, 48);
             lblTituloForm.TabIndex = 0;
             lblTituloForm.Text = "Reparaciones";
             lblTituloForm.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnExportarComprobante
+            // 
+            btnExportarComprobante.Anchor = AnchorStyles.Right;
+            btnExportarComprobante.Location = new Point(434, 4);
+            btnExportarComprobante.Margin = new Padding(4);
+            btnExportarComprobante.Name = "btnExportarComprobante";
+            btnExportarComprobante.Size = new Size(160, 75);
+            btnExportarComprobante.TabIndex = 13;
+            btnExportarComprobante.Text = "Exportar Comprobante";
+            btnExportarComprobante.UseVisualStyleBackColor = true;
+            btnExportarComprobante.Click += btnExportarComprobante_Click;
             // 
             // ReparacionMainMenuForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 562);
+            ClientSize = new Size(1436, 562);
             Controls.Add(splitContainer1);
             Controls.Add(panelBtn);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "ReparacionMainMenuForm";
             Text = "ServicioMainMenuForm";
             Load += ServicioMainMenuForm_Load;
@@ -247,5 +262,6 @@
         private Panel panelHeader;
         private Label lblTituloForm;
         private Button btnDetalle;
+        private Button btnExportarComprobante;
     }
 }

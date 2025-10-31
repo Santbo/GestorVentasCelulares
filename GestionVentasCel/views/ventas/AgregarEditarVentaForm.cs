@@ -198,7 +198,7 @@ namespace GestionVentasCel.views.ventas
 
                     foreach (int id in ids)
                     {
-                        _venta.Detalles.Remove(_venta.Detalles.First(d => d.Reparacion.Id == id));
+                        _venta.Detalles.Remove(_venta.Detalles.First(d => d.EsReparacion && d.Reparacion.Id == id));
                     }
 
                     this.CargarDataSourceDGV();
@@ -222,27 +222,6 @@ namespace GestionVentasCel.views.ventas
             _bindingSource = new BindingSource();
             _bindingSource.DataSource = _venta;
 
-        }
-        private void btnDescartar_Click(object sender, EventArgs e)
-        {
-            var accion = MessageBox.Show(
-                "Está por descartar los cambios, ¿Desea hacerlo?",
-                "Descartando cambios",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Exclamation);
-
-            // OK => Venta guardada, ya sea por edición o por guardado, pero NO CONFIRMADA
-            // YES => Venta confirmada, ya sea por guardado o por edición.
-            // Cancel => Se canceló el guardado, no
-
-            if (accion == DialogResult.Yes)
-            {
-                this.DialogResult = DialogResult.Cancel;
-            }
-            else if (accion == DialogResult.No)
-            {
-                return;
-            }
         }
 
         private void ConfigurarEstilosVisuales()
@@ -292,7 +271,24 @@ namespace GestionVentasCel.views.ventas
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.btnDescartar.PerformClick();
+            var accion = MessageBox.Show(
+                "Está por descartar los cambios, ¿Desea hacerlo?",
+                "Descartando cambios",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Exclamation);
+
+            // OK => Venta guardada, ya sea por edición o por guardado, pero NO CONFIRMADA
+            // YES => Venta confirmada, ya sea por guardado o por edición.
+            // Cancel => Se canceló el guardado, no
+
+            if (accion == DialogResult.Yes)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
+            else if (accion == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private bool ValidarVenta()
@@ -578,11 +574,12 @@ namespace GestionVentasCel.views.ventas
 
             var detalle = dgvListarDetalles.CurrentRow.DataBoundItem as DetalleVenta;
 
-            // Confirmación
-            if (MessageBox.Show("Está seguro que quiere eliminar este detalle?",
+            var confirma = MessageBox.Show("¿Está seguro que quiere eliminar este detalle?",
                                 "Confirmar eliminación",
                                 MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) != DialogResult.Yes)
+                                MessageBoxIcon.Question);
+            // Confirmación
+            if ( confirma != DialogResult.Yes)
             {
                 return;
             }
@@ -595,3 +592,6 @@ namespace GestionVentasCel.views.ventas
         }
     }
 }
+
+
+//TODO: Técnico puede exportar un reporte de reparación con iva incluido
