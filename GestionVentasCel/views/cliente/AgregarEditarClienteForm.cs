@@ -180,11 +180,10 @@ namespace GestionVentasCel.views.usuario_empleado
                 return false;
             }
 
-            // DNI: Asegurarse de que esté entre 8 y 13 caracteres
             string dni = txtDni.Text.Trim();
-            if (dni.Length < 8 || dni.Length > 13)
+            if (dni.Length < 7 || dni.Length > 14)
             {
-                MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El DNI debe tener entre 7 y 14 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDni.Focus();
                 return false;
             }
