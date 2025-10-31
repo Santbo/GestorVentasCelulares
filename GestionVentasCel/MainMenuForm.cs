@@ -111,6 +111,11 @@ namespace GestionVentasCel
 
             // Configurar permisos basados en el singleton
             ConfigurarPermisos();
+
+            if (_sesionUsuario.Rol == RolEnum.Tecnico)
+            {
+                administrarReparacionesMenuItem.PerformClick();
+            }
         }
 
         private void ConfigurarPermisos()
@@ -134,6 +139,9 @@ namespace GestionVentasCel
 
             // Menú de reparaciones (Admin y Técnico)
             reparacionesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones() || _sesionUsuario.PuedeAccederAServicios();
+            // Si es vendedor, se tiene que ocultar únicamente los servicios
+            administrarServiciosMenuItem.Visible = _sesionUsuario.PuedeAccederAServicios();
+            administrarReparacionesMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones();
 
             //Menú de reportes (Admin)
             reportesToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederAReportes();
@@ -162,6 +170,9 @@ namespace GestionVentasCel
             // Submenús de reparaciones y servicios (Admin y Técnico)
             administrarReparacionesMenuItem.Visible = _sesionUsuario.PuedeAccederAReparaciones();
             administrarServiciosMenuItem.Visible = _sesionUsuario.PuedeAccederAServicios();
+
+            // Menú caja
+            cajaToolStripMenuItem.Visible = _sesionUsuario.PuedeAccederACaja();
         }
 
         private void categoriasMenuItem_Click(object sender, EventArgs e)
@@ -238,7 +249,10 @@ namespace GestionVentasCel
             AbrirFormularioHijo(new ReparacionMainMenuForm(_serviceProvider.GetRequiredService<ReparacionController>(),
                                                             _serviceProvider.GetRequiredService<ClienteController>(),
                                                             _serviceProvider.GetRequiredService<ServicioController>(),
-                                                            _serviceProvider.GetRequiredService<ArticuloController>()));
+                                                            _serviceProvider.GetRequiredService<ArticuloController>(),
+                                                            _serviceProvider.GetRequiredService<SesionUsuario>()
+                                                            )
+                );
         }
 
         private void gestionarVentasToolStripMenuItem_Click(object sender, EventArgs e)

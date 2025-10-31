@@ -194,25 +194,26 @@
             panel8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             panel8.Controls.Add(btnDescartar);
             panel8.Controls.Add(btnGuardar);
-            panel8.Location = new Point(1036, 728);
+            panel8.Location = new Point(1029, 728);
             panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
-            panel8.Size = new Size(400, 46);
+            panel8.Size = new Size(407, 46);
             panel8.TabIndex = 3;
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(0, 3);
+            btnDescartar.Location = new Point(3, 3);
             btnDescartar.Name = "btnDescartar";
             btnDescartar.Size = new Size(195, 38);
             btnDescartar.TabIndex = 0;
             btnDescartar.Text = "Descartar";
             btnDescartar.UseVisualStyleBackColor = true;
-            btnDescartar.Click += btnDescartar_Click;
+            btnDescartar.Visible = false;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(202, 3);
+            btnGuardar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnGuardar.Location = new Point(208, 3);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(195, 38);
             btnGuardar.TabIndex = 1;
@@ -284,7 +285,7 @@
             panel10.Controls.Add(btnEliminarDetalle);
             panel10.Location = new Point(0, 110);
             panel10.Name = "panel10";
-            panel10.Size = new Size(387, 48);
+            panel10.Size = new Size(442, 48);
             panel10.TabIndex = 8;
             // 
             // btnAgregarDetalle
@@ -294,18 +295,18 @@
             btnAgregarDetalle.Name = "btnAgregarDetalle";
             btnAgregarDetalle.Size = new Size(195, 48);
             btnAgregarDetalle.TabIndex = 6;
-            btnAgregarDetalle.Text = "Confirmar detalle";
+            btnAgregarDetalle.Text = "Agregar";
             btnAgregarDetalle.UseVisualStyleBackColor = true;
             btnAgregarDetalle.Click += btnAgregarDetalle_Click;
             // 
             // btnEliminarDetalle
             // 
             btnEliminarDetalle.Dock = DockStyle.Right;
-            btnEliminarDetalle.Location = new Point(199, 0);
+            btnEliminarDetalle.Location = new Point(201, 0);
             btnEliminarDetalle.Name = "btnEliminarDetalle";
-            btnEliminarDetalle.Size = new Size(188, 48);
+            btnEliminarDetalle.Size = new Size(241, 48);
             btnEliminarDetalle.TabIndex = 7;
-            btnEliminarDetalle.Text = "Eliminar detalle";
+            btnEliminarDetalle.Text = "Eliminar seleccionado";
             btnEliminarDetalle.UseVisualStyleBackColor = true;
             btnEliminarDetalle.Click += btnEliminarDetalle_Click;
             // 
@@ -313,20 +314,21 @@
             // 
             panel9.Controls.Add(nupIVA);
             panel9.Controls.Add(lblIVA);
-            panel9.Location = new Point(1014, 6);
+            panel9.Location = new Point(1247, 6);
             panel9.Name = "panel9";
-            panel9.Size = new Size(271, 73);
+            panel9.Size = new Size(173, 73);
             panel9.TabIndex = 5;
             // 
             // nupIVA
             // 
             nupIVA.Dock = DockStyle.Bottom;
+            nupIVA.Enabled = false;
             nupIVA.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nupIVA.Location = new Point(0, 34);
             nupIVA.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             nupIVA.Name = "nupIVA";
             nupIVA.ReadOnly = true;
-            nupIVA.Size = new Size(271, 39);
+            nupIVA.Size = new Size(173, 39);
             nupIVA.TabIndex = 1;
             // 
             // lblIVA
@@ -344,9 +346,9 @@
             // 
             panel7.Controls.Add(nupCantidad);
             panel7.Controls.Add(lblCantidad);
-            panel7.Location = new Point(735, 6);
+            panel7.Location = new Point(1052, 6);
             panel7.Name = "panel7";
-            panel7.Size = new Size(268, 73);
+            panel7.Size = new Size(167, 73);
             panel7.TabIndex = 4;
             // 
             // nupCantidad
@@ -356,7 +358,7 @@
             nupCantidad.Location = new Point(0, 34);
             nupCantidad.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nupCantidad.Name = "nupCantidad";
-            nupCantidad.Size = new Size(268, 39);
+            nupCantidad.Size = new Size(167, 39);
             nupCantidad.TabIndex = 1;
             nupCantidad.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -375,9 +377,9 @@
             // 
             panel6.Controls.Add(lblNuevoItem);
             panel6.Controls.Add(txtDescripcionDetalle);
-            panel6.Location = new Point(292, 6);
+            panel6.Location = new Point(295, 6);
             panel6.Name = "panel6";
-            panel6.Size = new Size(430, 73);
+            panel6.Size = new Size(733, 73);
             panel6.TabIndex = 3;
             // 
             // lblNuevoItem
@@ -398,7 +400,7 @@
             txtDescripcionDetalle.Location = new Point(0, 34);
             txtDescripcionDetalle.Name = "txtDescripcionDetalle";
             txtDescripcionDetalle.ReadOnly = true;
-            txtDescripcionDetalle.Size = new Size(430, 39);
+            txtDescripcionDetalle.Size = new Size(733, 39);
             txtDescripcionDetalle.TabIndex = 2;
             txtDescripcionDetalle.TabStop = false;
             // 

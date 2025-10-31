@@ -5,15 +5,18 @@ using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.reparacion;
 using GestionVentasCel.models.clientes;
 using GestionVentasCel.models.reparacion;
 using GestionVentasCel.models.servicio;
+using GestionVentasCel.service.usuario;
 
 namespace GestionVentasCel.views.reparacion
 {
     public partial class AgregarEditarReparacionForm : Form
     {
+        private readonly SesionUsuario _sesionUsuario;
         private readonly ClienteController _clienteController;
         private readonly ReparacionController _reparacionController;
         private readonly ServicioController _servicioController;
@@ -26,13 +29,29 @@ namespace GestionVentasCel.views.reparacion
         public AgregarEditarReparacionForm(ReparacionController reparacionController,
                                           ClienteController clienteController,
                                           ServicioController servicioController,
-                                          ArticuloController articuloController)
+                                          ArticuloController articuloController,
+                                          SesionUsuario sesionUsuario
+                                          )
         {
             InitializeComponent();
             _clienteController = clienteController;
             _reparacionController = reparacionController;
             _servicioController = servicioController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
+
+            txtDiagnostico.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            cmbServicio.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            btnAgregarServicio.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            btnEliminarServicio.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            dgvListarServicios.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            dtpFechaVencimiento.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+            btnAplicar.Enabled = _sesionUsuario.Rol != RolEnum.Vendedor;
+
+            // Si es vendedor o admin, puede no agregarse un servicio, así que siempre debe tener
+            // activado el botón de guardar.
+            btnGuardar.Enabled = _sesionUsuario.Rol == RolEnum.Vendedor || _sesionUsuario.Rol == RolEnum.Admin;
+
 
             CargarCombobox();
             CargarGridServicios();
@@ -88,13 +107,16 @@ namespace GestionVentasCel.views.reparacion
 
                 _listaDispositivo = new BindingList<Dispositivo>(listaDispositivo);
 
-
-
-
                 dgvListarDispositivos.DataSource = _listaDispositivo;
                 dgvListarDispositivos.Columns["Id"].Visible = false;
                 dgvListarDispositivos.Columns["ClienteId"].Visible = false;
                 dgvListarDispositivos.Columns["Cliente"].Visible = false;
+
+                if (_listaDispositivo.Count > 0)
+                {
+                    dgvListarDispositivos.Rows[0].Selected = true;
+                    dgvListarDispositivos.CurrentCell = dgvListarDispositivos.Rows[0].Cells[1];
+                }
             }
         }
 
@@ -103,7 +125,10 @@ namespace GestionVentasCel.views.reparacion
 
             _total = 0;
 
-            if (dgvListarServicios.Rows.Count == 0)
+            // Esto en teoría no debería pasar, porque el botón está desactivado para el 
+            // vendedor, pero por las dudas se deja que permita guardar una reparación sin
+            // servicios únicamente si es vendedor o admin
+            if (dgvListarServicios.Rows.Count == 0 && _sesionUsuario.Rol == RolEnum.Tecnico)
             {
                 MessageBox.Show("Debe agregar al menos un servicio.",
                         "Validación",
@@ -137,9 +162,6 @@ namespace GestionVentasCel.views.reparacion
 
             lblTotal.Text = $"TOTAL: {_total.ToString("C2", new CultureInfo("es-AR"))}";
             btnGuardar.Enabled = true;
-
-
-
         }
 
         private bool ValidarCampos()
@@ -281,6 +303,12 @@ namespace GestionVentasCel.views.reparacion
                 dgvListarDispositivos.Columns["ClienteId"].Visible = false;
                 dgvListarDispositivos.Columns["Cliente"].Visible = false;
 
+                if (_listaDispositivo.Count > 0)
+                {
+                    dgvListarDispositivos.Rows[0].Selected = true;
+                    dgvListarDispositivos.CurrentCell = dgvListarDispositivos.Rows[0].Cells[1];
+                }
+
                 // Cargar todos los servicios de la reparación en el DataGridView
                 if (reparacionActual.ReparacionServicios != null && reparacionActual.ReparacionServicios.Any())
                 {
@@ -311,7 +339,7 @@ namespace GestionVentasCel.views.reparacion
 
             }
 
-            btnGuardar.Enabled = false;
+            btnGuardar.Enabled = _sesionUsuario.Rol != RolEnum.Tecnico;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -334,8 +362,6 @@ namespace GestionVentasCel.views.reparacion
                     reparacionActual.FallasReportadas = txtFallasReportadas.Text;
                     reparacionActual.Diagnostico = txtDiagnostico.Text;
                     reparacionActual.FechaVencimiento = dtpFechaVencimiento.Value;
-
-                    // TODO: Actualizar una reparación vencida pone su precio en cero.
 
                     _reparacionController.ActualizarReparacion(reparacionActual);
                     this.DialogResult = DialogResult.OK;

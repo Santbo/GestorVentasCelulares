@@ -1,6 +1,10 @@
 ﻿using GestionVentasCel.data;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.exceptions.reparacion;
+using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.models.servicio;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.repository.reparacion.impl
@@ -38,6 +42,43 @@ namespace GestionVentasCel.repository.reparacion.impl
             _context.SaveChanges();
         }
 
+        public void Desactivar(int reparacionId)
+        {
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .FirstOrDefault(r => r.Id == reparacionId);
+
+            if (reparacion == null)
+            {
+                throw new ReparacionNoEncontradaException("La reparación no existe.");
+            }
+
+            if (reparacion.Activo) { 
+                // Está activa, entonces se la va a desactivar y se tiene que revertir el stock
+                // únicamente si está reparando
+                if (reparacion.Estado == EstadoReparacionEnum.Reparando)
+                
+                    foreach (ReparacionServicio rs in reparacion.ReparacionServicios)
+                    {
+
+                        if (rs.Servicio?.ArticulosUsados == null || !rs.Servicio.ArticulosUsados.Any())
+                            continue;
+
+                        foreach (ServicioArticulo sa in rs.Servicio.ArticulosUsados)
+                        {
+                            sa.Articulo.Stock += sa.Cantidad;
+                        }
+                    }
+            }
+
+            reparacion.Activo = false;
+
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Reparacion> GetAll()
         {
             return _context.Reparaciones
@@ -45,6 +86,7 @@ namespace GestionVentasCel.repository.reparacion.impl
                            .Include(r => r.Dispositivo)
                                .ThenInclude(d => d.Cliente)
                            .Include(r => r.ReparacionServicios)
+                           .OrderByDescending(r => r.FechaIngreso)
                            .ToList();
         }
 
@@ -86,12 +128,38 @@ namespace GestionVentasCel.repository.reparacion.impl
 
         public void CambiarEstado(int id, EstadoReparacionEnum nuevoEstado)
         {
-            var reparacion = _context.Reparaciones.FirstOrDefault(r => r.Id == id);
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .FirstOrDefault(r => r.Id == id);
+
+
             if (reparacion != null)
             {
+                bool debeActualizarStock = reparacion.Estado == EstadoReparacionEnum.Ingresado && nuevoEstado == EstadoReparacionEnum.Reparando;
+                if (debeActualizarStock)
+                {
+                    foreach (ReparacionServicio rs in reparacion.ReparacionServicios)
+                    {
+
+                        if (rs.Servicio?.ArticulosUsados == null || !rs.Servicio.ArticulosUsados.Any())
+                            continue;
+
+                        foreach (ServicioArticulo sa in rs.Servicio.ArticulosUsados)
+                        {
+                            sa.Articulo.Stock -= sa.Cantidad;
+                        }
+                    }
+                }
+
                 reparacion.Estado = nuevoEstado;
+
+
                 _context.SaveChanges();
             }
+
         }
 
         public IEnumerable<Reparacion>? GetReparacionesDispositivo(Dispositivo dispositivo)
@@ -130,6 +198,25 @@ namespace GestionVentasCel.repository.reparacion.impl
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
             return _context.Dispositivos.FirstOrDefault(d => d.Id == dispositivoId);
+        }
+
+        public Reparacion? ObtenerParaExportar(int reparacionId)
+        {
+            var reparacion = _context.Reparaciones
+                .Include(r => r.ReparacionServicios)
+                .ThenInclude(rs => rs.Servicio)
+                .ThenInclude(s => s.ArticulosUsados)
+                .ThenInclude(au => au.Articulo)
+                .Include(r => r.Dispositivo)
+                .ThenInclude(d => d.Cliente)
+                .AsNoTracking()
+                .FirstOrDefault(r => r.Id == reparacionId);
+
+            if (reparacion == null)
+            {
+                throw new ReparacionNoEncontradaException("Se intentó exportar una reparación que no existe");
+            }
+            return reparacion;
         }
     }
 }
