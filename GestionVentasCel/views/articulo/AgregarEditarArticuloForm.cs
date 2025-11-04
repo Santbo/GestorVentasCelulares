@@ -125,20 +125,6 @@ namespace GestionVentasCel.views.articulo
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtPrecio.Text))
-            {
-                MessageBox.Show("Por favor, completá el campo Precio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPrecio.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtStock.Text))
-            {
-                MessageBox.Show("Por favor, completá el campo Stock.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtStock.Focus();
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(txtAvisoStock.Text))
             {
                 MessageBox.Show("Por favor, completá el campo Aviso de Stock.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -154,7 +140,7 @@ namespace GestionVentasCel.views.articulo
             }
 
             // Validar que el precio sea un número válido
-            if (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio <= 0)
+            if (!string.IsNullOrEmpty(txtPrecio.Text) && (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio <= 0))
             {
                 MessageBox.Show("Por favor, ingresá un precio válido mayor a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPrecio.Focus();
@@ -162,7 +148,7 @@ namespace GestionVentasCel.views.articulo
             }
 
             // Validar que el stock sea un número válido
-            if (!int.TryParse(txtStock.Text, out int stock) || stock < 0)
+            if (!string.IsNullOrEmpty(txtStock.Text) && (!int.TryParse(txtStock.Text, out int stock) || stock < 0))
             {
                 MessageBox.Show("Por favor, ingresá un stock válido mayor o igual a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtStock.Focus();

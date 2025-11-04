@@ -60,7 +60,6 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.GetByUsername("existente")).Returns(usuarioExistente);
 
-         & Assert
         var exception = Assert.Throws<UsuarioExistenteException>(() =>
             _service.RegistrarUsuario(
                 username: "existente",
@@ -216,7 +215,6 @@ public class UsuarioServiceTests
         };
         _mockRepository.Setup(r => r.Exist(999)).Returns(false);
 
-         & Assert
         var exception = Assert.Throws<UsuarioNoEncontradoException>(() =>
             _service.UpdateUsuario(usuario)
         );
@@ -254,7 +252,6 @@ public class UsuarioServiceTests
         
         _mockRepository.Setup(r => r.GetById(999)).Returns((Usuario?)null);
 
-         & Assert
         var exception = Assert.Throws<UsuarioNoEncontradoException>(() =>
             _service.ToggleActivo(999)
         );
