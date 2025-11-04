@@ -120,9 +120,9 @@ namespace GestionVentasCel.controller.reparaciones
             return _service.ObtenerPorDispositivo(dispositivo);
         }
 
-        public void ToggleActivo(int id)
+        public void Desactivar(int id)
         {
-            _service.ToggleActivo(id);
+            _service.Desactivar(id);
         }
 
         public IEnumerable<Dispositivo>? ObtenerDispositivoPorCliente(int ClienteId)
@@ -143,6 +143,11 @@ namespace GestionVentasCel.controller.reparaciones
         public Dispositivo? GetDispositivoById(int dispositivoId)
         {
             return _service.GetDispositivoById(dispositivoId);
+        }
+
+        public void ExportarComprobante(int reparacionId)
+        {
+            _service.ExportarComprobante(reparacionId);
         }
     }
 }

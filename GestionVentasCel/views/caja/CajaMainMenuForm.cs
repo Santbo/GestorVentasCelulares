@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Data;
 using System.Globalization;
+using System.Windows.Forms;
 using GestionVentasCel.controller.caja;
 using GestionVentasCel.enumerations.caja;
 using GestionVentasCel.enumerations.ventas;
@@ -267,6 +268,8 @@ namespace GestionVentasCel.views.usuario_empleado
                             }
                             totalCierre += caja.MontoApertura;
                             _cajaController.CerrarCaja(caja.Id, totalCierre);
+                            var movimientoForm = new VerMovimientosForm(caja);
+                            movimientoForm.ShowDialog();
                         }
                     }
                 }
@@ -367,6 +370,7 @@ namespace GestionVentasCel.views.usuario_empleado
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+            dtpFecha.MaxDate = DateTime.Now;
         }
 
         private void dgvListar_SelectionChanged(object sender, EventArgs e)
@@ -377,6 +381,21 @@ namespace GestionVentasCel.views.usuario_empleado
                 // Ver si la caja seleccionada está abierta, y mostrar el botón de cerrar caja
                 this.btnCerrarCaja.Visible = ((Caja)this.dgvListar.CurrentRow.DataBoundItem).Estado == EstadoCajaEnum.Abierta;
             }
+        }
+
+        private void dtpFecha_ValueChanged(object sender, EventArgs e)
+        {
+            var fechaSeleccionada = dtpFecha.Value.Date;
+            var listarCajasFecha = _cajaController.ListarCajaPorFecha(fechaSeleccionada).ToList();
+            _cajas = new BindingList<Caja>(listarCajasFecha);
+
+            _bindingSource = new BindingSource();
+            _bindingSource.DataSource = _cajas;
+            this.dgvListar.ClearSelection();
+
+
+            AplicarFiltro();
+            ConfigurarDGV();
         }
     }
 }

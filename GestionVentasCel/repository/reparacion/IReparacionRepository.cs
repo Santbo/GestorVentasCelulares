@@ -7,6 +7,7 @@ namespace GestionVentasCel.repository.reparacion
     {
         void Add(Reparacion reparacion);
         void Update(Reparacion reparacion);
+        void Desactivar(int reparacionId);
         IEnumerable<Reparacion> GetAll();
         IEnumerable<Reparacion> ListarReparacionesTerminadasCliente(int idCliente);
         Reparacion? GetById(int id);
@@ -20,6 +21,8 @@ namespace GestionVentasCel.repository.reparacion
         void UpdateDispositivo(Dispositivo dispositivo);
         Dispositivo? GetDispositivoById(int dispositivoId);
         bool ExistDispositivo(int id);
+
+        Reparacion? ObtenerParaExportar(int reparacionId);
 
 
     }

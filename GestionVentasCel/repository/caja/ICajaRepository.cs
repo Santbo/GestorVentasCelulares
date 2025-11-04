@@ -15,6 +15,8 @@ namespace GestionVentasCel.repository.caja
         bool HayCajaAbierta();
         Caja? ObtenerCajaActualAbierta();
 
+        IEnumerable<Caja> ListarCajaPorFecha(DateTime fecha);
+
         // Movimientos
         void AddMovimiento(MovimientoCaja movimiento);
         IEnumerable<MovimientoCaja> GetMovimientosCaja(int cajaId);

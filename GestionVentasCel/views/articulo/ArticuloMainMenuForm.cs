@@ -4,8 +4,10 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.categoria;
 using GestionVentasCel.enumerations.modoForms;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.articulo;
 using GestionVentasCel.models.articulo;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.articulo
@@ -15,13 +17,15 @@ namespace GestionVentasCel.views.articulo
     {
         private readonly ArticuloController _articuloController;
         private readonly CategoriaController _categoriaController;
+        private readonly SesionUsuario _sesionUsuario;
         private BindingList<Articulo> _articulos;
         private BindingSource _bindingSource;
-        public ArticuloMainMenuForm(ArticuloController articuloController, CategoriaController categoriaController)
+        public ArticuloMainMenuForm(ArticuloController articuloController, CategoriaController categoriaController, SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _articuloController = articuloController;
             _categoriaController = categoriaController;
+            _sesionUsuario = sesionUsuario;
             CargarArticulos();
         }
 
@@ -298,6 +302,12 @@ namespace GestionVentasCel.views.articulo
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnAgregar.Visible = false;
+                btnActualizar.Visible = false;
+                btnToggleActivo.Visible = false;
+            }
         }
     }
 }

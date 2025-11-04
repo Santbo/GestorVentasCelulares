@@ -18,6 +18,8 @@ namespace GestionVentasCel.service.caja
         bool HayCajaAbierta();
         int ObtenerCajaActualAbierta();
 
+        IEnumerable<Caja> ListarCajaPorFecha(DateTime fecha);
+
         // Movimientos
         void RegistrarRetiro(int cajaId, decimal monto, string descripcion);
         void RegistrarVenta(int cajaId, decimal monto, TipoPagoEnum tipoPago);

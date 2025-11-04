@@ -179,7 +179,7 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(834, 614);
+            btnGuardar.Location = new Point(845, 614);
             btnGuardar.Margin = new Padding(4);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(139, 56);
@@ -190,7 +190,7 @@
             // 
             // btnDescartar
             // 
-            btnDescartar.Location = new Point(688, 614);
+            btnDescartar.Location = new Point(698, 614);
             btnDescartar.Margin = new Padding(4);
             btnDescartar.Name = "btnDescartar";
             btnDescartar.Size = new Size(139, 56);

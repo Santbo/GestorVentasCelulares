@@ -69,7 +69,7 @@ namespace GestionVentasCel.service.usuario
 
         public bool PuedeAccederAReparaciones()
         {
-            return Rol == RolEnum.Admin || Rol == RolEnum.Tecnico;
+            return Rol == RolEnum.Admin || Rol == RolEnum.Tecnico || Rol == RolEnum.Vendedor;
         }
 
         public bool PuedeAccederAServicios()

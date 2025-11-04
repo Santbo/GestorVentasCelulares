@@ -6,8 +6,10 @@ using GestionVentasCel.controller.cliente;
 using GestionVentasCel.controller.reparaciones;
 using GestionVentasCel.controller.servicio;
 using GestionVentasCel.enumerations.reparacion;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.exceptions.servicio;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.compra;
 using GestionVentasCel.views.reparacion;
@@ -22,24 +24,64 @@ namespace GestionVentasCel.views.servicio
         private readonly ServicioController _servicioController;
         private readonly ArticuloController _articuloController;
 
+        private readonly SesionUsuario _sesionUsuario;
+
         private BindingList<Reparacion> _reparacion;
         private BindingSource _bindingSource;
         public ReparacionMainMenuForm(ReparacionController reparacionController,
                                         ClienteController clienteController,
                                         ServicioController servicioController,
-                                        ArticuloController articuloController)
+                                        ArticuloController articuloController,
+                                        SesionUsuario sesionUsuario
+                                        )
         {
             InitializeComponent();
             _reparacionController = reparacionController;
             _clienteController = clienteController;
             _servicioController = servicioController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
+
+            btnEditar.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEditar.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnCambiarEstado.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnCambiarEstado.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+
+            btnEstadoReparacion.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEstadoReparacion.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnEstadoReparacion.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnEstadoReparacion.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+            btnDetalle.Enabled = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+            btnDetalle.Visible = _sesionUsuario.Rol == RolEnum.Admin || _sesionUsuario.Rol == RolEnum.Tecnico;
+
+
             CargarReparaciones();
+            AplicarFiltro();
         }
 
         private void CargarReparaciones()
         {
             var listaReparaciones = _reparacionController.ListarReparaciones().ToList();
+            switch (_sesionUsuario.Rol)
+            {
+                case RolEnum.Tecnico:
+                    listaReparaciones = listaReparaciones.Where(r => r.Estado < EstadoReparacionEnum.Terminado).ToList();
+                    break;
+                case RolEnum.Admin:
+                    break;
+                case RolEnum.Vendedor:
+                    listaReparaciones = listaReparaciones
+                        .Where(r =>
+                            r.Estado == EstadoReparacionEnum.Ingresado ||
+                            r.Estado == EstadoReparacionEnum.Terminado
+                        ).ToList();
+                    break;
+
+            }
             _reparacion = new BindingList<Reparacion>(listaReparaciones);
 
             _bindingSource = new BindingSource();
@@ -64,15 +106,22 @@ namespace GestionVentasCel.views.servicio
                 {
                     dgvListar.Columns.Add("FechaVencimientoFormateado", "Fecha de vencimiento");
                 }
+
+                if (dgvListar.Columns["TotalIvaFormateado"] == null)
+                {
+                    dgvListar.Columns.Add("TotalIvaFormateado", "Total (+IVA)");
+                }
                 // Ocultar Id y Articulos
                 dgvListar.Columns["Id"].Visible = false;
                 dgvListar.Columns["DispositivoId"].Visible = false;
                 dgvListar.Columns["ReparacionServicios"].Visible = false;
                 dgvListar.Columns["Total"].Visible = false;
+                dgvListar.Columns["TotalIva"].Visible = false;
                 dgvListar.Columns["FechaVencimiento"].Visible = false;
                 dgvListar.Columns["EstaVencida"].Visible = false;
                 dgvListar.Columns["Detalle"].Visible = false;
-
+                dgvListar.Columns["Activo"].Visible = false;
+                //TODO: Mostrar activo solamente si se muestran las ocultas
 
                 // Ordenarlas 
                 dgvListar.Columns["Dispositivo"].DisplayIndex = 1;
@@ -85,9 +134,8 @@ namespace GestionVentasCel.views.servicio
                 dgvListar.Columns["FechaEgreso"].DisplayIndex = 6;
                 dgvListar.Columns["FechaVencimientoFormateado"].DisplayIndex = 7;
                 dgvListar.Columns["TotalFormateado"].DisplayIndex = 8;
-                dgvListar.Columns["Estado"].DisplayIndex = 9;
-                dgvListar.Columns["Activo"].DisplayIndex = 10;
-                dgvListar.Columns["Activo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvListar.Columns["TotalIvaFormateado"].DisplayIndex = 9;
+                dgvListar.Columns["Estado"].DisplayIndex = 10;
 
                 foreach (DataGridViewRow row in dgvListar.Rows)
                 {
@@ -95,6 +143,8 @@ namespace GestionVentasCel.views.servicio
                     {
                         // formatear el precio como moneda
                         row.Cells["TotalFormateado"].Value = reparacion.Total.ToString("C2", new CultureInfo("es-AR"));
+                        row.Cells["TotalIvaFormateado"].Value = reparacion.TotalIva.ToString("C2", new CultureInfo("es-AR"));
+
                         row.Cells["Cliente"].Value = reparacion.Dispositivo.Cliente.ToString();
                         row.Cells["FechaVencimientoFormateado"].Value = reparacion.FechaVencimiento?.ToString("dd/MM/yyyy");
 
@@ -121,8 +171,17 @@ namespace GestionVentasCel.views.servicio
             IEnumerable<Reparacion> filtrados = _reparacion;
 
             // filtro por Activo
+
             if (!chkInactivos.Checked)
+            {
                 filtrados = filtrados.Where(u => u.Activo);
+                this.lblTituloForm.Text = "Reparaciones";
+            }
+            else
+            {
+                filtrados = filtrados.Where(u => !u.Activo);
+                this.lblTituloForm.Text = "Reparaciones canceladas";
+            }
 
             // filtro por búsqueda
             string filtro = txtBuscar.Text.Trim().ToLower();
@@ -145,14 +204,40 @@ namespace GestionVentasCel.views.servicio
             AplicarFiltro();
         }
 
-        private void btnCambiarEstado_Click(object sender, EventArgs e)
+        private void btnDesactivar_Click(object sender, EventArgs e)
         {
             if (dgvListar.CurrentRow != null)
             {
+
+                if (dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+                {
+                    if (r.Activo == false)
+                    {
+                        MessageBox.Show(
+                             "La reparación ya está cancelada",
+                             "Confirmación",
+                              MessageBoxButtons.OK,
+                              MessageBoxIcon.Error
+                         );
+                        return;
+                    }
+
+                    if (!(r.Estado == EstadoReparacionEnum.Ingresado || r.Estado == EstadoReparacionEnum.Reparando))
+                    {
+                        MessageBox.Show(
+                             "Solo pueden cancelarse reparaciones que estén ingresadas o en reparación.",
+                             "Confirmación",
+                             MessageBoxButtons.OK,
+                             MessageBoxIcon.Error
+                         );
+                        return;
+                    }
+                }
+
                 int id = (int)dgvListar.CurrentRow.Cells["Id"].Value;
 
                 var result = MessageBox.Show(
-                    "¿Seguro que desea Habilitar/Deshabilitar esta Reparacion?",
+                    "¿Seguro que desea cancelar esta reparacion?",
                     "Confirmación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -161,12 +246,12 @@ namespace GestionVentasCel.views.servicio
                 if (result == DialogResult.No) return;
 
                 // Actualizo en la BD
-                _reparacionController.ToggleActivo(id);
+                _reparacionController.Desactivar(id);
 
                 // Actualizo en memoria
                 var servicio = _reparacion.FirstOrDefault(u => u.Id == id);
                 if (servicio != null)
-                    servicio.Activo = !servicio.Activo;
+                    servicio.Activo = false;
 
                 // Reaplico el filtro inmediatamente
                 AplicarFiltro();
@@ -181,7 +266,13 @@ namespace GestionVentasCel.views.servicio
         private void btnAdd_Click(object sender, EventArgs e)
         {
 
-            using (var agregarReparacion = new AgregarEditarReparacionForm(_reparacionController, _clienteController, _servicioController, _articuloController))
+            using (var agregarReparacion = new AgregarEditarReparacionForm(
+                _reparacionController,
+                _clienteController,
+                _servicioController,
+                _articuloController,
+                _sesionUsuario
+                ))
             {
                 //si el usuario apreta guardar, muestra el msj y actualiza el binding
                 if (agregarReparacion.ShowDialog() == DialogResult.OK)
@@ -208,7 +299,13 @@ namespace GestionVentasCel.views.servicio
 
                     var reparacion = _reparacionController.ObtenerPorId(id);
 
-                    using (var editarReparacion = new AgregarEditarReparacionForm(_reparacionController, _clienteController, _servicioController, _articuloController))
+                    using (var editarReparacion = new AgregarEditarReparacionForm(
+                        _reparacionController,
+                        _clienteController,
+                        _servicioController,
+                        _articuloController,
+                        _sesionUsuario
+                        ))
                     {
 
                         editarReparacion.reparacionActual = reparacion;
@@ -400,6 +497,22 @@ namespace GestionVentasCel.views.servicio
                 var reparacion = _reparacionController.ObtenerPorIdConCliente(id);
                 var detalleReparacion = new VerDetallesReparacionForm(_servicioController, reparacion);
                 detalleReparacion.ShowDialog();
+            }
+        }
+
+        private void dgvListar_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null && dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+            {
+                btnEditar.Enabled = r.Estado == EstadoReparacionEnum.Ingresado;
+            }
+        }
+
+        private void btnExportarComprobante_Click(object sender, EventArgs e)
+        {
+            if (dgvListar.CurrentRow != null && dgvListar.CurrentRow.DataBoundItem is Reparacion r)
+            {
+                _reparacionController.ExportarComprobante(r.Id);
             }
         }
     }

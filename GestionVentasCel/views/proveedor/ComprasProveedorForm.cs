@@ -3,8 +3,10 @@ using System.Data;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.models.compra;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 using GestionVentasCel.views.compra;
 
@@ -16,19 +18,22 @@ namespace GestionVentasCel.views.proveedor
         private readonly ProveedorController _proveedorController;
         private readonly ArticuloController _articuloController;
         private readonly Proveedor _proveedor;
+        private readonly SesionUsuario _sesionUsuario;
         private BindingList<Compra> _compras = null!;
         private BindingSource _bindingSource = null!;
 
         public ComprasProveedorForm(CompraController compraController,
                                    ProveedorController proveedorController,
                                    ArticuloController articuloController,
-                                   Proveedor proveedor)
+                                   Proveedor proveedor,
+                                   SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _compraController = compraController;
             _proveedorController = proveedorController;
             _articuloController = articuloController;
             _proveedor = proveedor;
+            _sesionUsuario = sesionUsuario;
 
             CargarCompras();
         }
@@ -138,7 +143,7 @@ namespace GestionVentasCel.views.proveedor
 
                 if (compra != null)
                 {
-                    var formDetalle = new VerDetallesCompraForm(compra, _compraController, _proveedorController, _articuloController);
+                    var formDetalle = new VerDetallesCompraForm(compra, _compraController, _proveedorController, _articuloController, _sesionUsuario);
                     formDetalle.ShowDialog();
                 }
             }
@@ -263,6 +268,12 @@ namespace GestionVentasCel.views.proveedor
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnEditar.Visible = false;
+
+            }
         }
     }
 }

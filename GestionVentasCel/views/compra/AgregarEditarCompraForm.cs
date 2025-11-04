@@ -71,6 +71,7 @@ namespace GestionVentasCel.views.compra
         private void AgregarEditarCompraForm_Load(object sender, EventArgs e)
         {
             this.ConfigurarEstilosVisuales();
+            
 
             if (Modo == ModoFormulario.Editar && CompraActual != null)
             {
@@ -84,6 +85,7 @@ namespace GestionVentasCel.views.compra
 
                 AgregarDetalles();
             }
+            dtpFecha.MaxDate = DateTime.Now;
 
         }
 

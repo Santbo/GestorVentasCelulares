@@ -33,6 +33,8 @@ namespace GestionVentasCel.repository.caja.impl
                            .AsNoTracking()
                            .Include(c => c.Usuario)
                            .Include(c => c.Movimientos)
+                           .Where(c => c.FechaApertura.Date == DateTime.Today)
+                           .OrderByDescending(c => c.FechaCierre)
                            .ToList();
         }
 
@@ -70,6 +72,17 @@ namespace GestionVentasCel.repository.caja.impl
         {
             return _context.Caja.FirstOrDefault(c => c.Estado == EstadoCajaEnum.Abierta);
 
+        }
+
+        public IEnumerable<Caja> ListarCajaPorFecha(DateTime fecha)
+        {
+            return _context.Caja
+                           .AsNoTracking()
+                           .Include(c => c.Usuario)
+                           .Include(c => c.Movimientos)
+                           .Where(c => c.FechaApertura.Date == fecha.Date)
+                           .OrderByDescending(c => c.FechaCierre)
+                           .ToList();
         }
 
         // --- Movimientos ---

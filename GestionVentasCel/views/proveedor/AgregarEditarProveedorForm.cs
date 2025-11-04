@@ -199,6 +199,13 @@ namespace GestionVentasCel.views.proveedor
 
                 }
             }
+            // DNI: Asegurarse de que esté entre 8 y 13 caracteres
+            if (dni.Length < 8 || dni.Length > 13)
+            {
+                MessageBox.Show("El DNI debe tener entre 8 y 13 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDni.Focus();
+                return false;
+            }
 
             // Teléfono: Tiene el formato e.164 o entre 10 y 18 digitos
             string telefono = txtTelefono.Text.Trim();

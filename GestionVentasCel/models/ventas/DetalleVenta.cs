@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GestionVentasCel.models.articulo;
 using GestionVentasCel.models.reparacion;
+using GestionVentasCel.views.compra;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionVentasCel.models.ventas
@@ -24,6 +25,7 @@ namespace GestionVentasCel.models.ventas
         /// </summary>
         [Precision(4, 3), DisplayName("Porcentaje de IVA")]
         public decimal PorcentajeIva { get; set; } = 0.21m;
+
 
         [NotMapped, DisplayName("Subtotal sin IVA")]
         public decimal SubtotalSinIva => Math.Round(PrecioUnitario * Cantidad, 2);

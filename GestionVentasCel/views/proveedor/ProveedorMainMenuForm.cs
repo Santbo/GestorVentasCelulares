@@ -3,7 +3,9 @@ using System.Data;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.models.proveedor;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.proveedor
@@ -13,17 +15,20 @@ namespace GestionVentasCel.views.proveedor
         private readonly ProveedorController _proveedorController;
         private readonly CompraController _compraController;
         private readonly ArticuloController _articuloController;
+        private readonly SesionUsuario _sesionUsuario;
         private BindingList<Proveedor> _proveedores;
         private BindingSource _bindingSource;
 
         public ProveedorMainMenuForm(ProveedorController proveedorController,
                                    CompraController compraController,
-                                   ArticuloController articuloController)
+                                   ArticuloController articuloController,
+                                   SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _proveedorController = proveedorController;
             _compraController = compraController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
             CargarProveedores();
         }
 
@@ -192,7 +197,7 @@ namespace GestionVentasCel.views.proveedor
 
                 if (proveedor != null)
                 {
-                    var formCompras = new ComprasProveedorForm(_compraController, _proveedorController, _articuloController, proveedor);
+                    var formCompras = new ComprasProveedorForm(_compraController, _proveedorController, _articuloController, proveedor, _sesionUsuario);
                     formCompras.ShowDialog();
                 }
             }
@@ -286,6 +291,13 @@ namespace GestionVentasCel.views.proveedor
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnAgregar.Visible = false;
+                btnEditar.Visible = false;
+                btnToggleActivo.Visible = false;
+            }
         }
     }
 }

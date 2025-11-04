@@ -4,7 +4,9 @@ using System.Globalization;
 using GestionVentasCel.controller.articulo;
 using GestionVentasCel.controller.compra;
 using GestionVentasCel.controller.proveedor;
+using GestionVentasCel.enumerations.usuarios;
 using GestionVentasCel.models.compra;
+using GestionVentasCel.service.usuario;
 using GestionVentasCel.temas;
 
 namespace GestionVentasCel.views.compra
@@ -14,17 +16,20 @@ namespace GestionVentasCel.views.compra
         private readonly CompraController _compraController;
         private readonly ProveedorController _proveedorController;
         private readonly ArticuloController _articuloController;
+        private readonly SesionUsuario _sesionUsuario;
         private BindingList<Compra> _compras = null!;
         private BindingSource _bindingSource = null!;
 
         public CompraMainMenuForm(CompraController compraController,
                                  ProveedorController proveedorController,
-                                 ArticuloController articuloController)
+                                 ArticuloController articuloController,
+                                 SesionUsuario sesionUsuario)
         {
             InitializeComponent();
             _compraController = compraController;
             _proveedorController = proveedorController;
             _articuloController = articuloController;
+            _sesionUsuario = sesionUsuario;
             CargarCompras();
         }
 
@@ -186,7 +191,7 @@ namespace GestionVentasCel.views.compra
 
                     if (compra != null)
                     {
-                        var formDetalle = new VerDetallesCompraForm(compra, _compraController, _proveedorController, _articuloController);
+                        var formDetalle = new VerDetallesCompraForm(compra, _compraController, _proveedorController, _articuloController, _sesionUsuario);
                         formDetalle.ShowDialog();
                         CargarCompras();
                     }
@@ -314,6 +319,12 @@ namespace GestionVentasCel.views.compra
         {
             this.ConfigurarEstilosVisuales();
             this.ConfigurarAtajos();
+            if (_sesionUsuario.Rol != RolEnum.Admin)
+            {
+                btnAgregar.Visible = false;
+                btnEditar.Visible = false;
+                btnEliminar.Visible = false;
+            }
         }
     }
 }
