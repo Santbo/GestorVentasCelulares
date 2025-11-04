@@ -26,7 +26,6 @@ namespace GestionVentasCel.views.reportes
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Size = new Size(800, 600);
 
             // Aplicar tema
             this.BackColor = Tema.ColorSuperficie;
