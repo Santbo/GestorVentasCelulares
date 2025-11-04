@@ -60,6 +60,15 @@ namespace GestionVentasCel.views.compra
                 cmbArticulo.DataSource = articulo;
                 cmbArticulo.DisplayMember = "Nombre";
                 cmbArticulo.ValueMember = "Id";
+                
+                cmbArticulo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cmbArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                
+                var fuente = new AutoCompleteStringCollection();
+                fuente.AddRange(articulo.Select(a => a.Nombre).ToArray());
+                
+                cmbArticulo.AutoCompleteCustomSource = fuente;
+
             }
             catch (Exception ex)
             {
