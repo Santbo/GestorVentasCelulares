@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using System.Text.RegularExpressions;
 using GestionVentasCel.controller.usuario;
 using GestionVentasCel.enumerations.modoForms;
 using GestionVentasCel.enumerations.usuarios;
@@ -65,7 +66,7 @@ namespace GestionVentasCel.views.usuario_empleado
                             comboRol.SelectedItem.ToString(),
                             txtNombre.Text.ToUpper(),
                             txtApellido.Text.ToUpper(),
-                            txtTelefono.Text.ToUpper(),
+                            txtTelefono.Text.Trim(),
                             txtDni.Text.ToUpper(),
                             txtEmail.Text.ToUpper()
                         );
@@ -88,7 +89,7 @@ namespace GestionVentasCel.views.usuario_empleado
                         UsuarioActual.Rol = (RolEnum)comboRol.SelectedItem;
                         UsuarioActual.Nombre = txtNombre.Text.ToUpper();
                         UsuarioActual.Apellido = txtApellido.Text.ToUpper();
-                        UsuarioActual.Telefono = txtTelefono.Text;
+                        UsuarioActual.Telefono = txtTelefono.Text.Trim();
                         UsuarioActual.Dni = txtDni.Text;
                         UsuarioActual.Email = txtEmail.Text.ToUpper();
 
@@ -109,16 +110,75 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private bool CamposValidos()
         {
-            foreach (Control ctrl in this.Controls)
+            // Se validan los textbox uno por uno
+            if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                if (ctrl is TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
-                {
-                    MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txt.Focus();
-                    return false;
-                }
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtUsuario.Focus();
+                return false;
             }
 
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPassword.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombre.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtApellido.Text))
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtApellido.Focus();
+                return false;
+            }
+
+            // Teléfono: Tiene el formato e.164 o entre 10 y 13 dígitos
+            string telefono = txtTelefono.Text.Trim();
+            if (!Regex.IsMatch(telefono, @"^\+?[0-9]{10,13}$"))
+            {
+                MessageBox.Show("El teléfono debe seguir el formato +549... o tener entre 10 y 13 dígitos sin caracteres especiales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDni.Text))
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDni.Focus();
+                return false;
+            }
+
+            // longitud del DNI (7 a 14 caracteres)
+            string dni = txtDni.Text.Trim();
+            if (dni.Length < 7 || dni.Length > 14)
+            {
+                MessageBox.Show("El DNI debe tener entre 7 y 14 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDni.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return false;
+            }
+
+            if (comboRol.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                comboRol.Focus();
+                return false;
+            }
+
+            // Validar formato de email
             try
             {
                 var mail = new MailAddress(txtEmail.Text);
@@ -129,11 +189,7 @@ namespace GestionVentasCel.views.usuario_empleado
                 MessageBox.Show("Por favor, agrega un mail válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEmail.Focus();
                 return false;
-
             }
-
-
-
         }
 
         private void ConfigurarEstilosVisuales()
@@ -180,8 +236,8 @@ namespace GestionVentasCel.views.usuario_empleado
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Solo acepta dígitos y la tecla backspace
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            // Solo acepta dígitos, el más y borrar
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+')
             {
                 e.Handled = true;
             }
@@ -206,6 +262,24 @@ namespace GestionVentasCel.views.usuario_empleado
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.btnDescartar.PerformClick();
+        }
+
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Solo acepta letras, números y la tecla backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Solo acepta letras, números y la tecla backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

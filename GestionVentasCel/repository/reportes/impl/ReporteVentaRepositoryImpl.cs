@@ -34,20 +34,25 @@ namespace GestionVentasCel.repository.reportes.impl
                 .Where(f => ventas.Select(v => v.Id).Contains(f.VentaId))
                 .ToList();
 
-            return ventas.Select(v => new ReporteVentaDTO
+            return ventas.Select(v => 
             {
-                Id = v.Id,
-                Fecha = v.FechaVenta ?? v.FechaCreacion,
-                NumeroComprobante = facturas.First(f => f.VentaId == v.Id).NumeroFactura,
-                TipoComprobante = facturas.First(f => f.VentaId == v.Id).TipoComprobante.ToString().Replace("Factura", "Factura "),
-                Cliente = v.Cliente != null ? v.Cliente.NombreCompleto : "Sin Cliente",
-                TipoPago = v.TipoPago,
-                TipoPagoDescripcion = v.TipoPago.ToString(),
-                Estado = v.EstadoVenta,
-                EstadoDescripcion = v.EstadoVenta.ToString(),
-                MontoTotal = v.Detalles.Sum(d => d.SubtotalConIva),
-                MontoSinIva = v.Detalles.Sum(d => d.SubtotalSinIva),
-                MontoIva = v.Detalles.Sum(d => d.SubtotalSinIva * d.PorcentajeIva)
+                //para el manejo de casos donde no existe factura
+                var factura = facturas.FirstOrDefault(f => f.VentaId == v.Id);
+                return new ReporteVentaDTO
+                {
+                    Id = v.Id,
+                    Fecha = v.FechaVenta ?? v.FechaCreacion,
+                    NumeroComprobante = factura?.NumeroFactura ?? "Sin Factura",
+                    TipoComprobante = factura != null ? factura.TipoComprobante.ToString().Replace("Factura", "Factura ") : "Sin Comprobante",
+                    Cliente = v.Cliente != null ? v.Cliente.NombreCompleto : "Sin Cliente",
+                    TipoPago = v.TipoPago,
+                    TipoPagoDescripcion = v.TipoPago.ToString(),
+                    Estado = v.EstadoVenta,
+                    EstadoDescripcion = v.EstadoVenta.ToString(),
+                    MontoTotal = v.Detalles.Sum(d => d.SubtotalConIva),
+                    MontoSinIva = v.Detalles.Sum(d => d.SubtotalSinIva),
+                    MontoIva = v.Detalles.Sum(d => d.SubtotalSinIva * d.PorcentajeIva)
+                };
             })
             .OrderByDescending(v => v.Fecha)
             .ToList();
@@ -98,6 +103,48 @@ namespace GestionVentasCel.repository.reportes.impl
                 TipoPagoEnum.Transferencia => "Transferencia",
                 TipoPagoEnum.BilleteraVirtual => "Billetera Virtual",
                 _ => "Otro"
+            };
+        }
+
+        public DetalleVentaDTO? ObtenerDetalleVenta(int ventaId)
+        {
+            var venta = _context.Ventas
+                .Include(v => v.Cliente)
+                .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Articulo)
+                .FirstOrDefault(v => v.Id == ventaId);
+
+            if (venta == null)
+                return null;
+
+            var factura = _context.Facturas
+                .FirstOrDefault(f => f.VentaId == ventaId);
+
+            var detalles = venta.Detalles.Select(d => new DetalleVentaItemDTO
+            {
+                Articulo = d.Articulo?.Nombre ?? "Artículo eliminado",
+                Cantidad = d.Cantidad,
+                PrecioUnitario = d.PrecioUnitario,
+                SubtotalSinIva = d.SubtotalSinIva,
+                PorcentajeIva = d.PorcentajeIva,
+                SubtotalConIva = d.SubtotalConIva
+            }).ToList();
+
+            return new DetalleVentaDTO
+            {
+                Id = venta.Id,
+                Fecha = venta.FechaVenta ?? venta.FechaCreacion,
+                NumeroComprobante = factura?.NumeroFactura ?? "Sin Factura",
+                TipoComprobante = factura != null ? factura.TipoComprobante.ToString().Replace("Factura", "Factura ") : "Sin Comprobante",
+                Cliente = venta.Cliente != null ? venta.Cliente.NombreCompleto : "Sin Cliente",
+                TipoPago = venta.TipoPago,
+                TipoPagoDescripcion = venta.TipoPago.ToString(),
+                Estado = venta.EstadoVenta,
+                EstadoDescripcion = venta.EstadoVenta.ToString(),
+                MontoTotal = venta.Detalles.Sum(d => d.SubtotalConIva),
+                MontoSinIva = venta.Detalles.Sum(d => d.SubtotalSinIva),
+                MontoIva = venta.Detalles.Sum(d => d.SubtotalSinIva * d.PorcentajeIva),
+                Detalles = detalles
             };
         }
     }

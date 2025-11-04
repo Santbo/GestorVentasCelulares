@@ -84,6 +84,44 @@ namespace GestionVentasCel.repository.reportes.impl
                 TotalesPorTipo = totalesPorTipo
             };
         }
+
+        public DetalleCompraCompletoDTO? ObtenerDetalleCompra(int compraId)
+        {
+            var compra = _context.Compras
+                .Include(c => c.Proveedor)
+                .Include(c => c.Detalles)
+                    .ThenInclude(d => d.Articulo)
+                .AsNoTracking()
+                .FirstOrDefault(c => c.Id == compraId);
+
+            if (compra == null)
+                return null;
+
+            var detalles = compra.Detalles.Select(d => new DetalleCompraDTO
+            {
+                Id = d.Id,
+                Cantidad = d.Cantidad,
+                PrecioUnitario = d.PrecioUnitario,
+                Subtotal = d.Subtotal,
+                ArticuloNombre = d.Articulo?.Nombre ?? "Artículo no encontrado",
+                ArticuloCodigo = d.Articulo?.Id.ToString() ?? "",
+                ArticuloMarca = d.Articulo?.Marca ?? "",
+                ArticuloModelo = d.Articulo?.Descripcion ?? ""
+            }).ToList();
+
+            return new DetalleCompraCompletoDTO
+            {
+                Id = compra.Id,
+                Fecha = compra.Fecha,
+                NumeroComprobante = $"C-{compra.Id:D6}",
+                Proveedor = compra.Proveedor?.Nombre ?? "Sin Proveedor",
+                CondicionIVAProveedor = compra.Proveedor != null && compra.Proveedor.CondicionIVA.HasValue ?
+                    DeterminarTipoCompra(compra.Proveedor.CondicionIVA.Value) : "Sin Especificar",
+                MontoTotal = compra.Total,
+                Observaciones = compra.Observaciones ?? "",
+                Detalles = detalles
+            };
+        }
     }
 }
 

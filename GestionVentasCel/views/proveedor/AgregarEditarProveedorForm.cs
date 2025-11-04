@@ -180,6 +180,12 @@ namespace GestionVentasCel.views.proveedor
             }
 
             string dni = txtDni.Text.Trim();
+            if (dni.Length < 7 || dni.Length > 14)
+            {
+                MessageBox.Show("El DNI debe tener entre 7 y 14 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDni.Focus();
+                return false;
+            }
 
             // DNI: Si se seleccionó CUIT, entonces tiene que seguir el formato correcto
             if ((TipoDocumentoEnum)comboTipoDoc.SelectedItem != TipoDocumentoEnum.DNI)

@@ -30,7 +30,7 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void Add_DebeAgregarUsuarioCorrectamente()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Username = "testuser",
@@ -44,10 +44,10 @@ public class UsuarioRepositoryTests : IDisposable
             Activo = true
         };
 
-        // Act
+        
         _repository.Add(usuario);
 
-        // Assert
+        
         var usuarioGuardado = _context.Usuarios.Find(usuario.Id);
         Assert.NotNull(usuarioGuardado);
         Assert.Equal("testuser", usuarioGuardado.Username);
@@ -57,7 +57,7 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void GetById_DebeRetornarUsuarioCuandoExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Username = "testuser2",
@@ -70,10 +70,10 @@ public class UsuarioRepositoryTests : IDisposable
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
 
-        // Act
+        
         var resultado = _repository.GetById(usuario.Id);
 
-        // Assert
+        
         Assert.NotNull(resultado);
         Assert.Equal("testuser2", resultado.Username);
         Assert.Equal("María", resultado.Nombre);
@@ -82,20 +82,20 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void GetById_DebeRetornarNullCuandoNoExiste()
     {
-        // Arrange
+        
         int idInexistente = 999;
 
-        // Act
+        
         var resultado = _repository.GetById(idInexistente);
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 
     [Fact]
     public void GetByUsername_DebeRetornarUsuarioCuandoExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Username = "usuariotest",
@@ -108,10 +108,10 @@ public class UsuarioRepositoryTests : IDisposable
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
 
-        // Act
+        
         var resultado = _repository.GetByUsername("usuariotest");
 
-        // Assert
+        
         Assert.NotNull(resultado);
         Assert.Equal("Carlos", resultado.Nombre);
         Assert.Equal(RolEnum.Tecnico, resultado.Rol);
@@ -120,20 +120,20 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void GetByUsername_DebeRetornarNullCuandoNoExiste()
     {
-        // Arrange
+        
         string usernameInexistente = "usuarioInexistente";
 
-        // Act
+        
         var resultado = _repository.GetByUsername(usernameInexistente);
 
-        // Assert
+        
         Assert.Null(resultado);
     }
 
     [Fact]
     public void GetAll_DebeRetornarTodosLosUsuarios()
     {
-        // Arrange
+        
         var usuario1 = new Usuario
         {
             Username = "user1",
@@ -155,10 +155,10 @@ public class UsuarioRepositoryTests : IDisposable
         _context.Usuarios.AddRange(usuario1, usuario2);
         _context.SaveChanges();
 
-        // Act
+        
         var resultado = _repository.GetAll();
 
-        // Assert
+        
         Assert.Equal(2, resultado.Count());
         Assert.Contains(resultado, u => u.Username == "user1");
         Assert.Contains(resultado, u => u.Username == "user2");
@@ -167,7 +167,7 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void Update_DebeActualizarUsuarioCorrectamente()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Username = "userupdate",
@@ -180,12 +180,12 @@ public class UsuarioRepositoryTests : IDisposable
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
 
-        // Act
+        
         usuario.Nombre = "Actualizado";
         usuario.Password = "newpass";
         _repository.Update(usuario);
 
-        // Assert
+        
         var usuarioActualizado = _context.Usuarios.Find(usuario.Id);
         Assert.NotNull(usuarioActualizado);
         Assert.Equal("Actualizado", usuarioActualizado.Nombre);
@@ -195,7 +195,7 @@ public class UsuarioRepositoryTests : IDisposable
     [Fact]
     public void Exist_DebeRetornarTrueCuandoUsuarioExiste()
     {
-        // Arrange
+        
         var usuario = new Usuario
         {
             Username = "existente",
@@ -207,23 +207,23 @@ public class UsuarioRepositoryTests : IDisposable
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
 
-        // Act
+        
         var resultado = _repository.Exist(usuario.Id);
 
-        // Assert
+        
         Assert.True(resultado);
     }
 
     [Fact]
     public void Exist_DebeRetornarFalseCuandoUsuarioNoExiste()
     {
-        // Arrange
+        
         int idInexistente = 999;
 
-        // Act
+        
         var resultado = _repository.Exist(idInexistente);
 
-        // Assert
+        
         Assert.False(resultado);
     }
 }

@@ -117,15 +117,64 @@ namespace GestionVentasCel.views.articulo
 
         private bool CamposValidos()
         {
-            foreach (Control ctrl in this.Controls)
+            // Validar campos obligatorios específicos
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                if (ctrl is System.Windows.Forms.TextBox txt
-                    && string.IsNullOrWhiteSpace(txt.Text) && txt != txtDescripcion)
-                {
-                    MessageBox.Show("Por favor, completá todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txt.Focus();
-                    return false;
-                }
+                MessageBox.Show("Por favor, completá el campo Nombre.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombre.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPrecio.Text))
+            {
+                MessageBox.Show("Por favor, completá el campo Precio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecio.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtStock.Text))
+            {
+                MessageBox.Show("Por favor, completá el campo Stock.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtStock.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtAvisoStock.Text))
+            {
+                MessageBox.Show("Por favor, completá el campo Aviso de Stock.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtAvisoStock.Focus();
+                return false;
+            }
+
+            if (cbxCategoria.SelectedIndex == -1)
+            {
+                MessageBox.Show("Por favor, seleccioná una categoría.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbxCategoria.Focus();
+                return false;
+            }
+
+            // Validar que el precio sea un número válido
+            if (!decimal.TryParse(txtPrecio.Text, out decimal precio) || precio <= 0)
+            {
+                MessageBox.Show("Por favor, ingresá un precio válido mayor a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecio.Focus();
+                return false;
+            }
+
+            // Validar que el stock sea un número válido
+            if (!int.TryParse(txtStock.Text, out int stock) || stock < 0)
+            {
+                MessageBox.Show("Por favor, ingresá un stock válido mayor o igual a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtStock.Focus();
+                return false;
+            }
+
+            // Validar que el aviso de stock sea un número válido
+            if (!int.TryParse(txtAvisoStock.Text, out int avisoStock) || avisoStock < 0)
+            {
+                MessageBox.Show("Por favor, ingresá un aviso de stock válido mayor o igual a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtAvisoStock.Focus();
+                return false;
             }
 
             return true;

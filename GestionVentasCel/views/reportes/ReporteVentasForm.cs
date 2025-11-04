@@ -141,6 +141,9 @@ namespace GestionVentasCel.views.reportes
                     Alignment = DataGridViewContentAlignment.MiddleRight
                 }
             });
+
+            // Agregar evento de doble clic
+            dgvVentas.CellDoubleClick += DgvVentas_CellDoubleClick;
         }
 
         private void ConfigurarGrafico()
@@ -346,6 +349,20 @@ namespace GestionVentasCel.views.reportes
             {
                 MessageBox.Show($"Error al exportar a PDF: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var ventaSeleccionada = _ventas[e.RowIndex];
+                if (ventaSeleccionada != null)
+                {
+                    // Abrir formulario de detalle de venta
+                    var detalleForm = new DetalleVentaForm(_ventaController, ventaSeleccionada.Id);
+                    detalleForm.ShowDialog();
+                }
             }
         }
     }
